@@ -86,12 +86,23 @@ function walkDir(dir) {
         filesSkipped++;
         continue;
       }
-      const content = readFileSync(full, "utf-8");
+      let content;
+      try {
+        content = readFileSync(full, "utf-8");
+      } catch {
+        console.warn(`  [SKIP] ${rel} (unreadable)`);
+        filesSkipped++;
+        continue;
+      }
       const { content: newContent, changed } = processContent(content, rel);
       if (changed) {
-        if (!DRY_RUN) writeFileSync(full, newContent, "utf-8");
-        filesChanged++;
-        console.log(`  ${DRY_RUN ? "[DRY]" : "[CHG]"} ${rel}`);
+        try {
+          if (!DRY_RUN) writeFileSync(full, newContent, "utf-8");
+          filesChanged++;
+          console.log(`  ${DRY_RUN ? "[DRY]" : "[CHG]"} ${rel}`);
+        } catch {
+          console.warn(`  [ERR] ${rel} (write failed)`);
+        }
       }
     }
   }
