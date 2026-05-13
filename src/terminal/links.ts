@@ -26,7 +26,7 @@ export function formatDocsLink(
 
 export function formatDocsRootLink(label?: string): string {
   if (!DOCS_ROOT) {
-    return label ?? DOCS_ROOT;
+    return label ?? "QingClaws Docs"; // QINGCLAWS-CUSTOM: brand — avoid empty string when DOCS_ROOT not configured
   }
   return formatTerminalLink(label ?? DOCS_ROOT, DOCS_ROOT, {
     fallback: DOCS_ROOT,

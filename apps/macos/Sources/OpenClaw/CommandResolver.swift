@@ -221,7 +221,7 @@ enum CommandResolver {
 
     static func nodeCliPath() -> String? {
         // Check inside app bundle first.
-        if let bundledCli = Bundle.main.resourceURL?.appendingPathComponent("enclaws.mjs").path,
+        if let bundledCli = Bundle.main.resourceURL?.appendingPathComponent("qingclaws.mjs").path, // QINGCLAWS-CUSTOM: brand
            FileManager().isReadableFile(atPath: bundledCli)
         {
             return bundledCli
