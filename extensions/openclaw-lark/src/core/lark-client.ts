@@ -499,7 +499,7 @@ injectLarkClient(LarkClient);
  * Returns the freshest available config for account resolution.
  *
  * The `config` object captured in tool-registration closures may be stale
- * after a hot-reload: openclaw re-initialises the runtime but the plugin
+ * after a hot-reload: qingclaws re-initialises the runtime but the plugin
  * closure still holds the old snapshot.  Calling
  * `LarkClient.runtime.config.loadConfig()` always returns the current live
  * config, so account lookups pick up any changes made since plugin load.

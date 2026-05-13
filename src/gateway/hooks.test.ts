@@ -69,14 +69,14 @@ describe("gateway hooks helpers", () => {
     const req = {
       headers: {
         authorization: "Bearer top",
-        "x-enclaws-token": "header",
+        "x-qingclaws-token": "header",
       },
     } as unknown as IncomingMessage;
     const result1 = extractHookToken(req);
     expect(result1).toBe("top");
 
     const req2 = {
-      headers: { "x-enclaws-token": "header" },
+      headers: { "x-qingclaws-token": "header" },
     } as unknown as IncomingMessage;
     const result2 = extractHookToken(req2);
     expect(result2).toBe("header");

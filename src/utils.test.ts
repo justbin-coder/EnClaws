@@ -51,7 +51,7 @@ describe("withWhatsAppPrefix", () => {
 
 describe("ensureDir", () => {
   it("creates nested directory", async () => {
-    await withTempDirSync("enclaws-test-", async (tmp) => {
+    await withTempDirSync("qingclaws-test-", async (tmp) => {
       const target = path.join(tmp, "nested", "dir");
       await ensureDir(target);
       expect(fs.existsSync(target)).toBe(true);
@@ -107,7 +107,7 @@ describe("jidToE164", () => {
   });
 
   it("maps @lid from authDir mapping files", () => {
-    withTempDirSync("enclaws-auth-", (authDir) => {
+    withTempDirSync("qingclaws-auth-", (authDir) => {
       const mappingPath = path.join(authDir, "lid-mapping-456_reverse.json");
       fs.writeFileSync(mappingPath, JSON.stringify("5559876"));
       expect(jidToE164("456@lid", { authDir })).toBe("+5559876");
@@ -115,7 +115,7 @@ describe("jidToE164", () => {
   });
 
   it("maps @hosted.lid from authDir mapping files", () => {
-    withTempDirSync("enclaws-auth-", (authDir) => {
+    withTempDirSync("qingclaws-auth-", (authDir) => {
       const mappingPath = path.join(authDir, "lid-mapping-789_reverse.json");
       fs.writeFileSync(mappingPath, JSON.stringify(4440001));
       expect(jidToE164("789@hosted.lid", { authDir })).toBe("+4440001");
@@ -127,8 +127,8 @@ describe("jidToE164", () => {
   });
 
   it("falls back through lidMappingDirs in order", () => {
-    withTempDirSync("enclaws-lid-a-", (first) => {
-      withTempDirSync("enclaws-lid-b-", (second) => {
+    withTempDirSync("qingclaws-lid-a-", (first) => {
+      withTempDirSync("qingclaws-lid-b-", (second) => {
         const mappingPath = path.join(second, "lid-mapping-321_reverse.json");
         fs.writeFileSync(mappingPath, JSON.stringify("123321"));
         expect(jidToE164("321@lid", { lidMappingDirs: [first, second] })).toBe("+123321");
@@ -138,10 +138,10 @@ describe("jidToE164", () => {
 });
 
 describe("resolveConfigDir", () => {
-  it("prefers ~/.enclaws when legacy dir is missing", async () => {
-    const root = await fs.promises.mkdtemp(path.join(os.tmpdir(), "enclaws-config-dir-"));
+  it("prefers ~/.qingclaws when legacy dir is missing", async () => {
+    const root = await fs.promises.mkdtemp(path.join(os.tmpdir(), "qingclaws-config-dir-"));
     try {
-      const newDir = path.join(root, ".enclaws");
+      const newDir = path.join(root, ".qingclaws");
       await fs.promises.mkdir(newDir, { recursive: true });
       const resolved = resolveConfigDir({} as NodeJS.ProcessEnv, () => root);
       expect(resolved).toBe(newDir);
@@ -152,23 +152,23 @@ describe("resolveConfigDir", () => {
 });
 
 describe("resolveHomeDir", () => {
-  it("prefers ENCLAWS_HOME over HOME", () => {
-    vi.stubEnv("ENCLAWS_HOME", "/srv/enclaws-home");
+  it("prefers QINGCLAWS_HOME over HOME", () => {
+    vi.stubEnv("QINGCLAWS_HOME", "/srv/qingclaws-home");
     vi.stubEnv("HOME", "/home/other");
 
-    expect(resolveHomeDir()).toBe(path.resolve("/srv/enclaws-home"));
+    expect(resolveHomeDir()).toBe(path.resolve("/srv/qingclaws-home"));
 
     vi.unstubAllEnvs();
   });
 });
 
 describe("shortenHomePath", () => {
-  it("uses $ENCLAWS_HOME prefix when ENCLAWS_HOME is set", () => {
-    vi.stubEnv("ENCLAWS_HOME", "/srv/enclaws-home");
+  it("uses $QINGCLAWS_HOME prefix when QINGCLAWS_HOME is set", () => {
+    vi.stubEnv("QINGCLAWS_HOME", "/srv/qingclaws-home");
     vi.stubEnv("HOME", "/home/other");
 
-    expect(shortenHomePath(`${path.resolve("/srv/enclaws-home")}/.enclaws/enclaws.json`)).toBe(
-      "$ENCLAWS_HOME/.enclaws/enclaws.json",
+    expect(shortenHomePath(`${path.resolve("/srv/qingclaws-home")}/.qingclaws/qingclaws.json`)).toBe(
+      "$QINGCLAWS_HOME/.qingclaws/qingclaws.json",
     );
 
     vi.unstubAllEnvs();
@@ -176,13 +176,13 @@ describe("shortenHomePath", () => {
 });
 
 describe("shortenHomeInString", () => {
-  it("uses $ENCLAWS_HOME replacement when ENCLAWS_HOME is set", () => {
-    vi.stubEnv("ENCLAWS_HOME", "/srv/enclaws-home");
+  it("uses $QINGCLAWS_HOME replacement when QINGCLAWS_HOME is set", () => {
+    vi.stubEnv("QINGCLAWS_HOME", "/srv/qingclaws-home");
     vi.stubEnv("HOME", "/home/other");
 
     expect(
-      shortenHomeInString(`config: ${path.resolve("/srv/enclaws-home")}/.enclaws/enclaws.json`),
-    ).toBe("config: $ENCLAWS_HOME/.enclaws/enclaws.json");
+      shortenHomeInString(`config: ${path.resolve("/srv/qingclaws-home")}/.qingclaws/qingclaws.json`),
+    ).toBe("config: $QINGCLAWS_HOME/.qingclaws/qingclaws.json");
 
     vi.unstubAllEnvs();
   });
@@ -220,18 +220,18 @@ describe("resolveUserPath", () => {
   });
 
   it("expands ~/ to home dir", () => {
-    expect(resolveUserPath("~/enclaws")).toBe(path.resolve(os.homedir(), "enclaws"));
+    expect(resolveUserPath("~/qingclaws")).toBe(path.resolve(os.homedir(), "qingclaws"));
   });
 
   it("resolves relative paths", () => {
     expect(resolveUserPath("tmp/dir")).toBe(path.resolve("tmp/dir"));
   });
 
-  it("prefers ENCLAWS_HOME for tilde expansion", () => {
-    vi.stubEnv("ENCLAWS_HOME", "/srv/enclaws-home");
+  it("prefers QINGCLAWS_HOME for tilde expansion", () => {
+    vi.stubEnv("QINGCLAWS_HOME", "/srv/qingclaws-home");
     vi.stubEnv("HOME", "/home/other");
 
-    expect(resolveUserPath("~/enclaws")).toBe(path.resolve("/srv/enclaws-home", "enclaws"));
+    expect(resolveUserPath("~/qingclaws")).toBe(path.resolve("/srv/qingclaws-home", "qingclaws"));
 
     vi.unstubAllEnvs();
   });

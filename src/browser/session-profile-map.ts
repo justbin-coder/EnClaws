@@ -8,7 +8,7 @@
  * once an agent logs in with a session-specific profile, subsequent runs
  * reuse the same profile and retain cookies/localStorage/session state.
  *
- * Storage: ~/.enclaws/session-profiles.json (lightweight JSON file)
+ * Storage: ~/.qingclaws/session-profiles.json (lightweight JSON file)
  * Thread-safety: single-process in-memory cache with async file write.
  *
  * Design mirrors agent-browser's --session / --profile persistence concept.
@@ -20,7 +20,7 @@ import os from "node:os";
 
 // ─── Constants ────────────────────────────────────────────────────────────────
 
-const MAP_FILE = path.join(os.homedir(), ".enclaws", "session-profiles.json");
+const MAP_FILE = path.join(os.homedir(), ".qingclaws", "session-profiles.json");
 
 /**
  * Prefix for auto-created session profiles.
@@ -28,7 +28,7 @@ const MAP_FILE = path.join(os.homedir(), ".enclaws", "session-profiles.json");
  */
 const SESSION_PROFILE_PREFIX = "sess-";
 
-/** Maximum profile name length (enclaws enforces no specific limit, but keep sane). */
+/** Maximum profile name length (qingclaws enforces no specific limit, but keep sane). */
 const MAX_PROFILE_NAME_LENGTH = 48;
 
 // ─── In-memory cache ──────────────────────────────────────────────────────────
@@ -76,7 +76,7 @@ function enqueueWrite(map: Record<string, string>): void {
 // ─── Session key normalisation ────────────────────────────────────────────────
 
 /**
- * Convert an arbitrary session key into a valid enclaws profile name.
+ * Convert an arbitrary session key into a valid qingclaws profile name.
  * Profile names: lowercase letters, numbers, hyphens only; max length.
  *
  * Examples:

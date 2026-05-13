@@ -9,7 +9,7 @@ const ROOT_DIR = path.resolve(__dirname, "..");
 const HASH_FILE = path.join(ROOT_DIR, "src/canvas-host/a2ui/.bundle.hash");
 const OUTPUT_FILE = path.join(ROOT_DIR, "src/canvas-host/a2ui/a2ui.bundle.js");
 const A2UI_RENDERER_DIR = path.join(ROOT_DIR, "vendor/a2ui/renderers/lit");
-const A2UI_APP_DIR = path.join(ROOT_DIR, "apps/shared/OpenClawKit/Tools/CanvasA2UI");
+const A2UI_APP_DIR = path.join(ROOT_DIR, "apps/shared/QingClawsKit/Tools/CanvasA2UI");
 
 async function main() {
   try {

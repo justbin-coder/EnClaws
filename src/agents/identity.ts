@@ -76,7 +76,7 @@ export function resolveMessagePrefix(
     return "";
   }
 
-  return resolveIdentityNamePrefix(cfg, agentId) ?? opts?.fallback ?? "[enclaws]";
+  return resolveIdentityNamePrefix(cfg, agentId) ?? opts?.fallback ?? "[qingclaws]";
 }
 
 /** Helper to extract a channel config value by dynamic key. */

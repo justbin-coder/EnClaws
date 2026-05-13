@@ -43,7 +43,7 @@ describe("secrets runtime snapshot", () => {
         GITHUB_TOKEN: "ghp-env-token",
         REVIEW_SKILL_API_KEY: "sk-skill-ref",
       },
-      agentDirs: ["/tmp/enclaws-agent-main"],
+      agentDirs: ["/tmp/qingclaws-agent-main"],
       loadAuthStore: () => ({
         version: 1,
         profiles: {
@@ -89,7 +89,7 @@ describe("secrets runtime snapshot", () => {
     if (process.platform === "win32") {
       return;
     }
-    const root = await fs.mkdtemp(path.join(os.tmpdir(), "enclaws-secrets-file-provider-"));
+    const root = await fs.mkdtemp(path.join(os.tmpdir(), "qingclaws-secrets-file-provider-"));
     const secretsPath = path.join(root, "secrets.json");
     try {
       await fs.writeFile(
@@ -135,7 +135,7 @@ describe("secrets runtime snapshot", () => {
 
       const snapshot = await prepareSecretsRuntimeSnapshot({
         config,
-        agentDirs: ["/tmp/enclaws-agent-main"],
+        agentDirs: ["/tmp/qingclaws-agent-main"],
         loadAuthStore: () => ({ version: 1, profiles: {} }),
       });
 
@@ -149,7 +149,7 @@ describe("secrets runtime snapshot", () => {
     if (process.platform === "win32") {
       return;
     }
-    const root = await fs.mkdtemp(path.join(os.tmpdir(), "enclaws-secrets-file-provider-bad-"));
+    const root = await fs.mkdtemp(path.join(os.tmpdir(), "qingclaws-secrets-file-provider-bad-"));
     const secretsPath = path.join(root, "secrets.json");
     try {
       await fs.writeFile(secretsPath, JSON.stringify(["not-an-object"]), "utf8");
@@ -177,7 +177,7 @@ describe("secrets runtime snapshot", () => {
               },
             },
           },
-          agentDirs: ["/tmp/enclaws-agent-main"],
+          agentDirs: ["/tmp/qingclaws-agent-main"],
           loadAuthStore: () => ({ version: 1, profiles: {} }),
         }),
       ).rejects.toThrow("payload is not a JSON object");
@@ -200,7 +200,7 @@ describe("secrets runtime snapshot", () => {
         },
       },
       env: { OPENAI_API_KEY: "sk-runtime" },
-      agentDirs: ["/tmp/enclaws-agent-main"],
+      agentDirs: ["/tmp/qingclaws-agent-main"],
       loadAuthStore: () => ({
         version: 1,
         profiles: {
@@ -216,7 +216,7 @@ describe("secrets runtime snapshot", () => {
     activateSecretsRuntimeSnapshot(prepared);
 
     expect(loadConfig().models?.providers?.openai?.apiKey).toBe("sk-runtime");
-    const store = ensureAuthProfileStore("/tmp/enclaws-agent-main");
+    const store = ensureAuthProfileStore("/tmp/qingclaws-agent-main");
     expect(store.profiles["openai:default"]).toMatchObject({
       type: "api_key",
       key: "sk-runtime",
@@ -224,11 +224,11 @@ describe("secrets runtime snapshot", () => {
   });
 
   it("does not write inherited auth stores during runtime secret activation", async () => {
-    const root = await fs.mkdtemp(path.join(os.tmpdir(), "enclaws-secrets-runtime-"));
-    const stateDir = path.join(root, ".enclaws");
+    const root = await fs.mkdtemp(path.join(os.tmpdir(), "qingclaws-secrets-runtime-"));
+    const stateDir = path.join(root, ".qingclaws");
     const mainAgentDir = path.join(stateDir, "agents", "main", "agent");
     const workerStorePath = path.join(stateDir, "agents", "worker", "agent", "auth-profiles.json");
-    const prevStateDir = process.env.ENCLAWS_STATE_DIR;
+    const prevStateDir = process.env.QINGCLAWS_STATE_DIR;
 
     try {
       await fs.mkdir(mainAgentDir, { recursive: true });
@@ -246,7 +246,7 @@ describe("secrets runtime snapshot", () => {
         }),
         "utf8",
       );
-      process.env.ENCLAWS_STATE_DIR = stateDir;
+      process.env.QINGCLAWS_STATE_DIR = stateDir;
 
       await prepareSecretsRuntimeSnapshot({
         config: {
@@ -260,9 +260,9 @@ describe("secrets runtime snapshot", () => {
       await expect(fs.access(workerStorePath)).rejects.toMatchObject({ code: "ENOENT" });
     } finally {
       if (prevStateDir === undefined) {
-        delete process.env.ENCLAWS_STATE_DIR;
+        delete process.env.QINGCLAWS_STATE_DIR;
       } else {
-        process.env.ENCLAWS_STATE_DIR = prevStateDir;
+        process.env.QINGCLAWS_STATE_DIR = prevStateDir;
       }
       await fs.rm(root, { recursive: true, force: true });
     }

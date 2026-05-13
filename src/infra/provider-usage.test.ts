@@ -237,7 +237,7 @@ describe("provider usage loading", () => {
     await withTempHome(
       async (tempHome) => {
         const agentDir = path.join(
-          process.env.ENCLAWS_STATE_DIR ?? path.join(tempHome, ".enclaws"),
+          process.env.QINGCLAWS_STATE_DIR ?? path.join(tempHome, ".qingclaws"),
           "agents",
           "main",
           "agent",
@@ -295,9 +295,9 @@ describe("provider usage loading", () => {
       },
       {
         env: {
-          ENCLAWS_STATE_DIR: (home) => path.join(home, ".enclaws"),
+          QINGCLAWS_STATE_DIR: (home) => path.join(home, ".qingclaws"),
         },
-        prefix: "enclaws-provider-usage-",
+        prefix: "qingclaws-provider-usage-",
       },
     );
   });

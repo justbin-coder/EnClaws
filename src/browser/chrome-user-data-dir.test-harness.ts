@@ -9,7 +9,7 @@ type ChromeUserDataDirRef = {
 
 export function installChromeUserDataDirHooks(chromeUserDataDir: ChromeUserDataDirRef): void {
   beforeAll(async () => {
-    chromeUserDataDir.dir = await fs.mkdtemp(path.join(os.tmpdir(), "enclaws-chrome-user-data-"));
+    chromeUserDataDir.dir = await fs.mkdtemp(path.join(os.tmpdir(), "qingclaws-chrome-user-data-"));
   });
 
   afterAll(async () => {

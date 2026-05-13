@@ -2,9 +2,9 @@
 
 This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
-## What is EnClaws
+## What is QingClaws
 
-EnClaws is an **enterprise containerized platform for digital AI Employees**, extending OpenClaw (a personal AI assistant) into a multi-tenant system with concurrent task execution, user isolation, hierarchical memory, skill sharing, and audit capabilities. Built on TypeScript/Node.js with a gateway server architecture.
+QingClaws is an **enterprise containerized platform for digital AI Employees**, extending QingClaws (a personal AI assistant) into a multi-tenant system with concurrent task execution, user isolation, hierarchical memory, skill sharing, and audit capabilities. Built on TypeScript/Node.js with a gateway server architecture.
 
 ### Key directories
 

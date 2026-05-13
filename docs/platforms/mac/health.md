@@ -26,7 +26,7 @@ How to see whether the linked channel is healthy from the menu bar app.
 
 ## How the probe works
 
-- App runs `openclaw health --json` via `ShellExecutor` every ~60s and on demand. The probe loads creds and reports status without sending messages.
+- App runs `qingclaws health --json` via `ShellExecutor` every ~60s and on demand. The probe loads creds and reports status without sending messages.
 - Cache the last good snapshot and the last error separately to avoid flicker; show the timestamp of each.
 
 ## When in doubt

@@ -1,5 +1,5 @@
 ---
-summary: "Fix Chrome/Brave/Edge/Chromium CDP startup issues for OpenClaw browser control on Linux"
+summary: "Fix Chrome/Brave/Edge/Chromium CDP startup issues for QingClaws browser control on Linux"
 read_when: "Browser control fails on Linux, especially with snap Chromium"
 title: "Browser Troubleshooting"
 ---
@@ -8,15 +8,15 @@ title: "Browser Troubleshooting"
 
 ## Problem: "Failed to start Chrome CDP on port 18800"
 
-OpenClaw's browser control server fails to launch Chrome/Brave/Edge/Chromium with the error:
+QingClaws's browser control server fails to launch Chrome/Brave/Edge/Chromium with the error:
 
 ```
-{"error":"Error: Failed to start Chrome CDP on port 18800 for profile \"openclaw\"."}
+{"error":"Error: Failed to start Chrome CDP on port 18800 for profile \"qingclaws\"."}
 ```
 
 ### Root Cause
 
-On Ubuntu (and many Linux distros), the default Chromium installation is a **snap package**. Snap's AppArmor confinement interferes with how OpenClaw spawns and monitors the browser process.
+On Ubuntu (and many Linux distros), the default Chromium installation is a **snap package**. Snap's AppArmor confinement interferes with how QingClaws spawns and monitors the browser process.
 
 The `apt install chromium` command installs a stub package that redirects to snap:
 
@@ -52,7 +52,7 @@ Then update your OpenClaw config (`~/.openclaw/openclaw.json`):
 
 ### Solution 2: Use Snap Chromium with Attach-Only Mode
 
-If you must use snap Chromium, configure OpenClaw to attach to a manually-started browser:
+If you must use snap Chromium, configure QingClaws to attach to a manually-started browser:
 
 1. Update config:
 
@@ -72,20 +72,20 @@ If you must use snap Chromium, configure OpenClaw to attach to a manually-starte
 ```bash
 chromium-browser --headless --no-sandbox --disable-gpu \
   --remote-debugging-port=18800 \
-  --user-data-dir=$HOME/.openclaw/browser/openclaw/user-data \
+  --user-data-dir=$HOME/.qingclaws/browser/qingclaws/user-data \
   about:blank &
 ```
 
 3. Optionally create a systemd user service to auto-start Chrome:
 
 ```ini
-# ~/.config/systemd/user/openclaw-browser.service
+# ~/.config/systemd/user/qingclaws-browser.service
 [Unit]
-Description=OpenClaw Browser (Chrome CDP)
+Description=QingClaws Browser (Chrome CDP)
 After=network.target
 
 [Service]
-ExecStart=/snap/bin/chromium --headless --no-sandbox --disable-gpu --remote-debugging-port=18800 --user-data-dir=%h/.openclaw/browser/openclaw/user-data about:blank
+ExecStart=/snap/bin/chromium --headless --no-sandbox --disable-gpu --remote-debugging-port=18800 --user-data-dir=%h/.qingclaws/browser/qingclaws/user-data about:blank
 Restart=on-failure
 RestartSec=5
 
@@ -93,7 +93,7 @@ RestartSec=5
 WantedBy=default.target
 ```
 
-Enable with: `systemctl --user enable --now openclaw-browser.service`
+Enable with: `systemctl --user enable --now qingclaws-browser.service`
 
 ### Verifying the Browser Works
 
@@ -123,17 +123,17 @@ curl -s http://127.0.0.1:18791/tabs
 
 ### Problem: "Chrome extension relay is running, but no tab is connected"
 
-You’re using the `chrome` profile (extension relay). It expects the OpenClaw
+You’re using the `chrome` profile (extension relay). It expects the QingClaws
 browser extension to be attached to a live tab.
 
 Fix options:
 
-1. **Use the managed browser:** `openclaw browser start --browser-profile openclaw`
-   (or set `browser.defaultProfile: "openclaw"`).
+1. **Use the managed browser:** `qingclaws browser start --browser-profile qingclaws`
+   (or set `browser.defaultProfile: "qingclaws"`).
 2. **Use the extension relay:** install the extension, open a tab, and click the
-   OpenClaw extension icon to attach it.
+   QingClaws extension icon to attach it.
 
 Notes:
 
 - The `chrome` profile uses your **system default Chromium browser** when possible.
-- Local `openclaw` profiles auto-assign `cdpPort`/`cdpUrl`; only set those for remote CDP.
+- Local `qingclaws` profiles auto-assign `cdpPort`/`cdpUrl`; only set those for remote CDP.

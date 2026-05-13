@@ -11,7 +11,7 @@ import {
 } from "./version.js";
 
 async function withTempDir<T>(run: (dir: string) => Promise<T>): Promise<T> {
-  const dir = await fs.mkdtemp(path.join(os.tmpdir(), "enclaws-version-"));
+  const dir = await fs.mkdtemp(path.join(os.tmpdir(), "qingclaws-version-"));
   try {
     return await run(dir);
   } finally {
@@ -43,7 +43,7 @@ function expectVersionMetadataToBeMissing(moduleUrl: string) {
 describe("version resolution", () => {
   it("resolves package version from nested dist/plugin-sdk module URL", async () => {
     await withTempDir(async (root) => {
-      await writeJsonFixture(root, "package.json", { name: "enclaws", version: "1.2.3" });
+      await writeJsonFixture(root, "package.json", { name: "qingclaws", version: "1.2.3" });
       const moduleUrl = await ensureModuleFixture(root);
       expect(readVersionFromPackageJsonForModuleUrl(moduleUrl)).toBe("1.2.3");
       expect(resolveVersionFromModuleUrl(moduleUrl)).toBe("1.2.3");
@@ -52,7 +52,7 @@ describe("version resolution", () => {
 
   it("ignores unrelated nearby package.json files", async () => {
     await withTempDir(async (root) => {
-      await writeJsonFixture(root, "package.json", { name: "enclaws", version: "2.3.4" });
+      await writeJsonFixture(root, "package.json", { name: "qingclaws", version: "2.3.4" });
       await writeJsonFixture(root, "dist/package.json", {
         name: "other-package",
         version: "9.9.9",
@@ -79,7 +79,7 @@ describe("version resolution", () => {
     });
   });
 
-  it("ignores non-enclaws package and blank build-info versions", async () => {
+  it("ignores non-qingclaws package and blank build-info versions", async () => {
     await withTempDir(async (root) => {
       await writeJsonFixture(root, "package.json", { name: "other-package", version: "9.9.9" });
       await writeJsonFixture(root, "build-info.json", { version: "  " });
@@ -94,11 +94,11 @@ describe("version resolution", () => {
     expect(resolveVersionFromModuleUrl("not-a-valid-url")).toBeNull();
   });
 
-  it("prefers ENCLAWS_VERSION over service and package versions", () => {
+  it("prefers QINGCLAWS_VERSION over service and package versions", () => {
     expect(
       resolveRuntimeServiceVersion({
-        ENCLAWS_VERSION: "9.9.9",
-        ENCLAWS_SERVICE_VERSION: "2.2.2",
+        QINGCLAWS_VERSION: "9.9.9",
+        QINGCLAWS_SERVICE_VERSION: "2.2.2",
         npm_package_version: "1.1.1",
       }),
     ).toBe("9.9.9");
@@ -107,16 +107,16 @@ describe("version resolution", () => {
   it("uses service and package fallbacks and ignores blank env values", () => {
     expect(
       resolveRuntimeServiceVersion({
-        ENCLAWS_VERSION: "   ",
-        ENCLAWS_SERVICE_VERSION: "  2.0.0  ",
+        QINGCLAWS_VERSION: "   ",
+        QINGCLAWS_SERVICE_VERSION: "  2.0.0  ",
         npm_package_version: "1.0.0",
       }),
     ).toBe("2.0.0");
 
     expect(
       resolveRuntimeServiceVersion({
-        ENCLAWS_VERSION: " ",
-        ENCLAWS_SERVICE_VERSION: "\t",
+        QINGCLAWS_VERSION: " ",
+        QINGCLAWS_SERVICE_VERSION: "\t",
         npm_package_version: " 1.0.0-package ",
       }),
     ).toBe("1.0.0-package");
@@ -124,8 +124,8 @@ describe("version resolution", () => {
     expect(
       resolveRuntimeServiceVersion(
         {
-          ENCLAWS_VERSION: "",
-          ENCLAWS_SERVICE_VERSION: " ",
+          QINGCLAWS_VERSION: "",
+          QINGCLAWS_SERVICE_VERSION: " ",
           npm_package_version: "",
         },
         "fallback",

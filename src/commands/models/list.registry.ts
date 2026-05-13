@@ -1,6 +1,6 @@
 import type { Api, Model } from "@mariozechner/pi-ai";
 import type { ModelRegistry } from "@mariozechner/pi-coding-agent";
-import { resolveOpenClawAgentDir } from "../../agents/agent-paths.js";
+import { resolveQingClawsAgentDir } from "../../agents/agent-paths.js";
 import type { AuthProfileStore } from "../../agents/auth-profiles.js";
 import { listProfilesForProvider } from "../../agents/auth-profiles.js";
 import {
@@ -8,7 +8,7 @@ import {
   resolveAwsSdkEnvVarName,
   resolveEnvApiKey,
 } from "../../agents/model-auth.js";
-import { ensureOpenClawModelsJson } from "../../agents/models-config.js";
+import { ensureQingClawsModelsJson } from "../../agents/models-config.js";
 import { discoverAuthStorage, discoverModels } from "../../agents/pi-model-discovery.js";
 import type { OpenClawConfig } from "../../config/config.js";
 import {
@@ -95,8 +95,8 @@ function loadAvailableModels(registry: ModelRegistry): Model<Api>[] {
 }
 
 export async function loadModelRegistry(cfg: OpenClawConfig) {
-  await ensureOpenClawModelsJson(cfg);
-  const agentDir = resolveOpenClawAgentDir();
+  await ensureQingClawsModelsJson(cfg);
+  const agentDir = resolveQingClawsAgentDir();
   const authStorage = discoverAuthStorage(agentDir);
   const registry = discoverModels(authStorage, agentDir);
   const models = registry.getAll();

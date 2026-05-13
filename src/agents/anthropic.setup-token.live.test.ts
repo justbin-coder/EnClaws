@@ -10,7 +10,7 @@ import {
 } from "../commands/auth-token.js";
 import { loadConfig } from "../config/config.js";
 import { isTruthyEnvValue } from "../infra/env.js";
-import { resolveOpenClawAgentDir } from "./agent-paths.js";
+import { resolveQingClawsAgentDir } from "./agent-paths.js";
 import {
   type AuthProfileCredential,
   ensureAuthProfileStore,
@@ -18,14 +18,14 @@ import {
 } from "./auth-profiles.js";
 import { getApiKeyForModel, requireApiKey } from "./model-auth.js";
 import { normalizeProviderId, parseModelRef } from "./model-selection.js";
-import { ensureOpenClawModelsJson } from "./models-config.js";
+import { ensureQingClawsModelsJson } from "./models-config.js";
 import { discoverAuthStorage, discoverModels } from "./pi-model-discovery.js";
 
-const LIVE = isTruthyEnvValue(process.env.LIVE) || isTruthyEnvValue(process.env.ENCLAWS_LIVE_TEST);
-const SETUP_TOKEN_RAW = process.env.ENCLAWS_LIVE_SETUP_TOKEN?.trim() ?? "";
-const SETUP_TOKEN_VALUE = process.env.ENCLAWS_LIVE_SETUP_TOKEN_VALUE?.trim() ?? "";
-const SETUP_TOKEN_PROFILE = process.env.ENCLAWS_LIVE_SETUP_TOKEN_PROFILE?.trim() ?? "";
-const SETUP_TOKEN_MODEL = process.env.ENCLAWS_LIVE_SETUP_TOKEN_MODEL?.trim() ?? "";
+const LIVE = isTruthyEnvValue(process.env.LIVE) || isTruthyEnvValue(process.env.QINGCLAWS_LIVE_TEST);
+const SETUP_TOKEN_RAW = process.env.QINGCLAWS_LIVE_SETUP_TOKEN?.trim() ?? "";
+const SETUP_TOKEN_VALUE = process.env.QINGCLAWS_LIVE_SETUP_TOKEN_VALUE?.trim() ?? "";
+const SETUP_TOKEN_PROFILE = process.env.QINGCLAWS_LIVE_SETUP_TOKEN_PROFILE?.trim() ?? "";
+const SETUP_TOKEN_MODEL = process.env.QINGCLAWS_LIVE_SETUP_TOKEN_MODEL?.trim() ?? "";
 
 const ENABLED = LIVE && Boolean(SETUP_TOKEN_RAW || SETUP_TOKEN_VALUE || SETUP_TOKEN_PROFILE);
 const describeLive = ENABLED ? describe : describe.skip;
@@ -75,7 +75,7 @@ async function resolveTokenSource(): Promise<TokenSource> {
     if (error) {
       throw new Error(`Invalid setup-token: ${error}`);
     }
-    const tempDir = await fs.mkdtemp(path.join(os.tmpdir(), "enclaws-setup-token-"));
+    const tempDir = await fs.mkdtemp(path.join(os.tmpdir(), "qingclaws-setup-token-"));
     const profileId = `anthropic:setup-token-live-${randomUUID()}`;
     const store = ensureAuthProfileStore(tempDir, {
       allowKeychainPrompt: false,
@@ -95,7 +95,7 @@ async function resolveTokenSource(): Promise<TokenSource> {
     };
   }
 
-  const agentDir = resolveOpenClawAgentDir();
+  const agentDir = resolveQingClawsAgentDir();
   const store = ensureAuthProfileStore(agentDir, {
     allowKeychainPrompt: false,
   });
@@ -113,13 +113,13 @@ async function resolveTokenSource(): Promise<TokenSource> {
 
   if (SETUP_TOKEN_RAW && SETUP_TOKEN_RAW !== "1" && SETUP_TOKEN_RAW !== "auto") {
     throw new Error(
-      "ENCLAWS_LIVE_SETUP_TOKEN did not look like a setup-token. Use ENCLAWS_LIVE_SETUP_TOKEN_VALUE for raw tokens.",
+      "QINGCLAWS_LIVE_SETUP_TOKEN did not look like a setup-token. Use QINGCLAWS_LIVE_SETUP_TOKEN_VALUE for raw tokens.",
     );
   }
 
   if (candidates.length === 0) {
     throw new Error(
-      "No Anthropics setup-token profiles found. Set ENCLAWS_LIVE_SETUP_TOKEN_VALUE or ENCLAWS_LIVE_SETUP_TOKEN_PROFILE.",
+      "No Anthropics setup-token profiles found. Set QINGCLAWS_LIVE_SETUP_TOKEN_VALUE or QINGCLAWS_LIVE_SETUP_TOKEN_PROFILE.",
     );
   }
   return { agentDir, profileId: pickSetupTokenProfile(candidates) };
@@ -185,7 +185,7 @@ describeLive("live anthropic setup-token", () => {
       const tokenSource = await resolveTokenSource();
       try {
         const cfg = loadConfig();
-        await ensureOpenClawModelsJson(cfg, tokenSource.agentDir);
+        await ensureQingClawsModelsJson(cfg, tokenSource.agentDir);
 
         const authStorage = discoverAuthStorage(tokenSource.agentDir);
         const modelRegistry = discoverModels(authStorage, tokenSource.agentDir);

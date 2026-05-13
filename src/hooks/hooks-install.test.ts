@@ -13,7 +13,7 @@ import { loadInternalHooks } from "./loader.js";
 const tempDirs: string[] = [];
 
 async function makeTempDir() {
-  const dir = await fs.mkdtemp(path.join(os.tmpdir(), "enclaws-hooks-e2e-"));
+  const dir = await fs.mkdtemp(path.join(os.tmpdir(), "qingclaws-hooks-e2e-"));
   tempDirs.push(dir);
   return dir;
 }
@@ -49,7 +49,7 @@ describe("hooks install (e2e)", () => {
         {
           name: "@acme/hello-hooks",
           version: "0.0.0",
-          enclaws: { hooks: ["./hooks/hello-hook"] },
+          qingclaws: { hooks: ["./hooks/hello-hook"] },
         },
         null,
         2,
@@ -63,7 +63,7 @@ describe("hooks install (e2e)", () => {
         "---",
         'name: "hello-hook"',
         'description: "Test hook"',
-        'metadata: {"enclaws":{"events":["command:new"]}}',
+        'metadata: {"qingclaws":{"events":["command:new"]}}',
         "---",
         "",
         "# Hello Hook",

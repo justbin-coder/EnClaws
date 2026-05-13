@@ -2,7 +2,7 @@ import fs from "node:fs/promises";
 import os from "node:os";
 import path from "node:path";
 import { afterEach, beforeEach, describe, expect, it } from "vitest";
-import { createOpenClawCodingTools } from "./pi-tools.js";
+import { createQingClawsCodingTools } from "./pi-tools.js";
 
 describe("FS tools with workspaceOnly=false", () => {
   let tmpDir: string;
@@ -10,7 +10,7 @@ describe("FS tools with workspaceOnly=false", () => {
   let outsideFile: string;
 
   beforeEach(async () => {
-    tmpDir = await fs.mkdtemp(path.join(os.tmpdir(), "enclaws-test-"));
+    tmpDir = await fs.mkdtemp(path.join(os.tmpdir(), "qingclaws-test-"));
     workspaceDir = path.join(tmpDir, "workspace");
     await fs.mkdir(workspaceDir);
     outsideFile = path.join(tmpDir, "outside.txt");
@@ -21,7 +21,7 @@ describe("FS tools with workspaceOnly=false", () => {
   });
 
   it("should allow write outside workspace when workspaceOnly=false", async () => {
-    const tools = createOpenClawCodingTools({
+    const tools = createQingClawsCodingTools({
       workspaceDir,
       config: {
         tools: {
@@ -53,7 +53,7 @@ describe("FS tools with workspaceOnly=false", () => {
     const relativeOutsidePath = path.join("..", "outside-relative-write.txt");
     const outsideRelativeFile = path.join(tmpDir, "outside-relative-write.txt");
 
-    const tools = createOpenClawCodingTools({
+    const tools = createQingClawsCodingTools({
       workspaceDir,
       config: {
         tools: {
@@ -83,7 +83,7 @@ describe("FS tools with workspaceOnly=false", () => {
   it("should allow edit outside workspace when workspaceOnly=false", async () => {
     await fs.writeFile(outsideFile, "old content");
 
-    const tools = createOpenClawCodingTools({
+    const tools = createQingClawsCodingTools({
       workspaceDir,
       config: {
         tools: {
@@ -117,7 +117,7 @@ describe("FS tools with workspaceOnly=false", () => {
     const outsideRelativeFile = path.join(tmpDir, "outside-relative-edit.txt");
     await fs.writeFile(outsideRelativeFile, "old relative content");
 
-    const tools = createOpenClawCodingTools({
+    const tools = createQingClawsCodingTools({
       workspaceDir,
       config: {
         tools: {
@@ -148,7 +148,7 @@ describe("FS tools with workspaceOnly=false", () => {
   it("should allow read outside workspace when workspaceOnly=false", async () => {
     await fs.writeFile(outsideFile, "test read content");
 
-    const tools = createOpenClawCodingTools({
+    const tools = createQingClawsCodingTools({
       workspaceDir,
       config: {
         tools: {
@@ -175,7 +175,7 @@ describe("FS tools with workspaceOnly=false", () => {
 
   it("should allow write outside workspace when workspaceOnly is unset", async () => {
     const outsideUnsetFile = path.join(tmpDir, "outside-unset-write.txt");
-    const tools = createOpenClawCodingTools({
+    const tools = createQingClawsCodingTools({
       workspaceDir,
       config: {},
     });
@@ -199,7 +199,7 @@ describe("FS tools with workspaceOnly=false", () => {
   it("should allow edit outside workspace when workspaceOnly is unset", async () => {
     const outsideUnsetFile = path.join(tmpDir, "outside-unset-edit.txt");
     await fs.writeFile(outsideUnsetFile, "before");
-    const tools = createOpenClawCodingTools({
+    const tools = createQingClawsCodingTools({
       workspaceDir,
       config: {},
     });
@@ -222,7 +222,7 @@ describe("FS tools with workspaceOnly=false", () => {
   });
 
   it("should block write outside workspace when workspaceOnly=true", async () => {
-    const tools = createOpenClawCodingTools({
+    const tools = createQingClawsCodingTools({
       workspaceDir,
       config: {
         tools: {

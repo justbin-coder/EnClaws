@@ -20,7 +20,7 @@ import {
 } from "../hooks/internal-hooks.js";
 import { loadInternalHooks } from "../hooks/loader.js";
 import { isTruthyEnvValue } from "../infra/env.js";
-import type { loadOpenClawPlugins } from "../plugins/loader.js";
+import type { loadQingClawsPlugins } from "../plugins/loader.js";
 import { type PluginServicesHandle, startPluginServices } from "../plugins/services.js";
 import { startBrowserControlServerIfEnabled } from "./server-browser.js";
 import {
@@ -33,7 +33,7 @@ const SESSION_LOCK_STALE_MS = 30 * 60 * 1000;
 
 export async function startGatewaySidecars(params: {
   cfg: ReturnType<typeof loadConfig>;
-  pluginRegistry: ReturnType<typeof loadOpenClawPlugins>;
+  pluginRegistry: ReturnType<typeof loadQingClawsPlugins>;
   defaultWorkspaceDir: string;
   deps: CliDeps;
   startChannels: () => Promise<void>;
@@ -61,7 +61,7 @@ export async function startGatewaySidecars(params: {
     params.log.warn(`session lock cleanup failed on startup: ${String(err)}`);
   }
 
-  // Start EnClaws browser control server (unless disabled via config).
+  // Start QingClaws browser control server (unless disabled via config).
   let browserControl: Awaited<ReturnType<typeof startBrowserControlServerIfEnabled>> = null;
   try {
     browserControl = await startBrowserControlServerIfEnabled();
@@ -123,10 +123,10 @@ export async function startGatewaySidecars(params: {
   }
 
   // Launch configured channels so gateway replies via the surface the message came from.
-  // Tests can opt out via ENCLAWS_SKIP_CHANNELS (or legacy ENCLAWS_SKIP_PROVIDERS).
+  // Tests can opt out via QINGCLAWS_SKIP_CHANNELS (or legacy QINGCLAWS_SKIP_PROVIDERS).
   const skipChannels =
-    isTruthyEnvValue(process.env.ENCLAWS_SKIP_CHANNELS) ||
-    isTruthyEnvValue(process.env.ENCLAWS_SKIP_PROVIDERS);
+    isTruthyEnvValue(process.env.QINGCLAWS_SKIP_CHANNELS) ||
+    isTruthyEnvValue(process.env.QINGCLAWS_SKIP_PROVIDERS);
   if (!skipChannels) {
     try {
       await params.startChannels();
@@ -135,7 +135,7 @@ export async function startGatewaySidecars(params: {
     }
   } else {
     params.logChannels.info(
-      "skipping channel start (ENCLAWS_SKIP_CHANNELS=1 or ENCLAWS_SKIP_PROVIDERS=1)",
+      "skipping channel start (QINGCLAWS_SKIP_CHANNELS=1 or QINGCLAWS_SKIP_PROVIDERS=1)",
     );
   }
 

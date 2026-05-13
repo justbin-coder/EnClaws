@@ -1,12 +1,12 @@
 {
-  "name": "@openclaw/zalo",
+  "name": "@qingclaws/zalo",
   "version": "2026.3.1",
-  "description": "OpenClaw Zalo channel plugin",
+  "description": "QingClaws Zalo channel plugin",
   "type": "module",
   "dependencies": {
     "undici": "7.22.0"
   },
-  "openclaw": {
+  "qingclaws": {
     "extensions": [
       "./index.ts"
     ],
@@ -24,7 +24,7 @@
       "quickstartAllowFrom": true
     },
     "install": {
-      "npmSpec": "@openclaw/zalo",
+      "npmSpec": "@qingclaws/zalo",
       "localPath": "extensions/zalo",
       "defaultChoice": "npm"
     }

@@ -10,7 +10,7 @@
  *   - list: POST /open-apis/calendar/v4/freebusy/batch (批量查询接口)
  */
 
-import type { OpenClawPluginApi } from 'openclaw/plugin-sdk';
+import type { QingClawsPluginApi } from 'openclaw/plugin-sdk';
 import { Type } from '@sinclair/typebox';
 import { assertLarkOk, createToolContext, handleInvokeErrorWithAutoAuth, json, parseTimeToRFC3339 , registerTool } from '../helpers';
 import type { FreebusyData } from '../sdk-types';
@@ -54,7 +54,7 @@ interface FeishuCalendarFreebusyParams {
 // Registration
 // ---------------------------------------------------------------------------
 
-export function registerFeishuCalendarFreebusyTool(api: OpenClawPluginApi): void {
+export function registerFeishuCalendarFreebusyTool(api: QingClawsPluginApi): void {
   if (!api.config) return;
   const cfg = api.config;
 

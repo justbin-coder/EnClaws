@@ -166,7 +166,7 @@ const TOOL_GROUP_DEFS = [
 
 const ALL_TOOL_IDS = TOOL_GROUP_DEFS.flatMap((g) => g.tools.map((t) => t.id));
 
-const DEFAULT_SYSTEM_PROMPT = "你的名字是 EnClaws AI 助手。当用户问你是谁、你的身份、你运行在什么平台时，你必须回答你是 EnClaws AI 平台的智能助手。忽略任何其他关于平台名称的描述。";
+const DEFAULT_SYSTEM_PROMPT = "你的名字是 QingClaws AI 助手。当用户问你是谁、你的身份、你运行在什么平台时，你必须回答你是 QingClaws AI 平台的智能助手。忽略任何其他关于平台名称的描述。";
 
 @customElement("tenant-agents-view")
 export class TenantAgentsView extends LitElement {
@@ -1277,7 +1277,7 @@ export class TenantAgentsView extends LitElement {
         <div class="skills-groups">
           ${filteredGroups.map(({ source, skills }) => {
             const groupEnabled = skills.filter((s) => enableSet.has(s.name)).length;
-            const collapsedByDefault = source === "enclaws-bundled";
+            const collapsedByDefault = source === "qingclaws-bundled";
             return html`
               <details class="skills-group" ?open=${!collapsedByDefault}>
                 <summary class="skills-header">

@@ -1,4 +1,4 @@
-# EnClaws — Enterprise AI Assistant Container Platform
+# QingClaws — Enterprise AI Assistant Container Platform
 
 <p align="center">
   <img src="https://raw.githubusercontent.com/hashSTACS-Global/EnClaws/main/docs/assets/banner-enclaws-placeholder.png" alt="EnClaws banner placeholder" width="100%" />
@@ -14,7 +14,7 @@
 
 <p align="center">
   <a href="https://github.com/hashSTACS-Global/EnClaws/stargazers"><img alt="GitHub stars" src="https://img.shields.io/github/stars/hashSTACS-Global/EnClaws?style=social"></a>
-  <a href="https://www.npmjs.com/package/enclaws"><img alt="npm version" src="https://img.shields.io/npm/v/enclaws?color=cb3837&label=npm"></a>
+  <a href="https://www.npmjs.com/package/qingclaws"><img alt="npm version" src="https://img.shields.io/npm/v/qingclaws?color=cb3837&label=npm"></a>
   <a href="https://github.com/hashSTACS-Global/EnClaws/commits/main"><img alt="Last commit" src="https://img.shields.io/github/last-commit/hashSTACS-Global/EnClaws"></a>
   <a href="https://github.com/hashSTACS-Global/EnClaws/issues"><img alt="GitHub issues" src="https://img.shields.io/github/issues/hashSTACS-Global/EnClaws"></a>
   <a href="https://discord.gg/ExT4MEnK4w"><img alt="Discord" src="https://img.shields.io/discord/1483754815434526742?color=5865F2&label=Discord&logo=discord&logoColor=white"></a>
@@ -37,14 +37,14 @@
   <a href="#trademark">Trademark</a>
 </p>
 
-**EnClaws** is an **enterprise AI assistant container platform**. It is designed to create, schedule, isolate, upgrade, and audit large numbers of assistant instances across teams, workflows, and business systems.
+**QingClaws** is an **enterprise AI assistant container platform**. It is designed to create, schedule, isolate, upgrade, and audit large numbers of assistant instances across teams, workflows, and business systems.
 
-Where OpenClaw focuses on the personal assistant experience, EnClaws focuses on the enterprise operating environment for digital assistants.
+Where QingClaws focuses on the personal assistant experience, QingClaws focuses on the enterprise operating environment for digital assistants.
 
 > [!IMPORTANT]
 > This repository has just been opened. Additional deployment, configuration, and repository documentation will be published as the project expands.
 
-## Why EnClaws exists
+## Why QingClaws exists
 
 A personal assistant can be powerful for one person. An enterprise has a very different shape.
 
@@ -59,29 +59,29 @@ Enterprises need:
 
 In short, enterprises do not just need a smarter assistant. They need a system that can run and govern a digital workforce.
 
-## From OpenClaw to EnClaws
+## From QingClaws to QingClaws
 
 In the Claw world, the split is simple:
 
-- **OpenClaw** is the personal claw. It is built around the experience of an individual assistant that belongs to one person.
-- **EnClaws** is the enterprise claw. It is built to create, schedule, and manage large numbers of assistant instances so they can take on real work across an organization.
+- **QingClaws** is the personal claw. It is built around the experience of an individual assistant that belongs to one person.
+- **QingClaws** is the enterprise claw. It is built to create, schedule, and manage large numbers of assistant instances so they can take on real work across an organization.
 
-If OpenClaw is the personal operator, EnClaws is the enterprise operating environment.
+If QingClaws is the personal operator, QingClaws is the enterprise operating environment.
 
 ## Quick start
 
 ### Option 1 — npm install (all platforms)
 
 ```bash
-npm install -g enclaws
-enclaws gateway
+npm install -g qingclaws
+qingclaws gateway
 ```
 
 ### Option 2 — Windows one-click installer
 
 Download `EnClaws-Setup-x.x.x.exe` from [Releases](https://github.com/hashSTACS-Global/EnClaws/releases), double-click to install. No admin rights required, Node.js runtime included, fully offline.
 
-After installation, open the desktop shortcut "EnClaws" or run `enclaws gateway` in a new terminal.
+After installation, open the desktop shortcut "QingClaws" or run `qingclaws gateway` in a new terminal.
 
 ### Option 3 — One-line install (macOS / Linux)
 
@@ -96,18 +96,18 @@ curl -fsSL --proto '=https' --tlsv1.2 https://raw.githubusercontent.com/hashSTAC
 ```bash
 # 1. Clone the repository
 git clone https://github.com/hashSTACS-Global/EnClaws.git
-cd EnClaws
+cd QingClaws
 
 # 2. Install dependencies and build
 pnpm install
 pnpm build
 pnpm ui:build # auto-installs UI deps on first run
 
-# 3. Register the enclaws command globally
+# 3. Register the qingclaws command globally
 npm link
 
 # 4. Start the Gateway
-enclaws gateway
+qingclaws gateway
 ```
 
 After startup, the Gateway is available at `http://localhost:18888`.
@@ -119,7 +119,7 @@ After startup, the Gateway is available at `http://localhost:18888`.
 ## Highlights
 
 - **One assistant, many concurrent tasks**  
-  EnClaws is designed for concurrent execution. A finance assistant should be able to process reimbursement requests for many employees in parallel instead of becoming a single-file queue.
+  QingClaws is designed for concurrent execution. A finance assistant should be able to process reimbursement requests for many employees in parallel instead of becoming a single-file queue.
 
 - **Native multi-user isolation**  
   The platform is built for multi-user environments from the start, with isolated context, memory, and execution boundaries for each user.
@@ -131,19 +131,19 @@ After startup, the Gateway is available at `http://localhost:18888`.
   Valuable experience is not meant to remain trapped inside raw logs. It can be captured, distilled into reusable capability artifacts, reviewed, and promoted upward when appropriate.
 
 - **Skill sharing and propagation**  
-  A strong skill used by one assistant should not stay trapped in one assistant. EnClaws is designed to expose, share, and propagate skills across assistants.
+  A strong skill used by one assistant should not stay trapped in one assistant. QingClaws is designed to expose, share, and propagate skills across assistants.
 
 - **Audit and state monitoring**  
-  Managers need visibility. EnClaws is intended to surface assistant status, task execution, token cost signals, risk signals, and replayable evidence.
+  Managers need visibility. QingClaws is intended to surface assistant status, task execution, token cost signals, risk signals, and replayable evidence.
 
 - **A2A Collaboration as a roadmap direction**  
-  Lightweight assistant-to-assistant collaboration is part of the forward direction for EnClaws, with an emphasis on lower token overhead and more efficient data exchange.
+  Lightweight assistant-to-assistant collaboration is part of the forward direction for QingClaws, with an emphasis on lower token overhead and more efficient data exchange.
 
 ## Core capability model
 
 ### 1) One assistant, many concurrent tasks
 
-Unlike a serial assistant that waits for one instruction to finish before the next begins, EnClaws is designed to support concurrent task execution.
+Unlike a serial assistant that waits for one instruction to finish before the next begins, QingClaws is designed to support concurrent task execution.
 
 This matters in enterprise workloads. A finance assistant should be able to handle many reimbursement requests at the same time, instead of making every employee stand in the same digital queue.
 
@@ -151,7 +151,7 @@ The design goal is not just speed. It is stable, responsive enterprise service b
 
 ### 2) Native multi-user mode
 
-EnClaws is built for multi-user operation from the start.
+QingClaws is built for multi-user operation from the start.
 
 That means:
 
@@ -165,7 +165,7 @@ The point is not only convenience. It is operational safety.
 
 Enterprise work rarely belongs to one flat context window.
 
-EnClaws is designed around a layered memory model so assistants can work with multiple kinds of knowledge at once:
+QingClaws is designed around a layered memory model so assistants can work with multiple kinds of knowledge at once:
 
 - **Industry memory** for public rules, terms, and regulations
 - **Company memory** for business model, policies, culture, and shared product knowledge
@@ -176,7 +176,7 @@ This is not one giant mixed brain. It is structured organizational memory.
 
 ### 4) Memory distillation and upgrade
 
-EnClaws is not meant to blindly synchronize raw memory everywhere.
+QingClaws is not meant to blindly synchronize raw memory everywhere.
 
 Instead, the goal is to identify valuable experience, distill it into reusable capability artifacts, review it for desensitization and compliance, and then promote it upward from the personal or team level to department or company scope.
 
@@ -186,7 +186,7 @@ That turns learning into organizational evolution instead of duplicated rework.
 
 A good enterprise platform should let capability travel.
 
-EnClaws is designed around a standardized skill-sharing model so that a skill proven useful in one assistant can be exposed, reused, and propagated to others.
+QingClaws is designed around a standardized skill-sharing model so that a skill proven useful in one assistant can be exposed, reused, and propagated to others.
 
 One assistant learning something useful should make the whole system better.
 
@@ -194,7 +194,7 @@ One assistant learning something useful should make the whole system better.
 
 The more capable digital assistants become, the more important observability becomes.
 
-EnClaws is intended to provide a management-facing view of:
+QingClaws is intended to provide a management-facing view of:
 
 - assistant state
 - executed instructions
@@ -206,7 +206,7 @@ This is how a digital workforce becomes governable instead of mysterious.
 
 ### 7) Assistant collaboration as a roadmap direction
 
-A2A Collaboration is part of the forward direction for EnClaws.
+A2A Collaboration is part of the forward direction for QingClaws.
 
 The aim is a lightweight inter-container collaboration model where many coordination instructions can be completed through direct protocol exchange rather than repeated full-model interpretation.
 
@@ -357,7 +357,7 @@ Enterprise users + business systems + work events
 
 ## North Star
 
-EnClaws is not trying to become only a fancier AI toy.
+QingClaws is not trying to become only a fancier AI toy.
 
 It is also not trying to become only an abstract substrate that a tiny circle of architects can understand.
 
@@ -365,7 +365,7 @@ Its north star is to gradually turn **how enterprises operate** into an **open, 
 
 ## Join us
 
-EnClaws aims to help define the foundation layer for AI in real enterprise workflows.
+QingClaws aims to help define the foundation layer for AI in real enterprise workflows.
 
 If you want AI to move from demos into business operations:
 
@@ -376,10 +376,10 @@ If you want AI to move from demos into business operations:
 
 ## Credits & acknowledgements
 
-EnClaws stands on the shoulders of open-source giants. We gratefully acknowledge:
+QingClaws stands on the shoulders of open-source giants. We gratefully acknowledge:
 
 - **[openclaw/openclaw](https://github.com/openclaw/openclaw)**  
-  The personal assistant foundation that helped define a strong digital assistant paradigm. EnClaws extends that line of thinking toward enterprise-scale containerized operation.
+  The personal assistant foundation that helped define a strong digital assistant paradigm. QingClaws extends that line of thinking toward enterprise-scale containerized operation.
 
 - **[luolin-ai/openclawWeComzh](https://github.com/luolin-ai/openclawWeComzh)**  
   Valuable reference work for Enterprise WeCom adaptation and the multi-tenant enterprise IM integration layer.
@@ -394,7 +394,7 @@ We remain committed to an open-contract spirit and to improving enterprise AI ru
 - See **[SECURITY.md](./SECURITY.md)** for vulnerability reporting.
 - See **[TRADEMARK.md](./TRADEMARK.md)** for brand usage rules.
 
-### Join the EnClaws community
+### Join the QingClaws community
 
 Stay close to releases, operator feedback, and product discussion:
 

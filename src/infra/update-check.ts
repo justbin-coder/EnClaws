@@ -301,8 +301,8 @@ export async function fetchNpmTagVersion(params: {
 }): Promise<NpmTagStatus> {
   const timeoutMs = params?.timeoutMs ?? 3500;
   const tag = params.tag;
-  const registry = process.env.ENCLAWS_NPM_REGISTRY?.trim();
-  const packageName = process.env.ENCLAWS_NPM_PACKAGE?.trim();
+  const registry = process.env.QINGCLAWS_NPM_REGISTRY?.trim();
+  const packageName = process.env.QINGCLAWS_NPM_PACKAGE?.trim();
   if (!registry || !packageName) {
     return { tag, version: null };
   }

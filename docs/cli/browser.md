@@ -1,15 +1,15 @@
 ---
-summary: "CLI reference for `openclaw browser` (profiles, tabs, actions, extension relay)"
+summary: "CLI reference for `qingclaws browser` (profiles, tabs, actions, extension relay)"
 read_when:
-  - You use `openclaw browser` and want examples for common tasks
+  - You use `qingclaws browser` and want examples for common tasks
   - You want to control a browser running on another machine via a node host
   - You want to use the Chrome extension relay (attach/detach via toolbar button)
 title: "browser"
 ---
 
-# `openclaw browser`
+# `qingclaws browser`
 
-Manage OpenClaw’s browser control server and run browser actions (tabs, snapshots, screenshots, navigation, clicks, typing).
+Manage QingClaws’s browser control server and run browser actions (tabs, snapshots, screenshots, navigation, clicks, typing).
 
 Related:
 
@@ -27,38 +27,38 @@ Related:
 ## Quick start (local)
 
 ```bash
-openclaw browser --browser-profile chrome tabs
-openclaw browser --browser-profile openclaw start
-openclaw browser --browser-profile openclaw open https://example.com
-openclaw browser --browser-profile openclaw snapshot
+qingclaws browser --browser-profile chrome tabs
+qingclaws browser --browser-profile qingclaws start
+qingclaws browser --browser-profile qingclaws open https://example.com
+qingclaws browser --browser-profile qingclaws snapshot
 ```
 
 ## Profiles
 
 Profiles are named browser routing configs. In practice:
 
-- `openclaw`: launches/attaches to a dedicated OpenClaw-managed Chrome instance (isolated user data dir).
+- `qingclaws`: launches/attaches to a dedicated QingClaws-managed Chrome instance (isolated user data dir).
 - `chrome`: controls your existing Chrome tab(s) via the Chrome extension relay.
 
 ```bash
-openclaw browser profiles
-openclaw browser create-profile --name work --color "#FF5A36"
-openclaw browser delete-profile --name work
+qingclaws browser profiles
+qingclaws browser create-profile --name work --color "#FF5A36"
+qingclaws browser delete-profile --name work
 ```
 
 Use a specific profile:
 
 ```bash
-openclaw browser --browser-profile work tabs
+qingclaws browser --browser-profile work tabs
 ```
 
 ## Tabs
 
 ```bash
-openclaw browser tabs
-openclaw browser open https://docs.openclaw.ai
-openclaw browser focus <targetId>
-openclaw browser close <targetId>
+qingclaws browser tabs
+qingclaws browser open https://docs.qingclaws.ai
+qingclaws browser focus <targetId>
+qingclaws browser close <targetId>
 ```
 
 ## Snapshot / screenshot / actions
@@ -66,21 +66,21 @@ openclaw browser close <targetId>
 Snapshot:
 
 ```bash
-openclaw browser snapshot
+qingclaws browser snapshot
 ```
 
 Screenshot:
 
 ```bash
-openclaw browser screenshot
+qingclaws browser screenshot
 ```
 
 Navigate/click/type (ref-based UI automation):
 
 ```bash
-openclaw browser navigate https://example.com
-openclaw browser click <ref>
-openclaw browser type <ref> "hello"
+qingclaws browser navigate https://example.com
+qingclaws browser click <ref>
+qingclaws browser type <ref> "hello"
 ```
 
 ## Chrome extension relay (attach via toolbar button)
@@ -90,8 +90,8 @@ This mode lets the agent control an existing Chrome tab that you attach manually
 Install the unpacked extension to a stable path:
 
 ```bash
-openclaw browser extension install
-openclaw browser extension path
+qingclaws browser extension install
+qingclaws browser extension path
 ```
 
 Then Chrome → `chrome://extensions` → enable “Developer mode” → “Load unpacked” → select the printed folder.

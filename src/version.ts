@@ -1,7 +1,7 @@
 import { createRequire } from "node:module";
 
-declare const __ENCLAWS_VERSION__: string | undefined;
-const CORE_PACKAGE_NAME = "enclaws";
+declare const __QINGCLAWS_VERSION__: string | undefined; // QINGCLAWS-CUSTOM: brand
+const CORE_PACKAGE_NAME = "qingclaws"; // QINGCLAWS-CUSTOM: brand — matches renamed package.json name
 
 const PACKAGE_JSON_CANDIDATES = [
   "../package.json",
@@ -80,23 +80,23 @@ export function resolveRuntimeServiceVersion(
 ): string {
   return (
     firstNonEmpty(
-      env["ENCLAWS_VERSION"],
-      env["ENCLAWS_SERVICE_VERSION"],
+      env["QINGCLAWS_VERSION"], // QINGCLAWS-CUSTOM: brand
+      env["QINGCLAWS_SERVICE_VERSION"], // QINGCLAWS-CUSTOM: brand
       env["npm_package_version"],
     ) ?? VERSION
   );
 }
 
 // Product display name — single source of truth for branding.
-export const PRODUCT_NAME = "EnClaws";
+export const PRODUCT_NAME = "QingClaws";
 export const PRODUCT_NAME_UPPER = PRODUCT_NAME.toUpperCase();
 export const PRODUCT_NAME_LOWER = PRODUCT_NAME.toLowerCase();
 
-// Single source of truth for the current EnClaws version.
+// Single source of truth for the current QingClaws version.
 // - Embedded/bundled builds: injected define or env var.
 // - Dev/npm builds: package.json.
 export const VERSION =
-  (typeof __ENCLAWS_VERSION__ === "string" && __ENCLAWS_VERSION__) ||
-  process.env.ENCLAWS_BUNDLED_VERSION ||
+  (typeof __QINGCLAWS_VERSION__ === "string" && __QINGCLAWS_VERSION__) || // QINGCLAWS-CUSTOM: brand
+  process.env.QINGCLAWS_BUNDLED_VERSION || // QINGCLAWS-CUSTOM: brand
   resolveVersionFromModuleUrl(import.meta.url) ||
   "0.0.0";

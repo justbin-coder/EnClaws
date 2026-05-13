@@ -6,7 +6,7 @@
  * 统一导出所有云空间相关工具的注册函数
  */
 
-import type { OpenClawPluginApi } from 'openclaw/plugin-sdk';
+import type { QingClawsPluginApi } from 'openclaw/plugin-sdk';
 import { getEnabledLarkAccounts } from '../../../core/accounts';
 import { resolveAnyEnabledToolsConfig } from '../../../core/tools-config';
 import { registerFeishuDriveFileTool } from './file';
@@ -16,7 +16,7 @@ import { registerDocMediaTool } from './doc-media';
 /**
  * 注册所有 Drive 工具
  */
-export function registerFeishuDriveTools(api: OpenClawPluginApi): void {
+export function registerFeishuDriveTools(api: QingClawsPluginApi): void {
   if (!api.config) {
     api.logger.debug?.('feishu_drive: No config available, skipping');
     return;

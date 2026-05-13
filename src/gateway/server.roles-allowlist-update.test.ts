@@ -44,9 +44,9 @@ const connectNodeClient = async (params: {
   displayName?: string;
   onEvent?: (evt: { event?: string; payload?: unknown }) => void;
 }) => {
-  const token = process.env.ENCLAWS_GATEWAY_TOKEN;
+  const token = process.env.QINGCLAWS_GATEWAY_TOKEN;
   if (!token) {
-    throw new Error("ENCLAWS_GATEWAY_TOKEN is required for node test clients");
+    throw new Error("QINGCLAWS_GATEWAY_TOKEN is required for node test clients");
   }
   return await connectGatewayClient({
     url: `ws://127.0.0.1:${params.port}`,
@@ -151,7 +151,7 @@ describe("gateway update.run", () => {
       }, FAST_WAIT_OPTS);
       expect(sigusr1).toHaveBeenCalled();
 
-      const sentinelPath = path.join(os.homedir(), ".enclaws", "restart-sentinel.json");
+      const sentinelPath = path.join(os.homedir(), ".qingclaws", "restart-sentinel.json");
       const raw = await fs.readFile(sentinelPath, "utf-8");
       const parsed = JSON.parse(raw) as {
         payload?: { kind?: string; stats?: { mode?: string } };
@@ -324,7 +324,7 @@ describe("gateway node command allowlist", () => {
     const { loadOrCreateDeviceIdentity } = await import("../infra/device-identity.js");
     const deviceIdentityPath = path.join(
       os.tmpdir(),
-      `enclaws-spoof-test-device-${Date.now()}-${Math.random().toString(36).slice(2)}.json`,
+      `qingclaws-spoof-test-device-${Date.now()}-${Math.random().toString(36).slice(2)}.json`,
     );
     const deviceIdentity = loadOrCreateDeviceIdentity(deviceIdentityPath);
 
@@ -385,7 +385,7 @@ describe("gateway node command allowlist", () => {
     for (const testCase of cases) {
       const deviceIdentityPath = path.join(
         os.tmpdir(),
-        `enclaws-confusable-node-${testCase.label}-${Date.now()}-${Math.random().toString(36).slice(2)}.json`,
+        `qingclaws-confusable-node-${testCase.label}-${Date.now()}-${Math.random().toString(36).slice(2)}.json`,
       );
       const deviceIdentity = loadOrCreateDeviceIdentity(deviceIdentityPath);
       const displayName = `node-${testCase.label}`;

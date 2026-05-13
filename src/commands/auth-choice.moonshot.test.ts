@@ -7,7 +7,7 @@ import {
   createExitThrowingRuntime,
   createWizardPrompter,
   readAuthProfilesForAgent,
-  requireOpenClawAgentDir,
+  requireQingClawsAgentDir,
   setupAuthTestEnv,
 } from "./test-wizard-helpers.js";
 
@@ -17,14 +17,14 @@ function createPrompter(overrides: Partial<WizardPrompter>): WizardPrompter {
 
 describe("applyAuthChoice (moonshot)", () => {
   const lifecycle = createAuthTestLifecycle([
-    "ENCLAWS_STATE_DIR",
-    "ENCLAWS_AGENT_DIR",
+    "QINGCLAWS_STATE_DIR",
+    "QINGCLAWS_AGENT_DIR",
     "PI_CODING_AGENT_DIR",
     "MOONSHOT_API_KEY",
   ]);
 
   async function setupTempState() {
-    const env = await setupAuthTestEnv("enclaws-auth-");
+    const env = await setupAuthTestEnv("qingclaws-auth-");
     lifecycle.setStateDir(env.stateDir);
     delete process.env.MOONSHOT_API_KEY;
   }
@@ -32,7 +32,7 @@ describe("applyAuthChoice (moonshot)", () => {
   async function readAuthProfiles() {
     return await readAuthProfilesForAgent<{
       profiles?: Record<string, { key?: string }>;
-    }>(requireOpenClawAgentDir());
+    }>(requireQingClawsAgentDir());
   }
 
   async function runMoonshotCnFlow(params: {

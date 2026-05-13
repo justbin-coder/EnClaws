@@ -513,7 +513,7 @@ function buildChatCommands(): ChatCommandDefinition[] {
     defineChatCommand({
       key: "restart",
       nativeName: "restart",
-      description: "Restart EnClaws.",
+      description: "Restart QingClaws.",
       textAlias: "/restart",
       category: "tools",
     }),

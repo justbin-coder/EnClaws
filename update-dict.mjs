@@ -4,7 +4,7 @@ const dictPath = "scripts/swift-translations.json";
 const dict = JSON.parse(fs.readFileSync(dictPath, "utf8"));
 
 Object.assign(dict, {
-  "Install OpenClaw CLI?": "安装 OpenClaw CLI 运行环境？",
+  "Install QingClaws CLI?": "安装 QingClaws CLI 运行环境？",
   "Local mode needs the CLI so launchd can run the gateway.":
     "本地模式依赖 CLI（命令行组件），以便通过 launchd 启动网关服务。",
   "Install CLI": "安装 CLI 环境",

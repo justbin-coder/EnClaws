@@ -10,8 +10,8 @@ TestEnv (WebSocket RPC) → Gateway → Agent → LLM → Reply (WebSocket Event
 
 ## 前置条件
 
-1. Gateway 运行中：`pnpm openclaw gateway`
-2. 数据库已配置：`.env` 中设置 `OPENCLAW_DB_URL`
+1. Gateway 运行中：`pnpm qingclaws gateway`
+2. 数据库已配置：`.env` 中设置 `QINGCLAWS_DB_URL`
 
 ## 运行
 
@@ -28,7 +28,7 @@ pnpm vitest run test/im-simulator/test-case/register.test.ts
 | 变量 | 默认值 | 说明 |
 |------|--------|------|
 | `TEST_GATEWAY_URL` | `ws://127.0.0.1:18789` | Gateway WebSocket 地址 |
-| `OPENCLAW_GATEWAY_TOKEN` | `""` | Gateway 认证 token |
+| `QINGCLAWS_GATEWAY_TOKEN` | `""` | Gateway 认证 token |
 | `TEST_DATA_DIR` | `test-data/` | 测试数据目录（递归加载 `*.json`） |
 | `TEST_CSV_OUTPUT` | `test-results/{timestamp}.csv` | CSV 报告输出路径 |
 | `TEST_CONCURRENCY` | `2` | 并发执行的测试文件数 |

@@ -13,10 +13,10 @@ describe("skills-cli (e2e)", () => {
   let envSnapshot: ReturnType<typeof captureEnv>;
 
   beforeAll(() => {
-    envSnapshot = captureEnv(["ENCLAWS_BUNDLED_SKILLS_DIR"]);
-    tempWorkspaceDir = fs.mkdtempSync(path.join(os.tmpdir(), "enclaws-skills-test-"));
-    tempBundledDir = fs.mkdtempSync(path.join(os.tmpdir(), "enclaws-bundled-skills-test-"));
-    process.env.ENCLAWS_BUNDLED_SKILLS_DIR = tempBundledDir;
+    envSnapshot = captureEnv(["QINGCLAWS_BUNDLED_SKILLS_DIR"]);
+    tempWorkspaceDir = fs.mkdtempSync(path.join(os.tmpdir(), "qingclaws-skills-test-"));
+    tempBundledDir = fs.mkdtempSync(path.join(os.tmpdir(), "qingclaws-bundled-skills-test-"));
+    process.env.QINGCLAWS_BUNDLED_SKILLS_DIR = tempBundledDir;
   });
 
   afterAll(() => {
@@ -36,7 +36,7 @@ describe("skills-cli (e2e)", () => {
         skill: {
           name: "peekaboo",
           description: "Capture UI screenshots",
-          source: "enclaws-bundled",
+          source: "qingclaws-bundled",
           filePath: path.join(baseDir, "SKILL.md"),
           baseDir,
         } as SkillEntry["skill"],

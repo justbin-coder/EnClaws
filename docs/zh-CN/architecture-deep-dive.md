@@ -1,6 +1,6 @@
 # 架构深度解析
 
-全面了解 EnClaws 内部运作——消息如何流转、租户如何隔离、Agent 运行时如何执行任务。
+全面了解 QingClaws 内部运作——消息如何流转、租户如何隔离、Agent 运行时如何执行任务。
 
 ---
 
@@ -124,7 +124,7 @@
 
 ### 租户隔离模型
 
-EnClaws 中的每条数据都归属于特定租户：
+QingClaws 中的每条数据都归属于特定租户：
 
 ```
 租户（公司/团队/部门）
@@ -144,7 +144,7 @@ EnClaws 中的每条数据都归属于特定租户：
 ### 文件系统隔离
 
 ```
-~/.enclaws/tenants/{tenantId}/
+~/.qingclaws/tenants/{tenantId}/
 ├── SOUL.md                          # 租户级人格设定
 ├── TOOLS.md                         # 租户级工具配置
 ├── MEMORY.md                        # 租户级记忆
@@ -478,4 +478,4 @@ Gateway 启动
 | `src/acp/` | 并发执行引擎 |
 | `src/auth/` | JWT + RBAC 实现 |
 | `src/cron/` | 定时任务引擎 |
-| `extensions/openclaw-lark/` | 飞书集成插件 |
+| `extensions/qingclaws-lark/` | 飞书集成插件 |

@@ -69,7 +69,7 @@ describe("push.test handler", () => {
     vi.mocked(loadApnsRegistration).mockResolvedValue({
       nodeId: "ios-node-1",
       token: "abcd",
-      topic: "ai.enclaws.ios",
+      topic: "ai.qingclaws.ios",
       environment: "sandbox",
       updatedAtMs: 1,
     });
@@ -86,7 +86,7 @@ describe("push.test handler", () => {
       ok: true,
       status: 200,
       tokenSuffix: "1234abcd",
-      topic: "ai.enclaws.ios",
+      topic: "ai.qingclaws.ios",
       environment: "sandbox",
     });
 

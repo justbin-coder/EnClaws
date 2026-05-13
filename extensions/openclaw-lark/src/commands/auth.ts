@@ -134,7 +134,7 @@ async function executeFeishuAuth(config: OpenClawConfig): Promise<AuthResult> {
   try {
     await getAppInfo(sdk, appId);
   } catch {
-    const link = `${openDomain}/app/${appId}/auth?q=application:application:self_manage&op_from=feishu-openclaw&token_type=tenant`;
+    const link = `${openDomain}/app/${appId}/auth?q=application:application:self_manage&op_from=feishu-qingclaws&token_type=tenant`;
     return { kind: 'missing_self_manage', link };
   }
 
@@ -153,14 +153,14 @@ async function executeFeishuAuth(config: OpenClawConfig): Promise<AuthResult> {
   try {
     appScopes = await getAppGrantedScopes(sdk, appId, 'user');
   } catch {
-    const link = `${openDomain}/app/${appId}/auth?q=application:application:self_manage&op_from=feishu-openclaw&token_type=tenant`;
+    const link = `${openDomain}/app/${appId}/auth?q=application:application:self_manage&op_from=feishu-qingclaws&token_type=tenant`;
     return { kind: 'missing_self_manage', link };
   }
 
   // offline_access 预检 — OAuth 必须的前提权限
   const allScopes = await getAppGrantedScopes(sdk, appId);
   if (allScopes.length > 0 && !allScopes.includes('offline_access')) {
-    const link = `${openDomain}/app/${appId}/auth?q=offline_access&op_from=feishu-openclaw&token_type=user`;
+    const link = `${openDomain}/app/${appId}/auth?q=offline_access&op_from=feishu-qingclaws&token_type=user`;
     return { kind: 'missing_offline_access', link };
   }
 

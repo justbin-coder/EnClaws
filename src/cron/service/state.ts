@@ -83,7 +83,7 @@ export type CronServiceDeps = {
       /**
        * `true` when the isolated run already delivered its output to the target
        * channel (including matching messaging-tool sends). See:
-       * https://github.com/enclaws/enclaws/issues/15692
+       * https://github.com/qingclaws/qingclaws/issues/15692
        */
       delivered?: boolean;
       /**

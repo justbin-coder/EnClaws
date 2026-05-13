@@ -1,6 +1,6 @@
 import crypto from "node:crypto";
 import fs from "node:fs/promises";
-import { resolveOpenClawAgentDir } from "../../agents/agent-paths.js";
+import { resolveQingClawsAgentDir } from "../../agents/agent-paths.js";
 import { resolveAgentWorkspaceDir, resolveDefaultAgentId } from "../../agents/agent-scope.js";
 import {
   ensureAuthProfileStore,
@@ -367,7 +367,7 @@ async function runTargetsWithConcurrency(params: {
   const concurrency = Math.max(1, Math.min(targets.length || 1, params.concurrency));
 
   const agentId = resolveDefaultAgentId(cfg);
-  const agentDir = resolveOpenClawAgentDir();
+  const agentDir = resolveQingClawsAgentDir();
   const workspaceDir = resolveAgentWorkspaceDir(cfg, agentId) ?? resolveDefaultAgentWorkspaceDir();
   const sessionDir = resolveSessionTranscriptsDirForAgent(agentId);
 

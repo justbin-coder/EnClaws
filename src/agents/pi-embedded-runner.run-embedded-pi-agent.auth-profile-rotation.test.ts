@@ -23,7 +23,7 @@ vi.mock("./models-config.js", async (importOriginal) => {
   const mod = await importOriginal<typeof import("./models-config.js")>();
   return {
     ...mod,
-    ensureOpenClawModelsJson: vi.fn(async () => ({ wrote: false })),
+    ensureQingClawsModelsJson: vi.fn(async () => ({ wrote: false })),
   };
 });
 
@@ -309,8 +309,8 @@ async function withTimedAgentWorkspace<T>(
 ) {
   vi.useFakeTimers();
   try {
-    const agentDir = await fs.mkdtemp(path.join(os.tmpdir(), "enclaws-agent-"));
-    const workspaceDir = await fs.mkdtemp(path.join(os.tmpdir(), "enclaws-workspace-"));
+    const agentDir = await fs.mkdtemp(path.join(os.tmpdir(), "qingclaws-agent-"));
+    const workspaceDir = await fs.mkdtemp(path.join(os.tmpdir(), "qingclaws-workspace-"));
     const now = Date.now();
     vi.setSystemTime(now);
 
@@ -328,8 +328,8 @@ async function withTimedAgentWorkspace<T>(
 async function withAgentWorkspace<T>(
   run: (ctx: { agentDir: string; workspaceDir: string }) => Promise<T>,
 ) {
-  const agentDir = await fs.mkdtemp(path.join(os.tmpdir(), "enclaws-agent-"));
-  const workspaceDir = await fs.mkdtemp(path.join(os.tmpdir(), "enclaws-workspace-"));
+  const agentDir = await fs.mkdtemp(path.join(os.tmpdir(), "qingclaws-agent-"));
+  const workspaceDir = await fs.mkdtemp(path.join(os.tmpdir(), "qingclaws-workspace-"));
   try {
     return await run({ agentDir, workspaceDir });
   } finally {

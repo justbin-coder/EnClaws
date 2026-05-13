@@ -27,11 +27,11 @@ import {
 const channel = "slack" as const;
 
 function buildSlackManifest(botName: string) {
-  const safeName = botName.trim() || "EnClaws";
+  const safeName = botName.trim() || "QingClaws";
   const manifest = {
     display_information: {
       name: safeName,
-      description: `${safeName} connector for EnClaws`,
+      description: `${safeName} connector for QingClaws`,
     },
     features: {
       bot_user: {
@@ -44,8 +44,8 @@ function buildSlackManifest(botName: string) {
       },
       slash_commands: [
         {
-          command: "/enclaws",
-          description: "Send a message to EnClaws",
+          command: "/qingclaws",
+          description: "Send a message to QingClaws",
           should_escape: false,
         },
       ],
@@ -259,7 +259,7 @@ export const slackOnboardingAdapter: ChannelOnboardingAdapter = {
     const slackBotName = String(
       await prompter.text({
         message: "Slack bot display name (used for manifest)",
-        initialValue: "EnClaws",
+        initialValue: "QingClaws",
       }),
     ).trim();
     if (!accountConfigured) {

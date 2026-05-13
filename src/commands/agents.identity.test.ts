@@ -23,7 +23,7 @@ type ConfigWritePayload = {
 };
 
 async function createIdentityWorkspace(subdir = "work") {
-  const root = await makeTempWorkspace("enclaws-identity-");
+  const root = await makeTempWorkspace("qingclaws-identity-");
   const workspace = path.join(root, subdir);
   await fs.mkdir(workspace, { recursive: true });
   return { root, workspace };
@@ -60,10 +60,10 @@ describe("agents set-identity command", () => {
   it("sets identity from workspace IDENTITY.md", async () => {
     const { root, workspace } = await createIdentityWorkspace();
     await writeIdentityFile(workspace, [
-      "- Name: EnClaws",
+      "- Name: QingClaws",
       "- Creature: helpful sloth",
       "- Emoji: :)",
-      "- Avatar: avatars/enclaws.png",
+      "- Avatar: avatars/qingclaws.png",
       "",
     ]);
 
@@ -83,10 +83,10 @@ describe("agents set-identity command", () => {
 
     expect(configMocks.writeConfigFile).toHaveBeenCalledTimes(1);
     expect(getWrittenMainIdentity()).toEqual({
-      name: "EnClaws",
+      name: "QingClaws",
       theme: "helpful sloth",
       emoji: ":)",
-      avatar: "avatars/enclaws.png",
+      avatar: "avatars/qingclaws.png",
     });
   });
 
@@ -116,10 +116,10 @@ describe("agents set-identity command", () => {
   it("overrides identity file values with explicit flags", async () => {
     const { workspace } = await createIdentityWorkspace();
     await writeIdentityFile(workspace, [
-      "- Name: EnClaws",
+      "- Name: QingClaws",
       "- Theme: space lobster",
       "- Emoji: :)",
-      "- Avatar: avatars/enclaws.png",
+      "- Avatar: avatars/qingclaws.png",
       "",
     ]);
 

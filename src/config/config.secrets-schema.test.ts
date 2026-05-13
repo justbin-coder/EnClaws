@@ -9,13 +9,13 @@ describe("config secret refs schema", () => {
           default: { source: "env" },
           filemain: {
             source: "file",
-            path: "~/.enclaws/secrets.json",
+            path: "~/.qingclaws/secrets.json",
             mode: "json",
             timeoutMs: 10_000,
           },
           vault: {
             source: "exec",
-            command: "/usr/local/bin/enclaws-secret-resolver",
+            command: "/usr/local/bin/qingclaws-secret-resolver",
             args: ["resolve"],
             allowSymlinkCommand: true,
           },
@@ -88,7 +88,7 @@ describe("config secret refs schema", () => {
         providers: {
           rawfile: {
             source: "file",
-            path: "~/.enclaws/token.txt",
+            path: "~/.qingclaws/token.txt",
             mode: "singleValue",
           },
         },

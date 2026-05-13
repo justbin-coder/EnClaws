@@ -1,9 +1,9 @@
 import { type OpenClawConfig, loadConfig } from "../config/config.js";
 import { createSubsystemLogger } from "../logging/subsystem.js";
-import { resolveOpenClawAgentDir } from "./agent-paths.js";
-import { ensureOpenClawModelsJson } from "./models-config.js";
+import { resolveQingClawsAgentDir } from "./agent-paths.js";
+import { ensureQingClawsModelsJson } from "./models-config.js";
 
-const isMultiTenant = () => !!(process.env.ENCLAWS_DB_URL || process.env.ENCLAWS_DB_HOST);
+const isMultiTenant = () => !!(process.env.QINGCLAWS_DB_URL || process.env.QINGCLAWS_DB_HOST);
 
 const log = createSubsystemLogger("model-catalog");
 
@@ -184,13 +184,13 @@ export async function loadModelCatalog(params?: {
         mergeConfiguredOptInProviderModels({ config: cfg, models });
         return sortModels(models);
       }
-      await ensureOpenClawModelsJson(cfg);
+      await ensureQingClawsModelsJson(cfg);
       // IMPORTANT: keep the dynamic import *inside* the try/catch.
       // If this fails once (e.g. during a pnpm install that temporarily swaps node_modules),
       // we must not poison the cache with a rejected promise (otherwise all channel handlers
       // will keep failing until restart).
       const piSdk = await importPiSdk();
-      const agentDir = resolveOpenClawAgentDir();
+      const agentDir = resolveQingClawsAgentDir();
       const { join } = await import("node:path");
       const authStorage = piSdk.discoverAuthStorage(agentDir);
       const registry = new (piSdk.ModelRegistry as unknown as {

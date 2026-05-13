@@ -24,7 +24,7 @@ describe("watch-node script", () => {
 
     const runPromise = runWatchMain({
       args: ["gateway", "--force"],
-      cwd: "/tmp/enclaws",
+      cwd: "/tmp/qingclaws",
       env: { PATH: "/usr/bin" },
       now: () => 1700000000000,
       process: fakeProcess,
@@ -46,13 +46,13 @@ describe("watch-node script", () => {
         "--force",
       ],
       expect.objectContaining({
-        cwd: "/tmp/enclaws",
+        cwd: "/tmp/qingclaws",
         stdio: "inherit",
         env: expect.objectContaining({
           PATH: "/usr/bin",
-          ENCLAWS_WATCH_MODE: "1",
-          ENCLAWS_WATCH_SESSION: "1700000000000-4242",
-          ENCLAWS_WATCH_COMMAND: "gateway --force",
+          QINGCLAWS_WATCH_MODE: "1",
+          QINGCLAWS_WATCH_SESSION: "1700000000000-4242",
+          QINGCLAWS_WATCH_COMMAND: "gateway --force",
         }),
       }),
     );

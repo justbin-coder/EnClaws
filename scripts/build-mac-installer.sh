@@ -2,8 +2,8 @@
 set -euo pipefail
 
 # ---------------------------------------------------------------------------
-# Build a self-contained macOS EnClaws installer (pure Node.js, no Swift GUI).
-# Produces a DMG containing EnClaws.app (lightweight launcher) that bundles
+# Build a self-contained macOS QingClaws installer (pure Node.js, no Swift GUI).
+# Produces a DMG containing QingClaws.app (lightweight launcher) that bundles
 # Node.js + all JS code + production dependencies + skills-pack.
 #
 # Usage:
@@ -27,7 +27,7 @@ SKIP_BUILD="${SKIP_BUILD:-0}"
 OUTPUT_DIR="$ROOT_DIR/dist"
 
 echo ""
-echo "  EnClaws macOS Installer Builder"
+echo "  QingClaws macOS Installer Builder"
 echo "  Version: $PKG_VERSION | Node: $NODE_VERSION | Arch: $BUILD_ARCH"
 echo ""
 
@@ -83,7 +83,7 @@ fi
 # Step 3: Create .app bundle structure
 # ---------------------------------------------------------------------------
 
-APP_NAME="EnClaws"
+APP_NAME="QingClaws"
 APP_ROOT="$OUTPUT_DIR/${APP_NAME}.app"
 APP_CONTENTS="$APP_ROOT/Contents"
 APP_MACOS="$APP_CONTENTS/MacOS"
@@ -103,19 +103,19 @@ cat > "$APP_CONTENTS/Info.plist" << PLIST
 <plist version="1.0">
 <dict>
     <key>CFBundleName</key>
-    <string>EnClaws</string>
+    <string>QingClaws</string>
     <key>CFBundleDisplayName</key>
-    <string>EnClaws</string>
+    <string>QingClaws</string>
     <key>CFBundleIdentifier</key>
-    <string>ai.enclaws.mac</string>
+    <string>ai.qingclaws.mac</string>
     <key>CFBundleVersion</key>
     <string>${PKG_VERSION}</string>
     <key>CFBundleShortVersionString</key>
     <string>${PKG_VERSION}</string>
     <key>CFBundleExecutable</key>
-    <string>enclaws-launcher</string>
+    <string>qingclaws-launcher</string>
     <key>CFBundleIconFile</key>
-    <string>EnClaws</string>
+    <string>QingClaws</string>
     <key>CFBundlePackageType</key>
     <string>APPL</string>
     <key>LSMinimumSystemVersion</key>
@@ -132,33 +132,33 @@ PLIST
 # Step 3b: Write launcher script (double-click to start gateway + open browser)
 # ---------------------------------------------------------------------------
 
-cat > "$APP_MACOS/enclaws-launcher" << 'LAUNCHER'
+cat > "$APP_MACOS/qingclaws-launcher" << 'LAUNCHER'
 #!/usr/bin/env bash
 DIR="$(cd "$(dirname "$0")/../Resources" && pwd)"
 NODE="$DIR/node/bin/node"
-ENTRY="$DIR/enclaws.mjs"
-PORT="${ENCLAWS_GATEWAY_PORT:-18888}"
-PLIST_LABEL="ai.enclaws.gateway"
+ENTRY="$DIR/qingclaws.mjs"
+PORT="${QINGCLAWS_GATEWAY_PORT:-18888}"
+PLIST_LABEL="ai.qingclaws.gateway"
 PLIST_PATH="$HOME/Library/LaunchAgents/${PLIST_LABEL}.plist"
 LOADING="$DIR/loading.html"
-LOG_FILE="$HOME/.enclaws/gateway.log"
+LOG_FILE="$HOME/.qingclaws/gateway.log"
 
-mkdir -p "$HOME/.enclaws"
+mkdir -p "$HOME/.qingclaws"
 mkdir -p "$HOME/Library/LaunchAgents"
 
-# Create symlink to /usr/local/bin so "enclaws" works in terminal
-CLI="$DIR/enclaws"
-if [ ! -L /usr/local/bin/enclaws ] || [ "$(readlink /usr/local/bin/enclaws)" != "$CLI" ]; then
-  if ln -sf "$CLI" /usr/local/bin/enclaws 2>/dev/null; then
+# Create symlink to /usr/local/bin so "qingclaws" works in terminal
+CLI="$DIR/qingclaws"
+if [ ! -L /usr/local/bin/qingclaws ] || [ "$(readlink /usr/local/bin/qingclaws)" != "$CLI" ]; then
+  if ln -sf "$CLI" /usr/local/bin/qingclaws 2>/dev/null; then
     true
   else
     ESCAPED_CLI=$(printf '%s' "$CLI" | sed "s/'/'\\\\''/g")
-    osascript -e "do shell script \"mkdir -p /usr/local/bin && ln -sf '${ESCAPED_CLI}' /usr/local/bin/enclaws\" with administrator privileges" 2>/dev/null || true
+    osascript -e "do shell script \"mkdir -p /usr/local/bin && ln -sf '${ESCAPED_CLI}' /usr/local/bin/qingclaws\" with administrator privileges" 2>/dev/null || true
   fi
 fi
 
 # Run postinstall if first launch
-if [ ! -f "$HOME/.enclaws/.env" ]; then
+if [ ! -f "$HOME/.qingclaws/.env" ]; then
   "$NODE" "$DIR/scripts/postinstall.js" 2>/dev/null || true
 fi
 
@@ -229,7 +229,7 @@ fi
 open "file://${LOADING}?port=${PORT}"
 LAUNCHER
 
-chmod +x "$APP_MACOS/enclaws-launcher"
+chmod +x "$APP_MACOS/qingclaws-launcher"
 
 # ---------------------------------------------------------------------------
 # Step 3b-2: Write loading.html (shown while gateway starts)
@@ -240,7 +240,7 @@ cat > "$APP_RESOURCES/loading.html" << 'LOADING'
 <html lang="zh-CN">
 <head>
 <meta charset="UTF-8">
-<title>EnClaws</title>
+<title>QingClaws</title>
 <style>
   * { margin: 0; padding: 0; box-sizing: border-box; }
   body {
@@ -269,7 +269,7 @@ cat > "$APP_RESOURCES/loading.html" << 'LOADING'
 </head>
 <body>
   <div class="spinner"></div>
-  <h1>EnClaws 正在启动...</h1>
+  <h1>QingClaws 正在启动...</h1>
   <p>网关启动后将自动跳转控制面板</p>
   <div class="status" id="status">正在连接...</div>
 <script>
@@ -291,12 +291,12 @@ cat > "$APP_RESOURCES/loading.html" << 'LOADING'
 LOADING
 
 # ---------------------------------------------------------------------------
-# Step 3c: Write CLI wrapper (for terminal: enclaws gateway)
+# Step 3c: Write CLI wrapper (for terminal: qingclaws gateway)
 # ---------------------------------------------------------------------------
 
-cat > "$APP_RESOURCES/enclaws" << 'CLI'
+cat > "$APP_RESOURCES/qingclaws" << 'CLI'
 #!/usr/bin/env bash
-# Resolve symlinks so this works from /usr/local/bin/enclaws -> .app/Contents/Resources/enclaws
+# Resolve symlinks so this works from /usr/local/bin/qingclaws -> .app/Contents/Resources/qingclaws
 SELF="$0"
 if [ -L "$SELF" ]; then
   SELF="$(readlink "$SELF")"
@@ -307,25 +307,25 @@ if [ -L "$SELF" ]; then
 fi
 DIR="$(cd "$(dirname "$SELF")" && pwd)"
 NODE="$DIR/node/bin/node"
-ENTRY="$DIR/enclaws.mjs"
+ENTRY="$DIR/qingclaws.mjs"
 
 # Run postinstall if first launch
-if [ ! -f "$HOME/.enclaws/.env" ]; then
+if [ ! -f "$HOME/.qingclaws/.env" ]; then
   "$NODE" "$DIR/scripts/postinstall.js" 2>/dev/null || true
 fi
 
 exec "$NODE" "$ENTRY" "$@"
 CLI
 
-chmod +x "$APP_RESOURCES/enclaws"
+chmod +x "$APP_RESOURCES/qingclaws"
 
 # ---------------------------------------------------------------------------
 # Step 3d: Copy icon
 # ---------------------------------------------------------------------------
 
-ICON_SRC="$ROOT_DIR/apps/macos/Sources/OpenClaw/Resources/EnClaws.icns"
+ICON_SRC="$ROOT_DIR/apps/macos/Sources/QingClaws/Resources/QingClaws.icns"
 if [ -f "$ICON_SRC" ]; then
-  cp "$ICON_SRC" "$APP_RESOURCES/EnClaws.icns"
+  cp "$ICON_SRC" "$APP_RESOURCES/QingClaws.icns"
   echo "[OK] Icon copied"
 else
   echo "[!] Icon not found at $ICON_SRC"
@@ -353,7 +353,7 @@ echo "[OK] Bundled Node.js v${NODE_VERSION}"
 echo "[*] Bundling application code..."
 
 # Main entry point
-cp "$ROOT_DIR/enclaws.mjs" "$APP_RESOURCES/enclaws.mjs"
+cp "$ROOT_DIR/qingclaws.mjs" "$APP_RESOURCES/qingclaws.mjs"
 
 # Application directories (exclude .app to prevent nesting)
 for dir in dist extensions skills assets; do
@@ -371,7 +371,7 @@ if [ -d "$ROOT_DIR/scripts" ]; then
   echo "    Copied scripts/"
 fi
 
-# .env template (needed by postinstall.js to create ~/.enclaws/.env)
+# .env template (needed by postinstall.js to create ~/.qingclaws/.env)
 cp "$ROOT_DIR/.env.example" "$APP_RESOURCES/.env.example"
 echo "    Copied .env.example"
 
@@ -388,7 +388,7 @@ fi
 # ---------------------------------------------------------------------------
 
 SKILL_PACK_DIR="$APP_RESOURCES/skills-pack"
-SKILL_PACK_GIT_URL="https://github.com/hashSTACS-Global/feishu-skills.git"
+SKILL_PACK_GIT_URL="https://github.com/QingClaws Team/feishu-skills.git"
 
 if [ -d "$ROOT_DIR/skills-pack/.git" ]; then
   echo "[*] Copying existing skills-pack..."
@@ -479,22 +479,22 @@ sleep 2
 # ---------------------------------------------------------------------------
 
 if [[ "${SKIP_DMG:-0}" != "1" ]]; then
-  DMG_PATH="$OUTPUT_DIR/EnClaws-${PKG_VERSION}-${BUILD_ARCH}.dmg"
+  DMG_PATH="$OUTPUT_DIR/QingClaws-${PKG_VERSION}-${BUILD_ARCH}.dmg"
   echo "[*] Creating DMG: $DMG_PATH"
 
   # Detach any leftover mounts from previous runs
-  hdiutil detach "/Volumes/EnClaws" 2>/dev/null || true
+  hdiutil detach "/Volumes/QingClaws" 2>/dev/null || true
   # Remove stale DMG files that may hold locks
-  rm -f "$OUTPUT_DIR"/EnClaws-*-*.dmg
+  rm -f "$OUTPUT_DIR"/QingClaws-*-*.dmg
 
   # Use a temp directory outside of dist/ to avoid any file contention
-  DMG_TEMP="$(mktemp -d /tmp/enclaws-dmg.XXXXXX)"
+  DMG_TEMP="$(mktemp -d /tmp/qingclaws-dmg.XXXXXX)"
   # Use ditto instead of cp -R (preserves extended attrs, more reliable on macOS)
-  ditto "$APP_ROOT" "$DMG_TEMP/EnClaws.app"
+  ditto "$APP_ROOT" "$DMG_TEMP/QingClaws.app"
   ln -s /Applications "$DMG_TEMP/Applications"
 
   # Create lzma-compressed read-only DMG directly (ULMO = smaller than UDZO/zlib)
-  hdiutil create -volname "EnClaws" -srcfolder "$DMG_TEMP" -ov -format ULMO "$DMG_PATH"
+  hdiutil create -volname "QingClaws" -srcfolder "$DMG_TEMP" -ov -format ULMO "$DMG_PATH"
 
   rm -rf "$DMG_TEMP"
 

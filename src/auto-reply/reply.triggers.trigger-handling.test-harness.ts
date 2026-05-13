@@ -110,7 +110,7 @@ type TempHomeEnvSnapshot = {
   userProfile: string | undefined;
   homeDrive: string | undefined;
   homePath: string | undefined;
-  openclawHome: string | undefined;
+  qingclawsHome: string | undefined;
   stateDir: string | undefined;
 };
 
@@ -123,8 +123,8 @@ function snapshotTempHomeEnv(): TempHomeEnvSnapshot {
     userProfile: process.env.USERPROFILE,
     homeDrive: process.env.HOMEDRIVE,
     homePath: process.env.HOMEPATH,
-    openclawHome: process.env.ENCLAWS_HOME,
-    stateDir: process.env.ENCLAWS_STATE_DIR,
+    qingclawsHome: process.env.QINGCLAWS_HOME,
+    stateDir: process.env.QINGCLAWS_STATE_DIR,
   };
 }
 
@@ -141,15 +141,15 @@ function restoreTempHomeEnv(snapshot: TempHomeEnvSnapshot): void {
   restoreKey("USERPROFILE", snapshot.userProfile);
   restoreKey("HOMEDRIVE", snapshot.homeDrive);
   restoreKey("HOMEPATH", snapshot.homePath);
-  restoreKey("ENCLAWS_HOME", snapshot.openclawHome);
-  restoreKey("ENCLAWS_STATE_DIR", snapshot.stateDir);
+  restoreKey("QINGCLAWS_HOME", snapshot.qingclawsHome);
+  restoreKey("QINGCLAWS_STATE_DIR", snapshot.stateDir);
 }
 
 function setTempHomeEnv(home: string): void {
   process.env.HOME = home;
   process.env.USERPROFILE = home;
-  delete process.env.ENCLAWS_HOME;
-  process.env.ENCLAWS_STATE_DIR = join(home, ".enclaws");
+  delete process.env.QINGCLAWS_HOME;
+  process.env.QINGCLAWS_STATE_DIR = join(home, ".qingclaws");
 
   if (process.platform !== "win32") {
     return;
@@ -163,7 +163,7 @@ function setTempHomeEnv(home: string): void {
 }
 
 beforeAll(async () => {
-  suiteTempHomeRoot = await fs.mkdtemp(join(os.tmpdir(), "enclaws-triggers-suite-"));
+  suiteTempHomeRoot = await fs.mkdtemp(join(os.tmpdir(), "qingclaws-triggers-suite-"));
 });
 
 afterAll(async () => {
@@ -178,7 +178,7 @@ afterAll(async () => {
 export async function withTempHome<T>(fn: (home: string) => Promise<T>): Promise<T> {
   const home = join(suiteTempHomeRoot, `case-${++suiteTempHomeId}`);
   const snapshot = snapshotTempHomeEnv();
-  await fs.mkdir(join(home, ".enclaws", "agents", "main", "sessions"), { recursive: true });
+  await fs.mkdir(join(home, ".qingclaws", "agents", "main", "sessions"), { recursive: true });
   setTempHomeEnv(home);
 
   try {
@@ -197,7 +197,7 @@ export function makeCfg(home: string): OpenClawConfig {
     agents: {
       defaults: {
         model: { primary: "anthropic/claude-opus-4-5" },
-        workspace: join(home, "enclaws"),
+        workspace: join(home, "qingclaws"),
         // Test harness: avoid 1s coalescer idle sleeps that dominate trigger suites.
         blockStreamingCoalesce: { idleMs: 1 },
         // Trigger tests assert routing/authorization behavior, not delivery pacing.

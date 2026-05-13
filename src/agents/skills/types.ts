@@ -17,7 +17,7 @@ export type SkillInstallSpec = {
   bucket?: string;
 };
 
-export type OpenClawSkillMetadata = {
+export type QingClawsSkillMetadata = {
   always?: boolean;
   skillKey?: string;
   primaryEnv?: string;
@@ -68,7 +68,7 @@ export type ParsedSkillFrontmatter = Record<string, string>;
 export type SkillEntry = {
   skill: Skill;
   frontmatter: ParsedSkillFrontmatter;
-  metadata?: OpenClawSkillMetadata;
+  metadata?: QingClawsSkillMetadata;
   invocation?: SkillInvocationPolicy;
   /** Tool names that this skill overrides (disables from plugin tools). */
   overrides?: string[];

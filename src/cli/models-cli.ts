@@ -21,12 +21,12 @@ export function registerModelsCli(program: Command) {
     .option("--status-plain", "Plain output (alias for `models status --plain`)", false)
     .option(
       "--agent <id>",
-      "Agent id to inspect (overrides ENCLAWS_AGENT_DIR/PI_CODING_AGENT_DIR)",
+      "Agent id to inspect (overrides QINGCLAWS_AGENT_DIR/PI_CODING_AGENT_DIR)",
     )
     .addHelpText(
       "after",
       () =>
-        `\n${theme.muted("Docs:")} ${formatDocsLink("/cli/models", "docs.enclaws.ai/cli/models")}\n`,
+        `\n${theme.muted("Docs:")} ${formatDocsLink("/cli/models", "docs.qingclaws.ai/cli/models")}\n`,
     );
 
   models
@@ -69,7 +69,7 @@ export function registerModelsCli(program: Command) {
     .option("--probe-max-tokens <n>", "Probe max tokens (best-effort)")
     .option(
       "--agent <id>",
-      "Agent id to inspect (overrides ENCLAWS_AGENT_DIR/PI_CODING_AGENT_DIR)",
+      "Agent id to inspect (overrides QINGCLAWS_AGENT_DIR/PI_CODING_AGENT_DIR)",
     )
     .action(async (opts, command) => {
       const agent =

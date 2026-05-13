@@ -95,11 +95,11 @@ export function registerGatewayCli(program: Command) {
         "after",
         () =>
           `\n${theme.heading("Examples:")}\n${formatHelpExamples([
-            ["enclaws gateway run", "Run the gateway in the foreground."],
-            ["enclaws gateway status", "Show service status and probe reachability."],
-            ["enclaws gateway discover", "Find local and wide-area gateway beacons."],
-            ["enclaws gateway call health", "Call a gateway RPC method directly."],
-          ])}\n\n${theme.muted("Docs:")} ${formatDocsLink("/cli/gateway", "docs.enclaws.ai/cli/gateway")}\n`,
+            ["qingclaws gateway run", "Run the gateway in the foreground."],
+            ["qingclaws gateway status", "Show service status and probe reachability."],
+            ["qingclaws gateway discover", "Find local and wide-area gateway beacons."],
+            ["qingclaws gateway call health", "Call a gateway RPC method directly."],
+          ])}\n\n${theme.muted("Docs:")} ${formatDocsLink("/cli/gateway", "docs.qingclaws.ai/cli/gateway")}\n`,
       ),
   );
 

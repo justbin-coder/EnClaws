@@ -97,15 +97,15 @@ describe("daemon-cli coverage", () => {
 
   beforeEach(() => {
     envSnapshot = captureEnv([
-      "ENCLAWS_STATE_DIR",
-      "ENCLAWS_CONFIG_PATH",
-      "ENCLAWS_GATEWAY_PORT",
-      "ENCLAWS_PROFILE",
+      "QINGCLAWS_STATE_DIR",
+      "QINGCLAWS_CONFIG_PATH",
+      "QINGCLAWS_GATEWAY_PORT",
+      "QINGCLAWS_PROFILE",
     ]);
-    process.env.ENCLAWS_STATE_DIR = "/tmp/enclaws-cli-state";
-    process.env.ENCLAWS_CONFIG_PATH = "/tmp/enclaws-cli-state/enclaws.json";
-    delete process.env.ENCLAWS_GATEWAY_PORT;
-    delete process.env.ENCLAWS_PROFILE;
+    process.env.QINGCLAWS_STATE_DIR = "/tmp/qingclaws-cli-state";
+    process.env.QINGCLAWS_CONFIG_PATH = "/tmp/qingclaws-cli-state/qingclaws.json";
+    delete process.env.QINGCLAWS_GATEWAY_PORT;
+    delete process.env.QINGCLAWS_PROFILE;
     serviceReadCommand.mockResolvedValue(null);
   });
 
@@ -133,12 +133,12 @@ describe("daemon-cli coverage", () => {
     serviceReadCommand.mockResolvedValueOnce({
       programArguments: ["/bin/node", "cli", "gateway", "--port", "19001"],
       environment: {
-        ENCLAWS_PROFILE: "dev",
-        ENCLAWS_STATE_DIR: "/tmp/enclaws-daemon-state",
-        ENCLAWS_CONFIG_PATH: "/tmp/enclaws-daemon-state/enclaws.json",
-        ENCLAWS_GATEWAY_PORT: "19001",
+        QINGCLAWS_PROFILE: "dev",
+        QINGCLAWS_STATE_DIR: "/tmp/qingclaws-daemon-state",
+        QINGCLAWS_CONFIG_PATH: "/tmp/qingclaws-daemon-state/qingclaws.json",
+        QINGCLAWS_GATEWAY_PORT: "19001",
       },
-      sourcePath: "/tmp/ai.enclaws.gateway.plist",
+      sourcePath: "/tmp/ai.qingclaws.gateway.plist",
     });
 
     await runDaemonCommand(["daemon", "status", "--json"]);

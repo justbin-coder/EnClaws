@@ -19,7 +19,7 @@ describe("loader", () => {
   let envSnapshot: ReturnType<typeof captureEnv>;
 
   beforeAll(async () => {
-    fixtureRoot = await fs.mkdtemp(path.join(os.tmpdir(), "enclaws-hooks-loader-"));
+    fixtureRoot = await fs.mkdtemp(path.join(os.tmpdir(), "qingclaws-hooks-loader-"));
   });
 
   beforeEach(async () => {
@@ -29,8 +29,8 @@ describe("loader", () => {
     await fs.mkdir(tmpDir, { recursive: true });
 
     // Disable bundled hooks during tests by setting env var to non-existent directory
-    envSnapshot = captureEnv(["ENCLAWS_BUNDLED_HOOKS_DIR"]);
-    process.env.ENCLAWS_BUNDLED_HOOKS_DIR = "/nonexistent/bundled/hooks";
+    envSnapshot = captureEnv(["QINGCLAWS_BUNDLED_HOOKS_DIR"]);
+    process.env.QINGCLAWS_BUNDLED_HOOKS_DIR = "/nonexistent/bundled/hooks";
   });
 
   async function writeHandlerModule(
@@ -239,7 +239,7 @@ describe("loader", () => {
           "---",
           "name: symlink-hook",
           "description: symlink test",
-          'metadata: {"enclaws":{"events":["command:new"]}}',
+          'metadata: {"qingclaws":{"events":["command:new"]}}',
           "---",
           "",
           "# Symlink Hook",
@@ -297,7 +297,7 @@ describe("loader", () => {
           "---",
           "name: hardlink-hook",
           "description: hardlink test",
-          'metadata: {"enclaws":{"events":["command:new"]}}',
+          'metadata: {"qingclaws":{"events":["command:new"]}}',
           "---",
           "",
           "# Hardlink Hook",

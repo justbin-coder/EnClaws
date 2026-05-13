@@ -176,16 +176,16 @@ type DiagnosticEventsGlobalState = {
 
 function getDiagnosticEventsState(): DiagnosticEventsGlobalState {
   const globalStore = globalThis as typeof globalThis & {
-    __enclawsDiagnosticEventsState?: DiagnosticEventsGlobalState;
+    __qingclawsDiagnosticEventsState?: DiagnosticEventsGlobalState;
   };
-  if (!globalStore.__enclawsDiagnosticEventsState) {
-    globalStore.__enclawsDiagnosticEventsState = {
+  if (!globalStore.__qingclawsDiagnosticEventsState) {
+    globalStore.__qingclawsDiagnosticEventsState = {
       seq: 0,
       listeners: new Set<(evt: DiagnosticEventPayload) => void>(),
       dispatchDepth: 0,
     };
   }
-  return globalStore.__enclawsDiagnosticEventsState;
+  return globalStore.__qingclawsDiagnosticEventsState;
 }
 
 export function isDiagnosticsEnabled(config?: OpenClawConfig): boolean {

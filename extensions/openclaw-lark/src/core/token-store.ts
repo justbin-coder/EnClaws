@@ -13,7 +13,7 @@
  *   Windows – AES-256-GCM encrypted files (%LOCALAPPDATA%)
  *
  * Storage layout:
- *   Service  = "openclaw-feishu-uat"
+ *   Service  = "qingclaws-feishu-uat"
  *   Account  = "{appId}:{userOpenId}"
  *   Password = JSON-serialised StoredUAToken
  */
@@ -49,7 +49,7 @@ export interface StoredUAToken {
 // Constants
 // ---------------------------------------------------------------------------
 
-const KEYCHAIN_SERVICE = 'openclaw-feishu-uat';
+const KEYCHAIN_SERVICE = 'qingclaws-feishu-uat';
 
 /** Refresh proactively when access_token expires within this window. */
 const REFRESH_AHEAD_MS = 5 * 60 * 1000; // 5 minutes
@@ -117,10 +117,10 @@ const darwinBackend: KeychainBackend = {
 // Headless Linux servers typically lack D-Bus / GNOME Keyring, so we store
 // tokens as AES-256-GCM encrypted files instead of using `secret-tool`.
 //
-// Storage path: ${XDG_DATA_HOME:-~/.local/share}/openclaw-feishu-uat/
+// Storage path: ${XDG_DATA_HOME:-~/.local/share}/qingclaws-feishu-uat/
 // ---------------------------------------------------------------------------
 
-const LINUX_UAT_DIR = join(process.env.XDG_DATA_HOME || join(homedir(), '.local', 'share'), 'openclaw-feishu-uat');
+const LINUX_UAT_DIR = join(process.env.XDG_DATA_HOME || join(homedir(), '.local', 'share'), 'qingclaws-feishu-uat');
 const MASTER_KEY_PATH = join(LINUX_UAT_DIR, 'master.key');
 const MASTER_KEY_BYTES = 32; // AES-256
 const IV_BYTES = 12; // GCM recommended
@@ -223,7 +223,7 @@ const linuxBackend: KeychainBackend = {
 // Uses the same AES-256-GCM scheme as the Linux backend with its own
 // independent storage directory and master key.
 //
-// Storage path: %LOCALAPPDATA%\openclaw-feishu-uat\
+// Storage path: %LOCALAPPDATA%\qingclaws-feishu-uat\
 // ---------------------------------------------------------------------------
 
 const WIN32_UAT_DIR = join(

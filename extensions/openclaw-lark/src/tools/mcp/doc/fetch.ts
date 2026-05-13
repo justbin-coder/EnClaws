@@ -6,7 +6,7 @@
  * 查看云文档内容（返回标题与 Markdown，支持分页）
  */
 
-import type { OpenClawPluginApi } from 'openclaw/plugin-sdk';
+import type { QingClawsPluginApi } from 'openclaw/plugin-sdk';
 import { type Static, Type } from '@sinclair/typebox';
 import { registerMcpTool } from '../shared';
 
@@ -34,7 +34,7 @@ type FetchDocParams = Static<typeof FetchDocSchema>;
 /**
  * 注册 fetch-doc 工具
  */
-export function registerFetchDocTool(api: OpenClawPluginApi): boolean {
+export function registerFetchDocTool(api: QingClawsPluginApi): boolean {
   return registerMcpTool<FetchDocParams>(api, {
     name: 'feishu_fetch_doc',
     mcpToolName: 'fetch-doc',

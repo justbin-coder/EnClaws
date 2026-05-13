@@ -5,14 +5,14 @@ let loadModelRegistry: typeof import("./models/list.registry.js").loadModelRegis
 let toModelRow: typeof import("./models/list.registry.js").toModelRow;
 
 const loadConfig = vi.fn();
-const ensureOpenClawModelsJson = vi.fn().mockResolvedValue(undefined);
-const resolveOpenClawAgentDir = vi.fn().mockReturnValue("/tmp/enclaws-agent");
+const ensureQingClawsModelsJson = vi.fn().mockResolvedValue(undefined);
+const resolveQingClawsAgentDir = vi.fn().mockReturnValue("/tmp/qingclaws-agent");
 const ensureAuthProfileStore = vi.fn().mockReturnValue({ version: 1, profiles: {} });
 const listProfilesForProvider = vi.fn().mockReturnValue([]);
 const resolveAuthProfileDisplayLabel = vi.fn(({ profileId }: { profileId: string }) => profileId);
 const resolveAuthStorePathForDisplay = vi
   .fn()
-  .mockReturnValue("/tmp/enclaws-agent/auth-profiles.json");
+  .mockReturnValue("/tmp/qingclaws-agent/auth-profiles.json");
 const resolveProfileUnusableUntilForDisplay = vi.fn().mockReturnValue(null);
 const resolveEnvApiKey = vi.fn().mockReturnValue(undefined);
 const resolveAwsSdkEnvVarName = vi.fn().mockReturnValue(undefined);
@@ -26,17 +26,17 @@ const modelRegistryState = {
 let previousExitCode: typeof process.exitCode;
 
 vi.mock("../config/config.js", () => ({
-  CONFIG_PATH: "/tmp/enclaws.json",
-  STATE_DIR: "/tmp/enclaws-state",
+  CONFIG_PATH: "/tmp/qingclaws.json",
+  STATE_DIR: "/tmp/qingclaws-state",
   loadConfig,
 }));
 
 vi.mock("../agents/models-config.js", () => ({
-  ensureOpenClawModelsJson,
+  ensureQingClawsModelsJson,
 }));
 
 vi.mock("../agents/agent-paths.js", () => ({
-  resolveOpenClawAgentDir,
+  resolveQingClawsAgentDir,
 }));
 
 vi.mock("../agents/auth-profiles.js", () => ({

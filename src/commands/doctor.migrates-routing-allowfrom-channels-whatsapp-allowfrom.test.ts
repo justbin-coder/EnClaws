@@ -6,7 +6,7 @@ import {
   mockDoctorConfigSnapshot,
   note,
   readConfigFileSnapshot,
-  resolveOpenClawPackageRoot,
+  resolveQingClawsPackageRoot,
   runCommandWithTimeout,
   runGatewayUpdate,
   serviceInstall,
@@ -73,7 +73,7 @@ describe("doctor command", () => {
       findLegacyGatewayServices.mockResolvedValueOnce([
         {
           platform: "darwin",
-          label: "com.steipete.enclaws.gateway",
+          label: "com.steipete.qingclaws.gateway",
           detail: "loaded",
         },
       ]);
@@ -88,10 +88,10 @@ describe("doctor command", () => {
   );
 
   it("offers to update first for git checkouts", async () => {
-    delete process.env.ENCLAWS_UPDATE_IN_PROGRESS;
+    delete process.env.QINGCLAWS_UPDATE_IN_PROGRESS;
 
-    const root = "/tmp/enclaws";
-    resolveOpenClawPackageRoot.mockResolvedValueOnce(root);
+    const root = "/tmp/qingclaws";
+    resolveQingClawsPackageRoot.mockResolvedValueOnce(root);
     runCommandWithTimeout.mockResolvedValueOnce({
       stdout: `${root}\n`,
       stderr: "",

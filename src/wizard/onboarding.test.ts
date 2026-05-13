@@ -70,7 +70,7 @@ const ensureWorkspaceAndSessions = vi.hoisted(() => vi.fn(async () => {}));
 const writeConfigFile = vi.hoisted(() => vi.fn(async () => {}));
 const readConfigFileSnapshot = vi.hoisted(() =>
   vi.fn(async () => ({
-    path: "/tmp/.enclaws/enclaws.json",
+    path: "/tmp/.qingclaws/qingclaws.json",
     exists: false,
     raw: null as string | null,
     parsed: {},
@@ -135,7 +135,7 @@ vi.mock("../config/config.js", () => ({
 }));
 
 vi.mock("../commands/onboard-helpers.js", () => ({
-  DEFAULT_WORKSPACE: "/tmp/enclaws-workspace",
+  DEFAULT_WORKSPACE: "/tmp/qingclaws-workspace",
   applyWizardMetadata: (cfg: unknown) => cfg,
   summarizeExistingConfig: () => "summary",
   handleReset: async () => {},
@@ -218,7 +218,7 @@ describe("runOnboardingWizard", () => {
   let suiteCase = 0;
 
   beforeAll(async () => {
-    suiteRoot = await fs.mkdtemp(path.join(os.tmpdir(), "enclaws-onboard-suite-"));
+    suiteRoot = await fs.mkdtemp(path.join(os.tmpdir(), "qingclaws-onboard-suite-"));
   });
 
   afterAll(async () => {
@@ -235,7 +235,7 @@ describe("runOnboardingWizard", () => {
 
   it("exits when config is invalid", async () => {
     readConfigFileSnapshot.mockResolvedValueOnce({
-      path: "/tmp/.enclaws/enclaws.json",
+      path: "/tmp/.qingclaws/qingclaws.json",
       exists: true,
       raw: "{}",
       parsed: {},

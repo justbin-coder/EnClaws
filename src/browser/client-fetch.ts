@@ -42,7 +42,7 @@ function withLoopbackBrowserAuthImpl(
   deps: LoopbackBrowserAuthDeps,
 ): RequestInit & { timeoutMs?: number } {
   const headers = new Headers(init?.headers ?? {});
-  if (headers.has("authorization") || headers.has("x-enclaws-password")) {
+  if (headers.has("authorization") || headers.has("x-qingclaws-password")) {
     return { ...init, headers };
   }
   if (!isLoopbackHttpUrl(url)) {
@@ -57,7 +57,7 @@ function withLoopbackBrowserAuthImpl(
       return { ...init, headers };
     }
     if (auth.password) {
-      headers.set("x-enclaws-password", auth.password);
+      headers.set("x-qingclaws-password", auth.password);
       return { ...init, headers };
     }
   } catch {
@@ -78,7 +78,7 @@ function withLoopbackBrowserAuthImpl(
     if (bridgeAuth?.token) {
       headers.set("Authorization", `Bearer ${bridgeAuth.token}`);
     } else if (bridgeAuth?.password) {
-      headers.set("x-enclaws-password", bridgeAuth.password);
+      headers.set("x-qingclaws-password", bridgeAuth.password);
     }
   } catch {
     // ignore
@@ -102,7 +102,7 @@ function enhanceBrowserFetchError(url: string, err: unknown, timeoutMs: number):
   const isLocal = !isAbsoluteHttp(url);
   // Human-facing hint for logs/diagnostics.
   const operatorHint = isLocal
-    ? `Restart the EnClaws gateway (EnClaws.app menubar, or \`${formatCliCommand("enclaws gateway")}\`).`
+    ? `Restart the QingClaws gateway (QingClaws.app menubar, or \`${formatCliCommand("qingclaws gateway")}\`).`
     : "If this is a sandboxed session, ensure the sandbox browser is running.";
   // Model-facing suffix: explicitly tell the LLM NOT to retry.
   // Without this, models see "try again" and enter an infinite tool-call loop.
@@ -119,11 +119,11 @@ function enhanceBrowserFetchError(url: string, err: unknown, timeoutMs: number):
     msgLower.includes("aborterror");
   if (looksLikeTimeout) {
     return new Error(
-      `Can't reach the EnClaws browser control service (timed out after ${timeoutMs}ms). ${operatorHint} ${modelHint}`,
+      `Can't reach the QingClaws browser control service (timed out after ${timeoutMs}ms). ${operatorHint} ${modelHint}`,
     );
   }
   return new Error(
-    `Can't reach the EnClaws browser control service. ${operatorHint} ${modelHint} (${msg})`,
+    `Can't reach the QingClaws browser control service. ${operatorHint} ${modelHint} (${msg})`,
   );
 }
 

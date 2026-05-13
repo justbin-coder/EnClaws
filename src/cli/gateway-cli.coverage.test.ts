@@ -128,10 +128,10 @@ describe("gateway-cli coverage", () => {
     discoverGatewayBeacons.mockClear();
     discoverGatewayBeacons.mockResolvedValueOnce([
       {
-        instanceName: "Studio (EnClaws)",
+        instanceName: "Studio (QingClaws)",
         displayName: "Studio",
-        domain: "enclaws.internal.",
-        host: "studio.enclaws.internal",
+        domain: "qingclaws.internal.",
+        host: "studio.qingclaws.internal",
         lanHost: "studio.local",
         tailnetDns: "studio.tailnet.ts.net",
         gatewayPort: 18789,
@@ -225,7 +225,7 @@ describe("gateway-cli coverage", () => {
   });
 
   it("uses env/config port when --port is omitted", async () => {
-    await withEnvOverride({ ENCLAWS_GATEWAY_PORT: "19001" }, async () => {
+    await withEnvOverride({ QINGCLAWS_GATEWAY_PORT: "19001" }, async () => {
       resetRuntimeCapture();
       startGatewayServer.mockClear();
 

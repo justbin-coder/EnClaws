@@ -1,4 +1,4 @@
-import type { EnClawsApp } from "./app.ts";
+import type { QingClawsApp } from "./app.ts";
 import {
   loadChannels,
   logoutWhatsApp,
@@ -9,28 +9,28 @@ import { loadConfig, saveConfig } from "./controllers/config.ts";
 import type { NostrProfile } from "./types.ts";
 import { createNostrProfileFormState } from "./views/channels.nostr-profile-form.ts";
 
-export async function handleWhatsAppStart(host: EnClawsApp, force: boolean) {
+export async function handleWhatsAppStart(host: QingClawsApp, force: boolean) {
   await startWhatsAppLogin(host, force);
   await loadChannels(host, true);
 }
 
-export async function handleWhatsAppWait(host: EnClawsApp) {
+export async function handleWhatsAppWait(host: QingClawsApp) {
   await waitWhatsAppLogin(host);
   await loadChannels(host, true);
 }
 
-export async function handleWhatsAppLogout(host: EnClawsApp) {
+export async function handleWhatsAppLogout(host: QingClawsApp) {
   await logoutWhatsApp(host);
   await loadChannels(host, true);
 }
 
-export async function handleChannelConfigSave(host: EnClawsApp) {
+export async function handleChannelConfigSave(host: QingClawsApp) {
   await saveConfig(host);
   await loadConfig(host);
   await loadChannels(host, true);
 }
 
-export async function handleChannelConfigReload(host: EnClawsApp) {
+export async function handleChannelConfigReload(host: QingClawsApp) {
   await loadConfig(host);
   await loadChannels(host, true);
 }
@@ -57,7 +57,7 @@ function parseValidationErrors(details: unknown): Record<string, string> {
   return errors;
 }
 
-function resolveNostrAccountId(host: EnClawsApp): string {
+function resolveNostrAccountId(host: QingClawsApp): string {
   const accounts = host.channelsSnapshot?.channelAccounts?.nostr ?? [];
   return accounts[0]?.accountId ?? host.nostrProfileAccountId ?? "default";
 }
@@ -66,7 +66,7 @@ function buildNostrProfileUrl(accountId: string, suffix = ""): string {
   return `/api/channels/nostr/${encodeURIComponent(accountId)}/profile${suffix}`;
 }
 
-function resolveGatewayHttpAuthHeader(host: EnClawsApp): string | null {
+function resolveGatewayHttpAuthHeader(host: QingClawsApp): string | null {
   const deviceToken = host.hello?.auth?.deviceToken?.trim();
   if (deviceToken) {
     return `Bearer ${deviceToken}`;
@@ -82,13 +82,13 @@ function resolveGatewayHttpAuthHeader(host: EnClawsApp): string | null {
   return null;
 }
 
-function buildGatewayHttpHeaders(host: EnClawsApp): Record<string, string> {
+function buildGatewayHttpHeaders(host: QingClawsApp): Record<string, string> {
   const authorization = resolveGatewayHttpAuthHeader(host);
   return authorization ? { Authorization: authorization } : {};
 }
 
 export function handleNostrProfileEdit(
-  host: EnClawsApp,
+  host: QingClawsApp,
   accountId: string,
   profile: NostrProfile | null,
 ) {
@@ -96,13 +96,13 @@ export function handleNostrProfileEdit(
   host.nostrProfileFormState = createNostrProfileFormState(profile ?? undefined);
 }
 
-export function handleNostrProfileCancel(host: EnClawsApp) {
+export function handleNostrProfileCancel(host: QingClawsApp) {
   host.nostrProfileFormState = null;
   host.nostrProfileAccountId = null;
 }
 
 export function handleNostrProfileFieldChange(
-  host: EnClawsApp,
+  host: QingClawsApp,
   field: keyof NostrProfile,
   value: string,
 ) {
@@ -123,7 +123,7 @@ export function handleNostrProfileFieldChange(
   };
 }
 
-export function handleNostrProfileToggleAdvanced(host: EnClawsApp) {
+export function handleNostrProfileToggleAdvanced(host: QingClawsApp) {
   const state = host.nostrProfileFormState;
   if (!state) {
     return;
@@ -134,7 +134,7 @@ export function handleNostrProfileToggleAdvanced(host: EnClawsApp) {
   };
 }
 
-export async function handleNostrProfileSave(host: EnClawsApp) {
+export async function handleNostrProfileSave(host: QingClawsApp) {
   const state = host.nostrProfileFormState;
   if (!state || state.saving) {
     return;
@@ -206,7 +206,7 @@ export async function handleNostrProfileSave(host: EnClawsApp) {
   }
 }
 
-export async function handleNostrProfileImport(host: EnClawsApp) {
+export async function handleNostrProfileImport(host: QingClawsApp) {
   const state = host.nostrProfileFormState;
   if (!state || state.importing) {
     return;

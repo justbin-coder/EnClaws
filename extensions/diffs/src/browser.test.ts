@@ -20,7 +20,7 @@ describe("PlaywrightDiffScreenshotter", () => {
 
   beforeEach(async () => {
     vi.useFakeTimers();
-    rootDir = await fs.mkdtemp(path.join(os.tmpdir(), "openclaw-diffs-browser-"));
+    rootDir = await fs.mkdtemp(path.join(os.tmpdir(), "qingclaws-diffs-browser-"));
     outputPath = path.join(rootDir, "preview.png");
     launchMock.mockReset();
     const browserModule = await import("./browser.js");

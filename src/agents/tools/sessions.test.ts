@@ -231,8 +231,8 @@ describe("sessions_list transcriptPath resolution", () => {
   });
 
   it("resolves cross-agent transcript paths from agent defaults when gateway store path is relative", async () => {
-    const stateDir = path.join(os.tmpdir(), "enclaws-state-relative");
-    vi.stubEnv("ENCLAWS_STATE_DIR", stateDir);
+    const stateDir = path.join(os.tmpdir(), "qingclaws-state-relative");
+    vi.stubEnv("QINGCLAWS_STATE_DIR", stateDir);
 
     try {
       callGatewayMock.mockResolvedValueOnce({
@@ -263,8 +263,8 @@ describe("sessions_list transcriptPath resolution", () => {
   });
 
   it("resolves transcriptPath even when sessions.list does not return a store path", async () => {
-    const stateDir = path.join(os.tmpdir(), "enclaws-state-no-path");
-    vi.stubEnv("ENCLAWS_STATE_DIR", stateDir);
+    const stateDir = path.join(os.tmpdir(), "qingclaws-state-no-path");
+    vi.stubEnv("QINGCLAWS_STATE_DIR", stateDir);
 
     try {
       callGatewayMock.mockResolvedValueOnce({
@@ -294,8 +294,8 @@ describe("sessions_list transcriptPath resolution", () => {
   });
 
   it("falls back to agent defaults when gateway path is non-string", async () => {
-    const stateDir = path.join(os.tmpdir(), "enclaws-state-non-string-path");
-    vi.stubEnv("ENCLAWS_STATE_DIR", stateDir);
+    const stateDir = path.join(os.tmpdir(), "qingclaws-state-non-string-path");
+    vi.stubEnv("QINGCLAWS_STATE_DIR", stateDir);
 
     try {
       callGatewayMock.mockResolvedValueOnce({
@@ -326,8 +326,8 @@ describe("sessions_list transcriptPath resolution", () => {
   });
 
   it("falls back to agent defaults when gateway path is '(multiple)'", async () => {
-    const stateDir = path.join(os.tmpdir(), "enclaws-state-multiple");
-    vi.stubEnv("ENCLAWS_STATE_DIR", stateDir);
+    const stateDir = path.join(os.tmpdir(), "qingclaws-state-multiple");
+    vi.stubEnv("QINGCLAWS_STATE_DIR", stateDir);
 
     try {
       callGatewayMock.mockResolvedValueOnce({
@@ -360,7 +360,7 @@ describe("sessions_list transcriptPath resolution", () => {
   });
 
   it("resolves absolute {agentId} template paths per session agent", async () => {
-    const templateStorePath = "/tmp/enclaws/agents/{agentId}/sessions/sessions.json";
+    const templateStorePath = "/tmp/qingclaws/agents/{agentId}/sessions/sessions.json";
 
     callGatewayMock.mockResolvedValueOnce({
       path: templateStorePath,

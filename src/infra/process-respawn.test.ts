@@ -3,13 +3,13 @@ import { captureFullEnv } from "../test-utils/env.js";
 import { SUPERVISOR_HINT_ENV_VARS } from "./supervisor-markers.js";
 
 const spawnMock = vi.hoisted(() => vi.fn());
-const triggerOpenClawRestartMock = vi.hoisted(() => vi.fn());
+const triggerQingClawsRestartMock = vi.hoisted(() => vi.fn());
 
 vi.mock("node:child_process", () => ({
   spawn: (...args: unknown[]) => spawnMock(...args),
 }));
 vi.mock("./restart.js", () => ({
-  triggerOpenClawRestart: (...args: unknown[]) => triggerOpenClawRestartMock(...args),
+  triggerQingClawsRestart: (...args: unknown[]) => triggerQingClawsRestartMock(...args),
 }));
 
 import { restartGatewayProcessWithFreshPid } from "./process-respawn.js";
@@ -34,7 +34,7 @@ afterEach(() => {
   process.argv = [...originalArgv];
   process.execArgv = [...originalExecArgv];
   spawnMock.mockClear();
-  triggerOpenClawRestartMock.mockClear();
+  triggerQingClawsRestartMock.mockClear();
   if (originalPlatformDescriptor) {
     Object.defineProperty(process, "platform", originalPlatformDescriptor);
   }
@@ -47,15 +47,15 @@ function clearSupervisorHints() {
 }
 
 describe("restartGatewayProcessWithFreshPid", () => {
-  it("returns disabled when ENCLAWS_NO_RESPAWN is set", () => {
-    process.env.ENCLAWS_NO_RESPAWN = "1";
+  it("returns disabled when QINGCLAWS_NO_RESPAWN is set", () => {
+    process.env.QINGCLAWS_NO_RESPAWN = "1";
     const result = restartGatewayProcessWithFreshPid();
     expect(result.mode).toBe("disabled");
     expect(spawnMock).not.toHaveBeenCalled();
   });
 
   it("returns supervised when launchd/systemd hints are present", () => {
-    process.env.LAUNCH_JOB_LABEL = "ai.enclaws.gateway";
+    process.env.LAUNCH_JOB_LABEL = "ai.qingclaws.gateway";
     const result = restartGatewayProcessWithFreshPid();
     expect(result.mode).toBe("supervised");
     expect(spawnMock).not.toHaveBeenCalled();
@@ -63,22 +63,22 @@ describe("restartGatewayProcessWithFreshPid", () => {
 
   it("runs launchd kickstart helper on macOS when launchd label is set", () => {
     setPlatform("darwin");
-    process.env.LAUNCH_JOB_LABEL = "ai.enclaws.gateway";
-    process.env.ENCLAWS_LAUNCHD_LABEL = "ai.enclaws.gateway";
-    triggerOpenClawRestartMock.mockReturnValue({ ok: true, method: "launchctl" });
+    process.env.LAUNCH_JOB_LABEL = "ai.qingclaws.gateway";
+    process.env.QINGCLAWS_LAUNCHD_LABEL = "ai.qingclaws.gateway";
+    triggerQingClawsRestartMock.mockReturnValue({ ok: true, method: "launchctl" });
 
     const result = restartGatewayProcessWithFreshPid();
 
     expect(result.mode).toBe("supervised");
-    expect(triggerOpenClawRestartMock).toHaveBeenCalledOnce();
+    expect(triggerQingClawsRestartMock).toHaveBeenCalledOnce();
     expect(spawnMock).not.toHaveBeenCalled();
   });
 
   it("returns failed when launchd kickstart helper fails", () => {
     setPlatform("darwin");
-    process.env.LAUNCH_JOB_LABEL = "ai.enclaws.gateway";
-    process.env.ENCLAWS_LAUNCHD_LABEL = "ai.enclaws.gateway";
-    triggerOpenClawRestartMock.mockReturnValue({
+    process.env.LAUNCH_JOB_LABEL = "ai.qingclaws.gateway";
+    process.env.QINGCLAWS_LAUNCHD_LABEL = "ai.qingclaws.gateway";
+    triggerQingClawsRestartMock.mockReturnValue({
       ok: false,
       method: "launchctl",
       detail: "spawn failed",
@@ -93,17 +93,17 @@ describe("restartGatewayProcessWithFreshPid", () => {
   it("does not schedule kickstart on non-darwin platforms", () => {
     setPlatform("linux");
     process.env.INVOCATION_ID = "abc123";
-    process.env.ENCLAWS_LAUNCHD_LABEL = "ai.enclaws.gateway";
+    process.env.QINGCLAWS_LAUNCHD_LABEL = "ai.qingclaws.gateway";
 
     const result = restartGatewayProcessWithFreshPid();
 
     expect(result.mode).toBe("supervised");
-    expect(triggerOpenClawRestartMock).not.toHaveBeenCalled();
+    expect(triggerQingClawsRestartMock).not.toHaveBeenCalled();
     expect(spawnMock).not.toHaveBeenCalled();
   });
 
   it("spawns detached child with current exec argv", () => {
-    delete process.env.ENCLAWS_NO_RESPAWN;
+    delete process.env.QINGCLAWS_NO_RESPAWN;
     clearSupervisorHints();
     process.execArgv = ["--import", "tsx"];
     process.argv = ["/usr/local/bin/node", "/repo/dist/index.js", "gateway", "run"];
@@ -122,35 +122,35 @@ describe("restartGatewayProcessWithFreshPid", () => {
     );
   });
 
-  it("returns supervised when ENCLAWS_LAUNCHD_LABEL is set (stock launchd plist)", () => {
+  it("returns supervised when QINGCLAWS_LAUNCHD_LABEL is set (stock launchd plist)", () => {
     clearSupervisorHints();
     setPlatform("darwin");
-    process.env.ENCLAWS_LAUNCHD_LABEL = "ai.enclaws.gateway";
-    triggerOpenClawRestartMock.mockReturnValue({ ok: true, method: "launchctl" });
+    process.env.QINGCLAWS_LAUNCHD_LABEL = "ai.qingclaws.gateway";
+    triggerQingClawsRestartMock.mockReturnValue({ ok: true, method: "launchctl" });
     const result = restartGatewayProcessWithFreshPid();
     expect(result.mode).toBe("supervised");
-    expect(triggerOpenClawRestartMock).toHaveBeenCalledOnce();
+    expect(triggerQingClawsRestartMock).toHaveBeenCalledOnce();
     expect(spawnMock).not.toHaveBeenCalled();
   });
 
-  it("returns supervised when ENCLAWS_SYSTEMD_UNIT is set", () => {
+  it("returns supervised when QINGCLAWS_SYSTEMD_UNIT is set", () => {
     clearSupervisorHints();
-    process.env.ENCLAWS_SYSTEMD_UNIT = "enclaws-gateway.service";
+    process.env.QINGCLAWS_SYSTEMD_UNIT = "qingclaws-gateway.service";
     const result = restartGatewayProcessWithFreshPid();
     expect(result.mode).toBe("supervised");
     expect(spawnMock).not.toHaveBeenCalled();
   });
 
-  it("returns supervised when ENCLAWS_SERVICE_MARKER is set", () => {
+  it("returns supervised when QINGCLAWS_SERVICE_MARKER is set", () => {
     clearSupervisorHints();
-    process.env.ENCLAWS_SERVICE_MARKER = "gateway";
+    process.env.QINGCLAWS_SERVICE_MARKER = "gateway";
     const result = restartGatewayProcessWithFreshPid();
     expect(result.mode).toBe("supervised");
     expect(spawnMock).not.toHaveBeenCalled();
   });
 
   it("returns failed when spawn throws", () => {
-    delete process.env.ENCLAWS_NO_RESPAWN;
+    delete process.env.QINGCLAWS_NO_RESPAWN;
     clearSupervisorHints();
 
     spawnMock.mockImplementation(() => {

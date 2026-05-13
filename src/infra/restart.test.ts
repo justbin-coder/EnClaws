@@ -38,19 +38,19 @@ afterEach(() => {
 });
 
 describe.runIf(process.platform !== "win32")("findGatewayPidsOnPortSync", () => {
-  it("parses lsof output and filters non-enclaws/current processes", () => {
+  it("parses lsof output and filters non-qingclaws/current processes", () => {
     spawnSyncMock.mockReturnValue({
       error: undefined,
       status: 0,
       stdout: [
         `p${process.pid}`,
-        "cenclaws",
+        "cqingclaws",
         "p4100",
-        "cenclaws-gateway",
+        "cqingclaws-gateway",
         "p4200",
         "cnode",
         "p4300",
-        "cEnClaws",
+        "cQingClaws",
       ].join("\n"),
     });
 
@@ -81,7 +81,7 @@ describe.runIf(process.platform !== "win32")("cleanStaleGatewayProcessesSync", (
     spawnSyncMock.mockReturnValue({
       error: undefined,
       status: 0,
-      stdout: ["p6001", "cenclaws", "p6002", "cenclaws-gateway"].join("\n"),
+      stdout: ["p6001", "cqingclaws", "p6002", "cqingclaws-gateway"].join("\n"),
     });
     const killSpy = vi.spyOn(process, "kill").mockImplementation(() => true);
 

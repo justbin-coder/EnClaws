@@ -21,8 +21,8 @@ const serviceReadRuntime = vi.fn(async (_env?: NodeJS.ProcessEnv) => ({ status: 
 const serviceReadCommand = vi.fn(async (_env?: NodeJS.ProcessEnv) => ({
   programArguments: ["/bin/node", "cli", "gateway", "--port", "19001"],
   environment: {
-    ENCLAWS_STATE_DIR: "/tmp/enclaws-daemon",
-    ENCLAWS_CONFIG_PATH: "/tmp/enclaws-daemon/enclaws.json",
+    QINGCLAWS_STATE_DIR: "/tmp/qingclaws-daemon",
+    QINGCLAWS_CONFIG_PATH: "/tmp/qingclaws-daemon/qingclaws.json",
   },
 }));
 const resolveGatewayBindHost = vi.fn(
@@ -31,15 +31,15 @@ const resolveGatewayBindHost = vi.fn(
 const pickPrimaryTailnetIPv4 = vi.fn(() => "100.64.0.9");
 const resolveGatewayPort = vi.fn((_cfg?: unknown, _env?: unknown) => 18789);
 const resolveStateDir = vi.fn(
-  (env: NodeJS.ProcessEnv) => env.ENCLAWS_STATE_DIR ?? "/tmp/enclaws-cli",
+  (env: NodeJS.ProcessEnv) => env.QINGCLAWS_STATE_DIR ?? "/tmp/qingclaws-cli",
 );
 const resolveConfigPath = vi.fn((env: NodeJS.ProcessEnv, stateDir: string) => {
-  return env.ENCLAWS_CONFIG_PATH ?? `${stateDir}/enclaws.json`;
+  return env.QINGCLAWS_CONFIG_PATH ?? `${stateDir}/qingclaws.json`;
 });
 
 vi.mock("../../config/config.js", () => ({
   createConfigIO: ({ configPath }: { configPath: string }) => {
-    const isDaemon = configPath.includes("/enclaws-daemon/");
+    const isDaemon = configPath.includes("/qingclaws-daemon/");
     return {
       readConfigFileSnapshot: async () => ({
         path: configPath,
@@ -120,15 +120,15 @@ describe("gatherDaemonStatus", () => {
 
   beforeEach(() => {
     envSnapshot = captureEnv([
-      "ENCLAWS_STATE_DIR",
-      "ENCLAWS_CONFIG_PATH",
-      "ENCLAWS_GATEWAY_TOKEN",
-      "ENCLAWS_GATEWAY_PASSWORD",
+      "QINGCLAWS_STATE_DIR",
+      "QINGCLAWS_CONFIG_PATH",
+      "QINGCLAWS_GATEWAY_TOKEN",
+      "QINGCLAWS_GATEWAY_PASSWORD",
     ]);
-    process.env.ENCLAWS_STATE_DIR = "/tmp/enclaws-cli";
-    process.env.ENCLAWS_CONFIG_PATH = "/tmp/enclaws-cli/enclaws.json";
-    delete process.env.ENCLAWS_GATEWAY_TOKEN;
-    delete process.env.ENCLAWS_GATEWAY_PASSWORD;
+    process.env.QINGCLAWS_STATE_DIR = "/tmp/qingclaws-cli";
+    process.env.QINGCLAWS_CONFIG_PATH = "/tmp/qingclaws-cli/qingclaws.json";
+    delete process.env.QINGCLAWS_GATEWAY_TOKEN;
+    delete process.env.QINGCLAWS_GATEWAY_PASSWORD;
     callGatewayStatusProbe.mockClear();
     loadGatewayTlsRuntime.mockClear();
   });

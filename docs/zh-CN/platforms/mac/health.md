@@ -33,7 +33,7 @@ x-i18n:
 
 ## 探测工作原理
 
-- 应用每约 60 秒和按需时通过 `ShellExecutor` 运行 `openclaw health --json`。探测加载凭证并报告状态，不发送消息。
+- 应用每约 60 秒和按需时通过 `ShellExecutor` 运行 `qingclaws health --json`。探测加载凭证并报告状态，不发送消息。
 - 分别缓存上次成功的快照和上次错误以避免闪烁；显示每个的时间戳。
 
 ## 有疑问时

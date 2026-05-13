@@ -23,7 +23,7 @@ describe("media store outside-workspace mapping", () => {
   let home = "";
 
   beforeAll(async () => {
-    tempHome = await createTempHomeEnv("enclaws-media-store-test-home-");
+    tempHome = await createTempHomeEnv("qingclaws-media-store-test-home-");
     home = tempHome.home;
   });
 

@@ -102,10 +102,10 @@ export async function spawnGatewayInstance(name: string): Promise<GatewayInstanc
   const port = await getFreePort();
   const hookToken = `token-${name}-${randomUUID()}`;
   const gatewayToken = `gateway-${name}-${randomUUID()}`;
-  const homeDir = await fs.mkdtemp(path.join(os.tmpdir(), `openclaw-e2e-${name}-`));
-  const configDir = path.join(homeDir, ".openclaw");
+  const homeDir = await fs.mkdtemp(path.join(os.tmpdir(), `qingclaws-e2e-${name}-`));
+  const configDir = path.join(homeDir, ".qingclaws");
   await fs.mkdir(configDir, { recursive: true });
-  const configPath = path.join(configDir, "openclaw.json");
+  const configPath = path.join(configDir, "qingclaws.json");
   const stateDir = path.join(configDir, "state");
   const config = {
     gateway: {
@@ -138,17 +138,17 @@ export async function spawnGatewayInstance(name: string): Promise<GatewayInstanc
         env: {
           ...process.env,
           HOME: homeDir,
-          ENCLAWS_CONFIG_PATH: configPath,
-          ENCLAWS_STATE_DIR: stateDir,
-          ENCLAWS_GATEWAY_TOKEN: "",
-          ENCLAWS_GATEWAY_PASSWORD: "",
-          ENCLAWS_SKIP_CHANNELS: "1",
-          ENCLAWS_SKIP_PROVIDERS: "1",
-          ENCLAWS_SKIP_GMAIL_WATCHER: "1",
-          ENCLAWS_SKIP_CRON: "1",
-          ENCLAWS_SKIP_BROWSER_CONTROL_SERVER: "1",
-          ENCLAWS_SKIP_CANVAS_HOST: "1",
-          ENCLAWS_TEST_MINIMAL_GATEWAY: "1",
+          QINGCLAWS_CONFIG_PATH: configPath,
+          QINGCLAWS_STATE_DIR: stateDir,
+          QINGCLAWS_GATEWAY_TOKEN: "",
+          QINGCLAWS_GATEWAY_PASSWORD: "",
+          QINGCLAWS_SKIP_CHANNELS: "1",
+          QINGCLAWS_SKIP_PROVIDERS: "1",
+          QINGCLAWS_SKIP_GMAIL_WATCHER: "1",
+          QINGCLAWS_SKIP_CRON: "1",
+          QINGCLAWS_SKIP_BROWSER_CONTROL_SERVER: "1",
+          QINGCLAWS_SKIP_CANVAS_HOST: "1",
+          QINGCLAWS_TEST_MINIMAL_GATEWAY: "1",
           VITEST: "1",
         },
         stdio: ["ignore", "pipe", "pipe"],

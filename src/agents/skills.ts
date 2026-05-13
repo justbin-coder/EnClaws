@@ -15,7 +15,7 @@ export {
   applySkillEnvOverridesFromSnapshot,
 } from "./skills/env-overrides.js";
 export type {
-  OpenClawSkillMetadata,
+  QingClawsSkillMetadata,
   SkillEligibilityContext,
   SkillCommandSpec,
   SkillEntry,

@@ -24,11 +24,11 @@ describe("host env security policy parity", () => {
     const policyPath = path.join(repoRoot, "src/infra/host-env-security-policy.json");
     const generatedSwiftPath = path.join(
       repoRoot,
-      "apps/macos/Sources/EnClaws/HostEnvSecurityPolicy.generated.swift",
+      "apps/macos/Sources/QingClaws/HostEnvSecurityPolicy.generated.swift",
     );
     const sanitizerSwiftPath = path.join(
       repoRoot,
-      "apps/macos/Sources/EnClaws/HostEnvSanitizer.swift",
+      "apps/macos/Sources/QingClaws/HostEnvSanitizer.swift",
     );
 
     const policy = JSON.parse(fs.readFileSync(policyPath, "utf8")) as HostEnvSecurityPolicy;

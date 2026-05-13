@@ -463,7 +463,7 @@ function buildAppScopeMissingCard(params: {
   const { missingScopes, appId, operationId, brand } = params;
   const openDomain = brand === 'lark' ? 'https://open.larksuite.com' : 'https://open.feishu.cn';
   const authUrl = appId
-    ? `${openDomain}/app/${appId}/auth?q=${encodeURIComponent(missingScopes.join(','))}&op_from=feishu-openclaw&token_type=user`
+    ? `${openDomain}/app/${appId}/auth?q=${encodeURIComponent(missingScopes.join(','))}&op_from=feishu-qingclaws&token_type=user`
     : `${openDomain}/`;
   const multiUrl = { url: authUrl, pc_url: '', android_url: '', ios_url: '' };
 
@@ -926,7 +926,7 @@ export async function handleCardAction(data: unknown, cfg: ClawdbotConfig, accou
  * - 其他错误 → 回退到 handleInvokeError 的标准处理
  *
  * @param err - invoke() 或其他逻辑抛出的错误
- * @param cfg - OpenClaw 配置对象（从工具注册函数的闭包中获取）
+ * @param cfg - QingClaws 配置对象（从工具注册函数的闭包中获取）
  */
 export async function handleInvokeErrorWithAutoAuth(err: unknown, cfg: ClawdbotConfig): Promise<ToolResult> {
   // `cfg` is the closure-captured snapshot from plugin registration and may be

@@ -10,9 +10,9 @@ import { createAcpConnection, createAcpGateway } from "./translator.test-helpers
 describe("acp prompt cwd prefix", () => {
   async function runPromptWithCwd(cwd: string) {
     const pinnedHome = os.homedir();
-    const previousOpenClawHome = process.env.ENCLAWS_HOME;
+    const previousQingClawsHome = process.env.QINGCLAWS_HOME;
     const previousHome = process.env.HOME;
-    delete process.env.ENCLAWS_HOME;
+    delete process.env.QINGCLAWS_HOME;
     process.env.HOME = pinnedHome;
 
     const sessionStore = createInMemorySessionStore();
@@ -47,10 +47,10 @@ describe("acp prompt cwd prefix", () => {
       ).rejects.toThrow("stop-after-send");
       return requestSpy;
     } finally {
-      if (previousOpenClawHome === undefined) {
-        delete process.env.ENCLAWS_HOME;
+      if (previousQingClawsHome === undefined) {
+        delete process.env.QINGCLAWS_HOME;
       } else {
-        process.env.ENCLAWS_HOME = previousOpenClawHome;
+        process.env.QINGCLAWS_HOME = previousQingClawsHome;
       }
       if (previousHome === undefined) {
         delete process.env.HOME;
@@ -61,22 +61,22 @@ describe("acp prompt cwd prefix", () => {
   }
 
   it("redacts home directory in prompt prefix", async () => {
-    const requestSpy = await runPromptWithCwd(path.join(os.homedir(), "enclaws-test"));
+    const requestSpy = await runPromptWithCwd(path.join(os.homedir(), "qingclaws-test"));
     expect(requestSpy).toHaveBeenCalledWith(
       "chat.send",
       expect.objectContaining({
-        message: expect.stringMatching(/\[Working directory: ~[\\/]enclaws-test\]/),
+        message: expect.stringMatching(/\[Working directory: ~[\\/]qingclaws-test\]/),
       }),
       { expectFinal: true },
     );
   });
 
   it("keeps backslash separators when cwd uses them", async () => {
-    const requestSpy = await runPromptWithCwd(`${os.homedir()}.enclaws-test`);
+    const requestSpy = await runPromptWithCwd(`${os.homedir()}.qingclaws-test`);
     expect(requestSpy).toHaveBeenCalledWith(
       "chat.send",
       expect.objectContaining({
-        message: expect.stringContaining("[Working directory: ~.enclaws-test]"),
+        message: expect.stringContaining("[Working directory: ~.qingclaws-test]"),
       }),
       { expectFinal: true },
     );

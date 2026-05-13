@@ -87,7 +87,7 @@ type UpdateRunnerOptions = {
 const DEFAULT_TIMEOUT_MS = 20 * 60_000;
 const MAX_LOG_CHARS = 8000;
 const START_DIRS = ["cwd", "argv1", "process"];
-const DEFAULT_PACKAGE_NAME = "enclaws";
+const DEFAULT_PACKAGE_NAME = "qingclaws";
 const CORE_PACKAGE_NAMES = new Set([DEFAULT_PACKAGE_NAME]);
 
 function normalizeDir(value?: string | null) {
@@ -262,8 +262,8 @@ function normalizeTag(tag?: string) {
   if (!trimmed) {
     return "latest";
   }
-  if (trimmed.startsWith("enclaws@")) {
-    return trimmed.slice("enclaws@".length);
+  if (trimmed.startsWith("qingclaws@")) {
+    return trimmed.slice("qingclaws@".length);
   }
   if (trimmed.startsWith(`${DEFAULT_PACKAGE_NAME}@`)) {
     return trimmed.slice(`${DEFAULT_PACKAGE_NAME}@`.length);
@@ -320,7 +320,7 @@ export async function runGatewayUpdate(opts: UpdateRunnerOptions = {}): Promise<
       status: "error",
       mode: "unknown",
       root: gitRoot,
-      reason: "not-enclaws-root",
+      reason: "not-qingclaws-root",
       steps: [],
       durationMs: Date.now() - startedAt,
     };
@@ -464,14 +464,14 @@ export async function runGatewayUpdate(opts: UpdateRunnerOptions = {}): Promise<
       };
     }
 
-    const doctorEntry = path.join(gitRoot, "enclaws.mjs");
+    const doctorEntry = path.join(gitRoot, "qingclaws.mjs");
     const doctorEntryExists = await fs
       .stat(doctorEntry)
       .then(() => true)
       .catch(() => false);
     if (!doctorEntryExists) {
       steps.push({
-        name: "enclaws doctor entry",
+        name: "qingclaws doctor entry",
         command: `verify ${doctorEntry}`,
         cwd: gitRoot,
         durationMs: 0,
@@ -493,7 +493,7 @@ export async function runGatewayUpdate(opts: UpdateRunnerOptions = {}): Promise<
     // schema changes between versions, preventing a startup validation crash.
     const doctorArgv = [process.execPath, doctorEntry, "doctor", "--non-interactive", "--fix"];
     const doctorStep = await runStep(
-      step("enclaws doctor", doctorArgv, gitRoot, { ENCLAWS_UPDATE_IN_PROGRESS: "1" }),
+      step("qingclaws doctor", doctorArgv, gitRoot, { QINGCLAWS_UPDATE_IN_PROGRESS: "1" }),
     );
     steps.push(doctorStep);
 

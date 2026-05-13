@@ -30,15 +30,15 @@ async function requireRiskAcknowledgement(params: {
     [
       "安全警告 — 请阅读。",
       "",
-      "EnClaws 仍处于测试阶段。请注意潜在的风险。",
-      "默认情况下，EnClaws 是个人代理：单一受信任的操作边界。",
+      "QingClaws 仍处于测试阶段。请注意潜在的风险。",
+      "默认情况下，QingClaws 是个人代理：单一受信任的操作边界。",
       "如果启用了工具，此机器人可以在您的设备上读取文件和执行操作。",
       "恶意的提示词可能会诱使它执行不安全的操作。",
       "",
-      "EnClaws 并非预设为敌对的多租户边界。",
+      "QingClaws 并非预设为敌对的多租户边界。",
       "如果多个用户可以向同一个启用工具的代理发送消息，他们将共享该代理的任务权限。",
       "",
-      "如果您对基本的安全机制和访问控制不熟悉，请不要运行 EnClaws。",
+      "如果您对基本的安全机制和访问控制不熟悉，请不要运行 QingClaws。",
       "在启用工具或将其暴露到公网之前，请寻求有经验的人士帮助。",
       "",
       "建议的安全基准：",
@@ -50,10 +50,10 @@ async function requireRiskAcknowledgement(params: {
       "- 任何带有工具或暴露给不受信任来源的机器人，应使用最强力的模型 (如 Qwen-Max / GPT-4 等)。",
       "",
       "请定期运行以核查安全状态：",
-      "enclaws security audit --deep",
-      "enclaws security audit --fix",
+      "qingclaws security audit --deep",
+      "qingclaws security audit --fix",
       "",
-      "必读指南: https://docs.enclaws.ai/gateway/security",
+      "必读指南: https://docs.qingclaws.ai/gateway/security",
     ].join("\n"),
     "安全警告 (Security)",
   );
@@ -74,7 +74,7 @@ export async function runOnboardingWizard(
 ) {
   const onboardHelpers = await import("../commands/onboard-helpers.js");
   onboardHelpers.printWizardHeader(runtime);
-  await prompter.intro("EnClaws 初始化配置 (Onboarding)");
+  await prompter.intro("QingClaws 初始化配置 (Onboarding)");
   await requireRiskAcknowledgement({ opts, prompter });
 
   const snapshot = await readConfigFileSnapshot();
@@ -90,19 +90,19 @@ export async function runOnboardingWizard(
         [
           ...snapshot.issues.map((iss) => `- ${iss.path}: ${iss.message}`),
           "",
-          "Docs: https://docs.enclaws.ai/gateway/configuration",
+          "Docs: https://docs.qingclaws.ai/gateway/configuration",
         ].join("\n"),
         "配置问题 (Config issues)",
       );
     }
     await prompter.outro(
-      `配置无效。请运行 \`${formatCliCommand("enclaws doctor")}\` 修复，然后再重新运行 onboarding。`,
+      `配置无效。请运行 \`${formatCliCommand("qingclaws doctor")}\` 修复，然后再重新运行 onboarding。`,
     );
     runtime.exit(1);
     return;
   }
 
-  const quickstartHint = `稍后可以通过 ${formatCliCommand("enclaws configure")} 配置详情。`;
+  const quickstartHint = `稍后可以通过 ${formatCliCommand("qingclaws configure")} 配置详情。`;
   const manualHint = "手动配置端口、网络、Tailscale 以及相关鉴权选项。";
   const explicitFlowRaw = opts.flow?.trim();
   const normalizedExplicitFlow = explicitFlowRaw === "manual" ? "advanced" : explicitFlowRaw;
@@ -283,8 +283,8 @@ export async function runOnboardingWizard(
   const localUrl = `ws://127.0.0.1:${localPort}`;
   const localProbe = await onboardHelpers.probeGatewayReachable({
     url: localUrl,
-    token: baseConfig.gateway?.auth?.token ?? process.env.ENCLAWS_GATEWAY_TOKEN,
-    password: baseConfig.gateway?.auth?.password ?? process.env.ENCLAWS_GATEWAY_PASSWORD,
+    token: baseConfig.gateway?.auth?.token ?? process.env.QINGCLAWS_GATEWAY_TOKEN,
+    password: baseConfig.gateway?.auth?.password ?? process.env.QINGCLAWS_GATEWAY_PASSWORD,
   });
   const remoteUrl = baseConfig.gateway?.remote?.url?.trim() ?? "";
   const remoteProbe = remoteUrl

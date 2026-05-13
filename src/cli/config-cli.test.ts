@@ -4,7 +4,7 @@ import type { ConfigFileSnapshot, OpenClawConfig } from "../config/types.js";
 
 /**
  * Test for issue #6070:
- * `enclaws config set/unset` must update snapshot.resolved (user config after $include/${ENV},
+ * `qingclaws config set/unset` must update snapshot.resolved (user config after $include/${ENV},
  * but before runtime defaults), so runtime defaults don't leak into the written config.
  */
 
@@ -39,7 +39,7 @@ function buildSnapshot(params: {
   config: OpenClawConfig;
 }): ConfigFileSnapshot {
   return {
-    path: "/tmp/enclaws.json",
+    path: "/tmp/qingclaws.json",
     exists: true,
     raw: JSON.stringify(params.resolved),
     parsed: params.resolved,
@@ -174,7 +174,7 @@ describe("config cli", () => {
 
       await runConfigCommand(["config", "get", "gateway.auth.token"]);
 
-      expect(mockLog).toHaveBeenCalledWith("__ENCLAWS_REDACTED__");
+      expect(mockLog).toHaveBeenCalledWith("__QINGCLAWS_REDACTED__");
     });
   });
 

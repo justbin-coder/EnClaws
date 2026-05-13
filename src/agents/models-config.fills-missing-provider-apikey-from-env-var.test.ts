@@ -3,13 +3,13 @@ import path from "node:path";
 import { describe, expect, it } from "vitest";
 import type { OpenClawConfig } from "../config/config.js";
 import { validateConfigObject } from "../config/validation.js";
-import { resolveOpenClawAgentDir } from "./agent-paths.js";
+import { resolveQingClawsAgentDir } from "./agent-paths.js";
 import {
   CUSTOM_PROXY_MODELS_CONFIG,
   installModelsConfigTestHooks,
   withModelsTempHome as withTempHome,
 } from "./models-config.e2e-harness.js";
-import { ensureOpenClawModelsJson } from "./models-config.js";
+import { ensureQingClawsModelsJson } from "./models-config.js";
 import { readGeneratedModelsJson } from "./models-config.test-utils.js";
 
 installModelsConfigTestHooks();
@@ -33,7 +33,7 @@ describe("models-config", () => {
         throw new Error("expected config to validate");
       }
 
-      await ensureOpenClawModelsJson(validated.config);
+      await ensureQingClawsModelsJson(validated.config);
 
       const parsed = await readGeneratedModelsJson<{
         providers: Record<string, { api?: string; models?: Array<{ id: string; api?: string }> }>;
@@ -71,7 +71,7 @@ describe("models-config", () => {
           },
         };
 
-        await ensureOpenClawModelsJson(cfg);
+        await ensureQingClawsModelsJson(cfg);
 
         const parsed = await readGeneratedModelsJson<{
           providers: Record<string, { apiKey?: string; models?: Array<{ id: string }> }>;
@@ -90,7 +90,7 @@ describe("models-config", () => {
   });
   it("merges providers by default", async () => {
     await withTempHome(async () => {
-      const agentDir = resolveOpenClawAgentDir();
+      const agentDir = resolveQingClawsAgentDir();
       await fs.mkdir(agentDir, { recursive: true });
       await fs.writeFile(
         path.join(agentDir, "models.json"),
@@ -122,7 +122,7 @@ describe("models-config", () => {
         "utf8",
       );
 
-      await ensureOpenClawModelsJson(CUSTOM_PROXY_MODELS_CONFIG);
+      await ensureQingClawsModelsJson(CUSTOM_PROXY_MODELS_CONFIG);
 
       const raw = await fs.readFile(path.join(agentDir, "models.json"), "utf8");
       const parsed = JSON.parse(raw) as {
@@ -136,7 +136,7 @@ describe("models-config", () => {
 
   it("preserves non-empty agent apiKey/baseUrl for matching providers in merge mode", async () => {
     await withTempHome(async () => {
-      const agentDir = resolveOpenClawAgentDir();
+      const agentDir = resolveQingClawsAgentDir();
       await fs.mkdir(agentDir, { recursive: true });
       await fs.writeFile(
         path.join(agentDir, "models.json"),
@@ -157,7 +157,7 @@ describe("models-config", () => {
         "utf8",
       );
 
-      await ensureOpenClawModelsJson({
+      await ensureQingClawsModelsJson({
         models: {
           mode: "merge",
           providers: {
@@ -191,7 +191,7 @@ describe("models-config", () => {
 
   it("uses config apiKey/baseUrl when existing agent values are empty", async () => {
     await withTempHome(async () => {
-      const agentDir = resolveOpenClawAgentDir();
+      const agentDir = resolveQingClawsAgentDir();
       await fs.mkdir(agentDir, { recursive: true });
       await fs.writeFile(
         path.join(agentDir, "models.json"),
@@ -212,7 +212,7 @@ describe("models-config", () => {
         "utf8",
       );
 
-      await ensureOpenClawModelsJson({
+      await ensureQingClawsModelsJson({
         models: {
           mode: "merge",
           providers: {
@@ -271,9 +271,9 @@ describe("models-config", () => {
           },
         };
 
-        await ensureOpenClawModelsJson(cfg);
+        await ensureQingClawsModelsJson(cfg);
 
-        const modelPath = path.join(resolveOpenClawAgentDir(), "models.json");
+        const modelPath = path.join(resolveQingClawsAgentDir(), "models.json");
         const raw = await fs.readFile(modelPath, "utf8");
         const parsed = JSON.parse(raw) as {
           providers: Record<
@@ -335,7 +335,7 @@ describe("models-config", () => {
           },
         };
 
-        await ensureOpenClawModelsJson(cfg);
+        await ensureQingClawsModelsJson(cfg);
         const parsed = await readGeneratedModelsJson<{
           providers: Record<
             string,

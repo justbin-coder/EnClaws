@@ -4,7 +4,7 @@ body:
   - type: markdown
     attributes:
       value: |
-        Share your EnClaws deployment, integration, or creative use case with the community!
+        Share your QingClaws deployment, integration, or creative use case with the community!
 
   - type: textarea
     id: showcase

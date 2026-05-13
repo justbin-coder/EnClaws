@@ -1,8 +1,8 @@
 import { IRC_FIELD_HELP } from "./schema.irc.js";
 
 export const FIELD_HELP: Record<string, string> = {
-  meta: "Metadata fields automatically maintained by EnClaws to record write/version history for this config file. Keep these values system-managed and avoid manual edits unless debugging migration history.",
-  "meta.lastTouchedVersion": "Auto-set when EnClaws writes the config.",
+  meta: "Metadata fields automatically maintained by QingClaws to record write/version history for this config file. Keep these values system-managed and avoid manual edits unless debugging migration history.",
+  "meta.lastTouchedVersion": "Auto-set when QingClaws writes the config.",
   "meta.lastTouchedAt": "ISO timestamp of the last config write (auto-set).",
   env: "Environment import and override settings used to supply runtime variables to the gateway process. Use this section to control shell-env loading and explicit variable injection behavior.",
   "env.shellEnv":
@@ -12,13 +12,13 @@ export const FIELD_HELP: Record<string, string> = {
   "env.shellEnv.timeoutMs":
     "Maximum time in milliseconds allowed for shell environment resolution before fallback behavior applies. Use tighter timeouts for faster startup, or increase when shell initialization is heavy.",
   "env.vars":
-    "Explicit key/value environment variable overrides merged into runtime process environment for EnClaws. Use this for deterministic env configuration instead of relying only on shell profile side effects.",
+    "Explicit key/value environment variable overrides merged into runtime process environment for QingClaws. Use this for deterministic env configuration instead of relying only on shell profile side effects.",
   wizard:
     "Setup wizard state tracking fields that record the most recent guided onboarding run details. Keep these fields for observability and troubleshooting of setup flows across upgrades.",
   "wizard.lastRunAt":
     "ISO timestamp for when the setup wizard most recently completed on this host. Use this to confirm onboarding recency during support and operational audits.",
   "wizard.lastRunVersion":
-    "EnClaws version recorded at the time of the most recent wizard run on this config. Use this when diagnosing behavior differences across version-to-version onboarding changes.",
+    "QingClaws version recorded at the time of the most recent wizard run on this config. Use this when diagnosing behavior differences across version-to-version onboarding changes.",
   "wizard.lastRunCommit":
     "Source commit identifier recorded for the last wizard execution in development builds. Use this to correlate onboarding behavior with exact source state during debugging.",
   "wizard.lastRunCommand":
@@ -46,7 +46,7 @@ export const FIELD_HELP: Record<string, string> = {
   "logging.redactPatterns":
     "Additional custom redact regex patterns applied to log output before emission/storage. Use this to mask org-specific tokens and identifiers not covered by built-in redaction rules.",
   update:
-    "Update-channel and startup-check behavior for keeping EnClaws runtime versions current. Use conservative channels in production and more experimental channels only in controlled environments.",
+    "Update-channel and startup-check behavior for keeping QingClaws runtime versions current. Use conservative channels in production and more experimental channels only in controlled environments.",
   "update.channel": 'Update channel for git + npm installs ("stable", "beta", or "dev").',
   "update.checkOnStart": "Check for npm updates when the gateway starts (default: true).",
   "update.auto.enabled": "Enable background auto-update for package installs (default: false).",
@@ -332,7 +332,7 @@ export const FIELD_HELP: Record<string, string> = {
     "Required by default for gateway access (unless using Tailscale Serve identity); required for non-loopback binds.",
   "gateway.auth.password": "Required for Tailscale funnel.",
   "agents.defaults.sandbox.browser.network":
-    "Docker network for sandbox browser containers (default: enclaws-sandbox-browser). Avoid bridge if you need stricter isolation.",
+    "Docker network for sandbox browser containers (default: qingclaws-sandbox-browser). Avoid bridge if you need stricter isolation.",
   "agents.list[].sandbox.browser.network": "Per-agent override for sandbox browser Docker network.",
   "agents.defaults.sandbox.docker.dangerouslyAllowContainerNamespaceJoin":
     "DANGEROUS break-glass override that allows sandbox Docker network mode container:<id>. This joins another container namespace and weakens sandbox isolation.",
@@ -343,7 +343,7 @@ export const FIELD_HELP: Record<string, string> = {
   "agents.list[].sandbox.browser.cdpSourceRange":
     "Per-agent override for CDP source CIDR allowlist.",
   "gateway.controlUi.basePath":
-    "Optional URL prefix where the Control UI is served (e.g. /enclaws).",
+    "Optional URL prefix where the Control UI is served (e.g. /qingclaws).",
   "gateway.controlUi.root":
     "Optional filesystem root for Control UI assets (defaults to dist/control-ui).",
   "gateway.controlUi.allowedOrigins":
@@ -363,7 +363,7 @@ export const FIELD_HELP: Record<string, string> = {
     'Node browser routing ("auto" = pick single connected browser node, "manual" = require node param, "off" = disable).',
   "gateway.nodes.browser.node": "Pin browser routing to a specific node id or name (optional).",
   "gateway.nodes.allowCommands":
-    "Extra node.invoke commands to allow beyond the gateway defaults (array of command strings). Enabling dangerous commands here is a security-sensitive override and is flagged by `enclaws security audit`.",
+    "Extra node.invoke commands to allow beyond the gateway defaults (array of command strings). Enabling dangerous commands here is a security-sensitive override and is flagged by `qingclaws security audit`.",
   "gateway.nodes.denyCommands":
     "Node command names to block even if present in node claims or default allowlist (exact command-name matching only, e.g. `system.run`; does not inspect shell text inside that command).",
   nodeHost:
@@ -443,7 +443,7 @@ export const FIELD_HELP: Record<string, string> = {
   "diagnostics.cacheTrace.enabled":
     "Log cache trace snapshots for embedded agent runs (default: false).",
   "diagnostics.cacheTrace.filePath":
-    "JSONL output path for cache trace logs (default: $ENCLAWS_STATE_DIR/logs/cache-trace.jsonl).",
+    "JSONL output path for cache trace logs (default: $QINGCLAWS_STATE_DIR/logs/cache-trace.jsonl).",
   "diagnostics.cacheTrace.includeMessages":
     "Include full message payloads in trace output (default: true).",
   "diagnostics.cacheTrace.includePrompt": "Include prompt text in trace output (default: true).",
@@ -657,7 +657,7 @@ export const FIELD_HELP: Record<string, string> = {
   "models.providers.*.api":
     "Provider API adapter selection controlling request/response compatibility handling for model calls. Use the adapter that matches your upstream provider protocol to avoid feature mismatch.",
   "models.providers.*.injectNumCtxForOpenAICompat":
-    "Controls whether EnClaws injects `options.num_ctx` for Ollama providers configured with the OpenAI-compatible adapter (`openai-completions`). Default is true. Set false only if your proxy/upstream rejects unknown `options` payload fields.",
+    "Controls whether QingClaws injects `options.num_ctx` for Ollama providers configured with the OpenAI-compatible adapter (`openai-completions`). Default is true. Set false only if your proxy/upstream rejects unknown `options` payload fields.",
   "models.providers.*.headers":
     "Static HTTP headers merged into provider requests for tenant routing, proxy auth, or custom gateway requirements. Use this sparingly and keep sensitive header values in secrets.",
   "models.providers.*.authHeader":
@@ -755,7 +755,7 @@ export const FIELD_HELP: Record<string, string> = {
   "agents.defaults.memorySearch.fallback":
     'Backup provider used when primary embeddings fail: "openai", "gemini", "voyage", "mistral", "local", or "none". Set a real fallback for production reliability; use "none" only if you prefer explicit failures.',
   "agents.defaults.memorySearch.store.path":
-    "Sets where the SQLite memory index is stored on disk for each agent. Keep the default `~/.enclaws/memory/{agentId}.sqlite` unless you need custom storage placement or backup policy alignment.",
+    "Sets where the SQLite memory index is stored on disk for each agent. Keep the default `~/.qingclaws/memory/{agentId}.sqlite` unless you need custom storage placement or backup policy alignment.",
   "agents.defaults.memorySearch.store.vector.enabled":
     "Enables the sqlite-vec extension used for vector similarity queries in memory search (default: true). Keep this enabled for normal semantic recall; disable only for debugging or fallback-only operation.",
   "agents.defaults.memorySearch.store.vector.extensionPath":
@@ -788,7 +788,7 @@ export const FIELD_HELP: Record<string, string> = {
     "Caches computed chunk embeddings in SQLite so reindexing and incremental updates run faster (default: true). Keep this enabled unless investigating cache correctness or minimizing disk usage.",
   memory: "Memory backend configuration (global).",
   "memory.backend":
-    'Selects the global memory engine: "builtin" uses EnClaws memory internals, while "qmd" uses the QMD sidecar pipeline. Keep "builtin" unless you intentionally operate QMD.',
+    'Selects the global memory engine: "builtin" uses QingClaws memory internals, while "qmd" uses the QMD sidecar pipeline. Keep "builtin" unless you intentionally operate QMD.',
   "memory.citations":
     'Controls citation visibility in replies: "auto" shows citations when useful, "on" always shows them, and "off" hides them. Keep "auto" for a balanced signal-to-noise default.',
   "memory.qmd.command":
@@ -895,12 +895,12 @@ export const FIELD_HELP: Record<string, string> = {
   "plugins.entries.*.config":
     "Plugin-defined configuration payload interpreted by that plugin's own schema and validation rules. Use only documented fields from the plugin to prevent ignored or invalid settings.",
   "plugins.installs":
-    "CLI-managed install metadata (used by `enclaws plugins update` to locate install sources).",
+    "CLI-managed install metadata (used by `qingclaws plugins update` to locate install sources).",
   "plugins.installs.*.source": 'Install source ("npm", "archive", or "path").',
   "plugins.installs.*.spec": "Original npm spec used for install (if source is npm).",
   "plugins.installs.*.sourcePath": "Original archive/path used for install (if any).",
   "plugins.installs.*.installPath":
-    "Resolved install directory (usually ~/.enclaws/extensions/<id>).",
+    "Resolved install directory (usually ~/.qingclaws/extensions/<id>).",
   "plugins.installs.*.version": "Version recorded at install time (if available).",
   "plugins.installs.*.resolvedName": "Resolved npm package name from the fetched artifact.",
   "plugins.installs.*.resolvedVersion":
@@ -954,7 +954,7 @@ export const FIELD_HELP: Record<string, string> = {
   "agents.defaults.compaction.memoryFlush.systemPrompt":
     "System-prompt override for the pre-compaction memory flush turn to control extraction style and safety constraints. Use carefully so custom instructions do not reduce memory quality or leak sensitive context.",
   "agents.defaults.embeddedPi":
-    "Embedded Pi runner hardening controls for how workspace-local Pi settings are trusted and applied in EnClaws sessions.",
+    "Embedded Pi runner hardening controls for how workspace-local Pi settings are trusted and applied in QingClaws sessions.",
   "agents.defaults.embeddedPi.projectSettingsPolicy":
     'How embedded Pi handles workspace-local `.pi/config/settings.json`: "sanitize" (default) strips shellPath/shellCommandPrefix, "ignore" disables project settings entirely, and "trusted" applies project settings as-is.',
   "agents.defaults.humanDelay.mode": 'Delay style for block replies ("off", "natural", "custom").',
@@ -1023,7 +1023,7 @@ export const FIELD_HELP: Record<string, string> = {
   "session.typingMode":
     'Controls typing behavior timing: "never", "instant", "thinking", or "message" based emission points. Keep conservative modes in high-volume channels to avoid unnecessary typing noise.',
   "session.parentForkMaxTokens":
-    "Maximum parent-session token count allowed for thread/session inheritance forking. If the parent exceeds this, EnClaws starts a fresh thread session instead of forking; set 0 to disable this protection.",
+    "Maximum parent-session token count allowed for thread/session inheritance forking. If the parent exceeds this, QingClaws starts a fresh thread session instead of forking; set 0 to disable this protection.",
   "session.mainKey":
     'Overrides the canonical main session key used for continuity when dmScope or routing logic points to "main". Use a stable value only if you intentionally need custom session anchoring.',
   "session.sendPolicy":
@@ -1102,7 +1102,7 @@ export const FIELD_HELP: Record<string, string> = {
   "cron.runLog.keepLines":
     "How many trailing run-log lines to retain when a file exceeds maxBytes (default `2000`). Increase for longer forensic history or lower for smaller disks.",
   hooks:
-    "Inbound webhook automation surface for mapping external events into wake or agent actions in EnClaws. Keep this locked down with explicit token/session/agent controls before exposing it beyond trusted networks.",
+    "Inbound webhook automation surface for mapping external events into wake or agent actions in QingClaws. Keep this locked down with explicit token/session/agent controls before exposing it beyond trusted networks.",
   "hooks.enabled":
     "Enables the hooks endpoint and mapping execution pipeline for inbound webhook requests. Keep disabled unless you are actively routing external events into the gateway.",
   "hooks.path":
@@ -1284,7 +1284,7 @@ export const FIELD_HELP: Record<string, string> = {
   "channels.mattermost":
     "Mattermost channel provider configuration for bot credentials, base URL, and message trigger modes. Keep mention/trigger rules strict in high-volume team channels.",
   "channels.irc":
-    "IRC channel provider configuration and compatibility settings for classic IRC transport workflows. Use this section when bridging legacy chat infrastructure into EnClaws.",
+    "IRC channel provider configuration and compatibility settings for classic IRC transport workflows. Use this section when bridging legacy chat infrastructure into QingClaws.",
   "channels.defaults":
     "Default channel behavior applied across providers when provider-specific settings are not set. Use this to enforce consistent baseline policy before per-provider tuning.",
   "channels.defaults.groupPolicy":

@@ -1,7 +1,7 @@
 import { describe, expect, it } from "vitest";
 import {
   parseFrontmatter,
-  resolveOpenClawMetadata,
+  resolveQingClawsMetadata,
   resolveHookInvocationPolicy,
 } from "./frontmatter.js";
 
@@ -41,7 +41,7 @@ name: session-memory
 description: "Save session context"
 metadata:
   {
-    "enclaws": {
+    "qingclaws": {
       "emoji": "💾",
       "events": ["command:new"]
     }
@@ -58,8 +58,8 @@ metadata:
 
     // Verify the metadata is valid JSON
     const parsed = JSON.parse(result.metadata);
-    expect(parsed.enclaws.emoji).toBe("💾");
-    expect(parsed.enclaws.events).toEqual(["command:new"]);
+    expect(parsed.qingclaws.emoji).toBe("💾");
+    expect(parsed.qingclaws.events).toEqual(["command:new"]);
   });
 
   it("parses multi-line metadata with complex nested structure", () => {
@@ -68,7 +68,7 @@ name: command-logger
 description: "Log all command events"
 metadata:
   {
-    "enclaws":
+    "qingclaws":
       {
         "emoji": "📝",
         "events": ["command"],
@@ -83,21 +83,21 @@ metadata:
     expect(result.metadata).toBeDefined();
 
     const parsed = JSON.parse(result.metadata);
-    expect(parsed.enclaws.emoji).toBe("📝");
-    expect(parsed.enclaws.events).toEqual(["command"]);
-    expect(parsed.enclaws.requires.config).toEqual(["workspace.dir"]);
-    expect(parsed.enclaws.install[0].kind).toBe("bundled");
+    expect(parsed.qingclaws.emoji).toBe("📝");
+    expect(parsed.qingclaws.events).toEqual(["command"]);
+    expect(parsed.qingclaws.requires.config).toEqual(["workspace.dir"]);
+    expect(parsed.qingclaws.install[0].kind).toBe("bundled");
   });
 
   it("handles single-line metadata (inline JSON)", () => {
     const content = `---
 name: simple-hook
-metadata: {"enclaws": {"events": ["test"]}}
+metadata: {"qingclaws": {"events": ["test"]}}
 ---
 `;
     const result = parseFrontmatter(content);
     expect(result.name).toBe("simple-hook");
-    expect(result.metadata).toBe('{"enclaws": {"events": ["test"]}}');
+    expect(result.metadata).toBe('{"qingclaws": {"events": ["test"]}}');
   });
 
   it("handles mixed single-line and multi-line values", () => {
@@ -107,7 +107,7 @@ description: "A hook with mixed values"
 homepage: https://example.com
 metadata:
   {
-    "enclaws": {
+    "qingclaws": {
       "events": ["command:new"]
     }
   }
@@ -148,12 +148,12 @@ description: 'single-quoted'
   });
 });
 
-describe("resolveOpenClawMetadata", () => {
-  it("extracts enclaws metadata from parsed frontmatter", () => {
+describe("resolveQingClawsMetadata", () => {
+  it("extracts qingclaws metadata from parsed frontmatter", () => {
     const frontmatter = {
       name: "test-hook",
       metadata: JSON.stringify({
-        enclaws: {
+        qingclaws: {
           emoji: "🔥",
           events: ["command:new", "command:reset"],
           requires: {
@@ -164,7 +164,7 @@ describe("resolveOpenClawMetadata", () => {
       }),
     };
 
-    const result = resolveOpenClawMetadata(frontmatter);
+    const result = resolveQingClawsMetadata(frontmatter);
     expect(result).toBeDefined();
     expect(result?.emoji).toBe("🔥");
     expect(result?.events).toEqual(["command:new", "command:reset"]);
@@ -174,15 +174,15 @@ describe("resolveOpenClawMetadata", () => {
 
   it("returns undefined when metadata is missing", () => {
     const frontmatter = { name: "no-metadata" };
-    const result = resolveOpenClawMetadata(frontmatter);
+    const result = resolveQingClawsMetadata(frontmatter);
     expect(result).toBeUndefined();
   });
 
-  it("returns undefined when enclaws key is missing", () => {
+  it("returns undefined when qingclaws key is missing", () => {
     const frontmatter = {
       metadata: JSON.stringify({ other: "data" }),
     };
-    const result = resolveOpenClawMetadata(frontmatter);
+    const result = resolveQingClawsMetadata(frontmatter);
     expect(result).toBeUndefined();
   });
 
@@ -190,41 +190,41 @@ describe("resolveOpenClawMetadata", () => {
     const frontmatter = {
       metadata: "not valid json {",
     };
-    const result = resolveOpenClawMetadata(frontmatter);
+    const result = resolveQingClawsMetadata(frontmatter);
     expect(result).toBeUndefined();
   });
 
   it("handles install specs", () => {
     const frontmatter = {
       metadata: JSON.stringify({
-        enclaws: {
+        qingclaws: {
           events: ["command"],
           install: [
-            { id: "bundled", kind: "bundled", label: "Bundled with EnClaws" },
-            { id: "npm", kind: "npm", package: "@enclaws/hook" },
+            { id: "bundled", kind: "bundled", label: "Bundled with QingClaws" },
+            { id: "npm", kind: "npm", package: "@qingclaws/hook" },
           ],
         },
       }),
     };
 
-    const result = resolveOpenClawMetadata(frontmatter);
+    const result = resolveQingClawsMetadata(frontmatter);
     expect(result?.install).toHaveLength(2);
     expect(result?.install?.[0].kind).toBe("bundled");
     expect(result?.install?.[1].kind).toBe("npm");
-    expect(result?.install?.[1].package).toBe("@enclaws/hook");
+    expect(result?.install?.[1].package).toBe("@qingclaws/hook");
   });
 
   it("handles os restrictions", () => {
     const frontmatter = {
       metadata: JSON.stringify({
-        enclaws: {
+        qingclaws: {
           events: ["command"],
           os: ["darwin", "linux"],
         },
       }),
     };
 
-    const result = resolveOpenClawMetadata(frontmatter);
+    const result = resolveQingClawsMetadata(frontmatter);
     expect(result?.os).toEqual(["darwin", "linux"]);
   });
 
@@ -233,15 +233,15 @@ describe("resolveOpenClawMetadata", () => {
     const content = `---
 name: session-memory
 description: "Save session context to memory when /new or /reset command is issued"
-homepage: https://docs.enclaws.ai/automation/hooks#session-memory
+homepage: https://docs.qingclaws.ai/automation/hooks#session-memory
 metadata:
   {
-    "enclaws":
+    "qingclaws":
       {
         "emoji": "💾",
         "events": ["command:new", "command:reset"],
         "requires": { "config": ["workspace.dir"] },
-        "install": [{ "id": "bundled", "kind": "bundled", "label": "Bundled with EnClaws" }],
+        "install": [{ "id": "bundled", "kind": "bundled", "label": "Bundled with QingClaws" }],
       },
   }
 ---
@@ -253,28 +253,28 @@ metadata:
     expect(frontmatter.name).toBe("session-memory");
     expect(frontmatter.metadata).toBeDefined();
 
-    const enclaws = resolveOpenClawMetadata(frontmatter);
-    expect(enclaws).toBeDefined();
-    expect(enclaws?.emoji).toBe("💾");
-    expect(enclaws?.events).toEqual(["command:new", "command:reset"]);
-    expect(enclaws?.requires?.config).toEqual(["workspace.dir"]);
-    expect(enclaws?.install?.[0].kind).toBe("bundled");
+    const qingclaws = resolveQingClawsMetadata(frontmatter);
+    expect(qingclaws).toBeDefined();
+    expect(qingclaws?.emoji).toBe("💾");
+    expect(qingclaws?.events).toEqual(["command:new", "command:reset"]);
+    expect(qingclaws?.requires?.config).toEqual(["workspace.dir"]);
+    expect(qingclaws?.install?.[0].kind).toBe("bundled");
   });
 
   it("parses YAML metadata map", () => {
     const content = `---
 name: yaml-metadata
 metadata:
-  enclaws:
+  qingclaws:
     emoji: disk
     events:
       - command:new
 ---
 `;
     const frontmatter = parseFrontmatter(content);
-    const enclaws = resolveOpenClawMetadata(frontmatter);
-    expect(enclaws?.emoji).toBe("disk");
-    expect(enclaws?.events).toEqual(["command:new"]);
+    const qingclaws = resolveQingClawsMetadata(frontmatter);
+    expect(qingclaws?.emoji).toBe("disk");
+    expect(qingclaws?.events).toEqual(["command:new"]);
   });
 });
 

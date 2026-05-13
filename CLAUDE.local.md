@@ -7,16 +7,16 @@
 
 ## 1. 项目定位
 
-- 本仓库是 **EnClaws v0.2.0 fork**（commit `0109d664`），目标是公司独立品牌的 2B 企业级 Agent 平台底座
+- 本仓库是 **QingClaws v0.2.0 fork**（commit `0109d664`），目标是公司独立品牌的 2B 企业级 Agent 平台底座
 - 首批客户：国家统计局统计调查；后续可复制到其他 2B 垂域
-- 协议：Apache-2.0（上游 EnClaws by hashSTACS-Global）
+- 协议：Apache-2.0（上游 QingClaws by QingClaws Team）
 
 ## 2. 与上游文档的关系
 
 | 文件 | 内容 | 修改原则 |
 |---|---|---|
-| `CLAUDE.md` | 上游 EnClaws 架构与 build 说明 | 可精简（删除与 AGENTS.md 重复章节） |
-| `AGENTS.md` | 上游 EnClaws repo 规则 / GitHub 礼仪 | **不改** |
+| `CLAUDE.md` | 上游 QingClaws 架构与 build 说明 | 可精简（删除与 AGENTS.md 重复章节） |
+| `AGENTS.md` | 上游 QingClaws repo 规则 / GitHub 礼仪 | **不改** |
 | `CLAUDE.local.md` | QingClaws fork 特有规则（本文件） | 可改 |
 
 ## 3. 核心准则
@@ -24,12 +24,12 @@
 ### 3.1 YAGNI
 不引入未来才可能用到的抽象 / 配置 / 兼容层。一次只解决眼前需求。
 
-### 3.2 不重复发明 EnClaws 已有机制
-以下能力 EnClaws **已具备**，需要时**先读对应文档**，不要重写：
+### 3.2 不重复发明 QingClaws 已有机制
+以下能力 QingClaws **已具备**，需要时**先读对应文档**，不要重写：
 
 | 能力 | 入口 |
 |---|---|
-| 多 Agent 隔离 | `docs/concepts/multi-agent.md` + `openclaw agents add` CLI |
+| 多 Agent 隔离 | `docs/concepts/multi-agent.md` + `qingclaws agents add` CLI |
 | Cron 调度 | `src/cron/` + `docs/automation/cron-jobs.md` |
 | Docker Sandbox | `docs/cli/sandbox.md` + `src/sandbox-*` |
 | Skill 系统（热加载） | `src/agents/skills/refresh.ts` |
@@ -39,7 +39,7 @@
 | A2A 通信 | `docs/concepts/sessions.md` |
 | Webhooks / Hooks | `docs/automation/webhook.md` + `docs/automation/hooks.md` |
 
-### 3.3 改动 EnClaws 原文件打注释
+### 3.3 改动 QingClaws 原文件打注释
 任何修改上游原文件的位置，加一行：
 
 ```
@@ -77,7 +77,7 @@
 
 ## 6. Apache-2.0 合规
 
-- 不修改 `LICENSE` / `NOTICE` / `TRADEMARKS.md` 中关于 EnClaws 上游归属的内容
+- 不修改 `LICENSE` / `NOTICE` / `TRADEMARKS.md` 中关于 QingClaws 上游归属的内容
 - 新增第三方依赖：登记到 `THIRD_PARTY_NOTICES.md`
 - 上游 security advisory：ad-hoc 评估（不立硬流程，按需处理）
 
@@ -101,5 +101,5 @@
 
 - ❌ SQL 字符串拼接（必须参数化查询）
 - ❌ 日志 / 注释 / 代码中出现客户敏感信息（凭证 / 内网 IP / 人员姓名）
-- ❌ 重复发明 EnClaws 已有机制（见 §3.2）
-- ❌ 改动 LICENSE / NOTICE / TRADEMARKS.md 中 EnClaws 上游归属内容（见 §6）
+- ❌ 重复发明 QingClaws 已有机制（见 §3.2）
+- ❌ 改动 LICENSE / NOTICE / TRADEMARKS.md 中 QingClaws 上游归属内容（见 §6）

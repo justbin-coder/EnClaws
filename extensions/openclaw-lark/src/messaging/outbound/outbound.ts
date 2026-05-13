@@ -6,7 +6,7 @@
  *
  * Outbound message adapter for the Lark/Feishu channel plugin.
  *
- * Exposes a `ChannelOutboundAdapter` that the OpenClaw core uses to deliver
+ * Exposes a `ChannelOutboundAdapter` that the QingClaws core uses to deliver
  * agent-generated replies back to Feishu chats. The adapter translates SDK
  * parameters and delegates to standalone sending functions.
  */

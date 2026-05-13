@@ -14,30 +14,30 @@ type CommandOptions = Record<string, unknown>;
 
 const SANDBOX_EXAMPLES = {
   main: [
-    ["enclaws sandbox list", "List all sandbox containers."],
-    ["enclaws sandbox list --browser", "List only browser containers."],
-    ["enclaws sandbox recreate --all", "Recreate all containers."],
-    ["enclaws sandbox recreate --session main", "Recreate a specific session."],
-    ["enclaws sandbox recreate --agent mybot", "Recreate agent containers."],
-    ["enclaws sandbox explain", "Explain effective sandbox config."],
+    ["qingclaws sandbox list", "List all sandbox containers."],
+    ["qingclaws sandbox list --browser", "List only browser containers."],
+    ["qingclaws sandbox recreate --all", "Recreate all containers."],
+    ["qingclaws sandbox recreate --session main", "Recreate a specific session."],
+    ["qingclaws sandbox recreate --agent mybot", "Recreate agent containers."],
+    ["qingclaws sandbox explain", "Explain effective sandbox config."],
   ],
   list: [
-    ["enclaws sandbox list", "List all sandbox containers."],
-    ["enclaws sandbox list --browser", "List only browser containers."],
-    ["enclaws sandbox list --json", "JSON output."],
+    ["qingclaws sandbox list", "List all sandbox containers."],
+    ["qingclaws sandbox list --browser", "List only browser containers."],
+    ["qingclaws sandbox list --json", "JSON output."],
   ],
   recreate: [
-    ["enclaws sandbox recreate --all", "Recreate all containers."],
-    ["enclaws sandbox recreate --session main", "Recreate a specific session."],
-    ["enclaws sandbox recreate --agent mybot", "Recreate a specific agent (includes sub-agents)."],
-    ["enclaws sandbox recreate --browser --all", "Recreate only browser containers."],
-    ["enclaws sandbox recreate --all --force", "Skip confirmation."],
+    ["qingclaws sandbox recreate --all", "Recreate all containers."],
+    ["qingclaws sandbox recreate --session main", "Recreate a specific session."],
+    ["qingclaws sandbox recreate --agent mybot", "Recreate a specific agent (includes sub-agents)."],
+    ["qingclaws sandbox recreate --browser --all", "Recreate only browser containers."],
+    ["qingclaws sandbox recreate --all --force", "Skip confirmation."],
   ],
   explain: [
-    ["enclaws sandbox explain", "Show effective sandbox config."],
-    ["enclaws sandbox explain --session agent:main:main", "Explain a specific session."],
-    ["enclaws sandbox explain --agent work", "Explain an agent sandbox."],
-    ["enclaws sandbox explain --json", "JSON output."],
+    ["qingclaws sandbox explain", "Show effective sandbox config."],
+    ["qingclaws sandbox explain --session agent:main:main", "Explain a specific session."],
+    ["qingclaws sandbox explain --agent work", "Explain an agent sandbox."],
+    ["qingclaws sandbox explain --json", "JSON output."],
   ],
 } as const;
 
@@ -67,7 +67,7 @@ export function registerSandboxCli(program: Command) {
     .addHelpText(
       "after",
       () =>
-        `\n${theme.muted("Docs:")} ${formatDocsLink("/cli/sandbox", "docs.enclaws.ai/cli/sandbox")}\n`,
+        `\n${theme.muted("Docs:")} ${formatDocsLink("/cli/sandbox", "docs.qingclaws.ai/cli/sandbox")}\n`,
     )
     .action(() => {
       sandbox.help({ error: true });

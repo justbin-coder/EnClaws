@@ -129,13 +129,13 @@ export async function maybeRemoveDeprecatedCliAuthProfiles(
   const lines = ["Deprecated external CLI auth profiles detected (no longer supported):"];
   if (deprecated.has(CLAUDE_CLI_PROFILE_ID)) {
     lines.push(
-      `- ${CLAUDE_CLI_PROFILE_ID} (Anthropic): use setup-token → ${formatCliCommand("enclaws models auth setup-token")}`,
+      `- ${CLAUDE_CLI_PROFILE_ID} (Anthropic): use setup-token → ${formatCliCommand("qingclaws models auth setup-token")}`,
     );
   }
   if (deprecated.has(CODEX_CLI_PROFILE_ID)) {
     lines.push(
       `- ${CODEX_CLI_PROFILE_ID} (OpenAI Codex): use OAuth → ${formatCliCommand(
-        "enclaws models auth login --provider openai-codex",
+        "qingclaws models auth login --provider openai-codex",
       )}`,
     );
   }
@@ -223,16 +223,16 @@ export function resolveUnusableProfileHint(params: {
 
 function formatAuthIssueHint(issue: AuthIssue): string | null {
   if (issue.provider === "anthropic" && issue.profileId === CLAUDE_CLI_PROFILE_ID) {
-    return `Deprecated profile. Use ${formatCliCommand("enclaws models auth setup-token")} or ${formatCliCommand(
-      "enclaws configure",
+    return `Deprecated profile. Use ${formatCliCommand("qingclaws models auth setup-token")} or ${formatCliCommand(
+      "qingclaws configure",
     )}.`;
   }
   if (issue.provider === "openai-codex" && issue.profileId === CODEX_CLI_PROFILE_ID) {
     return `Deprecated profile. Use ${formatCliCommand(
-      "enclaws models auth login --provider openai-codex",
-    )} or ${formatCliCommand("enclaws configure")}.`;
+      "qingclaws models auth login --provider openai-codex",
+    )} or ${formatCliCommand("qingclaws configure")}.`;
   }
-  return `Re-auth via \`${formatCliCommand("enclaws configure")}\` or \`${formatCliCommand("enclaws onboard")}\`.`;
+  return `Re-auth via \`${formatCliCommand("qingclaws configure")}\` or \`${formatCliCommand("qingclaws onboard")}\`.`;
 }
 
 function formatAuthIssueLine(issue: AuthIssue): string {

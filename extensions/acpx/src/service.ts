@@ -1,7 +1,7 @@
 import type {
   AcpRuntime,
-  OpenClawPluginService,
-  OpenClawPluginServiceContext,
+  QingClawsPluginService,
+  QingClawsPluginServiceContext,
   PluginLogger,
 } from "openclaw/plugin-sdk";
 import { registerAcpRuntimeBackend, unregisterAcpRuntimeBackend } from "openclaw/plugin-sdk";
@@ -34,13 +34,13 @@ function createDefaultRuntime(params: AcpxRuntimeFactoryParams): AcpxRuntimeLike
 
 export function createAcpxRuntimeService(
   params: CreateAcpxRuntimeServiceParams = {},
-): OpenClawPluginService {
+): QingClawsPluginService {
   let runtime: AcpxRuntimeLike | null = null;
   let lifecycleRevision = 0;
 
   return {
     id: "acpx-runtime",
-    async start(ctx: OpenClawPluginServiceContext): Promise<void> {
+    async start(ctx: QingClawsPluginServiceContext): Promise<void> {
       const pluginConfig = resolveAcpxPluginConfig({
         rawConfig: params.pluginConfig,
         workspaceDir: ctx.workspaceDir,
@@ -95,7 +95,7 @@ export function createAcpxRuntimeService(
         }
       })();
     },
-    async stop(_ctx: OpenClawPluginServiceContext): Promise<void> {
+    async stop(_ctx: QingClawsPluginServiceContext): Promise<void> {
       lifecycleRevision += 1;
       unregisterAcpRuntimeBackend(ACPX_BACKEND_ID);
       runtime = null;

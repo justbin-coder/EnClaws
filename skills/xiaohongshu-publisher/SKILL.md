@@ -1,6 +1,6 @@
 ---
 name: xiaohongshu-publisher
-description: Publish图文笔记 to Xiaohongshu automatically via browser automation. Use when the user says "发小红书", "小红书发布助手", or asks to publish content to Xiaohongshu. This skill handles opening the creator platform, filling in title and body text, uploading images, and submitting the post. Requires the user to be logged into Xiaohongshu in the OpenClaw browser profile.
+description: Publish图文笔记 to Xiaohongshu automatically via browser automation. Use when the user says "发小红书", "小红书发布助手", or asks to publish content to Xiaohongshu. This skill handles opening the creator platform, filling in title and body text, uploading images, and submitting the post. Requires the user to be logged into Xiaohongshu in the QingClaws browser profile.
 ---
 
 # Xiaohongshu Publisher - 小红书发布助手
@@ -18,7 +18,7 @@ This skill enables automated posting to Xiaohongshu (小红书) using browser au
 
 ## Prerequisites
 
-1. **Browser profile**: Use OpenClaw's browser with profile="openclaw"
+1. **Browser profile**: Use QingClaws's browser with profile="qingclaws"
 2. **Login status**: User must be logged into Xiaohongshu in that browser profile. The skill will check for login and guide if not.
 3. **Creator platform access**: The Xiaohongshu account must have access to the creator platform (usually automatic).
 
@@ -32,7 +32,7 @@ The skill expects structured input. When the user provides content naturally, ex
 
 ### Example User Messages
 
-> "发小红书：标题『OpenClaw部署教程』正文：这是一篇保姆级教程... 图片：C:\\pics\\cover.png"
+> "发小红书：标题『QingClaws部署教程』正文：这是一篇保姆级教程... 图片：C:\\pics\\cover.png"
 
 > "小红书发布助手，帮我发这个图文：标题『AI工具推荐』内容：今天推荐几个好用的... 配图就放桌面上那几张"
 
@@ -42,7 +42,7 @@ If the user doesn't specify images, the skill will prompt for them or proceed wi
 
 ### Step 1: Launch Browser and Verify Login
 
-1. Use `browser` tool with `action="open"`, `profile="openclaw"`, `url="https://creator.xiaohongshu.com"` to open creator platform
+1. Use `browser` tool with `action="open"`, `profile="qingclaws"`, `url="https://creator.xiaohongshu.com"` to open creator platform
 2. Check if login is required by taking a snapshot and looking for login prompts
 3. If not logged in, instruct user to log in manually and then continue
 

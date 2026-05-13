@@ -25,11 +25,11 @@ import type {
 } from "./service-types.js";
 
 function resolveLaunchAgentLabel(args?: { env?: Record<string, string | undefined> }): string {
-  const envLabel = args?.env?.ENCLAWS_LAUNCHD_LABEL?.trim();
+  const envLabel = args?.env?.QINGCLAWS_LAUNCHD_LABEL?.trim();
   if (envLabel) {
     return envLabel;
   }
-  return resolveGatewayLaunchAgentLabel(args?.env?.ENCLAWS_PROFILE);
+  return resolveGatewayLaunchAgentLabel(args?.env?.QINGCLAWS_PROFILE);
 }
 
 function resolveLaunchAgentPlistPathForLabel(
@@ -52,7 +52,7 @@ export function resolveGatewayLogPaths(env: GatewayServiceEnv): {
 } {
   const stateDir = resolveGatewayStateDir(env);
   const logDir = path.join(stateDir, "logs");
-  const prefix = env.ENCLAWS_LOG_PREFIX?.trim() || "gateway";
+  const prefix = env.QINGCLAWS_LOG_PREFIX?.trim() || "gateway";
   return {
     logDir,
     stdoutPath: path.join(logDir, `${prefix}.log`),
@@ -227,7 +227,7 @@ export type LegacyLaunchAgent = {
 export async function findLegacyLaunchAgents(env: GatewayServiceEnv): Promise<LegacyLaunchAgent[]> {
   const domain = resolveGuiDomain();
   const results: LegacyLaunchAgent[] = [];
-  for (const label of resolveLegacyGatewayLaunchAgentLabels(env.ENCLAWS_PROFILE)) {
+  for (const label of resolveLegacyGatewayLaunchAgentLabels(env.QINGCLAWS_PROFILE)) {
     const plistPath = resolveLaunchAgentPlistPathForLabel(env, label);
     const res = await execLaunchctl(["print", `${domain}/${label}`]);
     const loaded = res.code === 0;
@@ -382,7 +382,7 @@ export async function installLaunchAgent({
 
   const domain = resolveGuiDomain();
   const label = resolveLaunchAgentLabel({ env });
-  for (const legacyLabel of resolveLegacyGatewayLaunchAgentLabels(env.ENCLAWS_PROFILE)) {
+  for (const legacyLabel of resolveLegacyGatewayLaunchAgentLabels(env.QINGCLAWS_PROFILE)) {
     const legacyPlistPath = resolveLaunchAgentPlistPathForLabel(env, legacyLabel);
     await execLaunchctl(["bootout", domain, legacyPlistPath]);
     await execLaunchctl(["unload", legacyPlistPath]);
@@ -421,8 +421,8 @@ export async function installLaunchAgent({
           `launchctl bootstrap failed: ${detail}`,
           `LaunchAgent install requires a logged-in macOS GUI session for this user (${domain}).`,
           "This usually means you are running from SSH/headless context or as the wrong user (including sudo).",
-          "Fix: sign in to the macOS desktop as the target user and rerun `enclaws gateway install --force`.",
-          "Headless deployments should use a dedicated logged-in user session or a custom LaunchDaemon (not shipped): https://docs.enclaws.ai/gateway",
+          "Fix: sign in to the macOS desktop as the target user and rerun `qingclaws gateway install --force`.",
+          "Headless deployments should use a dedicated logged-in user session or a custom LaunchDaemon (not shipped): https://docs.qingclaws.ai/gateway",
         ].join("\n"),
       );
     }
@@ -474,8 +474,8 @@ export async function restartLaunchAgent({
           `launchctl bootstrap failed: ${detail}`,
           `LaunchAgent restart requires a logged-in macOS GUI session for this user (${domain}).`,
           "This usually means you are running from SSH/headless context or as the wrong user (including sudo).",
-          "Fix: sign in to the macOS desktop as the target user and rerun `enclaws gateway restart`.",
-          "Headless deployments should use a dedicated logged-in user session or a custom LaunchDaemon (not shipped): https://docs.enclaws.ai/gateway",
+          "Fix: sign in to the macOS desktop as the target user and rerun `qingclaws gateway restart`.",
+          "Headless deployments should use a dedicated logged-in user session or a custom LaunchDaemon (not shipped): https://docs.qingclaws.ai/gateway",
         ].join("\n"),
       );
     }

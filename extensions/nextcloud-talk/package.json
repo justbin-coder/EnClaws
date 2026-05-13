@@ -1,9 +1,9 @@
 {
-  "name": "@openclaw/nextcloud-talk",
+  "name": "@qingclaws/nextcloud-talk",
   "version": "2026.3.1",
-  "description": "OpenClaw Nextcloud Talk channel plugin",
+  "description": "QingClaws Nextcloud Talk channel plugin",
   "type": "module",
-  "openclaw": {
+  "qingclaws": {
     "extensions": [
       "./index.ts"
     ],
@@ -22,7 +22,7 @@
       "quickstartAllowFrom": true
     },
     "install": {
-      "npmSpec": "@openclaw/nextcloud-talk",
+      "npmSpec": "@qingclaws/nextcloud-talk",
       "localPath": "extensions/nextcloud-talk",
       "defaultChoice": "npm"
     }

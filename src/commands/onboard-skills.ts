@@ -245,9 +245,9 @@ export async function setupSkills(
         runtime.log(result.stdout.trim());
       }
       runtime.log(
-        `Tip: run \`${formatCliCommand("enclaws doctor")}\` to review skills + requirements.`,
+        `Tip: run \`${formatCliCommand("qingclaws doctor")}\` to review skills + requirements.`,
       );
-      runtime.log("Docs: https://docs.enclaws.ai/skills");
+      runtime.log("Docs: https://docs.qingclaws.ai/skills");
     }
   }
 

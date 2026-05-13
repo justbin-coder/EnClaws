@@ -79,10 +79,10 @@ export class PlaywrightDiffScreenshotter implements DiffScreenshotter {
       await page.setContent(injectBaseHref(params.html), { waitUntil: "load" });
       await page.waitForFunction(
         () => {
-          if (document.documentElement.dataset.openclawDiffsReady === "true") {
+          if (document.documentElement.dataset.qingclawsDiffsReady === "true") {
             return true;
           }
-          return [...document.querySelectorAll("[data-openclaw-diff-host]")].every((element) => {
+          return [...document.querySelectorAll("[data-qingclaws-diff-host]")].every((element) => {
             return (
               element instanceof HTMLElement && element.shadowRoot?.querySelector("[data-diffs]")
             );
@@ -176,7 +176,7 @@ async function resolveBrowserExecutablePath(config: OpenClawConfig): Promise<str
   const cacheKey = JSON.stringify({
     configPath: config.browser?.executablePath?.trim() || "",
     env: [
-      process.env.OPENCLAW_BROWSER_EXECUTABLE_PATH ?? "",
+      process.env.QINGCLAWS_BROWSER_EXECUTABLE_PATH ?? "",
       process.env.BROWSER_EXECUTABLE_PATH ?? "",
       process.env.PLAYWRIGHT_CHROMIUM_EXECUTABLE_PATH ?? "",
     ],
@@ -210,7 +210,7 @@ async function resolveBrowserExecutablePathUncached(
   }
 
   const envCandidates = [
-    process.env.OPENCLAW_BROWSER_EXECUTABLE_PATH,
+    process.env.QINGCLAWS_BROWSER_EXECUTABLE_PATH,
     process.env.BROWSER_EXECUTABLE_PATH,
     process.env.PLAYWRIGHT_CHROMIUM_EXECUTABLE_PATH,
   ]

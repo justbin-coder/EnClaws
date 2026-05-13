@@ -19,13 +19,13 @@ describe("buildImportUrl", () => {
   });
 
   it("returns bare URL for bundled hooks (no query string)", () => {
-    const url = buildImportUrl(tmpFile, "enclaws-bundled");
+    const url = buildImportUrl(tmpFile, "qingclaws-bundled");
     expect(url).not.toContain("?t=");
     expect(url).toMatch(/^file:\/\//);
   });
 
   it("appends mtime-based cache buster for workspace hooks", () => {
-    const url = buildImportUrl(tmpFile, "enclaws-workspace");
+    const url = buildImportUrl(tmpFile, "qingclaws-workspace");
     expect(url).toMatch(/\?t=[\d.]+&s=\d+/);
 
     const { mtimeMs, size } = fs.statSync(tmpFile);
@@ -34,29 +34,29 @@ describe("buildImportUrl", () => {
   });
 
   it("appends mtime-based cache buster for managed hooks", () => {
-    const url = buildImportUrl(tmpFile, "enclaws-managed");
+    const url = buildImportUrl(tmpFile, "qingclaws-managed");
     expect(url).toMatch(/\?t=[\d.]+&s=\d+/);
   });
 
   it("appends mtime-based cache buster for plugin hooks", () => {
-    const url = buildImportUrl(tmpFile, "enclaws-plugin");
+    const url = buildImportUrl(tmpFile, "qingclaws-plugin");
     expect(url).toMatch(/\?t=[\d.]+&s=\d+/);
   });
 
   it("returns same URL for bundled hooks across calls (cacheable)", () => {
-    const url1 = buildImportUrl(tmpFile, "enclaws-bundled");
-    const url2 = buildImportUrl(tmpFile, "enclaws-bundled");
+    const url1 = buildImportUrl(tmpFile, "qingclaws-bundled");
+    const url2 = buildImportUrl(tmpFile, "qingclaws-bundled");
     expect(url1).toBe(url2);
   });
 
   it("returns same URL for workspace hooks when file is unchanged", () => {
-    const url1 = buildImportUrl(tmpFile, "enclaws-workspace");
-    const url2 = buildImportUrl(tmpFile, "enclaws-workspace");
+    const url1 = buildImportUrl(tmpFile, "qingclaws-workspace");
+    const url2 = buildImportUrl(tmpFile, "qingclaws-workspace");
     expect(url1).toBe(url2);
   });
 
   it("falls back to Date.now() when file does not exist", () => {
-    const url = buildImportUrl("/nonexistent/handler.js", "enclaws-workspace");
+    const url = buildImportUrl("/nonexistent/handler.js", "qingclaws-workspace");
     expect(url).toMatch(/\?t=\d+/);
   });
 });

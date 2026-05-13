@@ -2,7 +2,7 @@
 
 > **For agentic workers:** REQUIRED SUB-SKILL: Use superpowers:subagent-driven-development (recommended) or superpowers:executing-plans to implement this plan task-by-task. Steps use checkbox (`- [ ]`) syntax for tracking.
 
-**Goal:** Rename EnClaws → QingClaws across all user-visible surfaces, introduce a branding abstraction layer, localize defaults to zh-CN 2B enterprise context, and add CI gates to prevent brand/customer-info leakage.
+**Goal:** Rename QingClaws → QingClaws across all user-visible surfaces, introduce a branding abstraction layer, localize defaults to zh-CN 2B enterprise context, and add CI gates to prevent brand/customer-info leakage.
 
 **Architecture:** Six ordered commits on `feat/PE1-brand-customization`. Commit 1 slims docs noise. Commit 2 creates `src/branding/` as single brand source + codemod tooling (no strings changed yet). Commit 3 runs the codemod + manual precision edits to actually rename. Commits 4-5 handle locale/templates and docs/legal. Commit 6 adds automated guards.
 
@@ -25,7 +25,7 @@
 | `src/branding/assets/README.md` | "Designer: replace files here" instructions |
 | `scripts/brand-codemod.mjs` | One-time mechanical rename script |
 | `scripts/check-brand-residue.sh` | CI guard: fail if old brand strings remain in user-visible files |
-| `docs/upstream-divergence.md` | Registry of all fork divergences from EnClaws upstream |
+| `docs/upstream-divergence.md` | Registry of all fork divergences from QingClaws upstream |
 | `test/branding/no-brand-residue.test.ts` | Auto test: calls check-brand-residue.sh, expects 0 matches |
 | `test/branding/no-customer-leakage.test.ts` | Auto test: grep for customer-specific terms, expects 0 matches |
 | `test/branding/cli-smoke.test.ts` | Auto test: qingclaws --version / --help output contains QingClaws |
@@ -39,8 +39,8 @@
 | `~/.claude/projects/-Users-justbin-project-2BPro/memory/MEMORY.md` | Remove feedback-git-commit-autonomy entry (now in CLAUDE.local.md §7) |
 | `~/.claude/projects/-Users-justbin-project-2BPro/memory/feedback-git-commit-autonomy.md` | Delete |
 | `src/version.ts` | `PRODUCT_NAME = "QingClaws"`, env var names → `QINGCLAWS_*` |
-| `src/config/paths.ts` | `.enclaws` → `.qingclaws`, `enclaws.json` → `qingclaws.json` |
-| `src/infra/home-dir.ts` | `ENCLAWS_HOME` → `QINGCLAWS_HOME` |
+| `src/config/paths.ts` | `.qingclaws` → `.qingclaws`, `qingclaws.json` → `qingclaws.json` |
+| `src/infra/home-dir.ts` | `QINGCLAWS_HOME` → `QINGCLAWS_HOME` |
 | `src/terminal/links.ts` | `DOCS_ROOT` → empty string (variablized) |
 | `src/cli/tagline.ts` | Default tagline + env var name |
 | `ui/src/i18n/lib/translate.ts` | localStorage key, default locale fallback → zh-CN |
@@ -48,7 +48,7 @@
 | `docs/reference/templates/SOUL.md` | Chinese + 2B enterprise context |
 | `docs/reference/templates/USER.md` | Chinese + 2B enterprise context |
 | `package.json` | name, bin, homepage, bugs, repository, files list |
-| `enclaws.mjs` | Rename to `qingclaws.mjs`; fix error message string |
+| `qingclaws.mjs` | Rename to `qingclaws.mjs`; fix error message string |
 | `README.md` | Full rebrand |
 | `CHANGELOG.md` | Add `[Unreleased]` PE1 section |
 | `LICENSE` | Prepend QingClaws copyright line |
@@ -76,7 +76,7 @@ Open `CLAUDE.md`. Remove the following sections entirely (they duplicate AGENTS.
 - `## Extension Development` (full block)
 - `## Important Constraints` (full block)
 
-Keep only: the header comment, `## What is EnClaws` (architecture intro), and the two `@` import lines at the bottom.
+Keep only: the header comment, `## What is QingClaws` (architecture intro), and the two `@` import lines at the bottom.
 
 The resulting `CLAUDE.md` should look like:
 
@@ -85,9 +85,9 @@ The resulting `CLAUDE.md` should look like:
 
 This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
-## What is EnClaws
+## What is QingClaws
 
-EnClaws is an **enterprise containerized platform for digital AI Employees**, extending OpenClaw (a personal AI assistant) into a multi-tenant system with concurrent task execution, user isolation, hierarchical memory, skill sharing, and audit capabilities. Built on TypeScript/Node.js with a gateway server architecture.
+QingClaws is an **enterprise containerized platform for digital AI Employees**, extending QingClaws (a personal AI assistant) into a multi-tenant system with concurrent task execution, user isolation, hierarchical memory, skill sharing, and audit capabilities. Built on TypeScript/Node.js with a gateway server architecture.
 
 ### Key directories
 
@@ -178,7 +178,7 @@ Delete feedback-git-commit-autonomy.md (content already in CLAUDE.local.md §7).
 ```typescript
 // src/branding/brand.config.ts
 // QINGCLAWS-CUSTOM: brand — single source of truth for QingClaws brand identifiers.
-// Upstream EnClaws uses hard-coded strings; this layer allows designer-replace-in-place.
+// Upstream QingClaws uses hard-coded strings; this layer allows designer-replace-in-place.
 export const BRAND = {
   productName: "QingClaws",
   productNameZh: "QingClaws",
@@ -203,9 +203,9 @@ export const BRAND = {
   },
 
   upstream: {
-    project: "EnClaws",
-    org: "hashSTACS-Global",
-    parent: "OpenClaw",
+    project: "QingClaws",
+    org: "QingClaws Team",
+    parent: "QingClaws",
     license: "Apache-2.0",
   },
 } as const;
@@ -217,14 +217,14 @@ export const BRAND = {
 {
   "_comment": "Rules for scripts/brand-codemod.mjs. Edit before re-running codemod.",
   "userVisibleSubs": [
-    ["OpenClaw", "QingClaws"],
-    ["OPENCLAW", "QINGCLAWS"],
-    ["openclaw", "qingclaws"],
-    ["EnClaws", "QingClaws"],
-    ["ENCLAWS", "QINGCLAWS"],
-    ["enclaws", "qingclaws"],
-    ["hashSTACS-Global", "QingClaws Team"],
-    ["hashSTACS", "QingClaws Team"]
+    ["QingClaws", "QingClaws"],
+    ["QINGCLAWS", "QINGCLAWS"],
+    ["qingclaws", "qingclaws"],
+    ["QingClaws", "QingClaws"],
+    ["QINGCLAWS", "QINGCLAWS"],
+    ["qingclaws", "qingclaws"],
+    ["QingClaws Team", "QingClaws Team"],
+    ["QingClaws Team", "QingClaws Team"]
   ],
   "skipFiles": [
     "LICENSE",
@@ -362,7 +362,7 @@ Temporary placeholder assets. Replace files here once the design system is final
 #!/usr/bin/env node
 // scripts/brand-codemod.mjs
 // QINGCLAWS-CUSTOM: brand — one-time PE1 rename codemod. Archive after PE1 (do not delete;
-// needed when merging upstream EnClaws changes that re-introduce old brand strings).
+// needed when merging upstream QingClaws changes that re-introduce old brand strings).
 //
 // Usage:
 //   node scripts/brand-codemod.mjs --dry-run        # preview only
@@ -492,13 +492,13 @@ WHITELIST_PATTERN="LICENSE|NOTICE|THIRD_PARTY_NOTICES\.md|docs/upstream-divergen
 
 # Patterns to search for in user-visible layer
 PATTERNS=(
-  '\bOpenClaw\b'
-  '\bopenclaw\b'
-  '\bOPENCLAW\b'
-  '\bEnClaws\b'
-  '\benclaws\b'
-  '\bENCLAWS\b'
-  '\bhashSTACS\b'
+  '\bQingClaws\b'
+  '\bqingclaws\b'
+  '\bQINGCLAWS\b'
+  '\bQingClaws\b'
+  '\bqingclaws\b'
+  '\bQINGCLAWS\b'
+  '\bQingClaws Team\b'
 )
 
 FOUND=0
@@ -576,7 +576,7 @@ This is the big mechanical commit. Run codemod first, then apply manual precisio
 - Modify: `src/cli/tagline.ts`
 - Modify: `ui/src/i18n/lib/translate.ts`
 - Modify: `package.json`
-- Rename: `enclaws.mjs` → `qingclaws.mjs`
+- Rename: `qingclaws.mjs` → `qingclaws.mjs`
 - Many other files via codemod
 
 - [ ] **Step 1: Dry-run codemod and review**
@@ -597,18 +597,18 @@ Expected: hundreds of files changed, substitution report printed.
 
 - [ ] **Step 3: Manual fix — `src/version.ts`**
 
-The codemod replaces `PRODUCT_NAME = "EnClaws"` → `"QingClaws"` correctly. But several internal identifiers and env vars need surgical attention. Apply these exact changes:
+The codemod replaces `PRODUCT_NAME = "QingClaws"` → `"QingClaws"` correctly. But several internal identifiers and env vars need surgical attention. Apply these exact changes:
 
 ```typescript
 // src/version.ts  — changes after codemod
 
 // Line ~4: CORE_PACKAGE_NAME is used to match package.json name field.
-// Change from: const CORE_PACKAGE_NAME = "enclaws";
+// Change from: const CORE_PACKAGE_NAME = "qingclaws";
 // Change to:
 const CORE_PACKAGE_NAME = "qingclaws"; // QINGCLAWS-CUSTOM: brand — matches renamed package.json name
 
 // Lines ~84-88: resolveRuntimeServiceVersion env vars
-// Change from: env["ENCLAWS_VERSION"], env["ENCLAWS_SERVICE_VERSION"]
+// Change from: env["QINGCLAWS_VERSION"], env["QINGCLAWS_SERVICE_VERSION"]
 // Change to:
 export function resolveRuntimeServiceVersion(
   env: RuntimeVersionEnv = process.env as RuntimeVersionEnv,
@@ -623,7 +623,7 @@ export function resolveRuntimeServiceVersion(
 }
 
 // Lines ~97-103: VERSION resolution
-// Change from: process.env.ENCLAWS_BUNDLED_VERSION and declare __ENCLAWS_VERSION__
+// Change from: process.env.QINGCLAWS_BUNDLED_VERSION and declare __QINGCLAWS_VERSION__
 // Change to:
 declare const __QINGCLAWS_VERSION__: string | undefined; // QINGCLAWS-CUSTOM: brand
 
@@ -643,7 +643,7 @@ export const PRODUCT_NAME_LOWER = PRODUCT_NAME.toLowerCase();  // "qingclaws"
 
 - [ ] **Step 4: Manual fix — `src/config/paths.ts`**
 
-The codemod replaces `.enclaws` → `.qingclaws` and `enclaws.json` → `qingclaws.json`. Verify these two constants are correct and add comments:
+The codemod replaces `.qingclaws` → `.qingclaws` and `qingclaws.json` → `qingclaws.json`. Verify these two constants are correct and add comments:
 
 ```typescript
 // Lines ~22-24 in src/config/paths.ts — verify after codemod:
@@ -652,11 +652,11 @@ const CONFIG_FILENAME = "qingclaws.json";          // QINGCLAWS-CUSTOM: brand
 // LEGACY_CONFIG_FILENAMES and LEGACY_STATE_DIRNAMES stay as-is (migration history)
 ```
 
-Also verify `ENCLAWS_NIX_MODE` → `QINGCLAWS_NIX_MODE` and `ENCLAWS_STATE_DIR` → `QINGCLAWS_STATE_DIR` in the same file.
+Also verify `QINGCLAWS_NIX_MODE` → `QINGCLAWS_NIX_MODE` and `QINGCLAWS_STATE_DIR` → `QINGCLAWS_STATE_DIR` in the same file.
 
 - [ ] **Step 5: Manual fix — `src/infra/home-dir.ts`**
 
-Verify codemod replaced `ENCLAWS_HOME` → `QINGCLAWS_HOME`. Add comment:
+Verify codemod replaced `QINGCLAWS_HOME` → `QINGCLAWS_HOME`. Add comment:
 
 ```typescript
 // In resolveRawHomeDir():
@@ -708,7 +708,7 @@ const DEFAULT_TAGLINE = "企业 AI，从现在开始。"; // QINGCLAWS-CUSTOM: b
 const override = env?.QINGCLAWS_TAGLINE_INDEX; // QINGCLAWS-CUSTOM: brand (was ENCLAWS_TAGLINE_INDEX)
 ```
 
-All the other taglines in `TAGLINES[]` will be replaced by the codemod (EnClaws → QingClaws, enclaws → qingclaws). Verify by running `grep -n "EnClaws\|enclaws" src/cli/tagline.ts` after codemod — expect 0 hits.
+All the other taglines in `TAGLINES[]` will be replaced by the codemod (QingClaws → QingClaws, qingclaws → qingclaws). Verify by running `grep -n "QingClaws\|qingclaws" src/cli/tagline.ts` after codemod — expect 0 hits.
 
 - [ ] **Step 8: Manual fix — `ui/src/i18n/lib/translate.ts`**
 
@@ -716,7 +716,7 @@ Two changes: localStorage key rename, and default locale fallback → zh-CN:
 
 ```typescript
 // In resolveInitialLocale():
-// Change: localStorage.getItem("enclaws.i18n.locale")
+// Change: localStorage.getItem("qingclaws.i18n.locale")
 // To:
 const saved = localStorage.getItem("qingclaws.i18n.locale"); // QINGCLAWS-CUSTOM: brand
 
@@ -726,7 +726,7 @@ const saved = localStorage.getItem("qingclaws.i18n.locale"); // QINGCLAWS-CUSTOM
 return "zh-CN"; // QINGCLAWS-CUSTOM: brand — default to zh-CN for 2B enterprise
 
 // In setLocale():
-// Change: localStorage.setItem("enclaws.i18n.locale", locale)
+// Change: localStorage.setItem("qingclaws.i18n.locale", locale)
 // To:
 localStorage.setItem("qingclaws.i18n.locale", locale); // QINGCLAWS-CUSTOM: brand
 ```
@@ -767,21 +767,21 @@ Apply these exact changes to `package.json`:
 - [ ] **Step 10: Rename CLI entrypoint**
 
 ```bash
-git mv enclaws.mjs qingclaws.mjs
+git mv qingclaws.mjs qingclaws.mjs
 ```
 
 Then edit `qingclaws.mjs` — change only the error message string at the bottom:
 
 ```javascript
-// Change: throw new Error("enclaws: missing dist/entry.(m)js (build output).");
+// Change: throw new Error("qingclaws: missing dist/entry.(m)js (build output).");
 // To:
 throw new Error("qingclaws: missing dist/entry.(m)js (build output).");
 ```
 
-- [ ] **Step 11: Fix any tsdown/build config that references `__ENCLAWS_VERSION__`**
+- [ ] **Step 11: Fix any tsdown/build config that references `__QINGCLAWS_VERSION__`**
 
 ```bash
-grep -rn "__ENCLAWS_VERSION__\|ENCLAWS_BUNDLED" --include="*.ts" --include="*.mjs" --include="*.json" . | grep -v node_modules | grep -v dist
+grep -rn "__QINGCLAWS_VERSION__\|QINGCLAWS_BUNDLED" --include="*.ts" --include="*.mjs" --include="*.json" . | grep -v node_modules | grep -v dist
 ```
 
 For each hit, update to `__QINGCLAWS_VERSION__` / `QINGCLAWS_BUNDLED_VERSION`. These will be in build config files (e.g. `scripts/build*.mjs`, `tsdown.config.ts`). Add `// QINGCLAWS-CUSTOM: brand` comment to each changed line.
@@ -806,9 +806,9 @@ Expected:
 ```
 
 If residue is found, fix the listed files manually. Common remaining cases:
-- Test files that have `enclaws` in test strings → update to `qingclaws`  
+- Test files that have `qingclaws` in test strings → update to `qingclaws`  
 - Config fixtures with old env var names → update to `QINGCLAWS_*`
-- Schema help text with `~/.enclaws/` path examples → update to `~/.qingclaws/`
+- Schema help text with `~/.qingclaws/` path examples → update to `~/.qingclaws/`
 
 Repeat until `check-brand-residue.sh` passes.
 
@@ -826,12 +826,12 @@ Expected: build completes without error. If `__QINGCLAWS_VERSION__` define is mi
 git add -A
 git commit -m "feat(PE1): rebrand user-facing surface (CLI / pkg / paths / env)
 
-Run brand-codemod.mjs to mechanically replace openclaw/enclaws/hashSTACS
+Run brand-codemod.mjs to mechanically replace qingclaws/qingclaws/QingClaws Team
 in user-visible layer. Manual precision edits: src/version.ts (PRODUCT_NAME,
 env vars), src/config/paths.ts (.qingclaws dir), src/infra/home-dir.ts
 (QINGCLAWS_HOME), src/terminal/links.ts (variablize DOCS_ROOT), tagline.ts,
 i18n translate.ts (localStorage key + zh-CN default). package.json name/bin,
-git mv enclaws.mjs → qingclaws.mjs. check-brand-residue.sh passes."
+git mv qingclaws.mjs → qingclaws.mjs. check-brand-residue.sh passes."
 ```
 
 ---
@@ -974,7 +974,7 @@ about: {
   title: "关于 QingClaws",
   version: "版本",
   license: "开源协议",
-  upstream: "基于 EnClaws（hashSTACS-Global）",
+  upstream: "基于 QingClaws（QingClaws Team）",
 },
 gateway: {
   starting: "网关启动中...",
@@ -1041,14 +1041,14 @@ keys if missing. i18n default fallback already set to zh-CN in Task 3."
 
 ## PE1 — Brand Customization (2026-05-13)
 
-### brand: Product rename EnClaws → QingClaws (user-visible layer)
+### brand: Product rename QingClaws → QingClaws (user-visible layer)
 
 | Field | Value |
 |---|---|
 | Category | `brand` |
 | Files | `src/version.ts`, `src/config/paths.ts`, `src/infra/home-dir.ts`, `src/terminal/links.ts`, `src/cli/tagline.ts`, `package.json`, `qingclaws.mjs`, and ~200+ user-visible surface files via codemod |
 | Reason | QingClaws fork for 2B enterprise platform; brand independence required |
-| Upstream impact | Every upstream sync will re-introduce `EnClaws`/`openclaw` strings in new files; re-run `scripts/brand-codemod.mjs --dry-run` after merge to identify new residue |
+| Upstream impact | Every upstream sync will re-introduce `QingClaws`/`qingclaws` strings in new files; re-run `scripts/brand-codemod.mjs --dry-run` after merge to identify new residue |
 | Merge risk | Medium — mechanical, but high volume |
 
 ### brand: Brand abstraction layer
@@ -1117,10 +1117,10 @@ Replace the entire README header block (first ~30 lines) with:
 </p>
 
 > QingClaws 是基于 [EnClaws](https://github.com/hashSTACS-Global/EnClaws)（Apache-2.0）的企业级 fork，
-> 专为 2B 企业内网/离线部署场景构建。上游归属：EnClaws by hashSTACS-Global，基于 OpenClaw。
+> 专为 2B 企业内网/离线部署场景构建。上游归属：QingClaws by QingClaws Team，基于 QingClaws。
 ```
 
-Then continue to update the body of README.md — replace every occurrence of `EnClaws` with `QingClaws`, `enclaws` with `qingclaws`, `hashSTACS-Global` with `QingClaws Team` throughout the document body. Keep attribution sentences intact.
+Then continue to update the body of README.md — replace every occurrence of `QingClaws` with `QingClaws`, `qingclaws` with `qingclaws`, `QingClaws Team` with `QingClaws Team` throughout the document body. Keep attribution sentences intact.
 
 - [ ] **Step 3: Add `[Unreleased]` section to `CHANGELOG.md`**
 
@@ -1139,9 +1139,9 @@ Insert after the header (before any existing version entries):
 - `docs/upstream-divergence.md` — fork divergence registry for upstream merge navigation
 
 #### Changed
-- Product renamed from EnClaws → QingClaws across all user-visible surfaces
-- CLI binary: `enclaws` → `qingclaws`; config directory: `~/.enclaws/` → `~/.qingclaws/`
-- Environment variables: `ENCLAWS_*` → `QINGCLAWS_*`
+- Product renamed from QingClaws → QingClaws across all user-visible surfaces
+- CLI binary: `qingclaws` → `qingclaws`; config directory: `~/.qingclaws/` → `~/.qingclaws/`
+- Environment variables: `QINGCLAWS_*` → `QINGCLAWS_*`
 - Default locale: UI and templates default to zh-CN (2B enterprise context)
 - Default Agent templates (AGENTS.md / SOUL.md / USER.md) localized to Chinese 2B enterprise context
 
@@ -1178,7 +1178,7 @@ QingClaws
 Copyright 2026 QingClaws Contributors
 
 QingClaws is a fork of EnClaws (https://github.com/hashSTACS-Global/EnClaws)
-by hashSTACS-Global, used under the Apache License, Version 2.0.
+by QingClaws Team, used under the Apache License, Version 2.0.
 
 This product includes software developed by:
 - hashSTACS-Global (EnClaws, https://github.com/hashSTACS-Global/EnClaws)
@@ -1202,10 +1202,10 @@ Change the PE1 row in the table from `_待生成_` to:
 
 ```bash
 grep -c "QingClaws" LICENSE NOTICE
-grep -c "EnClaws\|hashSTACS\|OpenClaw" LICENSE NOTICE
+grep -c "QingClaws\|QingClaws Team\|QingClaws" LICENSE NOTICE
 ```
 
-Expected: both files contain QingClaws AND contain EnClaws/hashSTACS/OpenClaw references.
+Expected: both files contain QingClaws AND contain QingClaws/QingClaws Team/QingClaws references.
 
 - [ ] **Step 8: Commit**
 
@@ -1375,7 +1375,7 @@ function runCli(args: string[]): { stdout: string; stderr: string; status: numbe
   };
 }
 
-const OLD_BRAND_RE = /\b(openclaw|OpenClaw|OPENCLAW|enclaws|EnClaws|ENCLAWS|hashSTACS)\b/;
+const OLD_BRAND_RE = /\b(qingclaws|QingClaws|QINGCLAWS|qingclaws|QingClaws|QINGCLAWS|QingClaws Team)\b/;
 
 describe("CLI subprocess — brand correctness", () => {
   it("--help output contains qingclaws and no old brand strings", () => {
@@ -1441,14 +1441,14 @@ describe("license attribution completeness", () => {
     expect(license).toMatch(/Copyright.*QingClaws/i);
   });
 
-  it("LICENSE preserves EnClaws upstream attribution", () => {
+  it("LICENSE preserves QingClaws upstream attribution", () => {
     const license = readFile("LICENSE");
-    expect(license).toMatch(/EnClaws|hashSTACS/i);
+    expect(license).toMatch(/QingClaws|QingClaws Team/i);
   });
 
-  it("LICENSE preserves OpenClaw upstream attribution", () => {
+  it("LICENSE preserves QingClaws upstream attribution", () => {
     const license = readFile("LICENSE");
-    expect(license).toMatch(/OpenClaw/i);
+    expect(license).toMatch(/QingClaws/i);
   });
 
   it("NOTICE contains QingClaws attribution section", () => {
@@ -1458,9 +1458,9 @@ describe("license attribution completeness", () => {
 
   it("NOTICE preserves all upstream attribution blocks", () => {
     const notice = readFile("NOTICE");
-    expect(notice).toMatch(/EnClaws/i);
-    expect(notice).toMatch(/hashSTACS/i);
-    expect(notice).toMatch(/OpenClaw/i);
+    expect(notice).toMatch(/QingClaws/i);
+    expect(notice).toMatch(/QingClaws Team/i);
+    expect(notice).toMatch(/QingClaws/i);
   });
 });
 ```
@@ -1491,13 +1491,13 @@ Expected: all 11 tests pass:
 pnpm test:fast 2>&1 | tail -30
 ```
 
-Expected: passes. If any pre-existing test fails because it asserts on old brand strings (e.g. `"enclaws"` in error messages or `".enclaws"` in paths), update those assertions to `"qingclaws"` / `".qingclaws"`.
+Expected: passes. If any pre-existing test fails because it asserts on old brand strings (e.g. `"qingclaws"` in error messages or `".qingclaws"` in paths), update those assertions to `"qingclaws"` / `".qingclaws"`.
 
 Known likely failures from test files the codemod may have missed:
-- `src/agents/workspace-templates.test.ts` — may assert `{ name: "enclaws" }` in package.json mock → change to `"qingclaws"`
-- `src/cli/update-cli.test.ts` — may assert "EnClaws update status" → change to "QingClaws update status"
-- `src/config/config.nix-integration-u3-u5-u9.test.ts` — may use `.enclaws` paths → change to `.qingclaws`
-- `src/config/io.compat.test.ts` — may use `enclaws.json` → change to `qingclaws.json`
+- `src/agents/workspace-templates.test.ts` — may assert `{ name: "qingclaws" }` in package.json mock → change to `"qingclaws"`
+- `src/cli/update-cli.test.ts` — may assert "QingClaws update status" → change to "QingClaws update status"
+- `src/config/config.nix-integration-u3-u5-u9.test.ts` — may use `.qingclaws` paths → change to `.qingclaws`
+- `src/config/io.compat.test.ts` — may use `qingclaws.json` → change to `qingclaws.json`
 
 For each failing test, make the minimal change to align assertions with the new brand. Add `// QINGCLAWS-CUSTOM: brand` comment to changed assertion lines.
 
@@ -1539,7 +1539,7 @@ After all 6 commits, run the full manual DoD before requesting squash-merge:
 - [ ] `node qingclaws.mjs gateway --help` — output contains "qingclaws", no old brand strings
 - [ ] Verify `~/.qingclaws/` is created on first gateway start (manual check)
 - [ ] Web UI: title bar shows "QingClaws" (manual check after `pnpm ui:dev`)
-- [ ] `LICENSE` head: 3 copyright lines present (QingClaws, EnClaws, OpenClaw)
+- [ ] `LICENSE` head: 3 copyright lines present (QingClaws, QingClaws, QingClaws)
 - [ ] `NOTICE`: contains QingClaws attribution AND all upstream attribution blocks
 - [ ] `docs/upstream-divergence.md` lists all PE1 divergences
 - [ ] 6 commits present on branch in correct order (`chore` → `feat` → `feat` → `feat` → `docs` → `test`)

@@ -11,15 +11,15 @@ import {
 
 describe("volcengine/byteplus auth choice", () => {
   const lifecycle = createAuthTestLifecycle([
-    "ENCLAWS_STATE_DIR",
-    "ENCLAWS_AGENT_DIR",
+    "QINGCLAWS_STATE_DIR",
+    "QINGCLAWS_AGENT_DIR",
     "PI_CODING_AGENT_DIR",
     "VOLCANO_ENGINE_API_KEY",
     "BYTEPLUS_API_KEY",
   ]);
 
   async function setupTempState() {
-    const env = await setupAuthTestEnv("enclaws-volc-byte-");
+    const env = await setupAuthTestEnv("qingclaws-volc-byte-");
     lifecycle.setStateDir(env.stateDir);
     return env.agentDir;
   }

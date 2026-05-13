@@ -128,8 +128,8 @@ const T: Record<
       '❌ **旧版插件**: 检测到旧版官方插件未禁用\n' +
       '👉 请依次运行命令：\n' +
       '```\n' +
-      'openclaw config set plugins.entries.feishu.enabled false --json\n' +
-      'openclaw gateway restart\n' +
+      'qingclaws config set plugins.entries.feishu.enabled false --json\n' +
+      'qingclaws gateway restart\n' +
       '```',
     legacyRunCmds: '👉 请依次运行命令：',
     legacyDisabled: '✅ **旧版插件**: 已禁用',
@@ -176,7 +176,7 @@ const T: Record<
     reportTitle: '### 飞书插件诊断',
     pluginVersionLabel: '插件版本',
     diagTimeLabel: '诊断时间',
-    noAccounts: '❌ **错误**: 未找到已启用的飞书账户\n\n请在 OpenClaw 配置文件中配置飞书账户并启用。',
+    noAccounts: '❌ **错误**: 未找到已启用的飞书账户\n\n请在 QingClaws 配置文件中配置飞书账户并启用。',
     accountNotFoundPrefix: '❌ **错误**: 未找到账户',
     enabledAccountsLabel: '当前已启用的账户',
     toolsCheckPass: '#### ✅ 工具配置检查通过',
@@ -195,8 +195,8 @@ const T: Record<
       '❌ **Legacy Plugin**: Legacy official plugin is not disabled\n' +
       '👉 Please run the following commands:\n' +
       '```\n' +
-      'openclaw config set plugins.entries.feishu.enabled false --json\n' +
-      'openclaw gateway restart\n' +
+      'qingclaws config set plugins.entries.feishu.enabled false --json\n' +
+      'qingclaws gateway restart\n' +
       '```',
     legacyRunCmds: '👉 Please run the following commands:',
     legacyDisabled: '✅ **Legacy Plugin**: Disabled',
@@ -246,7 +246,7 @@ const T: Record<
     pluginVersionLabel: 'Plugin version',
     diagTimeLabel: 'Diagnosis time',
     noAccounts:
-      '❌ **Error**: No enabled Feishu accounts found\n\nPlease configure and enable a Feishu account in the OpenClaw configuration.',
+      '❌ **Error**: No enabled Feishu accounts found\n\nPlease configure and enable a Feishu account in the QingClaws configuration.',
     accountNotFoundPrefix: '❌ **Error**: Account not found',
     enabledAccountsLabel: 'Currently enabled accounts',
     toolsCheckPass: '#### ✅ Tool Configuration Check Passed',
@@ -374,10 +374,10 @@ function checkToolsProfile(config: OpenClawConfig, locale: DoctorLocale): { stat
       markdown:
         `${t.toolsWarnProfile(profile)}\n` +
         '```\n' +
-        'openclaw config set tools.profile "full"\n' +
-        'openclaw gateway restart\n' +
+        'qingclaws config set tools.profile "full"\n' +
+        'qingclaws gateway restart\n' +
         '```\n' +
-        `${t.toolsDocRef}: https://docs.openclaw.ai/zh-CN/tools`,
+        `${t.toolsDocRef}: https://docs.qingclaws.ai/zh-CN/tools`,
     };
   }
 
@@ -422,9 +422,9 @@ async function checkAppPermissions(
 
     // 缺少必需权限
     const lines: string[] = [];
-    let applyUrl = `${openDomain}/app/${appId}/auth?op_from=feishu-openclaw&token_type=tenant`;
+    let applyUrl = `${openDomain}/app/${appId}/auth?op_from=feishu-qingclaws&token_type=tenant`;
     if (requiredMissing.length < 20) {
-      applyUrl = `${openDomain}/app/${appId}/auth?q=${encodeURIComponent(requiredMissing.join(','))}&op_from=feishu-openclaw&token_type=tenant`;
+      applyUrl = `${openDomain}/app/${appId}/auth?q=${encodeURIComponent(requiredMissing.join(','))}&op_from=feishu-qingclaws&token_type=tenant`;
     }
     lines.push(`${t.missingPermsPrefix} ${requiredMissing.length} ${t.missingPermsSuffix} [${t.apply}](${applyUrl})`);
     lines.push('');
@@ -439,7 +439,7 @@ async function checkAppPermissions(
     };
   } catch (err) {
     // API 调用失败（通常是缺少 application:application:self_manage 权限）
-    const applyUrl = `${openDomain}/app/${appId}/auth?q=application:application:self_manage&op_from=feishu-openclaw&token_type=tenant`;
+    const applyUrl = `${openDomain}/app/${appId}/auth?q=application:application:self_manage&op_from=feishu-qingclaws&token_type=tenant`;
 
     if (err instanceof AppScopeCheckFailedError) {
       return {
@@ -597,9 +597,9 @@ async function checkUserPermissions(
     if (appGrantedCount < allScopes.length) {
       // 计算缺失的应用权限
       const appMissingScopes = allScopes.filter((s) => !appUserScopes.includes(s));
-      let appApplyUrl = `${openDomain}/app/${appId}/auth?op_from=feishu-openclaw&token_type=user`;
+      let appApplyUrl = `${openDomain}/app/${appId}/auth?op_from=feishu-qingclaws&token_type=user`;
       if (appMissingScopes.length < 20) {
-        appApplyUrl = `${openDomain}/app/${appId}/auth?q=${encodeURIComponent(appMissingScopes.join(','))}&op_from=feishu-openclaw&token_type=user`;
+        appApplyUrl = `${openDomain}/app/${appId}/auth?q=${encodeURIComponent(appMissingScopes.join(','))}&op_from=feishu-qingclaws&token_type=user`;
       }
 
       lines.push(`${t.appMissingUserPerms(appMissingScopes.length)} [${t.apply}](${appApplyUrl})`);
@@ -632,7 +632,7 @@ async function checkUserPermissions(
       missingUserScopes: userMissing,
     };
   } catch (err) {
-    const applyUrl = `${openDomain}/app/${appId}/auth?q=application:application:self_manage&op_from=feishu-openclaw&token_type=tenant`;
+    const applyUrl = `${openDomain}/app/${appId}/auth?q=application:application:self_manage&op_from=feishu-qingclaws&token_type=tenant`;
 
     if (err instanceof AppScopeCheckFailedError) {
       return {
@@ -661,7 +661,7 @@ async function checkUserPermissions(
 /**
  * 运行飞书插件诊断，生成 Markdown 格式报告。
  *
- * @param config - OpenClaw 配置
+ * @param config - QingClaws 配置
  * @param currentAccountId - 当前发送命令的机器人账号 ID（若有则只诊断该账号）
  * @param locale - 输出语言，默认 zh_cn
  */

@@ -2,7 +2,7 @@ import fs from "node:fs/promises";
 import path from "node:path";
 import { resolveStateDir } from "../config/paths.js";
 import { normalizeUpdateTrack, type UpdateTrack } from "./update-channels.js";
-import { resolveOpenClawPackageRoot } from "./openclaw-root.js";
+import { resolveQingClawsPackageRoot } from "./qingclaws-root.js";
 
 const UPDATE_SETTINGS_FILENAME = "update-settings.json";
 
@@ -53,7 +53,7 @@ async function fileExists(p: string): Promise<boolean> {
 
 /** Detect the install kind at startup. */
 async function detectInstallKind(): Promise<InstallKind> {
-  const root = await resolveOpenClawPackageRoot({
+  const root = await resolveQingClawsPackageRoot({
     moduleUrl: import.meta.url,
     argv1: process.argv[1],
     cwd: process.cwd(),
@@ -115,7 +115,7 @@ export async function ensureUpdateSettings(): Promise<UpdateSettings> {
 
 /** Returns the effective stored track: env var > settings file > null */
 export async function getStoredUpdateTrack(): Promise<UpdateTrack | null> {
-  const envTrack = normalizeUpdateTrack(process.env.ENCLAWS_UPDATE_TRACK);
+  const envTrack = normalizeUpdateTrack(process.env.QINGCLAWS_UPDATE_TRACK);
   if (envTrack) {
     return envTrack;
   }

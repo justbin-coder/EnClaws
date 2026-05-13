@@ -81,11 +81,11 @@ export function pickProbeHostForBind(
 }
 
 const SAFE_DAEMON_ENV_KEYS = [
-  "ENCLAWS_PROFILE",
-  "ENCLAWS_STATE_DIR",
-  "ENCLAWS_CONFIG_PATH",
-  "ENCLAWS_GATEWAY_PORT",
-  "ENCLAWS_NIX_MODE",
+  "QINGCLAWS_PROFILE",
+  "QINGCLAWS_STATE_DIR",
+  "QINGCLAWS_CONFIG_PATH",
+  "QINGCLAWS_GATEWAY_PORT",
+  "QINGCLAWS_NIX_MODE",
 ];
 
 export function filterDaemonEnv(env: Record<string, string> | undefined): Record<string, string> {
@@ -134,7 +134,7 @@ export function renderRuntimeHints(
     }
   })();
   if (runtime.missingUnit) {
-    hints.push(`Service not installed. Run: ${formatCliCommand("enclaws gateway install", env)}`);
+    hints.push(`Service not installed. Run: ${formatCliCommand("qingclaws gateway install", env)}`);
     if (fileLog) {
       hints.push(`File logs: ${fileLog}`);
     }
@@ -149,10 +149,10 @@ export function renderRuntimeHints(
       hints.push(`Launchd stdout (if installed): ${logs.stdoutPath}`);
       hints.push(`Launchd stderr (if installed): ${logs.stderrPath}`);
     } else if (process.platform === "linux") {
-      const unit = resolveGatewaySystemdServiceName(env.ENCLAWS_PROFILE);
+      const unit = resolveGatewaySystemdServiceName(env.QINGCLAWS_PROFILE);
       hints.push(`Logs: journalctl --user -u ${unit}.service -n 200 --no-pager`);
     } else if (process.platform === "win32") {
-      const task = resolveGatewayWindowsTaskName(env.ENCLAWS_PROFILE);
+      const task = resolveGatewayWindowsTaskName(env.QINGCLAWS_PROFILE);
       hints.push(`Logs: schtasks /Query /TN "${task}" /V /FO LIST`);
     }
   }
@@ -161,10 +161,10 @@ export function renderRuntimeHints(
 
 export function renderGatewayServiceStartHints(env: NodeJS.ProcessEnv = process.env): string[] {
   const base = [
-    formatCliCommand("enclaws gateway install", env),
-    formatCliCommand("enclaws gateway", env),
+    formatCliCommand("qingclaws gateway install", env),
+    formatCliCommand("qingclaws gateway", env),
   ];
-  const profile = env.ENCLAWS_PROFILE;
+  const profile = env.QINGCLAWS_PROFILE;
   switch (process.platform) {
     case "darwin": {
       const label = resolveGatewayLaunchAgentLabel(profile);

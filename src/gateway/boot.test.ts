@@ -51,7 +51,7 @@ describe("runBootOnce", () => {
     options: BootWorkspaceOptions,
     run: (workspaceDir: string) => Promise<void>,
   ) => {
-    const workspaceDir = await fs.mkdtemp(path.join(os.tmpdir(), "enclaws-boot-"));
+    const workspaceDir = await fs.mkdtemp(path.join(os.tmpdir(), "qingclaws-boot-"));
     try {
       const bootPath = path.join(workspaceDir, "BOOT.md");
       if (options.bootAsDirectory) {

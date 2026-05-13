@@ -60,7 +60,7 @@ function resolveGatewayAuthToken(cfg: OpenClawConfig, env: NodeJS.ProcessEnv): s
   if (configToken) {
     return configToken;
   }
-  const envToken = env.ENCLAWS_GATEWAY_TOKEN ?? env.CLAWDBOT_GATEWAY_TOKEN;
+  const envToken = env.QINGCLAWS_GATEWAY_TOKEN ?? env.CLAWDBOT_GATEWAY_TOKEN;
   const trimmedEnvToken = envToken?.trim();
   return trimmedEnvToken || undefined;
 }
@@ -362,7 +362,7 @@ export async function maybeScanExtraGatewayServices(
         note(failed.map((line) => `- ${line}`).join("\n"), "Legacy gateway cleanup skipped");
       }
       if (removed.length > 0) {
-        runtime.log("Legacy gateway services removed. Installing EnClaws gateway next.");
+        runtime.log("Legacy gateway services removed. Installing QingClaws gateway next.");
       }
     }
   }

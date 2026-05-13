@@ -24,27 +24,27 @@ function isBatchSafe(value: string): boolean {
 }
 
 function resolveSystemdUnit(env: NodeJS.ProcessEnv): string {
-  const override = env.ENCLAWS_SYSTEMD_UNIT?.trim();
+  const override = env.QINGCLAWS_SYSTEMD_UNIT?.trim();
   if (override) {
     return override.endsWith(".service") ? override : `${override}.service`;
   }
-  return `${resolveGatewaySystemdServiceName(env.ENCLAWS_PROFILE)}.service`;
+  return `${resolveGatewaySystemdServiceName(env.QINGCLAWS_PROFILE)}.service`;
 }
 
 function resolveLaunchdLabel(env: NodeJS.ProcessEnv): string {
-  const override = env.ENCLAWS_LAUNCHD_LABEL?.trim();
+  const override = env.QINGCLAWS_LAUNCHD_LABEL?.trim();
   if (override) {
     return override;
   }
-  return resolveGatewayLaunchAgentLabel(env.ENCLAWS_PROFILE);
+  return resolveGatewayLaunchAgentLabel(env.QINGCLAWS_PROFILE);
 }
 
 function resolveWindowsTaskName(env: NodeJS.ProcessEnv): string {
-  const override = env.ENCLAWS_WINDOWS_TASK_NAME?.trim();
+  const override = env.QINGCLAWS_WINDOWS_TASK_NAME?.trim();
   if (override) {
     return override;
   }
-  return resolveGatewayWindowsTaskName(env.ENCLAWS_PROFILE);
+  return resolveGatewayWindowsTaskName(env.QINGCLAWS_PROFILE);
 }
 
 /**
@@ -67,7 +67,7 @@ export async function prepareRestartScript(
     if (platform === "linux") {
       const unitName = resolveSystemdUnit(env);
       const escaped = shellEscape(unitName);
-      filename = `enclaws-restart-${timestamp}.sh`;
+      filename = `qingclaws-restart-${timestamp}.sh`;
       scriptContent = `#!/bin/sh
 # Standalone restart script — survives parent process termination.
 # Wait briefly to ensure file locks are released after update.
@@ -81,7 +81,7 @@ rm -f "$0"
       const escaped = shellEscape(label);
       // Fallback to 501 if getuid is not available (though it should be on macOS)
       const uid = process.getuid ? process.getuid() : 501;
-      filename = `enclaws-restart-${timestamp}.sh`;
+      filename = `qingclaws-restart-${timestamp}.sh`;
       scriptContent = `#!/bin/sh
 # Standalone restart script — survives parent process termination.
 # Wait briefly to ensure file locks are released after update.
@@ -95,7 +95,7 @@ rm -f "$0"
       if (!isBatchSafe(taskName)) {
         return null;
       }
-      filename = `enclaws-restart-${timestamp}.bat`;
+      filename = `qingclaws-restart-${timestamp}.bat`;
       scriptContent = `@echo off
 REM Standalone restart script — survives parent process termination.
 REM Wait briefly to ensure file locks are released after update.

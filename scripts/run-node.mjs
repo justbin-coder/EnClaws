@@ -128,7 +128,7 @@ const hasSourceMtimeChanged = (stampMtime, deps) => {
 };
 
 const shouldBuild = (deps) => {
-  if (deps.env.ENCLAWS_FORCE_BUILD === "1") {
+  if (deps.env.QINGCLAWS_FORCE_BUILD === "1") {
     return true;
   }
   const stamp = readBuildStamp(deps);
@@ -170,14 +170,14 @@ const shouldBuild = (deps) => {
 };
 
 const logRunner = (message, deps) => {
-  if (deps.env.ENCLAWS_RUNNER_LOG === "0") {
+  if (deps.env.QINGCLAWS_RUNNER_LOG === "0") {
     return;
   }
-  deps.stderr.write(`[enclaws] ${message}\n`);
+  deps.stderr.write(`[qingclaws] ${message}\n`);
 };
 
 const runApp = async (deps) => {
-  const nodeProcess = deps.spawn(deps.execPath, ["enclaws.mjs", ...deps.args], {
+  const nodeProcess = deps.spawn(deps.execPath, ["qingclaws.mjs", ...deps.args], {
     cwd: deps.cwd,
     env: deps.env,
     stdio: "inherit",

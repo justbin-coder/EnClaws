@@ -4,7 +4,7 @@ body:
   - type: markdown
     attributes:
       value: |
-        Ask questions about installing, configuring, or using EnClaws.
+        Ask questions about installing, configuring, or using QingClaws.
         Community members and maintainers can mark the best answer.
 
   - type: textarea
@@ -19,11 +19,11 @@ body:
     id: environment
     attributes:
       label: Environment
-      description: Relevant details about your setup (OS, Node.js version, EnClaws version, deployment method).
+      description: Relevant details about your setup (OS, Node.js version, QingClaws version, deployment method).
       placeholder: |
         - OS: macOS 15.4
         - Node.js: 22.12.0
-        - EnClaws: 0.1.18
+        - QingClaws: 0.1.18
         - Deployment: Docker / npm / source
     validations:
       required: false

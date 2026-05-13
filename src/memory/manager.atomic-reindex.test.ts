@@ -18,11 +18,11 @@ describe("memory manager atomic reindex", () => {
   const embedBatch = getEmbedBatchMock();
 
   beforeAll(async () => {
-    fixtureRoot = await fs.mkdtemp(path.join(os.tmpdir(), "enclaws-mem-atomic-"));
+    fixtureRoot = await fs.mkdtemp(path.join(os.tmpdir(), "qingclaws-mem-atomic-"));
   });
 
   beforeEach(async () => {
-    vi.stubEnv("ENCLAWS_TEST_MEMORY_UNSAFE_REINDEX", "0");
+    vi.stubEnv("QINGCLAWS_TEST_MEMORY_UNSAFE_REINDEX", "0");
     resetEmbeddingMocks();
     shouldFail = false;
     embedBatch.mockImplementation(async (texts: string[]) => {

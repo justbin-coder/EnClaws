@@ -22,7 +22,7 @@ vi.mock("../config/config.js", () => ({
 }));
 
 vi.mock("./onboard-helpers.js", () => ({
-  DEFAULT_WORKSPACE: "~/.enclaws/workspace",
+  DEFAULT_WORKSPACE: "~/.qingclaws/workspace",
   handleReset: mocks.handleReset,
 }));
 
@@ -85,7 +85,7 @@ describe("onboardCommand", () => {
       config: {
         agents: {
           defaults: {
-            workspace: "/tmp/enclaws-custom-workspace",
+            workspace: "/tmp/qingclaws-custom-workspace",
           },
         },
       },
@@ -100,7 +100,7 @@ describe("onboardCommand", () => {
 
     expect(mocks.handleReset).toHaveBeenCalledWith(
       "config+creds+sessions",
-      path.resolve("/tmp/enclaws-custom-workspace"),
+      path.resolve("/tmp/qingclaws-custom-workspace"),
       runtime,
     );
   });

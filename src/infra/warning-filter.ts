@@ -1,4 +1,4 @@
-const warningFilterKey = Symbol.for("enclaws.warning-filter");
+const warningFilterKey = Symbol.for("qingclaws.warning-filter");
 
 export type ProcessWarning = {
   code?: string;

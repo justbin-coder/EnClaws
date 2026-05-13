@@ -6,7 +6,7 @@ import {
   stopDebugPolling,
 } from "./app-polling.ts";
 import { scheduleChatScroll, scheduleLogsScroll } from "./app-scroll.ts";
-import type { EnClawsApp } from "./app.ts";
+import type { QingClawsApp } from "./app.ts";
 import { loadAgentIdentities, loadAgentIdentity } from "./controllers/agent-identity.ts";
 import { loadAgentSkills } from "./controllers/agent-skills.ts";
 import { loadAgents, loadToolsCatalog } from "./controllers/agents.ts";
@@ -157,11 +157,11 @@ function startSandboxPolling(host: SettingsHost) {
     return;
   }
   host.sandboxPollTimer = setInterval(() => {
-    void loadSessions(host as unknown as EnClawsApp);
+    void loadSessions(host as unknown as QingClawsApp);
     // Respect the suppression flag set by /new reset
     const hostAny = host as unknown as Record<string, unknown>;
     if (!hostAny.sandboxTaskPlanSuppressed) {
-      void loadSandboxTaskPlan(host as unknown as EnClawsApp);
+      void loadSandboxTaskPlan(host as unknown as QingClawsApp);
     }
   }, 5_000);
 }
@@ -222,34 +222,34 @@ export async function refreshActiveTab(host: SettingsHost) {
     await loadChannelsTab(host);
   }
   if (host.tab === "instances") {
-    await loadPresence(host as unknown as EnClawsApp);
+    await loadPresence(host as unknown as QingClawsApp);
   }
   if (host.tab === "sessions") {
-    await loadSessions(host as unknown as EnClawsApp);
+    await loadSessions(host as unknown as QingClawsApp);
   }
   if (host.tab === "cron") {
     await loadCron(host);
   }
   if (host.tab === "skills") {
-    await loadSkills(host as unknown as EnClawsApp);
+    await loadSkills(host as unknown as QingClawsApp);
   }
   if (host.tab === "agents") {
-    await loadAgents(host as unknown as EnClawsApp);
-    await loadToolsCatalog(host as unknown as EnClawsApp);
-    await loadConfig(host as unknown as EnClawsApp);
+    await loadAgents(host as unknown as QingClawsApp);
+    await loadToolsCatalog(host as unknown as QingClawsApp);
+    await loadConfig(host as unknown as QingClawsApp);
     const agentIds = host.agentsList?.agents?.map((entry) => entry.id) ?? [];
     if (agentIds.length > 0) {
-      void loadAgentIdentities(host as unknown as EnClawsApp, agentIds);
+      void loadAgentIdentities(host as unknown as QingClawsApp, agentIds);
     }
     const agentId =
       host.agentsSelectedId ?? host.agentsList?.defaultId ?? host.agentsList?.agents?.[0]?.id;
     if (agentId) {
-      void loadAgentIdentity(host as unknown as EnClawsApp, agentId);
+      void loadAgentIdentity(host as unknown as QingClawsApp, agentId);
       if (host.agentsPanel === "skills") {
-        void loadAgentSkills(host as unknown as EnClawsApp, agentId);
+        void loadAgentSkills(host as unknown as QingClawsApp, agentId);
       }
       if (host.agentsPanel === "channels") {
-        void loadChannels(host as unknown as EnClawsApp, false);
+        void loadChannels(host as unknown as QingClawsApp, false);
       }
       if (host.agentsPanel === "cron") {
         void loadCron(host);
@@ -257,14 +257,14 @@ export async function refreshActiveTab(host: SettingsHost) {
     }
   }
   if (host.tab === "sandbox") {
-    await loadSessions(host as unknown as EnClawsApp);
-    await loadSandboxTaskPlan(host as unknown as EnClawsApp);
+    await loadSessions(host as unknown as QingClawsApp);
+    await loadSandboxTaskPlan(host as unknown as QingClawsApp);
   }
   if (host.tab === "nodes") {
-    await loadNodes(host as unknown as EnClawsApp);
-    await loadDevices(host as unknown as EnClawsApp);
-    await loadConfig(host as unknown as EnClawsApp);
-    await loadExecApprovals(host as unknown as EnClawsApp);
+    await loadNodes(host as unknown as QingClawsApp);
+    await loadDevices(host as unknown as QingClawsApp);
+    await loadConfig(host as unknown as QingClawsApp);
+    await loadExecApprovals(host as unknown as QingClawsApp);
   }
   if (host.tab === "chat") {
     await refreshChat(host as unknown as Parameters<typeof refreshChat>[0]);
@@ -274,16 +274,16 @@ export async function refreshActiveTab(host: SettingsHost) {
     );
   }
   if (host.tab === "config") {
-    await loadConfigSchema(host as unknown as EnClawsApp);
-    await loadConfig(host as unknown as EnClawsApp);
+    await loadConfigSchema(host as unknown as QingClawsApp);
+    await loadConfig(host as unknown as QingClawsApp);
   }
   if (host.tab === "debug") {
-    await loadDebug(host as unknown as EnClawsApp);
+    await loadDebug(host as unknown as QingClawsApp);
     host.eventLog = host.eventLogBuffer;
   }
   if (host.tab === "logs") {
     host.logsAtBottom = true;
-    await loadLogs(host as unknown as EnClawsApp, { reset: true });
+    await loadLogs(host as unknown as QingClawsApp, { reset: true });
     scheduleLogsScroll(host as unknown as Parameters<typeof scheduleLogsScroll>[0], true);
   }
 }
@@ -292,7 +292,7 @@ export function inferBasePath() {
   if (typeof window === "undefined") {
     return "";
   }
-  const configured = window.__ENCLAWS_CONTROL_UI_BASE_PATH__;
+  const configured = window.__QINGCLAWS_CONTROL_UI_BASE_PATH__;
   if (typeof configured === "string" && configured.trim()) {
     return normalizeBasePath(configured);
   }
@@ -453,26 +453,26 @@ export function syncUrlWithSessionKey(host: SettingsHost, sessionKey: string, re
 
 export async function loadOverview(host: SettingsHost) {
   await Promise.all([
-    loadChannels(host as unknown as EnClawsApp, false),
-    loadPresence(host as unknown as EnClawsApp),
-    loadSessions(host as unknown as EnClawsApp),
-    loadCronStatus(host as unknown as EnClawsApp),
-    loadDebug(host as unknown as EnClawsApp),
+    loadChannels(host as unknown as QingClawsApp, false),
+    loadPresence(host as unknown as QingClawsApp),
+    loadSessions(host as unknown as QingClawsApp),
+    loadCronStatus(host as unknown as QingClawsApp),
+    loadDebug(host as unknown as QingClawsApp),
   ]);
 }
 
 export async function loadChannelsTab(host: SettingsHost) {
   await Promise.all([
-    loadChannels(host as unknown as EnClawsApp, true),
-    loadConfigSchema(host as unknown as EnClawsApp),
-    loadConfig(host as unknown as EnClawsApp),
+    loadChannels(host as unknown as QingClawsApp, true),
+    loadConfigSchema(host as unknown as QingClawsApp),
+    loadConfig(host as unknown as QingClawsApp),
   ]);
 }
 
 export async function loadCron(host: SettingsHost) {
-  const cronHost = host as unknown as EnClawsApp;
+  const cronHost = host as unknown as QingClawsApp;
   await Promise.all([
-    loadChannels(host as unknown as EnClawsApp, false),
+    loadChannels(host as unknown as QingClawsApp, false),
     loadCronStatus(cronHost),
     loadCronJobs(cronHost),
     loadCronModelSuggestions(cronHost),

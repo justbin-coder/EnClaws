@@ -18,7 +18,7 @@
  */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
-import type { OpenClawPluginApi } from 'openclaw/plugin-sdk';
+import type { QingClawsPluginApi } from 'openclaw/plugin-sdk';
 import { Type } from '@sinclair/typebox';
 
 import { StringEnum, assertLarkOk, createToolContext, handleInvokeErrorWithAutoAuth, json, registerTool } from '../helpers';
@@ -242,7 +242,7 @@ type FeishuBitableAppTableRecordParams =
 // Registration
 // ---------------------------------------------------------------------------
 
-export function registerFeishuBitableAppTableRecordTool(api: OpenClawPluginApi): void {
+export function registerFeishuBitableAppTableRecordTool(api: QingClawsPluginApi): void {
   if (!api.config) return;
   const cfg = api.config;
 

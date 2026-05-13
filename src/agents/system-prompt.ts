@@ -207,7 +207,7 @@ function buildMessagingSection(params: {
     "- Cross-session messaging → use sessions_send(sessionKey, message)",
     "- Sub-agent orchestration → use subagents(action=list|steer|kill)",
     `- Runtime-generated completion events may ask for a user update. Rewrite those in your normal assistant voice and send the update (do not forward raw internal metadata or default to ${SILENT_REPLY_TOKEN}).`,
-    "- Never use exec/curl for provider messaging; EnClaws handles all routing internally.",
+    "- Never use exec/curl for provider messaging; QingClaws handles all routing internally.",
     params.availableTools.has("message")
       ? [
           "",
@@ -248,13 +248,13 @@ function buildDocsSection(params: { docsPath?: string; isMinimal: boolean; readT
   }
   return [
     "## Documentation",
-    `EnClaws docs: ${docsPath}`,
-    "Mirror: https://docs.enclaws.ai",
-    "Source: https://github.com/enclaws/enclaws",
+    `QingClaws docs: ${docsPath}`,
+    "Mirror: https://docs.qingclaws.ai",
+    "Source: https://github.com/qingclaws/qingclaws",
     "Community: https://discord.com/invite/clawd",
     "Find new skills: https://clawhub.com",
-    "For EnClaws behavior, commands, config, or architecture: consult local docs first.",
-    "When diagnosing issues, run `enclaws status` yourself when possible; only ask the user if you lack access (e.g., sandboxed).",
+    "For QingClaws behavior, commands, config, or architecture: consult local docs first.",
+    "When diagnosing issues, run `qingclaws status` yourself when possible; only ask the user if you lack access (e.g., sandboxed).",
     "",
   ];
 }
@@ -325,10 +325,10 @@ export function buildAgentSystemPrompt(params: {
     nodes: "List/describe/notify/camera/screen on paired nodes",
     cron: "Manage cron jobs and wake events (use for reminders; when scheduling a reminder, write the systemEvent text as something that will read like a reminder when it fires, and mention that it is a reminder depending on the time gap between setting and firing; include recent context in reminder text if appropriate)",
     message: "Send messages and channel actions",
-    gateway: "Restart, apply config, or run updates on the running EnClaws process",
+    gateway: "Restart, apply config, or run updates on the running QingClaws process",
     agents_list: acpEnabled
-      ? 'List EnClaws agent ids allowed for sessions_spawn when runtime="subagent" (not ACP harness ids)'
-      : "List EnClaws agent ids allowed for sessions_spawn",
+      ? 'List QingClaws agent ids allowed for sessions_spawn when runtime="subagent" (not ACP harness ids)'
+      : "List QingClaws agent ids allowed for sessions_spawn",
     sessions_list: "List other sessions (incl. sub-agents) with filters/last",
     sessions_history: "Fetch history for another session/sub-agent",
     sessions_send: "Send a message to another session/sub-agent",
@@ -490,11 +490,11 @@ export function buildAgentSystemPrompt(params: {
 
   // For "none" mode, return just the basic identity line
   if (promptMode === "none") {
-    return "You are a personal assistant running inside EnClaws.";
+    return "You are a personal assistant running inside QingClaws.";
   }
 
   const lines = [
-    "You are a personal assistant running inside EnClaws.",
+    "You are a personal assistant running inside QingClaws.",
     "",
     "## Tooling",
     "Tool availability (filtered by policy):",
@@ -509,7 +509,7 @@ export function buildAgentSystemPrompt(params: {
           "- apply_patch: apply multi-file patches",
           `- ${execToolName}: run shell commands (supports background via yieldMs/background)`,
           `- ${processToolName}: manage background exec sessions`,
-          "- browser: control EnClaws's dedicated browser",
+          "- browser: control QingClaws's dedicated browser",
           "- canvas: present/eval/snapshot the Canvas",
           "- nodes: list/describe/notify/camera/screen on paired nodes",
           "- cron: manage cron jobs and wake events (use for reminders; when scheduling a reminder, write the systemEvent text as something that will read like a reminder when it fires, and mention that it is a reminder depending on the time gap between setting and firing; include recent context in reminder text if appropriate)",
@@ -564,27 +564,27 @@ export function buildAgentSystemPrompt(params: {
         ]
       : []),
     ...safetySection,
-    "## EnClaws CLI Quick Reference",
-    "EnClaws is controlled via subcommands. Do not invent commands.",
+    "## QingClaws CLI Quick Reference",
+    "QingClaws is controlled via subcommands. Do not invent commands.",
     "To manage the Gateway daemon service (start/stop/restart):",
-    "- enclaws gateway status",
-    "- enclaws gateway start",
-    "- enclaws gateway stop",
-    "- enclaws gateway restart",
-    "If unsure, ask the user to run `enclaws help` (or `enclaws gateway --help`) and paste the output.",
+    "- qingclaws gateway status",
+    "- qingclaws gateway start",
+    "- qingclaws gateway stop",
+    "- qingclaws gateway restart",
+    "If unsure, ask the user to run `qingclaws help` (or `qingclaws gateway --help`) and paste the output.",
     "",
     ...skillsSection,
     ...memorySection,
     ...tenantMemorySection,
     // Skip self-update for subagent/none modes
-    hasGateway && !isMinimal ? "## EnClaws Self-Update" : "",
+    hasGateway && !isMinimal ? "## QingClaws Self-Update" : "",
     hasGateway && !isMinimal
       ? [
           "Get Updates (self-update) is ONLY allowed when the user explicitly asks for it.",
           "Do not run config.apply or update.run unless the user explicitly requests an update or config change; if it's not explicit, ask first.",
           "Use config.schema to fetch the current JSON Schema (includes plugins/channels) before making config changes or answering config-field questions; avoid guessing field names/types.",
           "Actions: config.get, config.schema, config.apply (validate + write full config, then restart), update.run (update deps or git, then restart).",
-          "After restart, EnClaws pings the last active session automatically.",
+          "After restart, QingClaws pings the last active session automatically.",
         ].join("\n")
       : "",
     hasGateway && !isMinimal ? "" : "",
@@ -659,7 +659,7 @@ export function buildAgentSystemPrompt(params: {
       userTimezone,
     }),
     "## Workspace Files (injected)",
-    "These user-editable files are loaded by EnClaws and included below in Project Context.",
+    "These user-editable files are loaded by QingClaws and included below in Project Context.",
     "",
     ...buildReplyTagsSection(isMinimal),
     ...buildMessagingSection({
@@ -770,7 +770,7 @@ export function buildAgentSystemPrompt(params: {
       heartbeatPromptLine,
       "If you receive a heartbeat poll (a user message matching the heartbeat prompt above), and there is nothing that needs attention, reply exactly:",
       "HEARTBEAT_OK",
-      'EnClaws treats a leading/trailing "HEARTBEAT_OK" as a heartbeat ack (and may discard it).',
+      'QingClaws treats a leading/trailing "HEARTBEAT_OK" as a heartbeat ack (and may discard it).',
       'If something needs attention, do NOT include "HEARTBEAT_OK"; reply with the alert text instead.',
       "",
     );

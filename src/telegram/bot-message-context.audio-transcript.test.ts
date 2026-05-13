@@ -23,7 +23,7 @@ describe("buildTelegramMessageContext audio transcript body", () => {
       allMedia: [{ path: "/tmp/voice.ogg", contentType: "audio/ogg" }],
       options: { forceWasMentioned: true },
       cfg: {
-        agents: { defaults: { model: "anthropic/claude-opus-4-5", workspace: "/tmp/enclaws" } },
+        agents: { defaults: { model: "anthropic/claude-opus-4-5", workspace: "/tmp/qingclaws" } },
         channels: { telegram: {} },
         messages: { groupChat: { mentionPatterns: ["\\bbot\\b"] } },
       },

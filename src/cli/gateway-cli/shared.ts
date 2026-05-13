@@ -65,25 +65,25 @@ export function extractGatewayMiskeys(parsed: unknown): {
 }
 
 export function renderGatewayServiceStopHints(env: NodeJS.ProcessEnv = process.env): string[] {
-  const profile = env.ENCLAWS_PROFILE;
+  const profile = env.QINGCLAWS_PROFILE;
   switch (process.platform) {
     case "darwin":
       return [
-        `Tip: ${formatCliCommand("enclaws gateway stop")}`,
+        `Tip: ${formatCliCommand("qingclaws gateway stop")}`,
         `Or: launchctl bootout gui/$UID/${resolveGatewayLaunchAgentLabel(profile)}`,
       ];
     case "linux":
       return [
-        `Tip: ${formatCliCommand("enclaws gateway stop")}`,
+        `Tip: ${formatCliCommand("qingclaws gateway stop")}`,
         `Or: systemctl --user stop ${resolveGatewaySystemdServiceName(profile)}.service`,
       ];
     case "win32":
       return [
-        `Tip: ${formatCliCommand("enclaws gateway stop")}`,
+        `Tip: ${formatCliCommand("qingclaws gateway stop")}`,
         `Or: schtasks /End /TN "${resolveGatewayWindowsTaskName(profile)}"`,
       ];
     default:
-      return [`Tip: ${formatCliCommand("enclaws gateway stop")}`];
+      return [`Tip: ${formatCliCommand("qingclaws gateway stop")}`];
   }
 }
 

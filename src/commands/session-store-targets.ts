@@ -1,6 +1,6 @@
 import { listAgentIds, resolveDefaultAgentId } from "../agents/agent-scope.js";
 import { resolveStorePath } from "../config/sessions.js";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { OpenClawConfig } from "../config/types.qingclaws.js";
 import { normalizeAgentId } from "../routing/session-key.js";
 
 export type SessionStoreSelectionOptions = {
@@ -60,7 +60,7 @@ export function resolveSessionStoreTargets(
     const requested = normalizeAgentId(opts.agent ?? "");
     if (!knownAgents.includes(requested)) {
       throw new Error(
-        `Unknown agent id "${opts.agent}". Use "enclaws agents list" to see configured agents.`,
+        `Unknown agent id "${opts.agent}". Use "qingclaws agents list" to see configured agents.`,
       );
     }
     return [

@@ -25,7 +25,7 @@ vi.mock("../banner.js", () => ({
 }));
 
 vi.mock("../cli-name.js", () => ({
-  resolveCliName: () => "enclaws",
+  resolveCliName: () => "qingclaws",
 }));
 
 vi.mock("./config-guard.js", () => ({
@@ -51,9 +51,9 @@ beforeEach(() => {
   originalProcessArgv = [...process.argv];
   originalProcessTitle = process.title;
   originalNodeNoWarnings = process.env.NODE_NO_WARNINGS;
-  originalHideBanner = process.env.ENCLAWS_HIDE_BANNER;
+  originalHideBanner = process.env.QINGCLAWS_HIDE_BANNER;
   delete process.env.NODE_NO_WARNINGS;
-  delete process.env.ENCLAWS_HIDE_BANNER;
+  delete process.env.QINGCLAWS_HIDE_BANNER;
 });
 
 afterEach(() => {
@@ -65,15 +65,15 @@ afterEach(() => {
     process.env.NODE_NO_WARNINGS = originalNodeNoWarnings;
   }
   if (originalHideBanner === undefined) {
-    delete process.env.ENCLAWS_HIDE_BANNER;
+    delete process.env.QINGCLAWS_HIDE_BANNER;
   } else {
-    process.env.ENCLAWS_HIDE_BANNER = originalHideBanner;
+    process.env.QINGCLAWS_HIDE_BANNER = originalHideBanner;
   }
 });
 
 describe("registerPreActionHooks", () => {
   function buildProgram() {
-    const program = new Command().name("enclaws");
+    const program = new Command().name("qingclaws");
     program.command("status").action(async () => {});
     program.command("doctor").action(async () => {});
     program.command("completion").action(async () => {});
@@ -101,7 +101,7 @@ describe("registerPreActionHooks", () => {
   it("emits banner, resolves config, and enables verbose from --debug", async () => {
     await runCommand({
       parseArgv: ["status"],
-      processArgv: ["node", "enclaws", "status", "--debug"],
+      processArgv: ["node", "qingclaws", "status", "--debug"],
     });
 
     expect(emitCliBannerMock).toHaveBeenCalledWith("9.9.9-test");
@@ -111,13 +111,13 @@ describe("registerPreActionHooks", () => {
       commandPath: ["status"],
     });
     expect(ensurePluginRegistryLoadedMock).not.toHaveBeenCalled();
-    expect(process.title).toBe("enclaws-status");
+    expect(process.title).toBe("qingclaws-status");
   });
 
   it("loads plugin registry for plugin-required commands", async () => {
     await runCommand({
       parseArgv: ["message", "send"],
-      processArgv: ["node", "enclaws", "message", "send"],
+      processArgv: ["node", "qingclaws", "message", "send"],
     });
 
     expect(setVerboseMock).toHaveBeenCalledWith(false);
@@ -132,7 +132,7 @@ describe("registerPreActionHooks", () => {
   it("loads plugin registry for configure command", async () => {
     await runCommand({
       parseArgv: ["configure"],
-      processArgv: ["node", "enclaws", "configure"],
+      processArgv: ["node", "qingclaws", "configure"],
     });
 
     expect(ensurePluginRegistryLoadedMock).toHaveBeenCalledTimes(1);
@@ -141,7 +141,7 @@ describe("registerPreActionHooks", () => {
   it("loads plugin registry for onboard command", async () => {
     await runCommand({
       parseArgv: ["onboard"],
-      processArgv: ["node", "enclaws", "onboard"],
+      processArgv: ["node", "qingclaws", "onboard"],
     });
 
     expect(ensurePluginRegistryLoadedMock).toHaveBeenCalledTimes(1);
@@ -150,7 +150,7 @@ describe("registerPreActionHooks", () => {
   it("loads plugin registry for agents command", async () => {
     await runCommand({
       parseArgv: ["agents"],
-      processArgv: ["node", "enclaws", "agents"],
+      processArgv: ["node", "qingclaws", "agents"],
     });
 
     expect(ensurePluginRegistryLoadedMock).toHaveBeenCalledTimes(1);
@@ -159,15 +159,15 @@ describe("registerPreActionHooks", () => {
   it("skips config guard for doctor, completion, and secrets commands", async () => {
     await runCommand({
       parseArgv: ["doctor"],
-      processArgv: ["node", "enclaws", "doctor"],
+      processArgv: ["node", "qingclaws", "doctor"],
     });
     await runCommand({
       parseArgv: ["completion"],
-      processArgv: ["node", "enclaws", "completion"],
+      processArgv: ["node", "qingclaws", "completion"],
     });
     await runCommand({
       parseArgv: ["secrets"],
-      processArgv: ["node", "enclaws", "secrets"],
+      processArgv: ["node", "qingclaws", "secrets"],
     });
 
     expect(ensureConfigReadyMock).not.toHaveBeenCalled();
@@ -176,7 +176,7 @@ describe("registerPreActionHooks", () => {
   it("skips preaction work when argv indicates help/version", async () => {
     await runCommand({
       parseArgv: ["status"],
-      processArgv: ["node", "enclaws", "--version"],
+      processArgv: ["node", "qingclaws", "--version"],
     });
 
     expect(emitCliBannerMock).not.toHaveBeenCalled();
@@ -184,11 +184,11 @@ describe("registerPreActionHooks", () => {
     expect(ensureConfigReadyMock).not.toHaveBeenCalled();
   });
 
-  it("hides banner when ENCLAWS_HIDE_BANNER is truthy", async () => {
-    process.env.ENCLAWS_HIDE_BANNER = "1";
+  it("hides banner when QINGCLAWS_HIDE_BANNER is truthy", async () => {
+    process.env.QINGCLAWS_HIDE_BANNER = "1";
     await runCommand({
       parseArgv: ["status"],
-      processArgv: ["node", "enclaws", "status"],
+      processArgv: ["node", "qingclaws", "status"],
     });
 
     expect(emitCliBannerMock).not.toHaveBeenCalled();

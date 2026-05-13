@@ -6,7 +6,7 @@
  * 注册飞书电子表格工具
  */
 
-import type { OpenClawPluginApi } from 'openclaw/plugin-sdk';
+import type { QingClawsPluginApi } from 'openclaw/plugin-sdk';
 import { getEnabledLarkAccounts } from '../../../core/accounts';
 import { resolveAnyEnabledToolsConfig } from '../../../core/tools-config';
 import { registerFeishuSheetTool } from './sheet';
@@ -14,7 +14,7 @@ import { registerFeishuSheetTool } from './sheet';
 /**
  * 注册 Sheets 工具
  */
-export function registerFeishuSheetsTools(api: OpenClawPluginApi): void {
+export function registerFeishuSheetsTools(api: QingClawsPluginApi): void {
   if (!api.config) {
     api.logger.debug?.('feishu_sheets: No config available, skipping');
     return;

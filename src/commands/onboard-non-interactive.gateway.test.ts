@@ -69,8 +69,8 @@ describe("onboard (non-interactive): gateway and remote auth", () => {
       throw new Error("temp home not initialized");
     }
     const stateDir = await fs.mkdtemp(path.join(tempHome, prefix));
-    process.env.ENCLAWS_STATE_DIR = stateDir;
-    delete process.env.ENCLAWS_CONFIG_PATH;
+    process.env.QINGCLAWS_STATE_DIR = stateDir;
+    delete process.env.QINGCLAWS_CONFIG_PATH;
     return stateDir;
   };
   const withStateDir = async (
@@ -87,25 +87,25 @@ describe("onboard (non-interactive): gateway and remote auth", () => {
   beforeAll(async () => {
     envSnapshot = captureEnv([
       "HOME",
-      "ENCLAWS_STATE_DIR",
-      "ENCLAWS_CONFIG_PATH",
-      "ENCLAWS_SKIP_CHANNELS",
-      "ENCLAWS_SKIP_GMAIL_WATCHER",
-      "ENCLAWS_SKIP_CRON",
-      "ENCLAWS_SKIP_CANVAS_HOST",
-      "ENCLAWS_SKIP_BROWSER_CONTROL_SERVER",
-      "ENCLAWS_GATEWAY_TOKEN",
-      "ENCLAWS_GATEWAY_PASSWORD",
+      "QINGCLAWS_STATE_DIR",
+      "QINGCLAWS_CONFIG_PATH",
+      "QINGCLAWS_SKIP_CHANNELS",
+      "QINGCLAWS_SKIP_GMAIL_WATCHER",
+      "QINGCLAWS_SKIP_CRON",
+      "QINGCLAWS_SKIP_CANVAS_HOST",
+      "QINGCLAWS_SKIP_BROWSER_CONTROL_SERVER",
+      "QINGCLAWS_GATEWAY_TOKEN",
+      "QINGCLAWS_GATEWAY_PASSWORD",
     ]);
-    process.env.ENCLAWS_SKIP_CHANNELS = "1";
-    process.env.ENCLAWS_SKIP_GMAIL_WATCHER = "1";
-    process.env.ENCLAWS_SKIP_CRON = "1";
-    process.env.ENCLAWS_SKIP_CANVAS_HOST = "1";
-    process.env.ENCLAWS_SKIP_BROWSER_CONTROL_SERVER = "1";
-    delete process.env.ENCLAWS_GATEWAY_TOKEN;
-    delete process.env.ENCLAWS_GATEWAY_PASSWORD;
+    process.env.QINGCLAWS_SKIP_CHANNELS = "1";
+    process.env.QINGCLAWS_SKIP_GMAIL_WATCHER = "1";
+    process.env.QINGCLAWS_SKIP_CRON = "1";
+    process.env.QINGCLAWS_SKIP_CANVAS_HOST = "1";
+    process.env.QINGCLAWS_SKIP_BROWSER_CONTROL_SERVER = "1";
+    delete process.env.QINGCLAWS_GATEWAY_TOKEN;
+    delete process.env.QINGCLAWS_GATEWAY_PASSWORD;
 
-    tempHome = await makeTempWorkspace("enclaws-onboard-");
+    tempHome = await makeTempWorkspace("qingclaws-onboard-");
     process.env.HOME = tempHome;
   });
 
@@ -119,7 +119,7 @@ describe("onboard (non-interactive): gateway and remote auth", () => {
   it("writes gateway token auth into config", async () => {
     await withStateDir("state-noninteractive-", async (stateDir) => {
       const token = "tok_test_123";
-      const workspace = path.join(stateDir, "enclaws");
+      const workspace = path.join(stateDir, "qingclaws");
 
       await runNonInteractiveOnboarding(
         {
@@ -188,11 +188,11 @@ describe("onboard (non-interactive): gateway and remote auth", () => {
       return;
     }
     await withStateDir("state-lan-", async (stateDir) => {
-      process.env.ENCLAWS_STATE_DIR = stateDir;
-      process.env.ENCLAWS_CONFIG_PATH = path.join(stateDir, "enclaws.json");
+      process.env.QINGCLAWS_STATE_DIR = stateDir;
+      process.env.QINGCLAWS_CONFIG_PATH = path.join(stateDir, "qingclaws.json");
 
       const port = getPseudoPort(40_000);
-      const workspace = path.join(stateDir, "enclaws");
+      const workspace = path.join(stateDir, "qingclaws");
 
       await runNonInteractiveOnboarding(
         {

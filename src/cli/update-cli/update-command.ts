@@ -239,7 +239,7 @@ async function tryInstallShellCompletion(opts: {
       if (!opts.skipPrompt) {
         defaultRuntime.log(
           theme.muted(
-            `Skipped. Run \`${replaceCliName(formatCliCommand("enclaws completion --install"), CLI_NAME)}\` later to enable.`,
+            `Skipped. Run \`${replaceCliName(formatCliCommand("qingclaws completion --install"), CLI_NAME)}\` later to enable.`,
           ),
         );
       }
@@ -545,7 +545,7 @@ async function maybeRestartService(params: {
       if (!params.opts.json && restarted) {
         defaultRuntime.log(theme.success("Daemon restarted successfully."));
         defaultRuntime.log("");
-        process.env.ENCLAWS_UPDATE_IN_PROGRESS = "1";
+        process.env.QINGCLAWS_UPDATE_IN_PROGRESS = "1";
         try {
           const interactiveDoctor =
             Boolean(process.stdin.isTTY) && !params.opts.json && params.opts.yes !== true;
@@ -555,7 +555,7 @@ async function maybeRestartService(params: {
         } catch (err) {
           defaultRuntime.log(theme.warn(`Doctor failed: ${String(err)}`));
         } finally {
-          delete process.env.ENCLAWS_UPDATE_IN_PROGRESS;
+          delete process.env.QINGCLAWS_UPDATE_IN_PROGRESS;
         }
       }
 
@@ -590,7 +590,7 @@ async function maybeRestartService(params: {
           }
           defaultRuntime.log(
             theme.muted(
-              `Run \`${replaceCliName(formatCliCommand("enclaws gateway status --deep"), CLI_NAME)}\` for details.`,
+              `Run \`${replaceCliName(formatCliCommand("qingclaws gateway status --deep"), CLI_NAME)}\` for details.`,
             ),
           );
         }
@@ -601,7 +601,7 @@ async function maybeRestartService(params: {
         defaultRuntime.log(theme.warn(`Daemon restart failed: ${String(err)}`));
         defaultRuntime.log(
           theme.muted(
-            `You may need to restart the service manually: ${replaceCliName(formatCliCommand("enclaws gateway restart"), CLI_NAME)}`,
+            `You may need to restart the service manually: ${replaceCliName(formatCliCommand("qingclaws gateway restart"), CLI_NAME)}`,
           ),
         );
       }
@@ -614,13 +614,13 @@ async function maybeRestartService(params: {
     if (params.result.mode === "npm" || params.result.mode === "pnpm") {
       defaultRuntime.log(
         theme.muted(
-          `Tip: Run \`${replaceCliName(formatCliCommand("enclaws doctor"), CLI_NAME)}\`, then \`${replaceCliName(formatCliCommand("enclaws gateway restart"), CLI_NAME)}\` to apply updates to a running gateway.`,
+          `Tip: Run \`${replaceCliName(formatCliCommand("qingclaws doctor"), CLI_NAME)}\`, then \`${replaceCliName(formatCliCommand("qingclaws gateway restart"), CLI_NAME)}\` to apply updates to a running gateway.`,
         ),
       );
     } else {
       defaultRuntime.log(
         theme.muted(
-          `Tip: Run \`${replaceCliName(formatCliCommand("enclaws gateway restart"), CLI_NAME)}\` to apply updates to a running gateway.`,
+          `Tip: Run \`${replaceCliName(formatCliCommand("qingclaws gateway restart"), CLI_NAME)}\` to apply updates to a running gateway.`,
         ),
       );
     }
@@ -710,7 +710,7 @@ export async function updateCommand(opts: UpdateCommandOptions): Promise<void> {
     } else if (updateInstallKind === "git") {
       actions.push(`Run git update flow on track ${track} (fetch/rebase/build/doctor)`);
     } else {
-      actions.push(`Run global package manager update with spec enclaws@${tag}`);
+      actions.push(`Run global package manager update with spec qingclaws@${tag}`);
     }
     actions.push("Run plugin update sync after core update");
     actions.push("Refresh shell completion cache (if needed)");
@@ -795,7 +795,7 @@ export async function updateCommand(opts: UpdateCommandOptions): Promise<void> {
 
   const showProgress = !opts.json && process.stdout.isTTY;
   if (!opts.json) {
-    defaultRuntime.log(theme.heading("Updating EnClaws..."));
+    defaultRuntime.log(theme.heading("Updating QingClaws..."));
     defaultRuntime.log("");
   }
 
@@ -806,7 +806,7 @@ export async function updateCommand(opts: UpdateCommandOptions): Promise<void> {
     }
     const { spawnDeferredUpdate } = await import("../../infra/update-deferred.js");
     const { readPackageName } = await import("../../infra/package-json.js");
-    const packageName = (await readPackageName(root)) ?? "enclaws";
+    const packageName = (await readPackageName(root)) ?? "qingclaws";
     const spec = `${packageName}@${tag}`;
     const port = resolveGatewayPort(undefined, process.env);
     await spawnDeferredUpdate({
@@ -818,7 +818,7 @@ export async function updateCommand(opts: UpdateCommandOptions): Promise<void> {
       cwd: process.cwd(),
     });
     if (!opts.json) {
-      defaultRuntime.log(theme.success("Update will run after this process exits. Check ~/.enclaws/update-deferred.log for progress."));
+      defaultRuntime.log(theme.success("Update will run after this process exits. Check ~/.qingclaws/update-deferred.log for progress."));
     }
     defaultRuntime.exit(0);
     return;
@@ -883,19 +883,19 @@ export async function updateCommand(opts: UpdateCommandOptions): Promise<void> {
     if (result.reason === "installer") {
       defaultRuntime.log(
         theme.warn(
-          "Skipped: this is a bundled installer. Please download the latest version from https://www.enclaws.ai/",
+          "Skipped: this is a bundled installer. Please download the latest version from https://www.qingclaws.ai/",
         ),
       );
     }
     if (result.reason === "not-git-install") {
       defaultRuntime.log(
         theme.warn(
-          `Skipped: this EnClaws install isn't a git checkout, and the package manager couldn't be detected. Update via your package manager, then run \`${replaceCliName(formatCliCommand("enclaws doctor"), CLI_NAME)}\` and \`${replaceCliName(formatCliCommand("enclaws gateway restart"), CLI_NAME)}\`.`,
+          `Skipped: this QingClaws install isn't a git checkout, and the package manager couldn't be detected. Update via your package manager, then run \`${replaceCliName(formatCliCommand("qingclaws doctor"), CLI_NAME)}\` and \`${replaceCliName(formatCliCommand("qingclaws gateway restart"), CLI_NAME)}\`.`,
         ),
       );
       defaultRuntime.log(
         theme.muted(
-          `Examples: \`${replaceCliName("npm i -g enclaws@latest", CLI_NAME)}\` or \`${replaceCliName("pnpm add -g enclaws@latest", CLI_NAME)}\``,
+          `Examples: \`${replaceCliName("npm i -g qingclaws@latest", CLI_NAME)}\` or \`${replaceCliName("pnpm add -g qingclaws@latest", CLI_NAME)}\``,
         ),
       );
     }

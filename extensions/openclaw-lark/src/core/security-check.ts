@@ -103,7 +103,7 @@ export function needsDmScopeFix(cfg: ClawdbotConfig): boolean {
 /** Return the fix command string, or null if not needed. */
 export function getDmScopeFixCommand(cfg: ClawdbotConfig): string | null {
   if (!needsDmScopeFix(cfg)) return null;
-  return `openclaw config set session.dmScope "${RECOMMENDED_DM_SCOPE}"`;
+  return `qingclaws config set session.dmScope "${RECOMMENDED_DM_SCOPE}"`;
 }
 
 /** User-facing dmScope warning block (markdown). */
@@ -152,7 +152,7 @@ export function formatIsolationWarning(status: IsolationStatus, cfg?: ClawdbotCo
 // ---------------------------------------------------------------------------
 
 /**
- * Generate `openclaw config set` commands for per-account isolation.
+ * Generate `qingclaws config set` commands for per-account isolation.
  */
 export function generateIsolationFixCommands(cfg: ClawdbotConfig): { commands: string[]; preview: string } | null {
   const status = checkMultiAccountIsolation(cfg);
@@ -165,18 +165,18 @@ export function generateIsolationFixCommands(cfg: ClawdbotConfig): { commands: s
     id: `feishu-${a.accountId}`,
     name: `飞书 ${a.name ?? a.accountId}`,
   }));
-  commands.push(`openclaw config set agents.list '${JSON.stringify(agentsList)}' --json`);
+  commands.push(`qingclaws config set agents.list '${JSON.stringify(agentsList)}' --json`);
 
   const bindings = accounts.map((a) => ({
     match: { channel: 'feishu', accountId: a.accountId },
     agentId: `feishu-${a.accountId}`,
   }));
-  commands.push(`openclaw config set bindings '${JSON.stringify(bindings)}' --json`);
+  commands.push(`qingclaws config set bindings '${JSON.stringify(bindings)}' --json`);
 
   const dmScopeCmd = getDmScopeFixCommand(cfg);
   if (dmScopeCmd) commands.push(dmScopeCmd);
 
-  commands.push('openclaw gateway restart');
+  commands.push('qingclaws gateway restart');
 
   const previewLines = accounts.map((a) => `  ${a.name ?? a.accountId}  →  独立记忆（feishu-${a.accountId}）`);
 
@@ -197,12 +197,12 @@ export function generateSharedAgentCommands(cfg: ClawdbotConfig): { commands: st
     match: { channel: 'feishu', accountId: a.accountId },
     agentId: 'default',
   }));
-  commands.push(`openclaw config set bindings '${JSON.stringify(bindings)}' --json`);
+  commands.push(`qingclaws config set bindings '${JSON.stringify(bindings)}' --json`);
 
   const dmScopeCmd = getDmScopeFixCommand(cfg);
   if (dmScopeCmd) commands.push(dmScopeCmd);
 
-  commands.push('openclaw gateway restart');
+  commands.push('qingclaws gateway restart');
 
   const previewLines = accounts.map((a) => `  ${a.name ?? a.accountId}  →  共用记忆（default）`);
 

@@ -6,8 +6,8 @@ describe("buildPairingReply", () => {
   let envSnapshot: ReturnType<typeof captureEnv>;
 
   beforeEach(() => {
-    envSnapshot = captureEnv(["ENCLAWS_PROFILE"]);
-    process.env.ENCLAWS_PROFILE = "isolated";
+    envSnapshot = captureEnv(["QINGCLAWS_PROFILE"]);
+    process.env.QINGCLAWS_PROFILE = "isolated";
   });
 
   afterEach(() => {
@@ -52,9 +52,9 @@ describe("buildPairingReply", () => {
       const text = buildPairingReply(testCase);
       expect(text).toContain(testCase.idLine);
       expect(text).toContain(`Pairing code: ${testCase.code}`);
-      // CLI commands should respect ENCLAWS_PROFILE when set (most tests run with isolated profile)
+      // CLI commands should respect QINGCLAWS_PROFILE when set (most tests run with isolated profile)
       const commandRe = new RegExp(
-        `(?:enclaws|enclaws) --profile isolated pairing approve ${testCase.channel} ${testCase.code}`,
+        `(?:qingclaws|qingclaws) --profile isolated pairing approve ${testCase.channel} ${testCase.code}`,
       );
       expect(text).toMatch(commandRe);
     });

@@ -145,7 +145,7 @@ export async function buildStatusAllReportLines(params: {
   });
 
   const lines: string[] = [];
-  lines.push(heading("EnClaws status --all"));
+  lines.push(heading("QingClaws status --all"));
   lines.push("");
   lines.push(heading("Overview"));
   lines.push(overview.trimEnd());

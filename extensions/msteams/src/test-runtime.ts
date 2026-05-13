@@ -5,12 +5,12 @@ import type { PluginRuntime } from "openclaw/plugin-sdk";
 export const msteamsRuntimeStub = {
   state: {
     resolveStateDir: (env: NodeJS.ProcessEnv = process.env, homedir?: () => string) => {
-      const override = env.OPENCLAW_STATE_DIR?.trim() || env.OPENCLAW_STATE_DIR?.trim();
+      const override = env.QINGCLAWS_STATE_DIR?.trim() || env.QINGCLAWS_STATE_DIR?.trim();
       if (override) {
         return override;
       }
       const resolvedHome = homedir ? homedir() : os.homedir();
-      return path.join(resolvedHome, ".openclaw");
+      return path.join(resolvedHome, ".qingclaws");
     },
   },
 } as unknown as PluginRuntime;

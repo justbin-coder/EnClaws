@@ -8,11 +8,11 @@ import type { OpenClawConfig } from "./types.js";
 describe("config backup rotation", () => {
   it("keeps a 5-deep backup ring for config writes", async () => {
     await withTempHome(async () => {
-      const stateDir = process.env.ENCLAWS_STATE_DIR?.trim();
+      const stateDir = process.env.QINGCLAWS_STATE_DIR?.trim();
       if (!stateDir) {
-        throw new Error("Expected ENCLAWS_STATE_DIR to be set by withTempHome");
+        throw new Error("Expected QINGCLAWS_STATE_DIR to be set by withTempHome");
       }
-      const configPath = path.join(stateDir, "enclaws.json");
+      const configPath = path.join(stateDir, "qingclaws.json");
       const buildConfig = (version: number): OpenClawConfig =>
         ({
           agents: { list: [{ id: `v${version}` }] },

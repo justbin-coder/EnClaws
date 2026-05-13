@@ -30,7 +30,7 @@ type SandboxExplainOptions = {
   json: boolean;
 };
 
-const SANDBOX_DOCS_URL = "https://docs.enclaws.ai/sandbox";
+const SANDBOX_DOCS_URL = "https://docs.qingclaws.ai/sandbox";
 
 function normalizeExplainSessionKey(params: {
   cfg: OpenClawConfig;
@@ -331,7 +331,7 @@ export async function sandboxExplainCommand(
     lines.push(`  - ${key}`);
   }
   lines.push("");
-  lines.push(`${key("Docs:")} ${formatDocsLink("/sandbox", "docs.enclaws.ai/sandbox")}`);
+  lines.push(`${key("Docs:")} ${formatDocsLink("/sandbox", "docs.qingclaws.ai/sandbox")}`);
 
   runtime.log(`${lines.join("\n")}\n`);
 }

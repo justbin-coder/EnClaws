@@ -14,14 +14,14 @@ import {
   resolveBrowserExecutableForPlatform,
 } from "./chrome.executables.js";
 import {
-  decorateOpenClawProfile,
+  decorateQingClawsProfile,
   ensureProfileCleanExit,
   isProfileDecorated,
 } from "./chrome.profile-decoration.js";
 import type { ResolvedBrowserConfig, ResolvedBrowserProfile } from "./config.js";
 import {
-  DEFAULT_ENCLAWS_BROWSER_COLOR,
-  DEFAULT_ENCLAWS_BROWSER_PROFILE_NAME,
+  DEFAULT_QINGCLAWS_BROWSER_COLOR,
+  DEFAULT_QINGCLAWS_BROWSER_PROFILE_NAME,
 } from "./constants.js";
 
 const log = createSubsystemLogger("browser").child("chrome");
@@ -34,7 +34,7 @@ export {
   resolveBrowserExecutableForPlatform,
 } from "./chrome.executables.js";
 export {
-  decorateOpenClawProfile,
+  decorateQingClawsProfile,
   ensureProfileCleanExit,
   isProfileDecorated,
 } from "./chrome.profile-decoration.js";
@@ -60,7 +60,7 @@ function resolveBrowserExecutable(resolved: ResolvedBrowserConfig): BrowserExecu
   return resolveBrowserExecutableForPlatform(resolved, process.platform);
 }
 
-export function resolveOpenClawUserDataDir(profileName = DEFAULT_ENCLAWS_BROWSER_PROFILE_NAME) {
+export function resolveQingClawsUserDataDir(profileName = DEFAULT_QINGCLAWS_BROWSER_PROFILE_NAME) {
   return path.join(CONFIG_DIR, "browser", profileName, "user-data");
 }
 
@@ -161,7 +161,7 @@ export async function isChromeCdpReady(
   return await canOpenWebSocket(wsUrl, handshakeTimeoutMs);
 }
 
-export async function launchOpenClawChrome(
+export async function launchQingClawsChrome(
   resolved: ResolvedBrowserConfig,
   profile: ResolvedBrowserProfile,
   opts?: { initialUrl?: string },
@@ -178,13 +178,13 @@ export async function launchOpenClawChrome(
     );
   }
 
-  const userDataDir = resolveOpenClawUserDataDir(profile.name);
+  const userDataDir = resolveQingClawsUserDataDir(profile.name);
   fs.mkdirSync(userDataDir, { recursive: true });
 
   const needsDecorate = !isProfileDecorated(
     userDataDir,
     profile.name,
-    (profile.color ?? DEFAULT_ENCLAWS_BROWSER_COLOR).toUpperCase(),
+    (profile.color ?? DEFAULT_QINGCLAWS_BROWSER_COLOR).toUpperCase(),
   );
 
   // First launch to create preference files if missing, then decorate and relaunch.
@@ -270,7 +270,7 @@ export async function launchOpenClawChrome(
 
   if (needsDecorate) {
     try {
-      decorateOpenClawProfile(userDataDir, {
+      decorateQingClawsProfile(userDataDir, {
         name: profile.name,
         color: profile.color,
       });
@@ -309,7 +309,7 @@ export async function launchOpenClawChrome(
 
   const pid = proc.pid ?? -1;
   log.info(
-    `🦞 enclaws browser started (${exe.kind}) profile "${profile.name}" on 127.0.0.1:${profile.cdpPort} (pid ${pid})`,
+    `🦞 qingclaws browser started (${exe.kind}) profile "${profile.name}" on 127.0.0.1:${profile.cdpPort} (pid ${pid})`,
   );
 
   return {
@@ -322,7 +322,7 @@ export async function launchOpenClawChrome(
   };
 }
 
-export async function stopOpenClawChrome(running: RunningChrome, timeoutMs = 2500) {
+export async function stopQingClawsChrome(running: RunningChrome, timeoutMs = 2500) {
   const proc = running.proc;
   if (proc.killed) {
     return;

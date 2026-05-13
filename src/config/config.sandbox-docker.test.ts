@@ -244,16 +244,16 @@ describe("sandbox browser binds config", () => {
       globalBrowser: {},
       agentBrowser: {},
     });
-    expect(resolved.network).toBe("enclaws-sandbox-browser");
+    expect(resolved.network).toBe("qingclaws-sandbox-browser");
   });
 
   it("prefers agent browser network over global browser network", () => {
     const resolved = resolveSandboxBrowserConfig({
       scope: "agent",
-      globalBrowser: { network: "enclaws-sandbox-browser-global" },
-      agentBrowser: { network: "enclaws-sandbox-browser-agent" },
+      globalBrowser: { network: "qingclaws-sandbox-browser-global" },
+      agentBrowser: { network: "qingclaws-sandbox-browser-agent" },
     });
-    expect(resolved.network).toBe("enclaws-sandbox-browser-agent");
+    expect(resolved.network).toBe("qingclaws-sandbox-browser-agent");
   });
 
   it("merges cdpSourceRange with agent override", () => {

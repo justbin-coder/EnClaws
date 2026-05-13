@@ -60,7 +60,7 @@
           "alias": "deepseek"
         }
       },
-      "workspace": "/Users/conney/.openclaw/workspace",
+      "workspace": "/Users/conney/.qingclaws/workspace",
       "compaction": {
         "mode": "safeguard"
       },
@@ -94,7 +94,7 @@
     "bind": "loopback",
     "auth": {
       "mode": "token",
-      "token": "__ENCLAWS_REDACTED__"
+      "token": "__QINGCLAWS_REDACTED__"
     },
     "tailscale": {
       "mode": "off",

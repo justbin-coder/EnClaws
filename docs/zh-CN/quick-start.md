@@ -1,6 +1,6 @@
 # 快速上手指南
 
-10 分钟内让 EnClaws 跑起来。
+10 分钟内让 QingClaws 跑起来。
 
 ---
 
@@ -17,8 +17,8 @@
 ### 方式一：npm 安装（推荐）
 
 ```bash
-npm install -g enclaws
-enclaws gateway
+npm install -g qingclaws
+qingclaws gateway
 ```
 
 ### 方式二：Windows 安装包
@@ -27,7 +27,7 @@ enclaws gateway
 
 - 无需管理员权限
 - 内置 Node.js 运行时（可离线安装）
-- 双击安装，搜索"EnClaws"即可启动
+- 双击安装，搜索"QingClaws"即可启动
 
 ### 方式三：一键安装（macOS / Linux）
 
@@ -40,11 +40,11 @@ curl -fsSL --proto '=https' --tlsv1.2 \
 
 ```bash
 git clone https://github.com/hashSTACS-Global/EnClaws.git
-cd EnClaws
+cd QingClaws
 pnpm install
 pnpm build && pnpm ui:build
 npm link
-enclaws gateway
+qingclaws gateway
 ```
 
 ---
@@ -68,19 +68,19 @@ export ANTHROPIC_API_KEY=sk-ant-...
 export GEMINI_API_KEY=AIza...
 
 # 启动 Gateway
-enclaws gateway
+qingclaws gateway
 ```
 
 也可以在控制面板的引导向导中交互式配置。
 
 ### 3. 接入消息通道
 
-EnClaws 支持 41+ 消息通道，常用选项：
+QingClaws 支持 41+ 消息通道，常用选项：
 
 | 通道 | 配置方式 |
 |------|----------|
 | **WebChat** | 内置——打开控制面板直接聊天 |
-| **飞书/Lark** | 安装 `openclaw-lark` 插件，配置 App ID 和 App Secret |
+| **飞书/Lark** | 安装 `qingclaws-lark` 插件，配置 App ID 和 App Secret |
 | **Telegram** | 设置 `TELEGRAM_BOT_TOKEN` 环境变量 |
 | **Discord** | 设置 `DISCORD_BOT_TOKEN` 环境变量 |
 | **Slack** | 设置 `SLACK_BOT_TOKEN` + `SLACK_APP_TOKEN` 环境变量 |
@@ -98,11 +98,11 @@ EnClaws 支持 41+ 消息通道，常用选项：
 ```bash
 # 克隆仓库
 git clone https://github.com/hashSTACS-Global/EnClaws.git
-cd EnClaws
+cd QingClaws
 
 # 复制并编辑环境配置
 cp .env.example .env
-# 编辑 .env：设置 ENCLAWS_JWT_SECRET、API Key 等
+# 编辑 .env：设置 QINGCLAWS_JWT_SECRET、API Key 等
 
 # 启动服务（PostgreSQL + Gateway）
 docker-compose up -d
@@ -120,10 +120,10 @@ open http://localhost:18888
 
 | 变量 | 默认值 | 说明 |
 |------|--------|------|
-| `ENCLAWS_GATEWAY_PORT` | `18888` | Gateway HTTP/WebSocket 端口 |
-| `ENCLAWS_GATEWAY_PASSWORD` | — | 认证密码 |
-| `ENCLAWS_DB_URL` | SQLite | 数据库连接字符串 |
-| `ENCLAWS_JWT_SECRET` | — | JWT 签名密钥（多租户必填） |
+| `QINGCLAWS_GATEWAY_PORT` | `18888` | Gateway HTTP/WebSocket 端口 |
+| `QINGCLAWS_GATEWAY_PASSWORD` | — | 认证密码 |
+| `QINGCLAWS_DB_URL` | SQLite | 数据库连接字符串 |
+| `QINGCLAWS_JWT_SECRET` | — | JWT 签名密钥（多租户必填） |
 | `OPENAI_API_KEY` | — | OpenAI API Key |
 | `ANTHROPIC_API_KEY` | — | Anthropic API Key |
 
@@ -133,6 +133,6 @@ open http://localhost:18888
 
 ## 接下来
 
-- [架构深度解析](./architecture-deep-dive.md) — 了解 EnClaws 内部运作原理
+- [架构深度解析](./architecture-deep-dive.md) — 了解 QingClaws 内部运作原理
 - [部署指南](./deployment-guide.md) — 生产环境部署方案
 - [配置参考](./gateway/configuration-reference.md) — 完整配置文档

@@ -1,6 +1,6 @@
 [English](./CONTRIBUTING.md) | [中文](./CONTRIBUTING.zh-CN.md)
 
-# Contributing to EnClaws
+# Contributing to QingClaws
 
 Thank you for helping turn an enterprise-grade digital assistant container platform from concept into a system that can actually run, be audited, and evolve.
 
@@ -33,7 +33,7 @@ Before starting a larger change, please do the following:
 We hope contributions will follow these engineering priorities:
 
 1. **Isolation first**  
-   One core value of EnClaws is an enterprise-grade multi-user, multi-task, multi-container runtime. Any design that could break tenant, identity, or session boundaries must be examined first.
+   One core value of QingClaws is an enterprise-grade multi-user, multi-task, multi-container runtime. Any design that could break tenant, identity, or session boundaries must be examined first.
 2. **Auditability first**  
    Changes that affect behavior, evidence trails, accountability, or cost visibility should be recorded, replayable, and explainable whenever practical.
 3. **Principle of least surprise**  
@@ -66,7 +66,7 @@ The following commit prefixes are recommended, but not required:
 
 ## 5. Upstream Code and License Compliance
 
-EnClaws has clear upstream references and derivative relationships, so contributors are expected to be honest about provenance.
+QingClaws has clear upstream references and derivative relationships, so contributors are expected to be honest about provenance.
 
 If your PR copies, rewrites, ports, or substantially references content from a third-party project, please:
 

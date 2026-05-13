@@ -6,7 +6,7 @@
  * 统一导出所有知识库相关工具的注册函数
  */
 
-import type { OpenClawPluginApi } from 'openclaw/plugin-sdk';
+import type { QingClawsPluginApi } from 'openclaw/plugin-sdk';
 import { getEnabledLarkAccounts } from '../../../core/accounts';
 import { resolveAnyEnabledToolsConfig } from '../../../core/tools-config';
 import { registerFeishuWikiSpaceTool } from './space';
@@ -15,7 +15,7 @@ import { registerFeishuWikiSpaceNodeTool } from './space-node';
 /**
  * 注册所有 Wiki 工具
  */
-export function registerFeishuWikiTools(api: OpenClawPluginApi): void {
+export function registerFeishuWikiTools(api: QingClawsPluginApi): void {
   if (!api.config) {
     api.logger.debug?.('feishu_wiki: No config available, skipping');
     return;

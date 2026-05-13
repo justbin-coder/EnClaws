@@ -2,23 +2,23 @@
  * Database connection layer — supports PostgreSQL and SQLite.
  *
  * Detection logic:
- *   - ENCLAWS_DB_URL starting with "postgres://" or "postgresql://" → PostgreSQL
- *   - ENCLAWS_DB_URL starting with "sqlite://" → SQLite
- *   - No ENCLAWS_DB_URL but ENCLAWS_DB_HOST present → PostgreSQL
+ *   - QINGCLAWS_DB_URL starting with "postgres://" or "postgresql://" → PostgreSQL
+ *   - QINGCLAWS_DB_URL starting with "sqlite://" → SQLite
+ *   - No QINGCLAWS_DB_URL but QINGCLAWS_DB_HOST present → PostgreSQL
  *   - Neither → not initialized
  *
  * Environment variables (PostgreSQL):
- *   ENCLAWS_DB_URL          - Full connection URL (takes precedence)
- *   ENCLAWS_DB_HOST         - Database host (default: localhost)
- *   ENCLAWS_DB_PORT         - Database port (default: 5432)
- *   ENCLAWS_DB_NAME         - Database name (default: enclaws)
- *   ENCLAWS_DB_USER         - Database user (default: enclaws)
- *   ENCLAWS_DB_PASSWORD     - Database password
- *   ENCLAWS_DB_SSL          - Enable SSL (default: false)
- *   ENCLAWS_DB_POOL_MAX     - Max pool connections (default: 20)
+ *   QINGCLAWS_DB_URL          - Full connection URL (takes precedence)
+ *   QINGCLAWS_DB_HOST         - Database host (default: localhost)
+ *   QINGCLAWS_DB_PORT         - Database port (default: 5432)
+ *   QINGCLAWS_DB_NAME         - Database name (default: qingclaws)
+ *   QINGCLAWS_DB_USER         - Database user (default: qingclaws)
+ *   QINGCLAWS_DB_PASSWORD     - Database password
+ *   QINGCLAWS_DB_SSL          - Enable SSL (default: false)
+ *   QINGCLAWS_DB_POOL_MAX     - Max pool connections (default: 20)
  *
  * Environment variables (SQLite):
- *   ENCLAWS_DB_URL          - sqlite:///path/to/data.db
+ *   QINGCLAWS_DB_URL          - sqlite:///path/to/data.db
  */
 
 import pg from "pg";
@@ -56,21 +56,21 @@ export function getDbType(): DbType {
 }
 
 function resolveDbConfig(): DbConfig {
-  const url = process.env.ENCLAWS_DB_URL;
+  const url = process.env.QINGCLAWS_DB_URL;
   if (url) {
     return {
       connectionString: url,
-      max: parseInt(process.env.ENCLAWS_DB_POOL_MAX || "20", 10),
+      max: parseInt(process.env.QINGCLAWS_DB_POOL_MAX || "20", 10),
     };
   }
   return {
-    host: process.env.ENCLAWS_DB_HOST || "localhost",
-    port: parseInt(process.env.ENCLAWS_DB_PORT || "5432", 10),
-    database: process.env.ENCLAWS_DB_NAME || "enclaws",
-    user: process.env.ENCLAWS_DB_USER || "enclaws",
-    password: process.env.ENCLAWS_DB_PASSWORD || "",
-    ssl: process.env.ENCLAWS_DB_SSL === "true" ? { rejectUnauthorized: false } : false,
-    max: parseInt(process.env.ENCLAWS_DB_POOL_MAX || "20", 10),
+    host: process.env.QINGCLAWS_DB_HOST || "localhost",
+    port: parseInt(process.env.QINGCLAWS_DB_PORT || "5432", 10),
+    database: process.env.QINGCLAWS_DB_NAME || "qingclaws",
+    user: process.env.QINGCLAWS_DB_USER || "qingclaws",
+    password: process.env.QINGCLAWS_DB_PASSWORD || "",
+    ssl: process.env.QINGCLAWS_DB_SSL === "true" ? { rejectUnauthorized: false } : false,
+    max: parseInt(process.env.QINGCLAWS_DB_POOL_MAX || "20", 10),
   };
 }
 
@@ -80,7 +80,7 @@ function resolveDbConfig(): DbConfig {
 export function initDb(overrides?: DbConfig): DbPool | null {
   if (dbType) return pool;
 
-  const url = process.env.ENCLAWS_DB_URL ?? "";
+  const url = process.env.QINGCLAWS_DB_URL ?? "";
 
   if (url.startsWith("sqlite://")) {
     dbType = DB_SQLITE;

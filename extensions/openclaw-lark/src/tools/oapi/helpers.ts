@@ -64,13 +64,13 @@ import { createClientGetter, formatToolResult } from '../helpers';
  *
  * 这是对 createClientGetter 的简化封装，直接返回客户端实例而非 getter 函数。
  *
- * @param config - OpenClaw 配置对象
+ * @param config - QingClaws 配置对象
  * @returns 飞书 SDK 客户端实例
  * @throws 如果没有启用的账号
  *
  * @example
  * ```typescript
- * export function registerMyOapiTool(api: OpenClawPluginApi) {
+ * export function registerMyOapiTool(api: QingClawsPluginApi) {
  *   api.registerTool({
  *     name: "my_oapi_tool",
  *     async execute(_toolCallId, params) {

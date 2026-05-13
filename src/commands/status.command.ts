@@ -425,7 +425,7 @@ export async function statusCommand(
     },
   ];
 
-  runtime.log(theme.heading("EnClaws status"));
+  runtime.log(theme.heading("QingClaws status"));
   runtime.log("");
   runtime.log(theme.heading("Overview"));
   runtime.log(
@@ -445,12 +445,12 @@ export async function statusCommand(
     if (pairingRecovery.requestId) {
       runtime.log(
         theme.muted(
-          `Recovery: ${formatCliCommand(`enclaws devices approve ${pairingRecovery.requestId}`)}`,
+          `Recovery: ${formatCliCommand(`qingclaws devices approve ${pairingRecovery.requestId}`)}`,
         ),
       );
     }
-    runtime.log(theme.muted(`Fallback: ${formatCliCommand("enclaws devices approve --latest")}`));
-    runtime.log(theme.muted(`Inspect: ${formatCliCommand("enclaws devices list")}`));
+    runtime.log(theme.muted(`Fallback: ${formatCliCommand("qingclaws devices approve --latest")}`));
+    runtime.log(theme.muted(`Inspect: ${formatCliCommand("qingclaws devices list")}`));
   }
 
   runtime.log("");
@@ -496,8 +496,8 @@ export async function statusCommand(
       runtime.log(theme.muted(`… +${sorted.length - shown.length} more`));
     }
   }
-  runtime.log(theme.muted(`Full report: ${formatCliCommand("enclaws security audit")}`));
-  runtime.log(theme.muted(`Deep probe: ${formatCliCommand("enclaws security audit --deep")}`));
+  runtime.log(theme.muted(`Full report: ${formatCliCommand("qingclaws security audit")}`));
+  runtime.log(theme.muted(`Deep probe: ${formatCliCommand("qingclaws security audit --deep")}`));
 
   runtime.log("");
   runtime.log(theme.heading("Channels"));
@@ -661,8 +661,8 @@ export async function statusCommand(
   }
 
   runtime.log("");
-  runtime.log("FAQ: https://docs.enclaws.ai/faq");
-  runtime.log("Troubleshooting: https://docs.enclaws.ai/troubleshooting");
+  runtime.log("FAQ: https://docs.qingclaws.ai/faq");
+  runtime.log("Troubleshooting: https://docs.qingclaws.ai/troubleshooting");
   runtime.log("");
   const updateHint = formatUpdateAvailableHint(update);
   if (updateHint) {
@@ -670,11 +670,11 @@ export async function statusCommand(
     runtime.log("");
   }
   runtime.log("Next steps:");
-  runtime.log(`  Need to share?      ${formatCliCommand("enclaws status --all")}`);
-  runtime.log(`  Need to debug live? ${formatCliCommand("enclaws logs --follow")}`);
+  runtime.log(`  Need to share?      ${formatCliCommand("qingclaws status --all")}`);
+  runtime.log(`  Need to debug live? ${formatCliCommand("qingclaws logs --follow")}`);
   if (gatewayReachable) {
-    runtime.log(`  Need to test channels? ${formatCliCommand("enclaws status --deep")}`);
+    runtime.log(`  Need to test channels? ${formatCliCommand("qingclaws status --deep")}`);
   } else {
-    runtime.log(`  Fix reachability first: ${formatCliCommand("enclaws gateway probe")}`);
+    runtime.log(`  Fix reachability first: ${formatCliCommand("qingclaws gateway probe")}`);
   }
 }

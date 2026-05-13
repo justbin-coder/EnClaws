@@ -12,7 +12,7 @@
  */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
-import type { OpenClawPluginApi } from 'openclaw/plugin-sdk';
+import type { QingClawsPluginApi } from 'openclaw/plugin-sdk';
 import { Type } from '@sinclair/typebox';
 import { StringEnum, assertLarkOk, createToolContext, handleInvokeErrorWithAutoAuth, json, registerTool } from '../helpers';
 import type { PaginatedData } from '../sdk-types';
@@ -105,7 +105,7 @@ type FeishuCalendarEventAttendeeParams =
 // Registration
 // ---------------------------------------------------------------------------
 
-export function registerFeishuCalendarEventAttendeeTool(api: OpenClawPluginApi): void {
+export function registerFeishuCalendarEventAttendeeTool(api: QingClawsPluginApi): void {
   if (!api.config) return;
   const cfg = api.config;
 

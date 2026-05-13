@@ -187,8 +187,8 @@ export class ToolClient {
         '❌ 检测到旧版插件未禁用。\n' +
           '👉 请依次运行命令：\n' +
           '```\n' +
-          'openclaw config set plugins.entries.feishu.enabled false --json\n' +
-          'openclaw gateway restart\n' +
+          'qingclaws config set plugins.entries.feishu.enabled false --json\n' +
+          'qingclaws gateway restart\n' +
           '```',
       );
     }
@@ -468,7 +468,7 @@ export class ToolClient {
  * 如果 LarkTicket 不可用（如非消息场景），回退到 `accountIndex`
  * 指定的账号。
  *
- * @param config - OpenClaw 配置对象
+ * @param config - QingClaws 配置对象
  * @param accountIndex - 回退账号索引（默认 0）
  */
 export function createToolClient(config: ClawdbotConfig, accountIndex = 0): ToolClient {

@@ -93,14 +93,14 @@ describe("command-registry", () => {
 
   it("registers doctor placeholder for doctor primary command", () => {
     const program = createProgram();
-    registerCoreCliCommands(program, testProgramContext, ["node", "enclaws", "doctor"]);
+    registerCoreCliCommands(program, testProgramContext, ["node", "qingclaws", "doctor"]);
 
     expect(namesOf(program)).toEqual(["doctor"]);
   });
 
   it("does not narrow to the primary command when help is requested", () => {
     const program = createProgram();
-    registerCoreCliCommands(program, testProgramContext, ["node", "enclaws", "doctor", "--help"]);
+    registerCoreCliCommands(program, testProgramContext, ["node", "qingclaws", "doctor", "--help"]);
 
     const names = namesOf(program);
     expect(names).toContain("doctor");
@@ -123,10 +123,10 @@ describe("command-registry", () => {
 
   it("registers grouped core entry placeholders without duplicate command errors", async () => {
     const program = createProgram();
-    registerCoreCliCommands(program, testProgramContext, ["node", "enclaws", "vitest"]);
+    registerCoreCliCommands(program, testProgramContext, ["node", "qingclaws", "vitest"]);
     program.exitOverride();
-    await withProcessArgv(["node", "enclaws", "status"], async () => {
-      await program.parseAsync(["node", "enclaws", "status"]);
+    await withProcessArgv(["node", "qingclaws", "status"], async () => {
+      await program.parseAsync(["node", "qingclaws", "status"]);
     });
 
     const names = namesOf(program);
@@ -137,7 +137,7 @@ describe("command-registry", () => {
 
   it("replaces placeholders when loading a grouped entry by secondary command name", async () => {
     const program = createProgram();
-    registerCoreCliCommands(program, testProgramContext, ["node", "enclaws", "doctor"]);
+    registerCoreCliCommands(program, testProgramContext, ["node", "qingclaws", "doctor"]);
     expect(namesOf(program)).toEqual(["doctor"]);
 
     const found = await registerCoreCliByName(program, testProgramContext, "dashboard");

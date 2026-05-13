@@ -5,7 +5,7 @@ import { beforeEach, describe, expect, it } from "vitest";
 import {
   callGatewayMock,
   setSubagentsConfigOverride,
-} from "./openclaw-tools.subagents.test-harness.js";
+} from "./qingclaws-tools.subagents.test-harness.js";
 import {
   addSubagentRunForTests,
   listSubagentRunsForRequester,
@@ -14,13 +14,13 @@ import {
 import "./test-helpers/fast-core-tools.js";
 import { createSubagentsTool } from "./tools/subagents-tool.js";
 
-describe("enclaws-tools: subagents steer failure", () => {
+describe("qingclaws-tools: subagents steer failure", () => {
   beforeEach(() => {
     resetSubagentRegistryForTests();
     callGatewayMock.mockClear();
     const storePath = path.join(
       os.tmpdir(),
-      `enclaws-subagents-steer-${Date.now()}-${Math.random().toString(16).slice(2)}.json`,
+      `qingclaws-subagents-steer-${Date.now()}-${Math.random().toString(16).slice(2)}.json`,
     );
     setSubagentsConfigOverride({
       session: {

@@ -40,7 +40,7 @@ export function resolveEffectiveUpdateTrack(params: {
   git?: { tag?: string | null; branch?: string | null };
 }): { track: UpdateTrack; source: UpdateTrackSource } {
   // Env var takes highest priority
-  const envTrack = normalizeUpdateTrack(process.env.ENCLAWS_UPDATE_TRACK);
+  const envTrack = normalizeUpdateTrack(process.env.QINGCLAWS_UPDATE_TRACK);
   if (envTrack) {
     return { track: envTrack, source: "env" };
   }

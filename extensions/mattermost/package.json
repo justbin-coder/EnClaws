@@ -1,9 +1,9 @@
 {
-  "name": "@openclaw/mattermost",
+  "name": "@qingclaws/mattermost",
   "version": "2026.3.1",
-  "description": "OpenClaw Mattermost channel plugin",
+  "description": "QingClaws Mattermost channel plugin",
   "type": "module",
-  "openclaw": {
+  "qingclaws": {
     "extensions": [
       "./index.ts"
     ],
@@ -17,7 +17,7 @@
       "order": 65
     },
     "install": {
-      "npmSpec": "@openclaw/mattermost",
+      "npmSpec": "@qingclaws/mattermost",
       "localPath": "extensions/mattermost",
       "defaultChoice": "npm"
     }

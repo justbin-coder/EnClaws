@@ -286,11 +286,11 @@ export function buildSandboxCreateArgs(params: {
 
   const createdAtMs = params.createdAtMs ?? Date.now();
   const args = ["create", "--name", params.name];
-  args.push("--label", "enclaws.sandbox=1");
-  args.push("--label", `enclaws.sessionKey=${params.scopeKey}`);
-  args.push("--label", `enclaws.createdAtMs=${createdAtMs}`);
+  args.push("--label", "qingclaws.sandbox=1");
+  args.push("--label", `qingclaws.sessionKey=${params.scopeKey}`);
+  args.push("--label", `qingclaws.createdAtMs=${createdAtMs}`);
   if (params.configHash) {
-    args.push("--label", `enclaws.configHash=${params.configHash}`);
+    args.push("--label", `qingclaws.configHash=${params.configHash}`);
   }
   for (const [key, value] of Object.entries(params.labels ?? {})) {
     if (key && value) {
@@ -419,18 +419,18 @@ async function createSandboxContainer(params: {
 }
 
 async function readContainerConfigHash(containerName: string): Promise<string | null> {
-  return await readDockerContainerLabel(containerName, "enclaws.configHash");
+  return await readDockerContainerLabel(containerName, "qingclaws.configHash");
 }
 
 function formatSandboxRecreateHint(params: { scope: SandboxConfig["scope"]; sessionKey: string }) {
   if (params.scope === "session") {
-    return formatCliCommand(`enclaws sandbox recreate --session ${params.sessionKey}`);
+    return formatCliCommand(`qingclaws sandbox recreate --session ${params.sessionKey}`);
   }
   if (params.scope === "agent") {
     const agentId = resolveSandboxAgentId(params.sessionKey) ?? "main";
-    return formatCliCommand(`enclaws sandbox recreate --agent ${agentId}`);
+    return formatCliCommand(`qingclaws sandbox recreate --agent ${agentId}`);
   }
-  return formatCliCommand("enclaws sandbox recreate --all");
+  return formatCliCommand("qingclaws sandbox recreate --all");
 }
 
 export async function ensureSandboxContainer(params: {

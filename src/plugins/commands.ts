@@ -8,12 +8,12 @@
 import type { OpenClawConfig } from "../config/config.js";
 import { logVerbose } from "../globals.js";
 import type {
-  OpenClawPluginCommandDefinition,
+  QingClawsPluginCommandDefinition,
   PluginCommandContext,
   PluginCommandResult,
 } from "./types.js";
 
-type RegisteredPluginCommand = OpenClawPluginCommandDefinition & {
+type RegisteredPluginCommand = QingClawsPluginCommandDefinition & {
   pluginId: string;
 };
 
@@ -107,7 +107,7 @@ export type CommandRegistrationResult = {
  */
 export function registerPluginCommand(
   pluginId: string,
-  command: OpenClawPluginCommandDefinition,
+  command: QingClawsPluginCommandDefinition,
 ): CommandRegistrationResult {
   // Prevent registration while commands are being processed
   if (registryLocked) {

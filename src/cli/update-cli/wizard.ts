@@ -23,7 +23,7 @@ import { updateCommand } from "./update-command.js";
 export async function updateWizardCommand(opts: UpdateWizardOptions = {}): Promise<void> {
   if (!process.stdin.isTTY) {
     defaultRuntime.error(
-      "Update wizard requires a TTY. Use `enclaws update --track <stable|beta|dev>` instead.",
+      "Update wizard requires a TTY. Use `qingclaws update --track <stable|beta|dev>` instead.",
     );
     defaultRuntime.exit(1);
     return;
@@ -103,7 +103,7 @@ export async function updateWizardCommand(opts: UpdateWizardOptions = {}): Promi
         const empty = await isEmptyDir(gitDir);
         if (!empty) {
           defaultRuntime.error(
-            `ENCLAWS_GIT_DIR points at a non-git directory: ${gitDir}. Set ENCLAWS_GIT_DIR to an empty folder or an enclaws checkout.`,
+            `QINGCLAWS_GIT_DIR points at a non-git directory: ${gitDir}. Set QINGCLAWS_GIT_DIR to an empty folder or an qingclaws checkout.`,
           );
           defaultRuntime.exit(1);
           return;
@@ -112,7 +112,7 @@ export async function updateWizardCommand(opts: UpdateWizardOptions = {}): Promi
 
       const ok = await confirm({
         message: stylePromptMessage(
-          `Create a git checkout at ${gitDir}? (override via ENCLAWS_GIT_DIR)`,
+          `Create a git checkout at ${gitDir}? (override via QINGCLAWS_GIT_DIR)`,
         ),
         initialValue: true,
       });

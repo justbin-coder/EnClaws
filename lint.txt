@@ -1,5 +1,5 @@
 
-> openclaw@2026.2.19 lint /Users/opnclaw/Documents/GitHub/openclawWeComzh
+> qingclaws@2026.2.19 lint /Users/opnclaw/Documents/GitHub/qingclawsWeComzh
 > oxlint --type-aware
 
 

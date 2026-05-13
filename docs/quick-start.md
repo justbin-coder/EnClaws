@@ -1,6 +1,6 @@
 # Quick Start Guide
 
-Get EnClaws running in under 10 minutes.
+Get QingClaws running in under 10 minutes.
 
 ---
 
@@ -17,8 +17,8 @@ Get EnClaws running in under 10 minutes.
 ### Option 1: npm (Recommended)
 
 ```bash
-npm install -g enclaws
-enclaws gateway
+npm install -g qingclaws
+qingclaws gateway
 ```
 
 ### Option 2: Windows Installer
@@ -27,7 +27,7 @@ Download `EnClaws-Setup-x.x.x.exe` from the [Releases](https://github.com/hashST
 
 - No admin rights required
 - Bundled Node.js runtime (offline ready)
-- Double-click to install, search "EnClaws" to launch
+- Double-click to install, search "QingClaws" to launch
 
 ### Option 3: One-Line Install (macOS / Linux)
 
@@ -40,11 +40,11 @@ curl -fsSL --proto '=https' --tlsv1.2 \
 
 ```bash
 git clone https://github.com/hashSTACS-Global/EnClaws.git
-cd EnClaws
+cd QingClaws
 pnpm install
 pnpm build && pnpm ui:build
 npm link
-enclaws gateway
+qingclaws gateway
 ```
 
 ---
@@ -68,19 +68,19 @@ export ANTHROPIC_API_KEY=sk-ant-...
 export GEMINI_API_KEY=AIza...
 
 # Then start the gateway
-enclaws gateway
+qingclaws gateway
 ```
 
 Or use the onboarding wizard in the Control UI to configure providers interactively.
 
 ### 3. Connect a Channel
 
-EnClaws supports 41+ messaging channels. Common options:
+QingClaws supports 41+ messaging channels. Common options:
 
 | Channel | Setup |
 |---------|-------|
 | **WebChat** | Built-in — open Control UI and start chatting |
-| **Feishu/Lark** | Install the `openclaw-lark` plugin, configure App ID & Secret |
+| **Feishu/Lark** | Install the `qingclaws-lark` plugin, configure App ID & Secret |
 | **Telegram** | Set `TELEGRAM_BOT_TOKEN` env var |
 | **Discord** | Set `DISCORD_BOT_TOKEN` env var |
 | **Slack** | Set `SLACK_BOT_TOKEN` + `SLACK_APP_TOKEN` env vars |
@@ -98,11 +98,11 @@ For production or multi-tenant setups, Docker is recommended:
 ```bash
 # Clone the repo
 git clone https://github.com/hashSTACS-Global/EnClaws.git
-cd EnClaws
+cd QingClaws
 
 # Copy and edit environment config
 cp .env.example .env
-# Edit .env: set ENCLAWS_JWT_SECRET, API keys, etc.
+# Edit .env: set QINGCLAWS_JWT_SECRET, API keys, etc.
 
 # Start services (PostgreSQL + Gateway)
 docker-compose up -d
@@ -120,10 +120,10 @@ open http://localhost:18789
 
 | Variable | Default | Description |
 |----------|---------|-------------|
-| `ENCLAWS_GATEWAY_PORT` | `18789` | Gateway HTTP/WebSocket port |
-| `ENCLAWS_GATEWAY_PASSWORD` | — | Authentication password |
-| `ENCLAWS_DB_URL` | SQLite | Database connection string |
-| `ENCLAWS_JWT_SECRET` | — | JWT signing secret (required for multi-tenant) |
+| `QINGCLAWS_GATEWAY_PORT` | `18789` | Gateway HTTP/WebSocket port |
+| `QINGCLAWS_GATEWAY_PASSWORD` | — | Authentication password |
+| `QINGCLAWS_DB_URL` | SQLite | Database connection string |
+| `QINGCLAWS_JWT_SECRET` | — | JWT signing secret (required for multi-tenant) |
 | `OPENAI_API_KEY` | — | OpenAI API key |
 | `ANTHROPIC_API_KEY` | — | Anthropic API key |
 
@@ -133,6 +133,6 @@ See `.env.example` for the full list.
 
 ## What's Next
 
-- [Architecture Deep Dive](./architecture-deep-dive.md) — Understand how EnClaws works under the hood
+- [Architecture Deep Dive](./architecture-deep-dive.md) — Understand how QingClaws works under the hood
 - [Deployment Guide](./deployment-guide.md) — Production deployment options
 - [Configuration Reference](./gateway/configuration-reference.md) — Full configuration documentation

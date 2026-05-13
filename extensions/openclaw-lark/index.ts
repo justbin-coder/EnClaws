@@ -2,13 +2,13 @@
  * Copyright (c) 2026 ByteDance Ltd. and/or its affiliates
  * SPDX-License-Identifier: MIT
  *
- * OpenClaw Lark/Feishu plugin entry point.
+ * QingClaws Lark/Feishu plugin entry point.
  *
  * Registers the Feishu channel and all tool families:
  * doc, wiki, drive, perm, bitable, task, calendar.
  */
 
-import type { OpenClawPluginApi } from 'openclaw/plugin-sdk';
+import type { QingClawsPluginApi } from 'openclaw/plugin-sdk';
 import { emptyPluginConfigSchema } from 'openclaw/plugin-sdk';
 import { feishuPlugin } from './src/channel/plugin';
 import { LarkClient } from './src/core/lark-client';
@@ -100,11 +100,11 @@ export { isMessageExpired } from './src/messaging/inbound/dedup';
 // ---------------------------------------------------------------------------
 
 const plugin = {
-  id: 'openclaw-lark',
+  id: 'qingclaws-lark',
   name: 'Feishu',
   description: 'Lark/Feishu channel plugin with im/doc/wiki/drive/task/calendar tools',
   configSchema: emptyPluginConfigSchema(),
-  register(api: OpenClawPluginApi): void {
+  register(api: QingClawsPluginApi): void {
     LarkClient.setRuntime(api.runtime);
     api.registerChannel({ plugin: feishuPlugin });
 
@@ -142,7 +142,7 @@ const plugin = {
 
     // ---- Diagnostic commands ----
 
-    // CLI: openclaw feishu-diagnose [--trace <messageId>]
+    // CLI: qingclaws feishu-diagnose [--trace <messageId>]
     api.registerCli(
       (ctx) => {
         ctx.program

@@ -60,11 +60,11 @@ describe("runServiceRestart token drift", () => {
     service.restart.mockClear();
     service.isLoaded.mockResolvedValue(true);
     service.readCommand.mockResolvedValue({
-      environment: { ENCLAWS_GATEWAY_TOKEN: "service-token" },
+      environment: { QINGCLAWS_GATEWAY_TOKEN: "service-token" },
     });
     service.restart.mockResolvedValue(undefined);
     vi.unstubAllEnvs();
-    vi.stubEnv("ENCLAWS_GATEWAY_TOKEN", "");
+    vi.stubEnv("QINGCLAWS_GATEWAY_TOKEN", "");
     vi.stubEnv("CLAWDBOT_GATEWAY_TOKEN", "");
   });
 
@@ -92,9 +92,9 @@ describe("runServiceRestart token drift", () => {
       },
     });
     service.readCommand.mockResolvedValue({
-      environment: { ENCLAWS_GATEWAY_TOKEN: "env-token" },
+      environment: { QINGCLAWS_GATEWAY_TOKEN: "env-token" },
     });
-    vi.stubEnv("ENCLAWS_GATEWAY_TOKEN", "env-token");
+    vi.stubEnv("QINGCLAWS_GATEWAY_TOKEN", "env-token");
 
     await runServiceRestart({
       serviceNoun: "Gateway",

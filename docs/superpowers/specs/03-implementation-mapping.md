@@ -26,7 +26,7 @@ superpowers:writing-plans → superpowers:subagent-driven-development
 ### 1.2 底座能力编号引用规则
 
 引用 01 文档的编号体系：
-- `K1`-`K14` = KEEP（EnClaws 已有直接用）
+- `K1`-`K14` = KEEP（QingClaws 已有直接用）
 - `H1`-`H5` = HARDEN（已有需硬化）
 - `X1`-`X4` = EXTEND（已有需扩展）
 - `N1`-`N5` = NEW（从零写）
@@ -133,7 +133,7 @@ superpowers:writing-plans → superpowers:subagent-driven-development
 | 风险 | 详情 | 应对 |
 |---|---|---|
 | 业务 H4（异常规则自学习）依赖 X1 业务命名空间 | P2 需求依赖 P1 底座能力 X1 | X1 必须在底座一期完成 |
-| 业务 G1（千万级账页）超出 EnClaws 默认存储能力 | EnClaws 内置 SQLite，不适合千万级账页 | `account-page-engine` skill 外接 DuckDB/Polars，作为 plugin 形态接入 |
+| 业务 G1（千万级账页）超出 QingClaws 默认存储能力 | QingClaws 内置 SQLite，不适合千万级账页 | `account-page-engine` skill 外接 DuckDB/Polars，作为 plugin 形态接入 |
 | 业务 K1 需要 ASR（N3）+ RAG（N2）+ 知识源（N5）三者协同 | 三个 NEW 项必须都完成才能交付 K1 | PE5 单 Epic 内一次性完成 |
 
 ### 4.3 底座没有但业务需要的能力（**反推到底座 NEW 列表**）
@@ -231,8 +231,8 @@ AE3-P2 规则自学习 (10-20d) ← 二期，按客户验收节奏
 ```
 1. 准备阶段
    · 读 01/02/03 三份需求文档对应章节
-   · 读 EnClaws 调研产物（oss-adapter/20260512_EnClaws/）
-   · 读 EnClaws 自身文档（EnClaws/docs/concepts/, automation/ 等）
+   · 读 QingClaws 调研产物（oss-adapter/20260512_QingClaws/）
+   · 读 QingClaws 自身文档（QingClaws/docs/concepts/, automation/ 等）
 
 2. Plan 阶段
    · superpowers:writing-plans（输入：本 Epic 对应的 spec 草稿）

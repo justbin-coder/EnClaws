@@ -4,14 +4,14 @@ body:
   - type: markdown
     attributes:
       value: |
-        Propose a feature idea or improvement for EnClaws.
+        Propose a feature idea or improvement for QingClaws.
         This is the place for early-stage discussion before it becomes a formal feature request issue.
 
   - type: textarea
     id: idea
     attributes:
       label: Idea description
-      description: What would you like EnClaws to do? What problem does it solve?
+      description: What would you like QingClaws to do? What problem does it solve?
     validations:
       required: true
 

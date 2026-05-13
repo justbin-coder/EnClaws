@@ -7,7 +7,7 @@ import { createSubsystemLogger } from "../../logging/subsystem.js";
 import { enablePluginInConfig } from "../../plugins/enable.js";
 import { installPluginFromNpmSpec } from "../../plugins/install.js";
 import { buildNpmResolutionInstallFields, recordPluginInstall } from "../../plugins/installs.js";
-import { loadOpenClawPlugins } from "../../plugins/loader.js";
+import { loadQingClawsPlugins } from "../../plugins/loader.js";
 import { createPluginLoaderLogger } from "../../plugins/logger.js";
 import type { RuntimeEnv } from "../../runtime.js";
 import type { WizardPrompter } from "../../wizard/prompts.js";
@@ -209,7 +209,7 @@ export function reloadOnboardingPluginRegistry(params: {
   const workspaceDir =
     params.workspaceDir ?? resolveAgentWorkspaceDir(params.cfg, resolveDefaultAgentId(params.cfg));
   const log = createSubsystemLogger("plugins");
-  loadOpenClawPlugins({
+  loadQingClawsPlugins({
     config: params.cfg,
     workspaceDir,
     cache: false,

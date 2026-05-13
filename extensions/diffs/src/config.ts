@@ -1,4 +1,4 @@
-import type { OpenClawPluginConfigSchema } from "openclaw/plugin-sdk";
+import type { QingClawsPluginConfigSchema } from "openclaw/plugin-sdk";
 import {
   DIFF_LAYOUTS,
   DIFF_MODES,
@@ -69,7 +69,7 @@ const DIFFS_PLUGIN_CONFIG_JSON_SCHEMA = {
   },
 } as const;
 
-export const diffsPluginConfigSchema: OpenClawPluginConfigSchema = {
+export const diffsPluginConfigSchema: QingClawsPluginConfigSchema = {
   safeParse(value: unknown) {
     if (value === undefined) {
       return { success: true, data: undefined };

@@ -34,7 +34,7 @@ const SKILLS = [
 const EXCLUDE = new Set([".tokens", "node_modules", ".python", "__pycache__", "config.json", ".git"]);
 const EXCLUDE_EXT = [".bak", ".pyc"];
 
-const DEFAULT_GIT_URL = "https://github.com/hashSTACS-Global/feishu-skills.git";
+const DEFAULT_GIT_URL = "https://github.com/QingClaws Team/feishu-skills.git";
 
 // ---------------------------------------------------------------------------
 // Helpers

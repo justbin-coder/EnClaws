@@ -56,10 +56,10 @@ export async function handlePortError(
     if (details) {
       runtime.error(info("Port listener details:"));
       runtime.error(details);
-      if (/enclaws|src\/index\.ts|dist\/index\.js/.test(details)) {
+      if (/qingclaws|src\/index\.ts|dist\/index\.js/.test(details)) {
         runtime.error(
           warn(
-            "It looks like another EnClaws instance is already running. Stop it or pick a different port.",
+            "It looks like another QingClaws instance is already running. Stop it or pick a different port.",
           ),
         );
       }

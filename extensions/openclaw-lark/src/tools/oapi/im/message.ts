@@ -13,7 +13,7 @@
  * 全部以用户身份（user_access_token）调用，scope 来自 real-scope.json。
  */
 
-import type { ClawdbotConfig, OpenClawPluginApi } from 'openclaw/plugin-sdk';
+import type { ClawdbotConfig, QingClawsPluginApi } from 'openclaw/plugin-sdk';
 import { Type } from '@sinclair/typebox';
 import { createAccountScopedConfig } from '../../../core/accounts';
 import { LarkClient } from '../../../core/lark-client';
@@ -269,7 +269,7 @@ type FeishuImMessageParams =
 // Registration
 // ---------------------------------------------------------------------------
 
-export function registerFeishuImUserMessageTool(api: OpenClawPluginApi): boolean {
+export function registerFeishuImUserMessageTool(api: QingClawsPluginApi): boolean {
   if (!api.config) return false;
   const cfg = api.config;
   const { toolClient, log } = createToolContext(api, 'feishu_im_user_message');

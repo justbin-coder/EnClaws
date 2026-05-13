@@ -154,8 +154,8 @@ export function buildGatewayConnectionDetails(
         "Safe remote access defaults:",
         "- keep gateway.bind=loopback and use an SSH tunnel (ssh -N -L 18888:127.0.0.1:18888 user@gateway-host)",
         "- or use Tailscale Serve/Funnel for HTTPS remote access",
-        "Doctor: enclaws doctor --fix",
-        "Docs: https://docs.enclaws.ai/gateway/remote",
+        "Doctor: qingclaws doctor --fix",
+        "Docs: https://docs.qingclaws.ai/gateway/remote",
       ].join("\n"),
     );
   }
@@ -252,7 +252,7 @@ function resolveGatewayCredentials(context: ResolvedGatewayCallContext): {
     urlOverride: context.urlOverride,
     // Use config-first to match the gateway server's auth resolution
     // (resolveGatewayAuth uses config-first). Prevents token_mismatch
-    // when ENCLAWS_GATEWAY_TOKEN env var differs from gateway.auth.token.
+    // when QINGCLAWS_GATEWAY_TOKEN env var differs from gateway.auth.token.
     localTokenPrecedence: "config-first",
     localPasswordPrecedence: "config-first",
     remotePasswordPrecedence: "env-first",

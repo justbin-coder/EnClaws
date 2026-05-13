@@ -342,7 +342,7 @@ export function renderApp(state: AppViewState) {
     if (typeof window !== "undefined" && window.location.pathname !== "/login") {
       window.history.replaceState(null, "", "/login");
     }
-    return html`<enclaws-login
+    return html`<qingclaws-login
       .gatewayUrl=${state.settings.gatewayUrl}
       @auth-success=${(e: CustomEvent) => {
         state.applySettings(loadSettings());
@@ -361,7 +361,7 @@ export function renderApp(state: AppViewState) {
           checkTenantNeedsOnboarding(state);
         }
       }}
-    ></enclaws-login>`;
+    ></qingclaws-login>`;
   }
 
   return html`
@@ -391,13 +391,13 @@ export function renderApp(state: AppViewState) {
               <div class="nav-brand-header">
                   <div class="brand">
                       <div class="brand-logo">
-                          <img src=${basePath ? `${basePath}/favicon.svg` : "/favicon.svg"} alt="EnClaws"/>
+                          <img src=${basePath ? `${basePath}/favicon.svg` : "/favicon.svg"} alt="QingClaws"/>
                       </div>
                       ${
                               !state.settings.navCollapsed
                                       ? html`
                                           <div class="brand-text">
-                                              <div class="brand-title">EnClaws</div>
+                                              <div class="brand-title">QingClaws</div>
                                               <div class="brand-sub">Gateway Dashboard</div>
                                           </div>
                                       `

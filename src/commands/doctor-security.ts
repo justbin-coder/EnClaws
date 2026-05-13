@@ -10,13 +10,13 @@ import { resolveDefaultChannelAccountContext } from "./channel-account-context.j
 
 export async function noteSecurityWarnings(cfg: OpenClawConfig) {
   const warnings: string[] = [];
-  const auditHint = `- Run: ${formatCliCommand("enclaws security audit --deep")}`;
+  const auditHint = `- Run: ${formatCliCommand("qingclaws security audit --deep")}`;
 
   if (cfg.approvals?.exec?.enabled === false) {
     warnings.push(
       "- Note: approvals.exec.enabled=false disables approval forwarding only.",
-      "  Host exec gating still comes from ~/.enclaws/exec-approvals.json.",
-      `  Check local policy with: ${formatCliCommand("enclaws approvals get --gateway")}`,
+      "  Host exec gating still comes from ~/.qingclaws/exec-approvals.json.",
+      `  Check local policy with: ${formatCliCommand("qingclaws approvals get --gateway")}`,
     );
   }
 
@@ -53,7 +53,7 @@ export async function noteSecurityWarnings(cfg: OpenClawConfig) {
   const saferRemoteAccessLines = [
     "  Safer remote access: keep bind loopback and use Tailscale Serve/Funnel or an SSH tunnel.",
     "  Example tunnel: ssh -N -L 18888:127.0.0.1:18888 user@gateway-host",
-    "  Docs: https://docs.enclaws.ai/gateway/remote",
+    "  Docs: https://docs.qingclaws.ai/gateway/remote",
   ];
 
   if (isExposed) {
@@ -61,19 +61,19 @@ export async function noteSecurityWarnings(cfg: OpenClawConfig) {
       const authFixLines =
         resolvedAuth.mode === "password"
           ? [
-              `  Fix: ${formatCliCommand("enclaws configure")} to set a password`,
-              `  Or switch to token: ${formatCliCommand("enclaws config set gateway.auth.mode token")}`,
+              `  Fix: ${formatCliCommand("qingclaws configure")} to set a password`,
+              `  Or switch to token: ${formatCliCommand("qingclaws config set gateway.auth.mode token")}`,
             ]
           : [
-              `  Fix: ${formatCliCommand("enclaws doctor --fix")} to generate a token`,
+              `  Fix: ${formatCliCommand("qingclaws doctor --fix")} to generate a token`,
               `  Or set token directly: ${formatCliCommand(
-                "enclaws config set gateway.auth.mode token",
+                "qingclaws config set gateway.auth.mode token",
               )}`,
             ];
       warnings.push(
         `- CRITICAL: Gateway bound to ${bindDescriptor} without authentication.`,
         `  Anyone on your network (or internet if port-forwarded) can fully control your agent.`,
-        `  Fix: ${formatCliCommand("enclaws config set gateway.bind loopback")}`,
+        `  Fix: ${formatCliCommand("qingclaws config set gateway.bind loopback")}`,
         ...saferRemoteAccessLines,
         ...authFixLines,
       );
@@ -133,7 +133,7 @@ export async function noteSecurityWarnings(cfg: OpenClawConfig) {
     if (dmScope === "main" && isMultiUserDm) {
       warnings.push(
         `- ${params.label} DMs: multiple senders share the main session; run: ` +
-          formatCliCommand('enclaws config set session.dmScope "per-channel-peer"') +
+          formatCliCommand('qingclaws config set session.dmScope "per-channel-peer"') +
           ' (or "per-account-channel-peer" for multi-account channels) to isolate sessions.',
       );
     }

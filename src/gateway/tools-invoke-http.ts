@@ -1,5 +1,5 @@
 import type { IncomingMessage, ServerResponse } from "node:http";
-import { createOpenClawTools } from "../agents/openclaw-tools.js";
+import { createQingClawsTools } from "../agents/qingclaws-tools.js";
 import {
   resolveEffectiveToolPolicy,
   resolveGroupToolPolicy,
@@ -210,11 +210,11 @@ export async function handleToolsInvokeHttpRequest(
 
   // Resolve message channel/account hints (optional headers) for policy inheritance.
   const messageChannel = normalizeMessageChannel(
-    getHeader(req, "x-enclaws-message-channel") ?? "",
+    getHeader(req, "x-qingclaws-message-channel") ?? "",
   );
-  const accountId = getHeader(req, "x-enclaws-account-id")?.trim() || undefined;
-  const agentTo = getHeader(req, "x-enclaws-message-to")?.trim() || undefined;
-  const agentThreadId = getHeader(req, "x-enclaws-thread-id")?.trim() || undefined;
+  const accountId = getHeader(req, "x-qingclaws-account-id")?.trim() || undefined;
+  const agentTo = getHeader(req, "x-qingclaws-message-to")?.trim() || undefined;
+  const agentThreadId = getHeader(req, "x-qingclaws-thread-id")?.trim() || undefined;
 
   const {
     agentId,
@@ -246,7 +246,7 @@ export async function handleToolsInvokeHttpRequest(
     : undefined;
 
   // Build tool list (core + plugin tools).
-  const allTools = createOpenClawTools({
+  const allTools = createQingClawsTools({
     agentSessionKey: sessionKey,
     agentChannel: messageChannel ?? undefined,
     agentAccountId: accountId,

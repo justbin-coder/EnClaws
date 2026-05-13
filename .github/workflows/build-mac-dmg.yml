@@ -50,14 +50,14 @@ jobs:
       - name: Verify app bundle / 验证安装包
         if: matrix.arch == 'arm64'
         run: |
-          APP="dist/EnClaws.app"
+          APP="dist/QingClaws.app"
           echo "=== Checking app structure ==="
           # 检查关键文件是否存在
           for f in \
             "$APP/Contents/Info.plist" \
-            "$APP/Contents/MacOS/enclaws-launcher" \
-            "$APP/Contents/Resources/enclaws" \
-            "$APP/Contents/Resources/enclaws.mjs" \
+            "$APP/Contents/MacOS/qingclaws-launcher" \
+            "$APP/Contents/Resources/qingclaws" \
+            "$APP/Contents/Resources/qingclaws.mjs" \
             "$APP/Contents/Resources/node/bin/node" \
             "$APP/Contents/Resources/dist/index.js" \
             "$APP/Contents/Resources/package.json" \
@@ -92,7 +92,7 @@ jobs:
 
           echo ""
           echo "=== Testing gateway startup (5 second smoke test) ==="
-          "$NODE" "$APP/Contents/Resources/enclaws.mjs" gateway --port 19999 --no-open &
+          "$NODE" "$APP/Contents/Resources/qingclaws.mjs" gateway --port 19999 --no-open &
           PID=$!
           sleep 5
           if curl -s -o /dev/null -w "%{http_code}" "http://localhost:19999" | grep -q "200"; then
@@ -113,7 +113,7 @@ jobs:
       - name: Upload DMG artifact / 上传 DMG 产物
         uses: actions/upload-artifact@v4
         with:
-          name: EnClaws-dmg-${{ matrix.arch }}
-          path: dist/EnClaws-*-${{ matrix.arch }}.dmg
+          name: QingClaws-dmg-${{ matrix.arch }}
+          path: dist/QingClaws-*-${{ matrix.arch }}.dmg
           if-no-files-found: error
           retention-days: 7

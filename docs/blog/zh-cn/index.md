@@ -1,11 +1,11 @@
 ---
 layout: default
-title: EnClaws 博客
+title: QingClaws 博客
 exclude: true
 permalink: /zh-cn/
 ---
 
-# EnClaws 博客
+# QingClaws 博客
 
 [English]({{ "/en/" | relative_url }})
 

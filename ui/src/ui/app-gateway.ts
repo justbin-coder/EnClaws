@@ -12,7 +12,7 @@ import {
   setLastActiveSessionKey,
 } from "./app-settings.ts";
 import { handleAgentEvent, resetToolStream, type AgentEventPayload } from "./app-tool-stream.ts";
-import type { EnClawsApp } from "./app.ts";
+import type { QingClawsApp } from "./app.ts";
 import { setRefreshClient, isAuthenticated, refreshAccessToken, clearAuth } from "./auth-store.ts";
 import { shouldReloadHistoryForFinalEvent } from "./chat-event-reload.ts";
 import { loadAgents, loadToolsCatalog } from "./controllers/agents.ts";
@@ -152,7 +152,7 @@ export function connectGateway(host: GatewayHost) {
     url: host.settings.gatewayUrl,
     token: host.settings.token.trim() ? host.settings.token : undefined,
     password: host.password.trim() ? host.password : undefined,
-    clientName: "enclaws-control-ui",
+    clientName: "qingclaws-control-ui",
     mode: "webchat",
     instanceId: host.clientInstanceId,
     onHello: (hello) => {
@@ -181,11 +181,11 @@ export function connectGateway(host: GatewayHost) {
           }
         });
       }
-      void loadAssistantIdentity(host as unknown as EnClawsApp);
-      void loadAgents(host as unknown as EnClawsApp);
-      void loadToolsCatalog(host as unknown as EnClawsApp);
-      void loadNodes(host as unknown as EnClawsApp, { quiet: true });
-      void loadDevices(host as unknown as EnClawsApp, { quiet: true });
+      void loadAssistantIdentity(host as unknown as QingClawsApp);
+      void loadAgents(host as unknown as QingClawsApp);
+      void loadToolsCatalog(host as unknown as QingClawsApp);
+      void loadNodes(host as unknown as QingClawsApp, { quiet: true });
+      void loadDevices(host as unknown as QingClawsApp, { quiet: true });
       void refreshActiveTab(host as unknown as Parameters<typeof refreshActiveTab>[0]);
     },
     onClose: ({ code, reason, error }) => {
@@ -252,7 +252,7 @@ function handleTerminalChatEvent(
   }
   host.refreshSessionsAfterChat.delete(runId);
   if (state === "final") {
-    void loadSessions(host as unknown as EnClawsApp, {
+    void loadSessions(host as unknown as QingClawsApp, {
       activeMinutes: CHAT_SESSIONS_ACTIVE_MINUTES,
     });
   }
@@ -265,14 +265,14 @@ function handleChatGatewayEvent(host: GatewayHost, payload: ChatEventPayload | u
       payload.sessionKey,
     );
   }
-  const state = handleChatEvent(host as unknown as EnClawsApp, payload);
+  const state = handleChatEvent(host as unknown as QingClawsApp, payload);
   handleTerminalChatEvent(host, payload, state);
   if (state === "final" && shouldReloadHistoryForFinalEvent(payload)) {
-    void loadChatHistory(host as unknown as EnClawsApp);
+    void loadChatHistory(host as unknown as QingClawsApp);
   }
   // Auto-refresh task plan when chat events complete (captures write_todos and subagent completions)
   if (state === "final" || state === "aborted") {
-    void loadSandboxTaskPlan(host as unknown as EnClawsApp);
+    void loadSandboxTaskPlan(host as unknown as QingClawsApp);
   }
 }
 
@@ -323,7 +323,7 @@ function handleGatewayEventUnsafe(host: GatewayHost, evt: GatewayEventFrame) {
   }
 
   if (evt.event === "device.pair.requested" || evt.event === "device.pair.resolved") {
-    void loadDevices(host as unknown as EnClawsApp, { quiet: true });
+    void loadDevices(host as unknown as QingClawsApp, { quiet: true });
   }
 
   if (evt.event === "exec.approval.requested") {
@@ -357,7 +357,7 @@ function handleGatewayEventUnsafe(host: GatewayHost, evt: GatewayEventFrame) {
     const now = Date.now();
     if (!agentPlanRefreshLast || now - agentPlanRefreshLast > 3000) {
       agentPlanRefreshLast = now;
-      void loadSandboxTaskPlan(host as unknown as EnClawsApp);
+      void loadSandboxTaskPlan(host as unknown as QingClawsApp);
     }
   }
 }

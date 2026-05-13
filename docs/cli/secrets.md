@@ -1,5 +1,5 @@
 ---
-summary: "CLI reference for `openclaw secrets` (reload, audit, configure, apply)"
+summary: "CLI reference for `qingclaws secrets` (reload, audit, configure, apply)"
 read_when:
   - Re-resolving secret refs at runtime
   - Auditing plaintext residues and unresolved refs
@@ -7,9 +7,9 @@ read_when:
 title: "secrets"
 ---
 
-# `openclaw secrets`
+# `qingclaws secrets`
 
-Use `openclaw secrets` to migrate credentials from plaintext to SecretRefs and keep the active secrets runtime healthy.
+Use `qingclaws secrets` to migrate credentials from plaintext to SecretRefs and keep the active secrets runtime healthy.
 
 Command roles:
 
@@ -21,12 +21,12 @@ Command roles:
 Recommended operator loop:
 
 ```bash
-openclaw secrets audit --check
-openclaw secrets configure
-openclaw secrets apply --from /tmp/openclaw-secrets-plan.json --dry-run
-openclaw secrets apply --from /tmp/openclaw-secrets-plan.json
-openclaw secrets audit --check
-openclaw secrets reload
+qingclaws secrets audit --check
+qingclaws secrets configure
+qingclaws secrets apply --from /tmp/qingclaws-secrets-plan.json --dry-run
+qingclaws secrets apply --from /tmp/qingclaws-secrets-plan.json
+qingclaws secrets audit --check
+qingclaws secrets reload
 ```
 
 Exit code note for CI/gates:
@@ -43,8 +43,8 @@ Related:
 Re-resolve secret refs and atomically swap runtime snapshot.
 
 ```bash
-openclaw secrets reload
-openclaw secrets reload --json
+qingclaws secrets reload
+qingclaws secrets reload --json
 ```
 
 Notes:
@@ -55,7 +55,7 @@ Notes:
 
 ## Audit
 
-Scan OpenClaw state for:
+Scan QingClaws state for:
 
 - plaintext secret storage
 - unresolved refs
@@ -63,9 +63,9 @@ Scan OpenClaw state for:
 - legacy residues (`auth.json`, OAuth out-of-scope notes)
 
 ```bash
-openclaw secrets audit
-openclaw secrets audit --check
-openclaw secrets audit --json
+qingclaws secrets audit
+qingclaws secrets audit --check
+qingclaws secrets audit --json
 ```
 
 Exit behavior:
@@ -88,12 +88,12 @@ Report shape highlights:
 Build provider + SecretRef changes interactively, run preflight, and optionally apply:
 
 ```bash
-openclaw secrets configure
-openclaw secrets configure --plan-out /tmp/openclaw-secrets-plan.json
-openclaw secrets configure --apply --yes
-openclaw secrets configure --providers-only
-openclaw secrets configure --skip-provider-setup
-openclaw secrets configure --json
+qingclaws secrets configure
+qingclaws secrets configure --plan-out /tmp/qingclaws-secrets-plan.json
+qingclaws secrets configure --apply --yes
+qingclaws secrets configure --providers-only
+qingclaws secrets configure --skip-provider-setup
+qingclaws secrets configure --json
 ```
 
 Flow:
@@ -111,7 +111,7 @@ Notes:
 
 - Requires an interactive TTY.
 - You cannot combine `--providers-only` with `--skip-provider-setup`.
-- `configure` targets secret-bearing fields in `openclaw.json`.
+- `configure` targets secret-bearing fields in `qingclaws.json`.
 - Include all secret-bearing fields you intend to migrate (for example both `models.providers.*.apiKey` and `skills.entries.*.apiKey`) so audit can reach a clean state.
 - It performs preflight resolution before apply.
 - Generated plans default to scrub options (`scrubEnv`, `scrubAuthProfilesForProviderTargets`, `scrubLegacyAuthJson` all enabled).
@@ -129,9 +129,9 @@ Exec provider safety note:
 Apply or preflight a plan generated previously:
 
 ```bash
-openclaw secrets apply --from /tmp/openclaw-secrets-plan.json
-openclaw secrets apply --from /tmp/openclaw-secrets-plan.json --dry-run
-openclaw secrets apply --from /tmp/openclaw-secrets-plan.json --json
+qingclaws secrets apply --from /tmp/qingclaws-secrets-plan.json
+qingclaws secrets apply --from /tmp/qingclaws-secrets-plan.json --dry-run
+qingclaws secrets apply --from /tmp/qingclaws-secrets-plan.json --json
 ```
 
 Plan contract details (allowed target paths, validation rules, and failure semantics):
@@ -140,10 +140,10 @@ Plan contract details (allowed target paths, validation rules, and failure seman
 
 What `apply` may update:
 
-- `openclaw.json` (SecretRef targets + provider upserts/deletes)
+- `qingclaws.json` (SecretRef targets + provider upserts/deletes)
 - `auth-profiles.json` (provider-target scrubbing)
 - legacy `auth.json` residues
-- `~/.openclaw/.env` known secret keys whose values were migrated
+- `~/.qingclaws/.env` known secret keys whose values were migrated
 
 ## Why no rollback backups
 
@@ -155,9 +155,9 @@ Safety comes from strict preflight + atomic-ish apply with best-effort in-memory
 
 ```bash
 # Audit first, then configure, then confirm clean:
-openclaw secrets audit --check
-openclaw secrets configure
-openclaw secrets audit --check
+qingclaws secrets audit --check
+qingclaws secrets configure
+qingclaws secrets audit --check
 ```
 
 If `audit --check` still reports plaintext findings after a partial migration, verify you also migrated skill keys (`skills.entries.*.apiKey`) and any other reported target paths.

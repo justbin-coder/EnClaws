@@ -81,11 +81,11 @@ describe("tool display details", () => {
     const detail = formatToolDetail(
       resolveToolDisplay({
         name: "web_search",
-        args: { query: "EnClaws docs", count: 3 },
+        args: { query: "QingClaws docs", count: 3 },
       }),
     );
 
-    expect(detail).toBe('for "EnClaws docs" (top 3)');
+    expect(detail).toBe('for "QingClaws docs" (top 3)');
   });
 
   it("summarizes exec commands with context", () => {
@@ -94,14 +94,14 @@ describe("tool display details", () => {
         name: "exec",
         args: {
           command:
-            "set -euo pipefail\ngit -C /Users/adityasingh/.enclaws/workspace status --short | head -n 3",
-          workdir: "/Users/adityasingh/.enclaws/workspace",
+            "set -euo pipefail\ngit -C /Users/adityasingh/.qingclaws/workspace status --short | head -n 3",
+          workdir: "/Users/adityasingh/.qingclaws/workspace",
         },
       }),
     );
 
     expect(detail).toContain("check git status -> show first 3 lines");
-    expect(detail).toContain(".enclaws/workspace)");
+    expect(detail).toContain(".qingclaws/workspace)");
   });
 
   it("moves cd path to context suffix and appends raw command", () => {
@@ -267,7 +267,7 @@ describe("tool display details", () => {
         name: "exec",
         args: {
           command: "python3 <<PY\nprint('x')\nPY",
-          workdir: "/Users/adityasingh/.enclaws/workspace",
+          workdir: "/Users/adityasingh/.qingclaws/workspace",
         },
       }),
     );
@@ -276,7 +276,7 @@ describe("tool display details", () => {
         name: "exec",
         args: {
           command: "node --check /tmp/test.js",
-          workdir: "/Users/adityasingh/.enclaws/workspace",
+          workdir: "/Users/adityasingh/.qingclaws/workspace",
         },
       }),
     );
@@ -285,7 +285,7 @@ describe("tool display details", () => {
         name: "exec",
         args: {
           command: "node -c /tmp/test.js",
-          workdir: "/Users/adityasingh/.enclaws/workspace",
+          workdir: "/Users/adityasingh/.qingclaws/workspace",
         },
       }),
     );

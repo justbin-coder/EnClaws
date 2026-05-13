@@ -12,8 +12,8 @@ async function withTempConfig(
   configContent: string,
   run: (configPath: string) => Promise<void>,
 ): Promise<void> {
-  const dir = await fs.mkdtemp(path.join(os.tmpdir(), "enclaws-env-io-"));
-  const configPath = path.join(dir, "enclaws.json");
+  const dir = await fs.mkdtemp(path.join(os.tmpdir(), "qingclaws-env-io-"));
+  const configPath = path.join(dir, "qingclaws.json");
   await fs.writeFile(configPath, configContent);
   try {
     await run(configPath);
@@ -54,8 +54,8 @@ async function withEnvOverrides(
 async function withWrapperEnvContext(configPath: string, run: () => Promise<void>): Promise<void> {
   await withEnvOverrides(
     {
-      ENCLAWS_CONFIG_PATH: configPath,
-      ENCLAWS_DISABLE_CONFIG_CACHE: "1",
+      QINGCLAWS_CONFIG_PATH: configPath,
+      QINGCLAWS_DISABLE_CONFIG_CACHE: "1",
       MY_API_KEY: "original-key-123",
     },
     run,

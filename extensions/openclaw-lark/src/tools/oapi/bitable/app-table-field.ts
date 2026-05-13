@@ -13,7 +13,7 @@
  *   - delete: DELETE /open-apis/bitable/v1/apps/:app_token/tables/:table_id/fields/:field_id
  */
 
-import type { OpenClawPluginApi } from 'openclaw/plugin-sdk';
+import type { QingClawsPluginApi } from 'openclaw/plugin-sdk';
 import { Type } from '@sinclair/typebox';
 
 import { assertLarkOk, createToolContext, handleInvokeErrorWithAutoAuth, json , registerTool } from '../helpers';
@@ -121,7 +121,7 @@ type FeishuBitableAppTableFieldParams =
 // Registration
 // ---------------------------------------------------------------------------
 
-export function registerFeishuBitableAppTableFieldTool(api: OpenClawPluginApi): void {
+export function registerFeishuBitableAppTableFieldTool(api: QingClawsPluginApi): void {
   if (!api.config) return;
 
   const cfg = api.config;

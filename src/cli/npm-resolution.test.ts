@@ -11,52 +11,52 @@ import {
 describe("npm-resolution helpers", () => {
   it("keeps original spec when pin is disabled", () => {
     const result = resolvePinnedNpmSpec({
-      rawSpec: "@enclaws/plugin-alpha@latest",
+      rawSpec: "@qingclaws/plugin-alpha@latest",
       pin: false,
-      resolvedSpec: "@enclaws/plugin-alpha@1.2.3",
+      resolvedSpec: "@qingclaws/plugin-alpha@1.2.3",
     });
     expect(result).toEqual({
-      recordSpec: "@enclaws/plugin-alpha@latest",
+      recordSpec: "@qingclaws/plugin-alpha@latest",
     });
   });
 
   it("warns when pin is enabled but resolved spec is missing", () => {
     const result = resolvePinnedNpmSpec({
-      rawSpec: "@enclaws/plugin-alpha@latest",
+      rawSpec: "@qingclaws/plugin-alpha@latest",
       pin: true,
     });
     expect(result).toEqual({
-      recordSpec: "@enclaws/plugin-alpha@latest",
+      recordSpec: "@qingclaws/plugin-alpha@latest",
       pinWarning: "Could not resolve exact npm version for --pin; storing original npm spec.",
     });
   });
 
   it("returns pinned spec notice when resolved spec is available", () => {
     const result = resolvePinnedNpmSpec({
-      rawSpec: "@enclaws/plugin-alpha@latest",
+      rawSpec: "@qingclaws/plugin-alpha@latest",
       pin: true,
-      resolvedSpec: "@enclaws/plugin-alpha@1.2.3",
+      resolvedSpec: "@qingclaws/plugin-alpha@1.2.3",
     });
     expect(result).toEqual({
-      recordSpec: "@enclaws/plugin-alpha@1.2.3",
-      pinNotice: "Pinned npm install record to @enclaws/plugin-alpha@1.2.3.",
+      recordSpec: "@qingclaws/plugin-alpha@1.2.3",
+      pinNotice: "Pinned npm install record to @qingclaws/plugin-alpha@1.2.3.",
     });
   });
 
   it("maps npm resolution metadata to install fields", () => {
     expect(
       mapNpmResolutionMetadata({
-        name: "@enclaws/plugin-alpha",
+        name: "@qingclaws/plugin-alpha",
         version: "1.2.3",
-        resolvedSpec: "@enclaws/plugin-alpha@1.2.3",
+        resolvedSpec: "@qingclaws/plugin-alpha@1.2.3",
         integrity: "sha512-abc",
         shasum: "deadbeef",
         resolvedAt: "2026-02-21T00:00:00.000Z",
       }),
     ).toEqual({
-      resolvedName: "@enclaws/plugin-alpha",
+      resolvedName: "@qingclaws/plugin-alpha",
       resolvedVersion: "1.2.3",
-      resolvedSpec: "@enclaws/plugin-alpha@1.2.3",
+      resolvedSpec: "@qingclaws/plugin-alpha@1.2.3",
       integrity: "sha512-abc",
       shasum: "deadbeef",
       resolvedAt: "2026-02-21T00:00:00.000Z",
@@ -66,24 +66,24 @@ describe("npm-resolution helpers", () => {
   it("builds common npm install record fields", () => {
     expect(
       buildNpmInstallRecordFields({
-        spec: "@enclaws/plugin-alpha@1.2.3",
-        installPath: "/tmp/enclaws/extensions/alpha",
+        spec: "@qingclaws/plugin-alpha@1.2.3",
+        installPath: "/tmp/qingclaws/extensions/alpha",
         version: "1.2.3",
         resolution: {
-          name: "@enclaws/plugin-alpha",
+          name: "@qingclaws/plugin-alpha",
           version: "1.2.3",
-          resolvedSpec: "@enclaws/plugin-alpha@1.2.3",
+          resolvedSpec: "@qingclaws/plugin-alpha@1.2.3",
           integrity: "sha512-abc",
         },
       }),
     ).toEqual({
       source: "npm",
-      spec: "@enclaws/plugin-alpha@1.2.3",
-      installPath: "/tmp/enclaws/extensions/alpha",
+      spec: "@qingclaws/plugin-alpha@1.2.3",
+      installPath: "/tmp/qingclaws/extensions/alpha",
       version: "1.2.3",
-      resolvedName: "@enclaws/plugin-alpha",
+      resolvedName: "@qingclaws/plugin-alpha",
       resolvedVersion: "1.2.3",
-      resolvedSpec: "@enclaws/plugin-alpha@1.2.3",
+      resolvedSpec: "@qingclaws/plugin-alpha@1.2.3",
       integrity: "sha512-abc",
       shasum: undefined,
       resolvedAt: undefined,
@@ -110,14 +110,14 @@ describe("npm-resolution helpers", () => {
     const logs: string[] = [];
     const warns: string[] = [];
     const record = resolvePinnedNpmInstallRecord({
-      rawSpec: "@enclaws/plugin-alpha@latest",
+      rawSpec: "@qingclaws/plugin-alpha@latest",
       pin: true,
-      installPath: "/tmp/enclaws/extensions/alpha",
+      installPath: "/tmp/qingclaws/extensions/alpha",
       version: "1.2.3",
       resolution: {
-        name: "@enclaws/plugin-alpha",
+        name: "@qingclaws/plugin-alpha",
         version: "1.2.3",
-        resolvedSpec: "@enclaws/plugin-alpha@1.2.3",
+        resolvedSpec: "@qingclaws/plugin-alpha@1.2.3",
       },
       log: (message) => logs.push(message),
       warn: (message) => warns.push(message),
@@ -125,26 +125,26 @@ describe("npm-resolution helpers", () => {
 
     expect(record).toEqual({
       source: "npm",
-      spec: "@enclaws/plugin-alpha@1.2.3",
-      installPath: "/tmp/enclaws/extensions/alpha",
+      spec: "@qingclaws/plugin-alpha@1.2.3",
+      installPath: "/tmp/qingclaws/extensions/alpha",
       version: "1.2.3",
-      resolvedName: "@enclaws/plugin-alpha",
+      resolvedName: "@qingclaws/plugin-alpha",
       resolvedVersion: "1.2.3",
-      resolvedSpec: "@enclaws/plugin-alpha@1.2.3",
+      resolvedSpec: "@qingclaws/plugin-alpha@1.2.3",
       integrity: undefined,
       shasum: undefined,
       resolvedAt: undefined,
     });
-    expect(logs).toEqual(["Pinned npm install record to @enclaws/plugin-alpha@1.2.3."]);
+    expect(logs).toEqual(["Pinned npm install record to @qingclaws/plugin-alpha@1.2.3."]);
     expect(warns).toEqual([]);
   });
 
   it("resolves pinned install record for CLI and formats warning output", () => {
     const logs: string[] = [];
     const record = resolvePinnedNpmInstallRecordForCli(
-      "@enclaws/plugin-alpha@latest",
+      "@qingclaws/plugin-alpha@latest",
       true,
-      "/tmp/enclaws/extensions/alpha",
+      "/tmp/qingclaws/extensions/alpha",
       "1.2.3",
       undefined,
       (message) => logs.push(message),
@@ -153,8 +153,8 @@ describe("npm-resolution helpers", () => {
 
     expect(record).toEqual({
       source: "npm",
-      spec: "@enclaws/plugin-alpha@latest",
-      installPath: "/tmp/enclaws/extensions/alpha",
+      spec: "@qingclaws/plugin-alpha@latest",
+      installPath: "/tmp/qingclaws/extensions/alpha",
       version: "1.2.3",
       resolvedName: undefined,
       resolvedVersion: undefined,

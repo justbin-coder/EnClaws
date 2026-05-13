@@ -140,7 +140,7 @@ function prependInternalEventContext(
   body: string,
   events: AgentCommandOpts["internalEvents"],
 ): string {
-  if (body.includes("EnClaws runtime context (internal):")) {
+  if (body.includes("QingClaws runtime context (internal):")) {
     return body;
   }
   const renderedEvents = formatAgentInternalEventsForPrompt(events);
@@ -360,7 +360,7 @@ export async function agentCommand(
     const knownAgents = listAgentIds(cfg);
     if (!knownAgents.includes(agentIdOverride)) {
       throw new Error(
-        `Unknown agent id "${agentIdOverrideRaw}". Use "${formatCliCommand("enclaws agents list")}" to see configured agents.`,
+        `Unknown agent id "${agentIdOverrideRaw}". Use "${formatCliCommand("qingclaws agents list")}" to see configured agents.`,
       );
     }
   }

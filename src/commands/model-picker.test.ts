@@ -89,7 +89,7 @@ describe("promptDefaultModel", () => {
       includeManual: false,
       includeVllm: true,
       ignoreAllowlist: true,
-      agentDir: "/tmp/enclaws-agent",
+      agentDir: "/tmp/qingclaws-agent",
     });
 
     expect(upsertAuthProfileWithLock).toHaveBeenCalledWith(

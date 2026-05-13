@@ -75,16 +75,16 @@ export function registerChannelsCli(program: Command) {
       "after",
       () =>
         `\n${theme.heading("Examples:")}\n${formatHelpExamples([
-          ["enclaws channels list", "List configured channels and auth profiles."],
-          ["enclaws channels status --probe", "Run channel status checks and probes."],
+          ["qingclaws channels list", "List configured channels and auth profiles."],
+          ["qingclaws channels status --probe", "Run channel status checks and probes."],
           [
-            "enclaws channels add --channel telegram --token <token>",
+            "qingclaws channels add --channel telegram --token <token>",
             "Add or update a channel account non-interactively.",
           ],
-          ["enclaws channels login --channel whatsapp", "Link a WhatsApp Web account."],
+          ["qingclaws channels login --channel whatsapp", "Link a WhatsApp Web account."],
         ])}\n\n${theme.muted("Docs:")} ${formatDocsLink(
           "/cli/channels",
-          "docs.enclaws.ai/cli/channels",
+          "docs.qingclaws.ai/cli/channels",
         )}\n`,
     );
 

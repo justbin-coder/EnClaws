@@ -7,12 +7,12 @@
  * 即时通讯相关工具
  */
 
-import type { OpenClawPluginApi } from 'openclaw/plugin-sdk';
+import type { QingClawsPluginApi } from 'openclaw/plugin-sdk';
 import { registerFeishuImUserMessageTool } from './message';
 import { registerFeishuImUserFetchResourceTool } from './resource';
 import { registerMessageReadTools } from './message-read';
 
-export function registerFeishuImTools(api: OpenClawPluginApi): void {
+export function registerFeishuImTools(api: QingClawsPluginApi): void {
   const registered: string[] = [];
   if (registerFeishuImUserMessageTool(api)) registered.push('feishu_im_user_message');
   if (registerFeishuImUserFetchResourceTool(api)) registered.push('feishu_im_user_fetch_resource');

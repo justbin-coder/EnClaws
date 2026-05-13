@@ -1,1 +1,1 @@
-console.warn("moltbot renamed -> enclaws");
+console.warn("moltbot renamed -> qingclaws");

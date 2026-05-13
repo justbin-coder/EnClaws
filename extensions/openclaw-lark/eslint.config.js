@@ -2,7 +2,7 @@
  * Copyright (c) 2026 ByteDance Ltd. and/or its affiliates
  * SPDX-License-Identifier: MIT
  *
- * ESLint configuration for OpenClaw Feishu Plugin.
+ * ESLint configuration for QingClaws Feishu Plugin.
  */
 
 import eslint from '@eslint/js';
@@ -90,7 +90,7 @@ export default tseslint.config(
       'n/no-extraneous-import': [
         'error',
         {
-          allowModules: ['openclaw'],
+          allowModules: ['qingclaws'],
         },
       ],
       'n/process-exit-as-throw': 'error',

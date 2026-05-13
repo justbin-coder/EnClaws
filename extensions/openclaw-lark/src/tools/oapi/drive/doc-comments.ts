@@ -13,7 +13,7 @@
  */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
-import type { OpenClawPluginApi } from 'openclaw/plugin-sdk';
+import type { QingClawsPluginApi } from 'openclaw/plugin-sdk';
 import { Type } from '@sinclair/typebox';
 import {
   StringEnum,
@@ -206,7 +206,7 @@ async function assembleCommentsWithReplies(
 // Registration
 // ---------------------------------------------------------------------------
 
-export function registerDocCommentsTool(api: OpenClawPluginApi): boolean {
+export function registerDocCommentsTool(api: QingClawsPluginApi): boolean {
   if (!api.config) return false;
   const cfg = api.config;
 

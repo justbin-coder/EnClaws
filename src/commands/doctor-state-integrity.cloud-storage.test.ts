@@ -12,8 +12,8 @@ describe("detectMacCloudSyncedStateDir", () => {
       "Library",
       "Mobile Documents",
       "com~apple~CloudDocs",
-      "EnClaws",
-      ".enclaws",
+      "QingClaws",
+      ".qingclaws",
     );
 
     const result = detectMacCloudSyncedStateDir(stateDir, {
@@ -28,7 +28,7 @@ describe("detectMacCloudSyncedStateDir", () => {
   });
 
   it("detects state dir under Library/CloudStorage", () => {
-    const stateDir = path.join(home, "Library", "CloudStorage", "Dropbox", "EnClaws", ".enclaws");
+    const stateDir = path.join(home, "Library", "CloudStorage", "Dropbox", "QingClaws", ".qingclaws");
 
     const result = detectMacCloudSyncedStateDir(stateDir, {
       platform: "darwin",
@@ -42,14 +42,14 @@ describe("detectMacCloudSyncedStateDir", () => {
   });
 
   it("detects cloud-synced target when state dir resolves via symlink", () => {
-    const symlinkPath = "/tmp/enclaws-state";
+    const symlinkPath = "/tmp/qingclaws-state";
     const resolvedCloudPath = path.join(
       home,
       "Library",
       "CloudStorage",
       "OneDrive-Personal",
-      "EnClaws",
-      ".enclaws",
+      "QingClaws",
+      ".qingclaws",
     );
 
     const result = detectMacCloudSyncedStateDir(symlinkPath, {
@@ -70,10 +70,10 @@ describe("detectMacCloudSyncedStateDir", () => {
       "Library",
       "CloudStorage",
       "OneDrive-Personal",
-      "EnClaws",
-      ".enclaws",
+      "QingClaws",
+      ".qingclaws",
     );
-    const resolvedLocalPath = path.join(home, ".enclaws");
+    const resolvedLocalPath = path.join(home, ".qingclaws");
 
     const result = detectMacCloudSyncedStateDir(symlinkPath, {
       platform: "darwin",
@@ -84,10 +84,10 @@ describe("detectMacCloudSyncedStateDir", () => {
     expect(result).toBeNull();
   });
 
-  it("anchors cloud detection to OS homedir when ENCLAWS_HOME is overridden", () => {
-    const stateDir = path.join(home, "Library", "CloudStorage", "iCloud Drive", ".enclaws");
-    const originalOpenClawHome = process.env.ENCLAWS_HOME;
-    process.env.ENCLAWS_HOME = "/tmp/enclaws-home-override";
+  it("anchors cloud detection to OS homedir when QINGCLAWS_HOME is overridden", () => {
+    const stateDir = path.join(home, "Library", "CloudStorage", "iCloud Drive", ".qingclaws");
+    const originalQingClawsHome = process.env.QINGCLAWS_HOME;
+    process.env.QINGCLAWS_HOME = "/tmp/qingclaws-home-override";
     const homedirSpy = vi.spyOn(os, "homedir").mockReturnValue(home);
     try {
       const result = detectMacCloudSyncedStateDir(stateDir, {
@@ -100,10 +100,10 @@ describe("detectMacCloudSyncedStateDir", () => {
       });
     } finally {
       homedirSpy.mockRestore();
-      if (originalOpenClawHome === undefined) {
-        delete process.env.ENCLAWS_HOME;
+      if (originalQingClawsHome === undefined) {
+        delete process.env.QINGCLAWS_HOME;
       } else {
-        process.env.ENCLAWS_HOME = originalOpenClawHome;
+        process.env.QINGCLAWS_HOME = originalQingClawsHome;
       }
     }
   });
@@ -114,8 +114,8 @@ describe("detectMacCloudSyncedStateDir", () => {
       "Library",
       "Mobile Documents",
       "com~apple~CloudDocs",
-      "EnClaws",
-      ".enclaws",
+      "QingClaws",
+      ".qingclaws",
     );
 
     const result = detectMacCloudSyncedStateDir(stateDir, {

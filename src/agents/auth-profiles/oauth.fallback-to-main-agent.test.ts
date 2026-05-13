@@ -9,8 +9,8 @@ import type { AuthProfileStore } from "./types.js";
 
 describe("resolveApiKeyForProfile fallback to main agent", () => {
   const envSnapshot = captureEnv([
-    "ENCLAWS_STATE_DIR",
-    "ENCLAWS_AGENT_DIR",
+    "QINGCLAWS_STATE_DIR",
+    "QINGCLAWS_AGENT_DIR",
     "PI_CODING_AGENT_DIR",
   ]);
   let tmpDir: string;
@@ -24,9 +24,9 @@ describe("resolveApiKeyForProfile fallback to main agent", () => {
     await fs.mkdir(mainAgentDir, { recursive: true });
     await fs.mkdir(secondaryAgentDir, { recursive: true });
 
-    // Set environment variables so resolveOpenClawAgentDir() returns mainAgentDir
-    process.env.ENCLAWS_STATE_DIR = tmpDir;
-    process.env.ENCLAWS_AGENT_DIR = mainAgentDir;
+    // Set environment variables so resolveQingClawsAgentDir() returns mainAgentDir
+    process.env.QINGCLAWS_STATE_DIR = tmpDir;
+    process.env.QINGCLAWS_AGENT_DIR = mainAgentDir;
     process.env.PI_CODING_AGENT_DIR = mainAgentDir;
   });
 

@@ -8,7 +8,7 @@ describe("workspace bootstrap file caching", () => {
   let workspaceDir: string;
 
   beforeEach(async () => {
-    workspaceDir = await makeTempWorkspace("enclaws-bootstrap-cache-test-");
+    workspaceDir = await makeTempWorkspace("qingclaws-bootstrap-cache-test-");
   });
 
   const loadAgentsFile = async (dir: string) => {
@@ -143,8 +143,8 @@ describe("workspace bootstrap file caching", () => {
     const content2 = "# File 2 content";
 
     // Create two different workspace directories
-    const workspace1 = await makeTempWorkspace("enclaws-cache-test1-");
-    const workspace2 = await makeTempWorkspace("enclaws-cache-test2-");
+    const workspace1 = await makeTempWorkspace("qingclaws-cache-test1-");
+    const workspace2 = await makeTempWorkspace("qingclaws-cache-test2-");
 
     await writeWorkspaceFile({ dir: workspace1, name: DEFAULT_AGENTS_FILENAME, content: content1 });
     await writeWorkspaceFile({ dir: workspace2, name: DEFAULT_AGENTS_FILENAME, content: content2 });

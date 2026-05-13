@@ -8,17 +8,17 @@ title: "Skills"
 
 # Skills (macOS)
 
-The macOS app surfaces OpenClaw skills via the gateway; it does not parse skills locally.
+The macOS app surfaces QingClaws skills via the gateway; it does not parse skills locally.
 
 ## Data source
 
 - `skills.status` (gateway) returns all skills plus eligibility and missing requirements
   (including allowlist blocks for bundled skills).
-- Requirements are derived from `metadata.openclaw.requires` in each `SKILL.md`.
+- Requirements are derived from `metadata.qingclaws.requires` in each `SKILL.md`.
 
 ## Install actions
 
-- `metadata.openclaw.install` defines install options (brew/node/go/uv).
+- `metadata.qingclaws.install` defines install options (brew/node/go/uv).
 - The app calls `skills.install` to run installers on the gateway host.
 - The gateway surfaces only one preferred installer when multiple are provided
   (brew when available, otherwise node manager from `skills.install`, default npm).

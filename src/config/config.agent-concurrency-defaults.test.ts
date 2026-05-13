@@ -48,10 +48,10 @@ describe("agent concurrency defaults", () => {
 
   it("injects defaults on load", async () => {
     await withTempHome(async (home) => {
-      const configDir = path.join(home, ".enclaws");
+      const configDir = path.join(home, ".qingclaws");
       await fs.mkdir(configDir, { recursive: true });
       await fs.writeFile(
-        path.join(configDir, "enclaws.json"),
+        path.join(configDir, "qingclaws.json"),
         JSON.stringify({}, null, 2),
         "utf-8",
       );

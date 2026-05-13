@@ -47,7 +47,7 @@ export async function connectGatewayClient(params: {
 }) {
   const role = params.role ?? "operator";
   const platform = params.platform ?? process.platform;
-  const identityRoot = process.env.ENCLAWS_STATE_DIR ?? process.env.HOME ?? os.tmpdir();
+  const identityRoot = process.env.QINGCLAWS_STATE_DIR ?? process.env.HOME ?? os.tmpdir();
   const deviceIdentity =
     params.deviceIdentity ??
     loadOrCreateDeviceIdentity(
@@ -228,7 +228,7 @@ export async function startGatewayWithClient(params: {
   clientDisplayName?: string;
 }) {
   await writeFile(params.configPath, `${JSON.stringify(params.cfg, null, 2)}\n`);
-  process.env.ENCLAWS_CONFIG_PATH = params.configPath;
+  process.env.QINGCLAWS_CONFIG_PATH = params.configPath;
 
   const port = await getFreeGatewayPort();
   const server = await startGatewayServer(port, {

@@ -16,7 +16,7 @@ function buildConfig() {
       enabled: true,
       color: "#FF4500",
       headless: true,
-      defaultProfile: "enclaws",
+      defaultProfile: "qingclaws",
       profiles: { ...cfgProfiles },
     },
   };
@@ -49,13 +49,13 @@ describe("server-context hot-reload profiles", () => {
   beforeEach(() => {
     vi.clearAllMocks();
     cfgProfiles = {
-      enclaws: { cdpPort: 18800, color: "#FF4500" },
+      qingclaws: { cdpPort: 18800, color: "#FF4500" },
     };
     cachedConfig = null; // Clear simulated cache
   });
 
   it("forProfile hot-reloads newly added profiles from config", async () => {
-    // Start with only enclaws profile
+    // Start with only qingclaws profile
     // 1. Prime the cache by calling loadConfig() first
     const cfg = loadConfig();
     const resolved = resolveBrowserConfig(cfg.browser, cfg);
@@ -78,7 +78,7 @@ describe("server-context hot-reload profiles", () => {
       }),
     ).toBeNull();
 
-    // 2. Simulate adding a new profile to config (like user editing enclaws.json)
+    // 2. Simulate adding a new profile to config (like user editing qingclaws.json)
     cfgProfiles.desktop = { cdpUrl: "http://127.0.0.1:9222", color: "#0066CC" };
 
     // 3. Verify without clearConfigCache, loadConfig() still returns stale cached value
@@ -134,16 +134,16 @@ describe("server-context hot-reload profiles", () => {
       profiles: new Map(),
     };
 
-    cfgProfiles.enclaws = { cdpPort: 19999, color: "#FF4500" };
+    cfgProfiles.qingclaws = { cdpPort: 19999, color: "#FF4500" };
     cachedConfig = null;
 
     const after = resolveBrowserProfileWithHotReload({
       current: state,
       refreshConfigFromDisk: true,
-      name: "enclaws",
+      name: "qingclaws",
     });
     expect(after?.cdpPort).toBe(19999);
-    expect(state.resolved.profiles.enclaws?.cdpPort).toBe(19999);
+    expect(state.resolved.profiles.qingclaws?.cdpPort).toBe(19999);
   });
 
   it("listProfiles refreshes config before enumerating profiles", async () => {

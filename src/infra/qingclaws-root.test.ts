@@ -4,8 +4,8 @@ import { beforeAll, beforeEach, describe, expect, it, vi } from "vitest";
 
 type FakeFsEntry = { kind: "file"; content: string } | { kind: "dir" };
 
-const VITEST_FS_BASE = path.join(path.parse(process.cwd()).root, "__enclaws_vitest__");
-const FIXTURE_BASE = path.join(VITEST_FS_BASE, "enclaws-root");
+const VITEST_FS_BASE = path.join(path.parse(process.cwd()).root, "__qingclaws_vitest__");
+const FIXTURE_BASE = path.join(VITEST_FS_BASE, "qingclaws-root");
 
 const state = vi.hoisted(() => ({
   entries: new Map<string, FakeFsEntry>(),
@@ -89,13 +89,13 @@ vi.mock("node:fs/promises", async (importOriginal) => {
   return { ...wrapped, default: wrapped };
 });
 
-describe("resolveOpenClawPackageRoot", () => {
-  let resolveOpenClawPackageRoot: typeof import("./openclaw-root.js").resolveOpenClawPackageRoot;
-  let resolveOpenClawPackageRootSync: typeof import("./openclaw-root.js").resolveOpenClawPackageRootSync;
+describe("resolveQingClawsPackageRoot", () => {
+  let resolveQingClawsPackageRoot: typeof import("./qingclaws-root.js").resolveQingClawsPackageRoot;
+  let resolveQingClawsPackageRootSync: typeof import("./qingclaws-root.js").resolveQingClawsPackageRootSync;
 
   beforeAll(async () => {
-    ({ resolveOpenClawPackageRoot, resolveOpenClawPackageRootSync } =
-      await import("./openclaw-root.js"));
+    ({ resolveQingClawsPackageRoot, resolveQingClawsPackageRootSync } =
+      await import("./qingclaws-root.js"));
   });
 
   beforeEach(() => {
@@ -106,56 +106,56 @@ describe("resolveOpenClawPackageRoot", () => {
 
   it("resolves package root from .bin argv1", async () => {
     const project = fx("bin-scenario");
-    const argv1 = path.join(project, "node_modules", ".bin", "enclaws");
-    const pkgRoot = path.join(project, "node_modules", "enclaws");
-    setFile(path.join(pkgRoot, "package.json"), JSON.stringify({ name: "enclaws" }));
+    const argv1 = path.join(project, "node_modules", ".bin", "qingclaws");
+    const pkgRoot = path.join(project, "node_modules", "qingclaws");
+    setFile(path.join(pkgRoot, "package.json"), JSON.stringify({ name: "qingclaws" }));
 
-    expect(resolveOpenClawPackageRootSync({ argv1 })).toBe(pkgRoot);
+    expect(resolveQingClawsPackageRootSync({ argv1 })).toBe(pkgRoot);
   });
 
   it("resolves package root via symlinked argv1", async () => {
     const project = fx("symlink-scenario");
-    const bin = path.join(project, "bin", "enclaws");
+    const bin = path.join(project, "bin", "qingclaws");
     const realPkg = path.join(project, "real-pkg");
-    state.realpaths.set(abs(bin), abs(path.join(realPkg, "enclaws.mjs")));
-    setFile(path.join(realPkg, "package.json"), JSON.stringify({ name: "enclaws" }));
+    state.realpaths.set(abs(bin), abs(path.join(realPkg, "qingclaws.mjs")));
+    setFile(path.join(realPkg, "package.json"), JSON.stringify({ name: "qingclaws" }));
 
-    expect(resolveOpenClawPackageRootSync({ argv1: bin })).toBe(realPkg);
+    expect(resolveQingClawsPackageRootSync({ argv1: bin })).toBe(realPkg);
   });
 
   it("falls back when argv1 realpath throws", async () => {
     const project = fx("realpath-throw-scenario");
-    const argv1 = path.join(project, "node_modules", ".bin", "enclaws");
-    const pkgRoot = path.join(project, "node_modules", "enclaws");
+    const argv1 = path.join(project, "node_modules", ".bin", "qingclaws");
+    const pkgRoot = path.join(project, "node_modules", "qingclaws");
     state.realpathErrors.add(abs(argv1));
-    setFile(path.join(pkgRoot, "package.json"), JSON.stringify({ name: "enclaws" }));
+    setFile(path.join(pkgRoot, "package.json"), JSON.stringify({ name: "qingclaws" }));
 
-    expect(resolveOpenClawPackageRootSync({ argv1 })).toBe(pkgRoot);
+    expect(resolveQingClawsPackageRootSync({ argv1 })).toBe(pkgRoot);
   });
 
   it("prefers moduleUrl candidates", async () => {
     const pkgRoot = fx("moduleurl");
-    setFile(path.join(pkgRoot, "package.json"), JSON.stringify({ name: "enclaws" }));
+    setFile(path.join(pkgRoot, "package.json"), JSON.stringify({ name: "qingclaws" }));
     const moduleUrl = pathToFileURL(path.join(pkgRoot, "dist", "index.js")).toString();
 
-    expect(resolveOpenClawPackageRootSync({ moduleUrl })).toBe(pkgRoot);
+    expect(resolveQingClawsPackageRootSync({ moduleUrl })).toBe(pkgRoot);
   });
 
-  it("returns null for non-enclaws package roots", async () => {
-    const pkgRoot = fx("not-enclaws");
-    setFile(path.join(pkgRoot, "package.json"), JSON.stringify({ name: "not-enclaws" }));
+  it("returns null for non-qingclaws package roots", async () => {
+    const pkgRoot = fx("not-qingclaws");
+    setFile(path.join(pkgRoot, "package.json"), JSON.stringify({ name: "not-qingclaws" }));
 
-    expect(resolveOpenClawPackageRootSync({ cwd: pkgRoot })).toBeNull();
+    expect(resolveQingClawsPackageRootSync({ cwd: pkgRoot })).toBeNull();
   });
 
   it("async resolver matches sync behavior", async () => {
     const pkgRoot = fx("async");
-    setFile(path.join(pkgRoot, "package.json"), JSON.stringify({ name: "enclaws" }));
+    setFile(path.join(pkgRoot, "package.json"), JSON.stringify({ name: "qingclaws" }));
 
-    await expect(resolveOpenClawPackageRoot({ cwd: pkgRoot })).resolves.toBe(pkgRoot);
+    await expect(resolveQingClawsPackageRoot({ cwd: pkgRoot })).resolves.toBe(pkgRoot);
   });
 
   it("async resolver returns null when no package roots exist", async () => {
-    await expect(resolveOpenClawPackageRoot({ cwd: fx("missing") })).resolves.toBeNull();
+    await expect(resolveQingClawsPackageRoot({ cwd: fx("missing") })).resolves.toBeNull();
   });
 });

@@ -16,7 +16,7 @@
  *     them).
  */
 
-import type { ClawdbotConfig, OpenClawPluginApi } from 'openclaw/plugin-sdk';
+import type { ClawdbotConfig, QingClawsPluginApi } from 'openclaw/plugin-sdk';
 import { Type } from '@sinclair/typebox';
 import type { ConfiguredLarkAccount } from '../core/types';
 import { getLarkAccount } from '../core/accounts';
@@ -134,7 +134,7 @@ async function verifyTokenIdentity(
 // Registration
 // ---------------------------------------------------------------------------
 
-export function registerFeishuOAuthTool(api: OpenClawPluginApi): void {
+export function registerFeishuOAuthTool(api: QingClawsPluginApi): void {
   if (!api.config) return;
 
   const cfg = api.config;

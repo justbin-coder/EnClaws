@@ -49,10 +49,10 @@ function buildConfig(enableNoVnc: boolean): SandboxConfig {
     mode: "all",
     scope: "session",
     workspaceAccess: "none",
-    workspaceRoot: "/tmp/enclaws-sandboxes",
+    workspaceRoot: "/tmp/qingclaws-sandboxes",
     docker: {
-      image: "enclaws-sandbox:bookworm-slim",
-      containerPrefix: "enclaws-sbx-",
+      image: "qingclaws-sandbox:bookworm-slim",
+      containerPrefix: "qingclaws-sbx-",
       workdir: "/workspace",
       readOnlyRoot: true,
       tmpfs: ["/tmp", "/var/tmp", "/run"],
@@ -62,9 +62,9 @@ function buildConfig(enableNoVnc: boolean): SandboxConfig {
     },
     browser: {
       enabled: true,
-      image: "enclaws-sandbox-browser:bookworm-slim",
-      containerPrefix: "enclaws-sbx-browser-",
-      network: "enclaws-sandbox-browser",
+      image: "qingclaws-sandbox-browser:bookworm-slim",
+      containerPrefix: "qingclaws-sbx-browser-",
+      network: "qingclaws-sandbox-browser",
       cdpPort: 9222,
       vncPort: 5900,
       noVncPort: 6080,
@@ -158,11 +158,11 @@ describe("ensureSandboxBrowser create args", () => {
     expect(createArgs).toBeDefined();
     expect(createArgs).toContain("127.0.0.1::6080");
     const envEntries = envEntriesFromDockerArgs(createArgs ?? []);
-    expect(envEntries).toContain("ENCLAWS_BROWSER_NO_SANDBOX=1");
+    expect(envEntries).toContain("QINGCLAWS_BROWSER_NO_SANDBOX=1");
     const passwordEntry = envEntries.find((entry) =>
-      entry.startsWith("ENCLAWS_BROWSER_NOVNC_PASSWORD="),
+      entry.startsWith("QINGCLAWS_BROWSER_NOVNC_PASSWORD="),
     );
-    expect(passwordEntry).toMatch(/^ENCLAWS_BROWSER_NOVNC_PASSWORD=[A-Za-z0-9]{8}$/);
+    expect(passwordEntry).toMatch(/^QINGCLAWS_BROWSER_NOVNC_PASSWORD=[A-Za-z0-9]{8}$/);
     expect(result?.noVncUrl).toMatch(/^http:\/\/127\.0\.0\.1:19000\/sandbox\/novnc\?token=/);
     expect(result?.noVncUrl).not.toContain("password=");
   });
@@ -179,7 +179,7 @@ describe("ensureSandboxBrowser create args", () => {
       (call: unknown[]) => Array.isArray(call[0]) && call[0][0] === "create",
     )?.[0] as string[] | undefined;
     const envEntries = envEntriesFromDockerArgs(createArgs ?? []);
-    expect(envEntries.some((entry) => entry.startsWith("ENCLAWS_BROWSER_NOVNC_PASSWORD="))).toBe(
+    expect(envEntries.some((entry) => entry.startsWith("QINGCLAWS_BROWSER_NOVNC_PASSWORD="))).toBe(
       false,
     );
     expect(result?.noVncUrl).toBeUndefined();

@@ -161,11 +161,11 @@ function isPackageNotFoundInstallError(message: string): boolean {
 export function registerPluginsCli(program: Command) {
   const plugins = program
     .command("plugins")
-    .description("Manage EnClaws plugins and extensions")
+    .description("Manage QingClaws plugins and extensions")
     .addHelpText(
       "after",
       () =>
-        `\n${theme.muted("Docs:")} ${formatDocsLink("/cli/plugins", "docs.enclaws.ai/cli/plugins")}\n`,
+        `\n${theme.muted("Docs:")} ${formatDocsLink("/cli/plugins", "docs.qingclaws.ai/cli/plugins")}\n`,
     );
 
   plugins
@@ -789,7 +789,7 @@ export function registerPluginsCli(program: Command) {
           lines.push(`- ${target}${diag.message}`);
         }
       }
-      const docs = formatDocsLink("/plugin", "docs.enclaws.ai/plugin");
+      const docs = formatDocsLink("/plugin", "docs.qingclaws.ai/plugin");
       lines.push("");
       lines.push(`${theme.muted("Docs:")} ${docs}`);
       defaultRuntime.log(lines.join("\n"));

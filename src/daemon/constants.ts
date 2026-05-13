@@ -1,13 +1,13 @@
 // Default service labels (canonical + legacy compatibility)
-export const GATEWAY_LAUNCH_AGENT_LABEL = "ai.enclaws.gateway";
-export const GATEWAY_SYSTEMD_SERVICE_NAME = "enclaws-gateway";
-export const GATEWAY_WINDOWS_TASK_NAME = "EnClaws Gateway";
-export const GATEWAY_SERVICE_MARKER = "enclaws";
+export const GATEWAY_LAUNCH_AGENT_LABEL = "ai.qingclaws.gateway";
+export const GATEWAY_SYSTEMD_SERVICE_NAME = "qingclaws-gateway";
+export const GATEWAY_WINDOWS_TASK_NAME = "QingClaws Gateway";
+export const GATEWAY_SERVICE_MARKER = "qingclaws";
 export const GATEWAY_SERVICE_KIND = "gateway";
-export const NODE_LAUNCH_AGENT_LABEL = "ai.enclaws.node";
-export const NODE_SYSTEMD_SERVICE_NAME = "enclaws-node";
-export const NODE_WINDOWS_TASK_NAME = "EnClaws Node";
-export const NODE_SERVICE_MARKER = "enclaws";
+export const NODE_LAUNCH_AGENT_LABEL = "ai.qingclaws.node";
+export const NODE_SYSTEMD_SERVICE_NAME = "qingclaws-node";
+export const NODE_WINDOWS_TASK_NAME = "QingClaws Node";
+export const NODE_SERVICE_MARKER = "qingclaws";
 export const NODE_SERVICE_KIND = "node";
 export const NODE_WINDOWS_TASK_SCRIPT_NAME = "node.cmd";
 export const LEGACY_GATEWAY_LAUNCH_AGENT_LABELS: string[] = [];
@@ -35,7 +35,7 @@ export function resolveGatewayLaunchAgentLabel(profile?: string): string {
   if (!normalized) {
     return GATEWAY_LAUNCH_AGENT_LABEL;
   }
-  return `ai.enclaws.${normalized}`;
+  return `ai.qingclaws.${normalized}`;
 }
 
 export function resolveLegacyGatewayLaunchAgentLabels(profile?: string): string[] {
@@ -48,7 +48,7 @@ export function resolveGatewaySystemdServiceName(profile?: string): string {
   if (!suffix) {
     return GATEWAY_SYSTEMD_SERVICE_NAME;
   }
-  return `enclaws-gateway${suffix}`;
+  return `qingclaws-gateway${suffix}`;
 }
 
 export function resolveGatewayWindowsTaskName(profile?: string): string {
@@ -56,7 +56,7 @@ export function resolveGatewayWindowsTaskName(profile?: string): string {
   if (!normalized) {
     return GATEWAY_WINDOWS_TASK_NAME;
   }
-  return `EnClaws Gateway (${normalized})`;
+  return `QingClaws Gateway (${normalized})`;
 }
 
 export function formatGatewayServiceDescription(params?: {
@@ -73,9 +73,9 @@ export function formatGatewayServiceDescription(params?: {
     parts.push(`v${version}`);
   }
   if (parts.length === 0) {
-    return "EnClaws Gateway";
+    return "QingClaws Gateway";
   }
-  return `EnClaws Gateway (${parts.join(", ")})`;
+  return `QingClaws Gateway (${parts.join(", ")})`;
 }
 
 export function resolveGatewayServiceDescription(params: {
@@ -86,8 +86,8 @@ export function resolveGatewayServiceDescription(params: {
   return (
     params.description ??
     formatGatewayServiceDescription({
-      profile: params.env.ENCLAWS_PROFILE,
-      version: params.environment?.ENCLAWS_SERVICE_VERSION ?? params.env.ENCLAWS_SERVICE_VERSION,
+      profile: params.env.QINGCLAWS_PROFILE,
+      version: params.environment?.QINGCLAWS_SERVICE_VERSION ?? params.env.QINGCLAWS_SERVICE_VERSION,
     })
   );
 }
@@ -107,7 +107,7 @@ export function resolveNodeWindowsTaskName(): string {
 export function formatNodeServiceDescription(params?: { version?: string }): string {
   const version = params?.version?.trim();
   if (!version) {
-    return "EnClaws Node Host";
+    return "QingClaws Node Host";
   }
-  return `EnClaws Node Host (v${version})`;
+  return `QingClaws Node Host (v${version})`;
 }

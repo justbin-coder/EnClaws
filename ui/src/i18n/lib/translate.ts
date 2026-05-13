@@ -19,7 +19,7 @@ class I18nManager {
   }
 
   private resolveInitialLocale(): Locale {
-    const saved = localStorage.getItem("enclaws.i18n.locale");
+    const saved = localStorage.getItem("qingclaws.i18n.locale"); // QINGCLAWS-CUSTOM: brand
     if (isSupportedLocale(saved)) {
       return saved;
     }
@@ -33,7 +33,7 @@ class I18nManager {
     if (navLang.startsWith("de")) {
       return "de";
     }
-    return "en";
+    return "zh-CN"; // QINGCLAWS-CUSTOM: brand — default to zh-CN for 2B enterprise
   }
 
   private loadLocale() {
@@ -80,7 +80,7 @@ class I18nManager {
     }
 
     this.locale = locale;
-    localStorage.setItem("enclaws.i18n.locale", locale);
+    localStorage.setItem("qingclaws.i18n.locale", locale); // QINGCLAWS-CUSTOM: brand
     this.notify();
   }
 

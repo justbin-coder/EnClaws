@@ -10,14 +10,14 @@ import {
 
 describe("applyAuthChoiceOpenAI", () => {
   const lifecycle = createAuthTestLifecycle([
-    "ENCLAWS_STATE_DIR",
-    "ENCLAWS_AGENT_DIR",
+    "QINGCLAWS_STATE_DIR",
+    "QINGCLAWS_AGENT_DIR",
     "PI_CODING_AGENT_DIR",
     "OPENAI_API_KEY",
   ]);
 
   async function setupTempState() {
-    const env = await setupAuthTestEnv("enclaws-openai-");
+    const env = await setupAuthTestEnv("qingclaws-openai-");
     lifecycle.setStateDir(env.stateDir);
     return env.agentDir;
   }

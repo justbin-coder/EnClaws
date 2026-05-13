@@ -6,7 +6,7 @@
  * 从 Markdown 创建云文档（支持异步 task_id 查询）
  */
 
-import type { OpenClawPluginApi } from 'openclaw/plugin-sdk';
+import type { QingClawsPluginApi } from 'openclaw/plugin-sdk';
 import { type Static, Type } from '@sinclair/typebox';
 import { registerMcpTool } from '../shared';
 
@@ -37,7 +37,7 @@ function validateCreateDocParams(p: CreateDocParams): void {
 /**
  * 注册 create-doc 工具
  */
-export function registerCreateDocTool(api: OpenClawPluginApi): boolean {
+export function registerCreateDocTool(api: QingClawsPluginApi): boolean {
   return registerMcpTool<CreateDocParams>(api, {
     name: 'feishu_create_doc',
     mcpToolName: 'create-doc',

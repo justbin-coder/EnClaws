@@ -6,12 +6,12 @@ describe("formatPluginSourceForTable", () => {
     const out = formatPluginSourceForTable(
       {
         origin: "bundled",
-        source: "/opt/homebrew/lib/node_modules/enclaws/extensions/bluebubbles/index.ts",
+        source: "/opt/homebrew/lib/node_modules/qingclaws/extensions/bluebubbles/index.ts",
       },
       {
-        stock: "/opt/homebrew/lib/node_modules/enclaws/extensions",
-        global: "/Users/x/.enclaws/extensions",
-        workspace: "/Users/x/ws/.enclaws/extensions",
+        stock: "/opt/homebrew/lib/node_modules/qingclaws/extensions",
+        global: "/Users/x/.qingclaws/extensions",
+        workspace: "/Users/x/ws/.qingclaws/extensions",
       },
     );
     expect(out.value).toBe("stock:bluebubbles/index.ts");
@@ -22,12 +22,12 @@ describe("formatPluginSourceForTable", () => {
     const out = formatPluginSourceForTable(
       {
         origin: "workspace",
-        source: "/Users/x/ws/.enclaws/extensions/matrix/index.ts",
+        source: "/Users/x/ws/.qingclaws/extensions/matrix/index.ts",
       },
       {
-        stock: "/opt/homebrew/lib/node_modules/enclaws/extensions",
-        global: "/Users/x/.enclaws/extensions",
-        workspace: "/Users/x/ws/.enclaws/extensions",
+        stock: "/opt/homebrew/lib/node_modules/qingclaws/extensions",
+        global: "/Users/x/.qingclaws/extensions",
+        workspace: "/Users/x/ws/.qingclaws/extensions",
       },
     );
     expect(out.value).toBe("workspace:matrix/index.ts");
@@ -38,12 +38,12 @@ describe("formatPluginSourceForTable", () => {
     const out = formatPluginSourceForTable(
       {
         origin: "global",
-        source: "/Users/x/.enclaws/extensions/zalo/index.js",
+        source: "/Users/x/.qingclaws/extensions/zalo/index.js",
       },
       {
-        stock: "/opt/homebrew/lib/node_modules/enclaws/extensions",
-        global: "/Users/x/.enclaws/extensions",
-        workspace: "/Users/x/ws/.enclaws/extensions",
+        stock: "/opt/homebrew/lib/node_modules/qingclaws/extensions",
+        global: "/Users/x/.qingclaws/extensions",
+        workspace: "/Users/x/ws/.qingclaws/extensions",
       },
     );
     expect(out.value).toBe("global:zalo/index.js");

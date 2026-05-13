@@ -4,7 +4,7 @@
 
 import { loadAllSysConfig } from "../db/models/sys-config.js";
 import { getRuntimeConfigSnapshot, setRuntimeConfigSnapshot } from "./io.js";
-import type { OpenClawConfig } from "./types.openclaw.js";
+import type { OpenClawConfig } from "./types.qingclaws.js";
 import type { GatewayConfig } from "./types.gateway.js";
 import type { LoggingConfig } from "./types.base.js";
 import type { PluginsConfig } from "./types.plugins.js";
@@ -36,7 +36,7 @@ export async function buildSysConfig(): Promise<OpenClawConfig> {
   };
 
   // .env overrides for startup-essential fields
-  const envPort = process.env.ENCLAWS_GATEWAY_PORT;
+  const envPort = process.env.QINGCLAWS_GATEWAY_PORT;
   if (envPort && config.gateway) {
     const parsed = parseInt(envPort, 10);
     if (!isNaN(parsed)) config.gateway.port = parsed;
@@ -45,8 +45,8 @@ export async function buildSysConfig(): Promise<OpenClawConfig> {
   // control_ui: built entirely from env vars
   if (config.gateway) {
     const port = config.gateway.port ?? 18888;
-    const envDisableAuth = process.env.ENCLAWS_CONTROL_UI_DISABLE_DEVICE_AUTH;
-    const envOrigins = process.env.ENCLAWS_CONTROL_UI_ALLOWED_ORIGINS;
+    const envDisableAuth = process.env.QINGCLAWS_CONTROL_UI_DISABLE_DEVICE_AUTH;
+    const envOrigins = process.env.QINGCLAWS_CONTROL_UI_ALLOWED_ORIGINS;
 
     config.gateway.controlUi = {
       dangerouslyDisableDeviceAuth: envDisableAuth === "true",

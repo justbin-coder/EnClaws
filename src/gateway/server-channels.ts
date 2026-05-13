@@ -410,7 +410,7 @@ export function createChannelManager(opts: ChannelManagerOptions): ChannelManage
               name: app.botName || app.appId,
               groupPolicy: app.groupPolicy,
               tenantId,
-              // Map channelPolicy → dmPolicy for feishu (openclaw-lark plugin reads dmPolicy)
+              // Map channelPolicy → dmPolicy for feishu (qingclaws-lark plugin reads dmPolicy)
               ...(channelType === "feishu" && {
                 dmPolicy: ch.channelPolicy,
                 ...(ch.channelPolicy === "open" && { allowFrom: ["*"] }),
@@ -543,7 +543,7 @@ export function createChannelManager(opts: ChannelManagerOptions): ChannelManage
       dbChannelsCache = merged;
       // Propagate DB-enriched config to the global loadConfig() singleton so that
       // all code paths (e.g. gateway send handler) resolve channel credentials from
-      // the database rather than falling back to the base enclaws.json config.
+      // the database rather than falling back to the base qingclaws.json config.
       setRuntimeConfigSnapshot(merged);
     } catch (err) {
       console.error("[server-channels] failed to load DB channels:", err);

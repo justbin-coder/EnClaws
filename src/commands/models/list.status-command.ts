@@ -1,5 +1,5 @@
 import path from "node:path";
-import { resolveOpenClawAgentDir } from "../../agents/agent-paths.js";
+import { resolveQingClawsAgentDir } from "../../agents/agent-paths.js";
 import {
   resolveAgentDir,
   resolveAgentExplicitModelPrimary,
@@ -78,7 +78,7 @@ export async function modelsStatusCommand(
   }
   const cfg = loadConfig();
   const agentId = resolveKnownAgentId({ cfg, rawAgentId: opts.agent });
-  const agentDir = agentId ? resolveAgentDir(cfg, agentId) : resolveOpenClawAgentDir();
+  const agentDir = agentId ? resolveAgentDir(cfg, agentId) : resolveQingClawsAgentDir();
   const agentModelPrimary = agentId ? resolveAgentExplicitModelPrimary(cfg, agentId) : undefined;
   const agentFallbacksOverride = agentId
     ? resolveAgentModelFallbacksOverride(cfg, agentId)
@@ -536,8 +536,8 @@ export async function modelsStatusCommand(
     for (const provider of missingProvidersInUse) {
       const hint =
         provider === "anthropic"
-          ? `Run \`claude setup-token\`, then \`${formatCliCommand("enclaws models auth setup-token")}\` or \`${formatCliCommand("enclaws configure")}\`.`
-          : `Run \`${formatCliCommand("enclaws configure")}\` or set an API key env var.`;
+          ? `Run \`claude setup-token\`, then \`${formatCliCommand("qingclaws models auth setup-token")}\` or \`${formatCliCommand("qingclaws configure")}\`.`
+          : `Run \`${formatCliCommand("qingclaws configure")}\` or set an API key env var.`;
       runtime.log(`- ${theme.heading(provider)} ${hint}`);
     }
   }

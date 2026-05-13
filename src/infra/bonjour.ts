@@ -26,7 +26,7 @@ export type GatewayBonjourAdvertiseOpts = {
 };
 
 function isDisabledByEnv() {
-  if (isTruthyEnvValue(process.env.ENCLAWS_DISABLE_BONJOUR)) {
+  if (isTruthyEnvValue(process.env.QINGCLAWS_DISABLE_BONJOUR)) {
     return true;
   }
   if (process.env.NODE_ENV === "test") {
@@ -40,12 +40,12 @@ function isDisabledByEnv() {
 
 function safeServiceName(name: string) {
   const trimmed = name.trim();
-  return trimmed.length > 0 ? trimmed : "EnClaws";
+  return trimmed.length > 0 ? trimmed : "QingClaws";
 }
 
 function prettifyInstanceName(name: string) {
   const normalized = name.trim().replace(/\s+/g, " ");
-  return normalized.replace(/\s+\(EnClaws\)\s*$/i, "").trim() || normalized;
+  return normalized.replace(/\s+\(QingClaws\)\s*$/i, "").trim() || normalized;
 }
 
 type BonjourService = {
@@ -95,18 +95,18 @@ export async function startGatewayBonjourAdvertiser(
   // `Mac.localdomain`) can confuse some resolvers/browsers and break discovery.
   // Keep only the first label and normalize away a trailing `.local`.
   const hostnameRaw =
-    process.env.ENCLAWS_MDNS_HOSTNAME?.trim() ||
+    process.env.QINGCLAWS_MDNS_HOSTNAME?.trim() ||
     process.env.CLAWDBOT_MDNS_HOSTNAME?.trim() ||
-    "enclaws";
+    "qingclaws";
   const hostname =
     hostnameRaw
       .replace(/\.local$/i, "")
       .split(".")[0]
-      .trim() || "enclaws";
+      .trim() || "qingclaws";
   const instanceName =
     typeof opts.instanceName === "string" && opts.instanceName.trim()
       ? opts.instanceName.trim()
-      : `${hostname} (EnClaws)`;
+      : `${hostname} (QingClaws)`;
   const displayName = prettifyInstanceName(instanceName);
 
   const txtBase: Record<string, string> = {
@@ -147,7 +147,7 @@ export async function startGatewayBonjourAdvertiser(
 
   const gateway = responder.createService({
     name: safeServiceName(instanceName),
-    type: "enclaws-gw",
+    type: "qingclaws-gw",
     protocol: Protocol.TCP,
     port: opts.gatewayPort,
     domain: "local",

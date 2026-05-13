@@ -25,11 +25,11 @@ type AuthSyncFixture = {
 };
 
 async function withAuthSyncFixture(run: (fixture: AuthSyncFixture) => Promise<void>) {
-  const root = await fs.mkdtemp(path.join(os.tmpdir(), "enclaws-models-list-auth-sync-"));
+  const root = await fs.mkdtemp(path.join(os.tmpdir(), "qingclaws-models-list-auth-sync-"));
   try {
     const stateDir = path.join(root, "state");
     const agentDir = path.join(stateDir, "agents", "main", "agent");
-    const configPath = path.join(stateDir, "enclaws.json");
+    const configPath = path.join(stateDir, "qingclaws.json");
     const authPath = path.join(agentDir, "auth.json");
 
     await fs.mkdir(agentDir, { recursive: true });
@@ -37,10 +37,10 @@ async function withAuthSyncFixture(run: (fixture: AuthSyncFixture) => Promise<vo
 
     await withEnvAsync(
       {
-        ENCLAWS_STATE_DIR: stateDir,
-        ENCLAWS_AGENT_DIR: agentDir,
+        QINGCLAWS_STATE_DIR: stateDir,
+        QINGCLAWS_AGENT_DIR: agentDir,
         PI_CODING_AGENT_DIR: agentDir,
-        ENCLAWS_CONFIG_PATH: configPath,
+        QINGCLAWS_CONFIG_PATH: configPath,
         OPENROUTER_API_KEY: undefined,
       },
       async () => {

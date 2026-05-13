@@ -1,12 +1,12 @@
 {
-  "name": "@openclaw/tlon",
+  "name": "@qingclaws/tlon",
   "version": "2026.3.1",
-  "description": "OpenClaw Tlon/Urbit channel plugin",
+  "description": "QingClaws Tlon/Urbit channel plugin",
   "type": "module",
   "dependencies": {
     "@urbit/aura": "^3.0.0"
   },
-  "openclaw": {
+  "qingclaws": {
     "extensions": [
       "./index.ts"
     ],
@@ -21,7 +21,7 @@
       "quickstartAllowFrom": true
     },
     "install": {
-      "npmSpec": "@openclaw/tlon",
+      "npmSpec": "@qingclaws/tlon",
       "localPath": "extensions/tlon",
       "defaultChoice": "npm"
     }

@@ -17,7 +17,7 @@ import { shouldIncludeSkill } from "./config.js";
 import { normalizeSkillFilter } from "./filter.js";
 import {
   parseFrontmatter,
-  resolveOpenClawMetadata,
+  resolveQingClawsMetadata,
   resolveSkillInline,
   resolveSkillInvocationPolicy,
   resolveSkillOverrides,
@@ -365,7 +365,7 @@ function loadSkillEntries(
   const bundledSkills = bundledSkillsDir
     ? loadSkills({
         dir: bundledSkillsDir,
-        source: "enclaws-bundled",
+        source: "qingclaws-bundled",
       })
     : [];
   const extraSkills = hasTenantSkillsDir
@@ -374,14 +374,14 @@ function loadSkillEntries(
         const resolved = resolveUserPath(dir);
         return loadSkills({
           dir: resolved,
-          source: "enclaws-extra",
+          source: "qingclaws-extra",
         });
       });
   const managedSkills = hasTenantSkillsDir
     ? []
     : loadSkills({
         dir: managedSkillsDir,
-        source: "enclaws-managed",
+        source: "qingclaws-managed",
       });
 
   // Multi-tenant mode: skills live in tenantDir/skills/, NOT workspace/skills/
@@ -389,7 +389,7 @@ function loadSkillEntries(
   const tenantSkills = opts?.tenantSkillsDir
     ? loadSkills({
         dir: opts.tenantSkillsDir,
-        source: "enclaws-tenant",
+        source: "qingclaws-tenant",
       })
     : [];
   const personalAgentsSkillsDir = path.resolve(os.homedir(), ".agents", "skills");
@@ -411,7 +411,7 @@ function loadSkillEntries(
     ? []
     : loadSkills({
         dir: workspaceSkillsDir,
-        source: "enclaws-workspace",
+        source: "qingclaws-workspace",
       });
 
   const merged = new Map<string, Skill>();
@@ -452,7 +452,7 @@ function loadSkillEntries(
     const entry: SkillEntry = {
       skill,
       frontmatter,
-      metadata: resolveOpenClawMetadata(frontmatter),
+      metadata: resolveQingClawsMetadata(frontmatter),
       invocation: resolveSkillInvocationPolicy(frontmatter),
       ...(overrides.length > 0 ? { overrides } : {}),
     };
@@ -573,7 +573,7 @@ function resolveWorkspaceSkillPromptState(
     config: opts?.config,
   });
   const truncationNote = truncated
-    ? `⚠️ Skills truncated: included ${skillsForPrompt.length} of ${resolvedSkills.length}. Run \`enclaws skills check\` to audit.`
+    ? `⚠️ Skills truncated: included ${skillsForPrompt.length} of ${resolvedSkills.length}. Run \`qingclaws skills check\` to audit.`
     : "";
   // Build inline skill content blocks for skills with inline: true
   const inlineBlocks: string[] = [];

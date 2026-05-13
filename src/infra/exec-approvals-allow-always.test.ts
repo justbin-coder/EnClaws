@@ -19,13 +19,13 @@ describe("resolveAllowAlwaysPatterns", () => {
   }
 
   it("returns direct executable paths for non-shell segments", () => {
-    const exe = path.join("/tmp", "enclaws-tool");
+    const exe = path.join("/tmp", "qingclaws-tool");
     const patterns = resolveAllowAlwaysPatterns({
       segments: [
         {
           raw: exe,
           argv: [exe],
-          resolution: { rawExecutable: exe, resolvedPath: exe, executableName: "enclaws-tool" },
+          resolution: { rawExecutable: exe, resolvedPath: exe, executableName: "qingclaws-tool" },
         },
       ],
     });

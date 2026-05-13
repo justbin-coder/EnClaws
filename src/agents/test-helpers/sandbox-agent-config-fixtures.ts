@@ -22,7 +22,7 @@ export function createRestrictedAgentSandboxConfig(params: {
       list: [
         {
           id: "restricted",
-          workspace: params.workspace ?? "~/enclaws-restricted",
+          workspace: params.workspace ?? "~/qingclaws-restricted",
           sandbox: {
             mode: "all",
             scope: "agent",

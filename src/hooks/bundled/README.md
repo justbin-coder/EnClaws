@@ -1,6 +1,6 @@
 # Bundled Hooks
 
-This directory contains hooks that ship with EnClaws. These hooks are automatically discovered and can be enabled/disabled via CLI or configuration.
+This directory contains hooks that ship with QingClaws. These hooks are automatically discovered and can be enabled/disabled via CLI or configuration.
 
 ## Available Hooks
 
@@ -10,12 +10,12 @@ Automatically saves session context to memory when you issue `/new` or `/reset`.
 
 **Events**: `command:new`, `command:reset`
 **What it does**: Creates a dated memory file with LLM-generated slug based on conversation content.
-**Output**: `<workspace>/memory/YYYY-MM-DD-slug.md` (defaults to `~/.enclaws/workspace`)
+**Output**: `<workspace>/memory/YYYY-MM-DD-slug.md` (defaults to `~/.qingclaws/workspace`)
 
 **Enable**:
 
 ```bash
-enclaws hooks enable session-memory
+qingclaws hooks enable session-memory
 ```
 
 ### 📎 bootstrap-extra-files
@@ -29,7 +29,7 @@ Injects extra bootstrap files (for example monorepo `AGENTS.md`/`TOOLS.md`) duri
 **Enable**:
 
 ```bash
-enclaws hooks enable bootstrap-extra-files
+qingclaws hooks enable bootstrap-extra-files
 ```
 
 ### 📝 command-logger
@@ -38,12 +38,12 @@ Logs all command events to a centralized audit file.
 
 **Events**: `command` (all commands)
 **What it does**: Appends JSONL entries to command log file.
-**Output**: `~/.enclaws/logs/commands.log`
+**Output**: `~/.qingclaws/logs/commands.log`
 
 **Enable**:
 
 ```bash
-enclaws hooks enable command-logger
+qingclaws hooks enable command-logger
 ```
 
 ### 🚀 boot-md
@@ -57,7 +57,7 @@ Runs `BOOT.md` whenever the gateway starts (after channels start).
 **Enable**:
 
 ```bash
-enclaws hooks enable boot-md
+qingclaws hooks enable boot-md
 ```
 
 ## Hook Structure
@@ -81,9 +81,9 @@ session-memory/
 ---
 name: my-hook
 description: "Short description"
-homepage: https://docs.enclaws.ai/automation/hooks#my-hook
+homepage: https://docs.qingclaws.ai/automation/hooks#my-hook
 metadata:
-  { "enclaws": { "emoji": "🔗", "events": ["command:new"], "requires": { "bins": ["node"] } } }
+  { "qingclaws": { "emoji": "🔗", "events": ["command:new"], "requires": { "bins": ["node"] } } }
 ---
 # Hook Title
 
@@ -107,7 +107,7 @@ Documentation goes here...
 To create your own hooks, place them in:
 
 - **Workspace hooks**: `<workspace>/hooks/` (highest precedence)
-- **Managed hooks**: `~/.enclaws/hooks/` (shared across workspaces)
+- **Managed hooks**: `~/.qingclaws/hooks/` (shared across workspaces)
 
 Custom hooks follow the same structure as bundled hooks.
 
@@ -116,31 +116,31 @@ Custom hooks follow the same structure as bundled hooks.
 List all hooks:
 
 ```bash
-enclaws hooks list
+qingclaws hooks list
 ```
 
 Show hook details:
 
 ```bash
-enclaws hooks info session-memory
+qingclaws hooks info session-memory
 ```
 
 Check hook status:
 
 ```bash
-enclaws hooks check
+qingclaws hooks check
 ```
 
 Enable/disable:
 
 ```bash
-enclaws hooks enable session-memory
-enclaws hooks disable command-logger
+qingclaws hooks enable session-memory
+qingclaws hooks disable command-logger
 ```
 
 ## Configuration
 
-Hooks can be configured in `~/.enclaws/enclaws.json`:
+Hooks can be configured in `~/.qingclaws/qingclaws.json`:
 
 ```json
 {
@@ -213,11 +213,11 @@ export default myHandler;
 Test your hooks by:
 
 1. Place hook in workspace hooks directory
-2. Restart gateway: `pkill -9 -f 'enclaws.*gateway' && pnpm enclaws gateway`
-3. Enable the hook: `enclaws hooks enable my-hook`
+2. Restart gateway: `pkill -9 -f 'qingclaws.*gateway' && pnpm qingclaws gateway`
+3. Enable the hook: `qingclaws hooks enable my-hook`
 4. Trigger the event (e.g., send `/new` command)
 5. Check gateway logs for hook execution
 
 ## Documentation
 
-Full documentation: https://docs.enclaws.ai/automation/hooks
+Full documentation: https://docs.qingclaws.ai/automation/hooks

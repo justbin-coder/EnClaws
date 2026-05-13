@@ -15,7 +15,7 @@
  *   - copy:   POST /open-apis/bitable/v1/apps/:app_token/copy
  */
 
-import type { OpenClawPluginApi } from 'openclaw/plugin-sdk';
+import type { QingClawsPluginApi } from 'openclaw/plugin-sdk';
 import { Type } from '@sinclair/typebox';
 import { assertLarkOk, createToolContext, handleInvokeErrorWithAutoAuth, json , registerTool } from '../helpers';
 import type { BitableAppListData } from '../sdk-types';
@@ -100,7 +100,7 @@ type FeishuBitableAppParams =
 // Registration
 // ---------------------------------------------------------------------------
 
-export function registerFeishuBitableAppTool(api: OpenClawPluginApi): void {
+export function registerFeishuBitableAppTool(api: QingClawsPluginApi): void {
   if (!api.config) return;
   const cfg = api.config;
 

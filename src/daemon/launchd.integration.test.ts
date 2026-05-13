@@ -92,11 +92,11 @@ describeLaunchdIntegration("launchd integration", () => {
 
   beforeAll(async () => {
     const testId = randomUUID().slice(0, 8);
-    homeDir = await fs.mkdtemp(path.join(os.tmpdir(), `enclaws-launchd-int-${testId}-`));
+    homeDir = await fs.mkdtemp(path.join(os.tmpdir(), `qingclaws-launchd-int-${testId}-`));
     env = {
       HOME: homeDir,
-      ENCLAWS_LAUNCHD_LABEL: `ai.enclaws.launchd-int-${testId}`,
-      ENCLAWS_LOG_PREFIX: `gateway-launchd-int-${testId}`,
+      QINGCLAWS_LAUNCHD_LABEL: `ai.qingclaws.launchd-int-${testId}`,
+      QINGCLAWS_LOG_PREFIX: `gateway-launchd-int-${testId}`,
     };
   });
 

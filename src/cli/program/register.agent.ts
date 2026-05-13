@@ -53,24 +53,24 @@ export function registerAgentCommands(program: Command, args: { agentChannelOpti
         `
 ${theme.heading("Examples:")}
 ${formatHelpExamples([
-  ['enclaws agent --to +15555550123 --message "status update"', "Start a new session."],
-  ['enclaws agent --agent ops --message "Summarize logs"', "Use a specific agent."],
+  ['qingclaws agent --to +15555550123 --message "status update"', "Start a new session."],
+  ['qingclaws agent --agent ops --message "Summarize logs"', "Use a specific agent."],
   [
-    'enclaws agent --session-id 1234 --message "Summarize inbox" --thinking medium',
+    'qingclaws agent --session-id 1234 --message "Summarize inbox" --thinking medium',
     "Target a session with explicit thinking level.",
   ],
   [
-    'enclaws agent --to +15555550123 --message "Trace logs" --verbose on --json',
+    'qingclaws agent --to +15555550123 --message "Trace logs" --verbose on --json',
     "Enable verbose logging and JSON output.",
   ],
-  ['enclaws agent --to +15555550123 --message "Summon reply" --deliver', "Deliver reply."],
+  ['qingclaws agent --to +15555550123 --message "Summon reply" --deliver', "Deliver reply."],
   [
-    'enclaws agent --agent ops --message "Generate report" --deliver --reply-channel slack --reply-to "#reports"',
+    'qingclaws agent --agent ops --message "Generate report" --deliver --reply-channel slack --reply-to "#reports"',
     "Send reply to a different channel/target.",
   ],
 ])}
 
-${theme.muted("Docs:")} ${formatDocsLink("/cli/agent", "docs.enclaws.ai/cli/agent")}`,
+${theme.muted("Docs:")} ${formatDocsLink("/cli/agent", "docs.qingclaws.ai/cli/agent")}`,
     )
     .action(async (opts) => {
       const verboseLevel = typeof opts.verbose === "string" ? opts.verbose.toLowerCase() : "";
@@ -88,7 +88,7 @@ ${theme.muted("Docs:")} ${formatDocsLink("/cli/agent", "docs.enclaws.ai/cli/agen
     .addHelpText(
       "after",
       () =>
-        `\n${theme.muted("Docs:")} ${formatDocsLink("/cli/agents", "docs.enclaws.ai/cli/agents")}\n`,
+        `\n${theme.muted("Docs:")} ${formatDocsLink("/cli/agents", "docs.qingclaws.ai/cli/agents")}\n`,
     );
 
   agents
@@ -219,14 +219,14 @@ ${theme.muted("Docs:")} ${formatDocsLink("/cli/agent", "docs.enclaws.ai/cli/agen
         `
 ${theme.heading("Examples:")}
 ${formatHelpExamples([
-  ['enclaws agents set-identity --agent main --name "EnClaws" --emoji "🦞"', "Set name + emoji."],
-  ["enclaws agents set-identity --agent main --avatar avatars/enclaws.png", "Set avatar path."],
+  ['qingclaws agents set-identity --agent main --name "QingClaws" --emoji "🦞"', "Set name + emoji."],
+  ["qingclaws agents set-identity --agent main --avatar avatars/qingclaws.png", "Set avatar path."],
   [
-    "enclaws agents set-identity --workspace ~/.enclaws/workspace --from-identity",
+    "qingclaws agents set-identity --workspace ~/.qingclaws/workspace --from-identity",
     "Load from IDENTITY.md.",
   ],
   [
-    "enclaws agents set-identity --identity-file ~/.enclaws/workspace/IDENTITY.md --agent main",
+    "qingclaws agents set-identity --identity-file ~/.qingclaws/workspace/IDENTITY.md --agent main",
     "Use a specific IDENTITY.md.",
   ],
 ])}

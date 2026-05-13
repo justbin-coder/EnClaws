@@ -10,7 +10,7 @@ export default defineConfig({
   dts: true,
   deps: {
     neverBundle: [
-      /^openclaw(\/.*)?$/,
+      /^qingclaws(\/.*)?$/,
       /^@larksuiteoapi\//,
       /^@sinclair\//,
       'image-size',

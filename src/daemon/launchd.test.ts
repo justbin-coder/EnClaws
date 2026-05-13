@@ -103,9 +103,9 @@ describe("launchd runtime parsing", () => {
 
 describe("launchctl list detection", () => {
   it("detects the resolved label in launchctl list", async () => {
-    state.listOutput = "123 0 ai.enclaws.gateway\n";
+    state.listOutput = "123 0 ai.qingclaws.gateway\n";
     const listed = await isLaunchAgentListed({
-      env: { HOME: "/Users/test", ENCLAWS_PROFILE: "default" },
+      env: { HOME: "/Users/test", QINGCLAWS_PROFILE: "default" },
     });
     expect(listed).toBe(true);
   });
@@ -113,7 +113,7 @@ describe("launchctl list detection", () => {
   it("returns false when the label is missing", async () => {
     state.listOutput = "123 0 com.other.service\n";
     const listed = await isLaunchAgentListed({
-      env: { HOME: "/Users/test", ENCLAWS_PROFILE: "default" },
+      env: { HOME: "/Users/test", QINGCLAWS_PROFILE: "default" },
     });
     expect(listed).toBe(false);
   });
@@ -123,13 +123,13 @@ describe("launchd bootstrap repair", () => {
   it("bootstraps and kickstarts the resolved label", async () => {
     const env: Record<string, string | undefined> = {
       HOME: "/Users/test",
-      ENCLAWS_PROFILE: "default",
+      QINGCLAWS_PROFILE: "default",
     };
     const repair = await repairLaunchAgentBootstrap({ env });
     expect(repair.ok).toBe(true);
 
     const domain = typeof process.getuid === "function" ? `gui/${process.getuid()}` : "gui/501";
-    const label = "ai.enclaws.gateway";
+    const label = "ai.qingclaws.gateway";
     const plistPath = resolveLaunchAgentPlistPath(env);
 
     expect(state.launchctlCalls).toContainEqual(["bootstrap", domain, plistPath]);
@@ -141,7 +141,7 @@ describe("launchd install", () => {
   function createDefaultLaunchdEnv(): Record<string, string | undefined> {
     return {
       HOME: "/Users/test",
-      ENCLAWS_PROFILE: "default",
+      QINGCLAWS_PROFILE: "default",
     };
   }
 
@@ -154,7 +154,7 @@ describe("launchd install", () => {
     });
 
     const domain = typeof process.getuid === "function" ? `gui/${process.getuid()}` : "gui/501";
-    const label = "ai.enclaws.gateway";
+    const label = "ai.qingclaws.gateway";
     const plistPath = resolveLaunchAgentPlistPath(env);
     const serviceId = `${domain}/${label}`;
 
@@ -211,7 +211,7 @@ describe("launchd install", () => {
     });
 
     const domain = typeof process.getuid === "function" ? `gui/${process.getuid()}` : "gui/501";
-    const label = "ai.enclaws.gateway";
+    const label = "ai.qingclaws.gateway";
     const plistPath = resolveLaunchAgentPlistPath(env);
     const bootoutIndex = state.launchctlCalls.findIndex(
       (c) => c[0] === "bootout" && c[1] === `${domain}/${label}`,
@@ -252,7 +252,7 @@ describe("launchd install", () => {
       await restartPromise;
       expect(killSpy).toHaveBeenCalledWith(4242, 0);
       const domain = typeof process.getuid === "function" ? `gui/${process.getuid()}` : "gui/501";
-      const label = "ai.enclaws.gateway";
+      const label = "ai.qingclaws.gateway";
       const bootoutIndex = state.launchctlCalls.findIndex(
         (c) => c[0] === "bootout" && c[1] === `${domain}/${label}`,
       );
@@ -281,7 +281,7 @@ describe("launchd install", () => {
     }
     expect(message).toContain("logged-in macOS GUI session");
     expect(message).toContain("wrong user (including sudo)");
-    expect(message).toContain("https://docs.enclaws.ai/gateway");
+    expect(message).toContain("https://docs.qingclaws.ai/gateway");
   });
 
   it("surfaces generic bootstrap failures without GUI-specific guidance", async () => {
@@ -301,40 +301,40 @@ describe("launchd install", () => {
 describe("resolveLaunchAgentPlistPath", () => {
   it.each([
     {
-      name: "uses default label when ENCLAWS_PROFILE is unset",
+      name: "uses default label when QINGCLAWS_PROFILE is unset",
       env: { HOME: "/Users/test" },
-      expected: "/Users/test/Library/LaunchAgents/ai.enclaws.gateway.plist",
+      expected: "/Users/test/Library/LaunchAgents/ai.qingclaws.gateway.plist",
     },
     {
-      name: "uses profile-specific label when ENCLAWS_PROFILE is set to a custom value",
-      env: { HOME: "/Users/test", ENCLAWS_PROFILE: "jbphoenix" },
-      expected: "/Users/test/Library/LaunchAgents/ai.enclaws.jbphoenix.plist",
+      name: "uses profile-specific label when QINGCLAWS_PROFILE is set to a custom value",
+      env: { HOME: "/Users/test", QINGCLAWS_PROFILE: "jbphoenix" },
+      expected: "/Users/test/Library/LaunchAgents/ai.qingclaws.jbphoenix.plist",
     },
     {
-      name: "prefers ENCLAWS_LAUNCHD_LABEL over ENCLAWS_PROFILE",
+      name: "prefers QINGCLAWS_LAUNCHD_LABEL over QINGCLAWS_PROFILE",
       env: {
         HOME: "/Users/test",
-        ENCLAWS_PROFILE: "jbphoenix",
-        ENCLAWS_LAUNCHD_LABEL: "com.custom.label",
+        QINGCLAWS_PROFILE: "jbphoenix",
+        QINGCLAWS_LAUNCHD_LABEL: "com.custom.label",
       },
       expected: "/Users/test/Library/LaunchAgents/com.custom.label.plist",
     },
     {
-      name: "trims whitespace from ENCLAWS_LAUNCHD_LABEL",
+      name: "trims whitespace from QINGCLAWS_LAUNCHD_LABEL",
       env: {
         HOME: "/Users/test",
-        ENCLAWS_LAUNCHD_LABEL: "  com.custom.label  ",
+        QINGCLAWS_LAUNCHD_LABEL: "  com.custom.label  ",
       },
       expected: "/Users/test/Library/LaunchAgents/com.custom.label.plist",
     },
     {
-      name: "ignores empty ENCLAWS_LAUNCHD_LABEL and falls back to profile",
+      name: "ignores empty QINGCLAWS_LAUNCHD_LABEL and falls back to profile",
       env: {
         HOME: "/Users/test",
-        ENCLAWS_PROFILE: "myprofile",
-        ENCLAWS_LAUNCHD_LABEL: "   ",
+        QINGCLAWS_PROFILE: "myprofile",
+        QINGCLAWS_LAUNCHD_LABEL: "   ",
       },
-      expected: "/Users/test/Library/LaunchAgents/ai.enclaws.myprofile.plist",
+      expected: "/Users/test/Library/LaunchAgents/ai.qingclaws.myprofile.plist",
     },
   ])("$name", ({ env, expected }) => {
     expect(resolveLaunchAgentPlistPath(env)).toBe(expected);

@@ -1,7 +1,7 @@
 import fs from "node:fs/promises";
 import os from "node:os";
 import path from "node:path";
-import type { OpenClawPluginApi } from "openclaw/plugin-sdk";
+import type { QingClawsPluginApi } from "openclaw/plugin-sdk";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import { DEFAULT_DIFFS_TOOL_DEFAULTS } from "./config.js";
 import { DiffArtifactStore } from "./store.js";
@@ -12,7 +12,7 @@ describe("diffs tool", () => {
   let store: DiffArtifactStore;
 
   beforeEach(async () => {
-    rootDir = await fs.mkdtemp(path.join(os.tmpdir(), "openclaw-diffs-tool-"));
+    rootDir = await fs.mkdtemp(path.join(os.tmpdir(), "qingclaws-diffs-tool-"));
     store = new DiffArtifactStore({ rootDir });
   });
 
@@ -181,7 +181,7 @@ describe("diffs tool", () => {
   });
 });
 
-function createApi(): OpenClawPluginApi {
+function createApi(): QingClawsPluginApi {
   return {
     id: "diffs",
     name: "Diffs",
@@ -193,7 +193,7 @@ function createApi(): OpenClawPluginApi {
         bind: "loopback",
       },
     },
-    runtime: {} as OpenClawPluginApi["runtime"],
+    runtime: {} as QingClawsPluginApi["runtime"],
     logger: {
       info() {},
       warn() {},

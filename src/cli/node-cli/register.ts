@@ -27,13 +27,13 @@ export function registerNodeCli(program: Command) {
       () =>
         `\n${theme.heading("Examples:")}\n${formatHelpExamples([
           [
-            "enclaws node run --host 127.0.0.1 --port 18888",
+            "qingclaws node run --host 127.0.0.1 --port 18888",
             "Run the node host in the foreground.",
           ],
-          ["enclaws node status", "Check node host service status."],
-          ["enclaws node install", "Install the node host service."],
-          ["enclaws node restart", "Restart the installed node host service."],
-        ])}\n\n${theme.muted("Docs:")} ${formatDocsLink("/cli/node", "docs.enclaws.ai/cli/node")}\n`,
+          ["qingclaws node status", "Check node host service status."],
+          ["qingclaws node install", "Install the node host service."],
+          ["qingclaws node restart", "Restart the installed node host service."],
+        ])}\n\n${theme.muted("Docs:")} ${formatDocsLink("/cli/node", "docs.qingclaws.ai/cli/node")}\n`,
     );
 
   node

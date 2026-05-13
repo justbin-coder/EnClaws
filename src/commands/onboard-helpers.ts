@@ -108,7 +108,7 @@ export function printWizardHeader(runtime: RuntimeEnv) {
     "██░███░██░▀▀░██░▄▄▄██░█░█░██░█████░████░▀▀░██░█░█░██",
     "██░▀▀▀░██░█████░▀▀▀██░██▄░██░▀▀▄██░▀▀░█░██░██▄▀▄▀▄██",
     "▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀",
-    "                  🦞 OPENCLAW 🦞                    ",
+    "                  🦞 QINGCLAWS 🦞                    ",
     " ",
   ].join("\n");
   runtime.log(header);
@@ -224,8 +224,8 @@ export function formatControlUiSshHint(params: {
     localUrl,
     authedUrl,
     "相关文档 (Docs)：",
-    "https://docs.enclaws.ai/gateway/remote",
-    "https://docs.enclaws.ai/web/control-ui",
+    "https://docs.qingclaws.ai/gateway/remote",
+    "https://docs.qingclaws.ai/web/control-ui",
   ]
     .filter(Boolean)
     .join("\n");

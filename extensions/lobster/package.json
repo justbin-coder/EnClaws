@@ -1,9 +1,9 @@
 {
-  "name": "@openclaw/lobster",
+  "name": "@qingclaws/lobster",
   "version": "2026.3.1",
   "description": "Lobster workflow tool plugin (typed pipelines + resumable approvals)",
   "type": "module",
-  "openclaw": {
+  "qingclaws": {
     "extensions": [
       "./index.ts"
     ]

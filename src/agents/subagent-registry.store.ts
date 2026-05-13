@@ -31,12 +31,12 @@ type LegacySubagentRunRecord = PersistedSubagentRunRecord & {
 };
 
 function resolveSubagentStateDir(env: NodeJS.ProcessEnv = process.env): string {
-  const explicit = env.ENCLAWS_STATE_DIR?.trim();
+  const explicit = env.QINGCLAWS_STATE_DIR?.trim();
   if (explicit) {
     return resolveStateDir(env);
   }
   if (env.VITEST || env.NODE_ENV === "test") {
-    return path.join(os.tmpdir(), "enclaws-test-state", String(process.pid));
+    return path.join(os.tmpdir(), "qingclaws-test-state", String(process.pid));
   }
   return resolveStateDir(env);
 }

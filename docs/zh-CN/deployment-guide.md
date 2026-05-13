@@ -1,6 +1,6 @@
 # 部署指南
 
-EnClaws 生产环境部署方案——从单机开发到多租户企业级部署。
+QingClaws 生产环境部署方案——从单机开发到多租户企业级部署。
 
 ---
 
@@ -25,22 +25,22 @@ EnClaws 生产环境部署方案——从单机开发到多租户企业级部署
 
 ```bash
 # 全局安装
-npm install -g enclaws
+npm install -g qingclaws
 
 # 启动 Gateway
-enclaws gateway
+qingclaws gateway
 ```
 
 ### 配置
 
 ```bash
 # 设置环境变量
-export ENCLAWS_GATEWAY_PORT=18789
-export ENCLAWS_GATEWAY_PASSWORD=your-password
+export QINGCLAWS_GATEWAY_PORT=18789
+export QINGCLAWS_GATEWAY_PASSWORD=your-password
 export OPENAI_API_KEY=sk-...
 
 # 带参数启动
-enclaws gateway --port 18789 --bind loopback --auth password
+qingclaws gateway --port 18789 --bind loopback --auth password
 ```
 
 ### CLI 参数
@@ -59,7 +59,7 @@ enclaws gateway --port 18789 --bind loopback --auth password
 ### 数据目录
 
 ```
-~/.enclaws/
+~/.qingclaws/
 ├── config.toml          # Gateway 配置
 ├── workspace/           # 文件存储
 ├── sessions/            # 聊天会话
@@ -82,7 +82,7 @@ enclaws gateway --port 18789 --bind loopback --auth password
 ```bash
 # 克隆仓库
 git clone https://github.com/hashSTACS-Global/EnClaws.git
-cd EnClaws
+cd QingClaws
 
 # 创建环境配置
 cp .env.example .env
@@ -92,15 +92,15 @@ cp .env.example .env
 
 ```bash
 # === 数据库 ===
-OPENCLAW_DB_URL=postgresql://openclaw:openclaw_secret@openclaw-db:5432/openclaw
+QINGCLAWS_DB_URL=postgresql://qingclaws:qingclaws_secret@qingclaws-db:5432/qingclaws
 
 # === 认证 ===
-OPENCLAW_JWT_SECRET=修改为至少32字符的随机字符串
-OPENCLAW_GATEWAY_TOKEN=your-gateway-access-token
+QINGCLAWS_JWT_SECRET=修改为至少32字符的随机字符串
+QINGCLAWS_GATEWAY_TOKEN=your-gateway-access-token
 
 # === Gateway ===
-OPENCLAW_GATEWAY_PORT=18789
-OPENCLAW_GATEWAY_BIND=lan
+QINGCLAWS_GATEWAY_PORT=18789
+QINGCLAWS_GATEWAY_BIND=lan
 
 # === LLM 提供商 ===
 OPENAI_API_KEY=sk-...
@@ -134,16 +134,16 @@ docker-compose exec cli node --import tsx src/db/migrate.ts --status
 
 | 服务 | 端口 | 说明 |
 |------|------|------|
-| `openclaw-db` | 5432 | PostgreSQL 16 Alpine |
-| `gateway` | 18789, 18790 | EnClaws Gateway |
+| `qingclaws-db` | 5432 | PostgreSQL 16 Alpine |
+| `gateway` | 18789, 18790 | QingClaws Gateway |
 | `cli` | — | CLI 工具（与 Gateway 共享网络） |
 
 ### 数据卷
 
 | 卷 | 用途 |
 |----|------|
-| `openclaw-pgdata` | PostgreSQL 持久化存储 |
-| `./data/enclaws` | Gateway 状态目录 |
+| `qingclaws-pgdata` | PostgreSQL 持久化存储 |
+| `./data/qingclaws` | Gateway 状态目录 |
 
 ### 升级
 
@@ -181,20 +181,20 @@ docker-compose exec cli node --import tsx src/db/migrate.ts
 ### 包含内容
 
 - 便携版 Node.js 运行时（无需系统 Node）
-- 预构建的 EnClaws 应用
+- 预构建的 QingClaws 应用
 - 飞书 Skill 包（从 `feishu-skills` 仓库打包）
 - 自动启动配置
 
 ### 安装与运行
 
-1. 运行 `EnClaws-Setup-x.x.x.exe`（无需管理员权限）
-2. 在开始菜单搜索"EnClaws"
+1. 运行 `QingClaws-Setup-x.x.x.exe`（无需管理员权限）
+2. 在开始菜单搜索"QingClaws"
 3. Gateway 在 `http://localhost:18789` 启动
 
 ### 数据目录
 
 ```
-%LOCALAPPDATA%\EnClaws\
+%LOCALAPPDATA%\QingClaws\
 ├── node\                # 内置 Node.js
 ├── app\                 # 应用文件
 ├── skills-pack\         # 飞书 Skill 包
@@ -224,8 +224,8 @@ SKIP_DMG=1                # 只构建 .app（不生成 DMG）
 
 ### 安装
 
-1. 打开 `EnClaws-x.x.x.dmg`
-2. 将 EnClaws 拖入「应用程序」
+1. 打开 `QingClaws-x.x.x.dmg`
+2. 将 QingClaws 拖入「应用程序」
 3. 从启动台或 Spotlight 启动
 
 ### 包含内容
@@ -256,7 +256,7 @@ curl -fsSL --proto '=https' --tlsv1.2 \
 
 # 或从源码构建
 git clone https://github.com/hashSTACS-Global/EnClaws.git
-cd EnClaws
+cd QingClaws
 pnpm install && pnpm build && pnpm ui:build
 ```
 
@@ -268,12 +268,12 @@ sudo apt install postgresql-16
 
 # 创建数据库和用户
 sudo -u postgres psql <<SQL
-CREATE USER enclaws WITH PASSWORD 'your-secure-password';
-CREATE DATABASE enclaws OWNER enclaws;
+CREATE USER qingclaws WITH PASSWORD 'your-secure-password';
+CREATE DATABASE qingclaws OWNER qingclaws;
 SQL
 
 # 设置连接字符串
-export ENCLAWS_DB_URL=postgresql://enclaws:your-secure-password@localhost:5432/enclaws
+export QINGCLAWS_DB_URL=postgresql://qingclaws:your-secure-password@localhost:5432/qingclaws
 
 # 运行迁移
 pnpm db:migrate
@@ -281,20 +281,20 @@ pnpm db:migrate
 
 ### systemd 服务
 
-创建 `/etc/systemd/system/enclaws.service`：
+创建 `/etc/systemd/system/qingclaws.service`：
 
 ```ini
 [Unit]
-Description=EnClaws AI Assistant Gateway
+Description=QingClaws AI Assistant Gateway
 After=network.target postgresql.service
 
 [Service]
 Type=simple
-User=enclaws
-Group=enclaws
-WorkingDirectory=/opt/enclaws
-EnvironmentFile=/opt/enclaws/.env
-ExecStart=/usr/bin/node openclaw.mjs gateway --bind lan --auth password
+User=qingclaws
+Group=qingclaws
+WorkingDirectory=/opt/qingclaws
+EnvironmentFile=/opt/qingclaws/.env
+ExecStart=/usr/bin/node qingclaws.mjs gateway --bind lan --auth password
 Restart=on-failure
 RestartSec=5
 
@@ -302,7 +302,7 @@ RestartSec=5
 NoNewPrivileges=true
 ProtectSystem=strict
 ProtectHome=true
-ReadWritePaths=/opt/enclaws/data
+ReadWritePaths=/opt/qingclaws/data
 
 [Install]
 WantedBy=multi-user.target
@@ -311,12 +311,12 @@ WantedBy=multi-user.target
 ```bash
 # 启用并启动
 sudo systemctl daemon-reload
-sudo systemctl enable enclaws
-sudo systemctl start enclaws
+sudo systemctl enable qingclaws
+sudo systemctl start qingclaws
 
 # 检查状态
-sudo systemctl status enclaws
-sudo journalctl -u enclaws -f
+sudo systemctl status qingclaws
+sudo journalctl -u qingclaws -f
 ```
 
 ### 反向代理（Nginx）
@@ -324,10 +324,10 @@ sudo journalctl -u enclaws -f
 ```nginx
 server {
     listen 443 ssl http2;
-    server_name enclaws.example.com;
+    server_name qingclaws.example.com;
 
-    ssl_certificate     /etc/letsencrypt/live/enclaws.example.com/fullchain.pem;
-    ssl_certificate_key /etc/letsencrypt/live/enclaws.example.com/privkey.pem;
+    ssl_certificate     /etc/letsencrypt/live/qingclaws.example.com/fullchain.pem;
+    ssl_certificate_key /etc/letsencrypt/live/qingclaws.example.com/privkey.pem;
 
     location / {
         proxy_pass http://127.0.0.1:18789;
@@ -346,7 +346,7 @@ server {
 使用反向代理时，配置 trusted-proxy 认证：
 
 ```bash
-export ENCLAWS_GATEWAY_AUTH=trusted-proxy
+export QINGCLAWS_GATEWAY_AUTH=trusted-proxy
 ```
 
 ### 防火墙
@@ -393,7 +393,7 @@ sudo ufw allow from 10.0.0.0/8 to any port 18789
 ### 负载均衡配置
 
 ```nginx
-upstream enclaws_backend {
+upstream qingclaws_backend {
     # WebSocket 会话粘滞（必须）
     ip_hash;
 
@@ -404,10 +404,10 @@ upstream enclaws_backend {
 
 server {
     listen 443 ssl http2;
-    server_name enclaws.example.com;
+    server_name qingclaws.example.com;
 
     location / {
-        proxy_pass http://enclaws_backend;
+        proxy_pass http://qingclaws_backend;
         proxy_http_version 1.1;
         proxy_set_header Upgrade $http_upgrade;
         proxy_set_header Connection "upgrade";
@@ -434,34 +434,34 @@ server {
 
 | 变量 | 默认值 | 说明 |
 |------|--------|------|
-| `ENCLAWS_GATEWAY_PORT` | `18789` | Gateway 端口 |
-| `ENCLAWS_GATEWAY_BIND` | `loopback` | 绑定模式：`loopback` / `lan` / `tailnet` / `auto` |
-| `ENCLAWS_GATEWAY_PASSWORD` | — | 认证密码 |
-| `ENCLAWS_STATE_DIR` | `~/.enclaws` | 状态目录路径 |
-| `ENCLAWS_HOME` | `~` | 主目录 |
+| `QINGCLAWS_GATEWAY_PORT` | `18789` | Gateway 端口 |
+| `QINGCLAWS_GATEWAY_BIND` | `loopback` | 绑定模式：`loopback` / `lan` / `tailnet` / `auto` |
+| `QINGCLAWS_GATEWAY_PASSWORD` | — | 认证密码 |
+| `QINGCLAWS_STATE_DIR` | `~/.qingclaws` | 状态目录路径 |
+| `QINGCLAWS_HOME` | `~` | 主目录 |
 
 ### 数据库
 
 | 变量 | 默认值 | 说明 |
 |------|--------|------|
-| `ENCLAWS_DB_URL` | `sqlite://...` | 完整连接 URL |
-| `ENCLAWS_DB_HOST` | `localhost` | PostgreSQL 主机 |
-| `ENCLAWS_DB_PORT` | `5432` | PostgreSQL 端口 |
-| `ENCLAWS_DB_NAME` | `enclaws` | 数据库名 |
-| `ENCLAWS_DB_USER` | `enclaws` | 数据库用户 |
-| `ENCLAWS_DB_PASSWORD` | — | 数据库密码 |
-| `ENCLAWS_DB_SSL` | `false` | 启用 SSL |
-| `ENCLAWS_DB_POOL_MAX` | `20` | 连接池大小 |
+| `QINGCLAWS_DB_URL` | `sqlite://...` | 完整连接 URL |
+| `QINGCLAWS_DB_HOST` | `localhost` | PostgreSQL 主机 |
+| `QINGCLAWS_DB_PORT` | `5432` | PostgreSQL 端口 |
+| `QINGCLAWS_DB_NAME` | `qingclaws` | 数据库名 |
+| `QINGCLAWS_DB_USER` | `qingclaws` | 数据库用户 |
+| `QINGCLAWS_DB_PASSWORD` | — | 数据库密码 |
+| `QINGCLAWS_DB_SSL` | `false` | 启用 SSL |
+| `QINGCLAWS_DB_POOL_MAX` | `20` | 连接池大小 |
 
 ### 认证
 
 | 变量 | 默认值 | 说明 |
 |------|--------|------|
-| `ENCLAWS_JWT_SECRET` | — | JWT 签名密钥（多租户必填） |
-| `ENCLAWS_JWT_ACCESS_EXPIRES` | `30m` | Access Token 有效期 |
-| `ENCLAWS_JWT_REFRESH_EXPIRES` | `7d` | Refresh Token 有效期 |
-| `ENCLAWS_CONTROL_UI_DISABLE_DEVICE_AUTH` | `false` | 禁用设备认证 |
-| `ENCLAWS_CONTROL_UI_ALLOWED_ORIGINS` | — | 控制面板 CORS 来源 |
+| `QINGCLAWS_JWT_SECRET` | — | JWT 签名密钥（多租户必填） |
+| `QINGCLAWS_JWT_ACCESS_EXPIRES` | `30m` | Access Token 有效期 |
+| `QINGCLAWS_JWT_REFRESH_EXPIRES` | `7d` | Refresh Token 有效期 |
+| `QINGCLAWS_CONTROL_UI_DISABLE_DEVICE_AUTH` | `false` | 禁用设备认证 |
+| `QINGCLAWS_CONTROL_UI_ALLOWED_ORIGINS` | — | 控制面板 CORS 来源 |
 
 ### LLM 提供商
 
@@ -513,32 +513,32 @@ node --import tsx src/db/migrate.ts --status
 
 ### 数据库自动检测
 
-EnClaws 自动检测数据库类型：
+QingClaws 自动检测数据库类型：
 
-1. `ENCLAWS_DB_URL` 以 `postgresql://` 或 `postgres://` 开头 → **PostgreSQL**
-2. `ENCLAWS_DB_URL` 以 `sqlite://` 开头 → **SQLite**
-3. 设置了 `ENCLAWS_DB_HOST`（无 URL）→ **PostgreSQL**
+1. `QINGCLAWS_DB_URL` 以 `postgresql://` 或 `postgres://` 开头 → **PostgreSQL**
+2. `QINGCLAWS_DB_URL` 以 `sqlite://` 开头 → **SQLite**
+3. 设置了 `QINGCLAWS_DB_HOST`（无 URL）→ **PostgreSQL**
 4. 未设置 → **SQLite**（默认，存储在状态目录）
 
 ### 备份
 
 ```bash
 # PostgreSQL 备份
-pg_dump -U enclaws -h localhost enclaws > backup.sql
+pg_dump -U qingclaws -h localhost qingclaws > backup.sql
 
 # PostgreSQL 恢复
-psql -U enclaws -h localhost enclaws < backup.sql
+psql -U qingclaws -h localhost qingclaws < backup.sql
 
 # SQLite 备份（直接复制文件）
-cp ~/.enclaws/data.db ~/.enclaws/data.db.backup
+cp ~/.qingclaws/data.db ~/.qingclaws/data.db.backup
 ```
 
 ---
 
 ## 安全检查清单
 
-- [ ] 设置强 `ENCLAWS_JWT_SECRET`（32+ 字符）
-- [ ] 生产环境设置 `ENCLAWS_GATEWAY_PASSWORD`
+- [ ] 设置强 `QINGCLAWS_JWT_SECRET`（32+ 字符）
+- [ ] 生产环境设置 `QINGCLAWS_GATEWAY_PASSWORD`
 - [ ] 非必要不使用 `--bind lan`，默认使用 `loopback`
 - [ ] 公网访问时通过反向代理（Nginx/Caddy）启用 TLS
 - [ ] 限制 PostgreSQL 只允许 Gateway 实例访问
@@ -558,17 +558,17 @@ cp ~/.enclaws/data.db ~/.enclaws/data.db.backup
 lsof -i :18789
 
 # 查看详细日志
-enclaws gateway --verbose
+qingclaws gateway --verbose
 
 # 跳过配置校验
-enclaws gateway --allow-unconfigured
+qingclaws gateway --allow-unconfigured
 ```
 
 ### 数据库连接失败
 
 ```bash
 # 测试 PostgreSQL 连接
-psql -U enclaws -h localhost -d enclaws -c "SELECT 1"
+psql -U qingclaws -h localhost -d qingclaws -c "SELECT 1"
 
 # 检查迁移状态
 pnpm db:migrate:status
@@ -581,8 +581,8 @@ pnpm db:migrate
 
 ```bash
 # 检查 Gateway 状态
-enclaws gateway status
+qingclaws gateway status
 
 # 通过 RPC 查看通道健康状态
-enclaws gateway call tenant.channels.list
+qingclaws gateway call tenant.channels.list
 ```

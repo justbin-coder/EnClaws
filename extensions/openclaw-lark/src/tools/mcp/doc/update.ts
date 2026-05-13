@@ -6,7 +6,7 @@
  * 更新云文档（overwrite/append/replace_range/replace_all/insert_before/insert_after/delete_range，支持异步 task_id 查询）
  */
 
-import type { OpenClawPluginApi } from 'openclaw/plugin-sdk';
+import type { QingClawsPluginApi } from 'openclaw/plugin-sdk';
 import { type Static, Type } from '@sinclair/typebox';
 import { registerMcpTool } from '../shared';
 
@@ -66,7 +66,7 @@ function validateUpdateDocParams(p: UpdateDocParams): void {
 /**
  * 注册 update-doc 工具
  */
-export function registerUpdateDocTool(api: OpenClawPluginApi): boolean {
+export function registerUpdateDocTool(api: QingClawsPluginApi): boolean {
   return registerMcpTool<UpdateDocParams>(api, {
     name: 'feishu_update_doc',
     mcpToolName: 'update-doc',

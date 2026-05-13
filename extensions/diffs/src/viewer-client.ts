@@ -38,8 +38,8 @@ function parsePayload(element: HTMLScriptElement): DiffViewerPayload {
 
 function getCards(): Array<{ host: HTMLElement; payload: DiffViewerPayload }> {
   return [...document.querySelectorAll<HTMLElement>(".oc-diff-card")].flatMap((card) => {
-    const host = card.querySelector<HTMLElement>("[data-openclaw-diff-host]");
-    const payloadNode = card.querySelector<HTMLScriptElement>("[data-openclaw-diff-payload]");
+    const host = card.querySelector<HTMLElement>("[data-qingclaws-diff-host]");
+    const payloadNode = card.querySelector<HTMLScriptElement>("[data-qingclaws-diff-payload]");
     if (!host || !payloadNode) {
       return [];
     }
@@ -315,9 +315,9 @@ async function hydrateViewer(): Promise<void> {
 async function main(): Promise<void> {
   try {
     await hydrateViewer();
-    document.documentElement.dataset.openclawDiffsReady = "true";
+    document.documentElement.dataset.qingclawsDiffsReady = "true";
   } catch (error) {
-    document.documentElement.dataset.openclawDiffsError = "true";
+    document.documentElement.dataset.qingclawsDiffsError = "true";
     console.error("Failed to hydrate diff viewer", error);
   }
 }

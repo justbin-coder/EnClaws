@@ -20,11 +20,11 @@ export function registerNodesCli(program: Command) {
       "after",
       () =>
         `\n${theme.heading("Examples:")}\n${formatHelpExamples([
-          ["enclaws nodes status", "List known nodes with live status."],
-          ["enclaws nodes pairing pending", "Show pending node pairing requests."],
-          ['enclaws nodes run --node <id> --raw "uname -a"', "Run a shell command on a node."],
-          ["enclaws nodes camera snap --node <id>", "Capture a photo from a node camera."],
-        ])}\n\n${theme.muted("Docs:")} ${formatDocsLink("/cli/nodes", "docs.enclaws.ai/cli/nodes")}\n`,
+          ["qingclaws nodes status", "List known nodes with live status."],
+          ["qingclaws nodes pairing pending", "Show pending node pairing requests."],
+          ['qingclaws nodes run --node <id> --raw "uname -a"', "Run a shell command on a node."],
+          ["qingclaws nodes camera snap --node <id>", "Capture a photo from a node camera."],
+        ])}\n\n${theme.muted("Docs:")} ${formatDocsLink("/cli/nodes", "docs.qingclaws.ai/cli/nodes")}\n`,
     );
 
   registerNodesStatusCommands(nodes);

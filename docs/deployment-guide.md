@@ -1,6 +1,6 @@
 # Deployment Guide
 
-Production deployment options for EnClaws — from single-machine dev setups to multi-tenant enterprise deployments.
+Production deployment options for QingClaws — from single-machine dev setups to multi-tenant enterprise deployments.
 
 ---
 
@@ -25,22 +25,22 @@ Simplest option — run directly on your machine.
 
 ```bash
 # Install globally
-npm install -g enclaws
+npm install -g qingclaws
 
 # Start gateway
-enclaws gateway
+qingclaws gateway
 ```
 
 ### Configuration
 
 ```bash
 # Set environment variables
-export ENCLAWS_GATEWAY_PORT=18789
-export ENCLAWS_GATEWAY_PASSWORD=your-password
+export QINGCLAWS_GATEWAY_PORT=18789
+export QINGCLAWS_GATEWAY_PASSWORD=your-password
 export OPENAI_API_KEY=sk-...
 
 # Start with options
-enclaws gateway --port 18789 --bind loopback --auth password
+qingclaws gateway --port 18789 --bind loopback --auth password
 ```
 
 ### CLI Options
@@ -59,7 +59,7 @@ enclaws gateway --port 18789 --bind loopback --auth password
 ### Data Location
 
 ```
-~/.enclaws/
+~/.qingclaws/
 ├── config.toml          # Gateway configuration
 ├── workspace/           # File storage
 ├── sessions/            # Chat sessions
@@ -82,7 +82,7 @@ Recommended for production — includes PostgreSQL for multi-tenant support.
 ```bash
 # Clone repository
 git clone https://github.com/hashSTACS-Global/EnClaws.git
-cd EnClaws
+cd QingClaws
 
 # Create environment file
 cp .env.example .env
@@ -92,15 +92,15 @@ cp .env.example .env
 
 ```bash
 # === Database ===
-OPENCLAW_DB_URL=postgresql://openclaw:openclaw_secret@openclaw-db:5432/openclaw
+QINGCLAWS_DB_URL=postgresql://qingclaws:qingclaws_secret@qingclaws-db:5432/qingclaws
 
 # === Authentication ===
-OPENCLAW_JWT_SECRET=change-me-to-a-long-random-string-at-least-32-chars
-OPENCLAW_GATEWAY_TOKEN=your-gateway-access-token
+QINGCLAWS_JWT_SECRET=change-me-to-a-long-random-string-at-least-32-chars
+QINGCLAWS_GATEWAY_TOKEN=your-gateway-access-token
 
 # === Gateway ===
-OPENCLAW_GATEWAY_PORT=18789
-OPENCLAW_GATEWAY_BIND=lan
+QINGCLAWS_GATEWAY_PORT=18789
+QINGCLAWS_GATEWAY_BIND=lan
 
 # === LLM Providers ===
 OPENAI_API_KEY=sk-...
@@ -134,16 +134,16 @@ docker-compose exec cli node --import tsx src/db/migrate.ts --status
 
 | Service | Port | Description |
 |---------|------|-------------|
-| `openclaw-db` | 5432 | PostgreSQL 16 Alpine |
-| `gateway` | 18789, 18790 | EnClaws Gateway |
+| `qingclaws-db` | 5432 | PostgreSQL 16 Alpine |
+| `gateway` | 18789, 18790 | QingClaws Gateway |
 | `cli` | — | CLI tools (shared network with gateway) |
 
 ### Volumes
 
 | Volume | Purpose |
 |--------|---------|
-| `openclaw-pgdata` | PostgreSQL persistent storage |
-| `./data/enclaws` | Gateway state directory |
+| `qingclaws-pgdata` | PostgreSQL persistent storage |
+| `./data/qingclaws` | Gateway state directory |
 
 ### Updating
 
@@ -181,20 +181,20 @@ Zero-dependency installer for Windows users.
 ### What It Includes
 
 - Portable Node.js runtime (no system Node required)
-- Pre-built EnClaws application
+- Pre-built QingClaws application
 - Feishu skills pack (bundled from `feishu-skills` repo)
 - Auto-start configuration
 
 ### Install & Run
 
-1. Run `EnClaws-Setup-x.x.x.exe` (no admin rights needed)
-2. Search "EnClaws" in Start menu
+1. Run `QingClaws-Setup-x.x.x.exe` (no admin rights needed)
+2. Search "QingClaws" in Start menu
 3. Gateway starts at `http://localhost:18789`
 
 ### Data Location
 
 ```
-%LOCALAPPDATA%\EnClaws\
+%LOCALAPPDATA%\QingClaws\
 ├── node\                # Bundled Node.js
 ├── app\                 # Application files
 ├── skills-pack\         # Feishu skills
@@ -224,8 +224,8 @@ SKIP_DMG=1                # Build .app only (no DMG)
 
 ### Install
 
-1. Open `EnClaws-x.x.x.dmg`
-2. Drag EnClaws to Applications
+1. Open `QingClaws-x.x.x.dmg`
+2. Drag QingClaws to Applications
 3. Launch from Applications or Spotlight
 
 ### What It Includes
@@ -256,7 +256,7 @@ curl -fsSL --proto '=https' --tlsv1.2 \
 
 # Or build from source
 git clone https://github.com/hashSTACS-Global/EnClaws.git
-cd EnClaws
+cd QingClaws
 pnpm install && pnpm build && pnpm ui:build
 ```
 
@@ -268,12 +268,12 @@ sudo apt install postgresql-16
 
 # Create database and user
 sudo -u postgres psql <<SQL
-CREATE USER enclaws WITH PASSWORD 'your-secure-password';
-CREATE DATABASE enclaws OWNER enclaws;
+CREATE USER qingclaws WITH PASSWORD 'your-secure-password';
+CREATE DATABASE qingclaws OWNER qingclaws;
 SQL
 
 # Set connection string
-export ENCLAWS_DB_URL=postgresql://enclaws:your-secure-password@localhost:5432/enclaws
+export QINGCLAWS_DB_URL=postgresql://qingclaws:your-secure-password@localhost:5432/qingclaws
 
 # Run migrations
 pnpm db:migrate
@@ -281,20 +281,20 @@ pnpm db:migrate
 
 ### systemd Service
 
-Create `/etc/systemd/system/enclaws.service`:
+Create `/etc/systemd/system/qingclaws.service`:
 
 ```ini
 [Unit]
-Description=EnClaws AI Assistant Gateway
+Description=QingClaws AI Assistant Gateway
 After=network.target postgresql.service
 
 [Service]
 Type=simple
-User=enclaws
-Group=enclaws
-WorkingDirectory=/opt/enclaws
-EnvironmentFile=/opt/enclaws/.env
-ExecStart=/usr/bin/node openclaw.mjs gateway --bind lan --auth password
+User=qingclaws
+Group=qingclaws
+WorkingDirectory=/opt/qingclaws
+EnvironmentFile=/opt/qingclaws/.env
+ExecStart=/usr/bin/node qingclaws.mjs gateway --bind lan --auth password
 Restart=on-failure
 RestartSec=5
 
@@ -302,7 +302,7 @@ RestartSec=5
 NoNewPrivileges=true
 ProtectSystem=strict
 ProtectHome=true
-ReadWritePaths=/opt/enclaws/data
+ReadWritePaths=/opt/qingclaws/data
 
 [Install]
 WantedBy=multi-user.target
@@ -311,12 +311,12 @@ WantedBy=multi-user.target
 ```bash
 # Enable and start
 sudo systemctl daemon-reload
-sudo systemctl enable enclaws
-sudo systemctl start enclaws
+sudo systemctl enable qingclaws
+sudo systemctl start qingclaws
 
 # Check status
-sudo systemctl status enclaws
-sudo journalctl -u enclaws -f
+sudo systemctl status qingclaws
+sudo journalctl -u qingclaws -f
 ```
 
 ### Reverse Proxy (Nginx)
@@ -324,10 +324,10 @@ sudo journalctl -u enclaws -f
 ```nginx
 server {
     listen 443 ssl http2;
-    server_name enclaws.example.com;
+    server_name qingclaws.example.com;
 
-    ssl_certificate     /etc/letsencrypt/live/enclaws.example.com/fullchain.pem;
-    ssl_certificate_key /etc/letsencrypt/live/enclaws.example.com/privkey.pem;
+    ssl_certificate     /etc/letsencrypt/live/qingclaws.example.com/fullchain.pem;
+    ssl_certificate_key /etc/letsencrypt/live/qingclaws.example.com/privkey.pem;
 
     location / {
         proxy_pass http://127.0.0.1:18789;
@@ -346,7 +346,7 @@ server {
 When using a reverse proxy, configure trusted-proxy auth:
 
 ```bash
-export ENCLAWS_GATEWAY_AUTH=trusted-proxy
+export QINGCLAWS_GATEWAY_AUTH=trusted-proxy
 ```
 
 ### Firewall
@@ -393,7 +393,7 @@ Enterprise high-availability deployment with load balancing.
 ### Load Balancer Configuration
 
 ```nginx
-upstream enclaws_backend {
+upstream qingclaws_backend {
     # WebSocket sticky sessions (required)
     ip_hash;
 
@@ -404,10 +404,10 @@ upstream enclaws_backend {
 
 server {
     listen 443 ssl http2;
-    server_name enclaws.example.com;
+    server_name qingclaws.example.com;
 
     location / {
-        proxy_pass http://enclaws_backend;
+        proxy_pass http://qingclaws_backend;
         proxy_http_version 1.1;
         proxy_set_header Upgrade $http_upgrade;
         proxy_set_header Connection "upgrade";
@@ -434,34 +434,34 @@ server {
 
 | Variable | Default | Description |
 |----------|---------|-------------|
-| `ENCLAWS_GATEWAY_PORT` | `18789` | Gateway port |
-| `ENCLAWS_GATEWAY_BIND` | `loopback` | Bind mode: `loopback` / `lan` / `tailnet` / `auto` |
-| `ENCLAWS_GATEWAY_PASSWORD` | — | Authentication password |
-| `ENCLAWS_STATE_DIR` | `~/.enclaws` | State directory path |
-| `ENCLAWS_HOME` | `~` | Home directory |
+| `QINGCLAWS_GATEWAY_PORT` | `18789` | Gateway port |
+| `QINGCLAWS_GATEWAY_BIND` | `loopback` | Bind mode: `loopback` / `lan` / `tailnet` / `auto` |
+| `QINGCLAWS_GATEWAY_PASSWORD` | — | Authentication password |
+| `QINGCLAWS_STATE_DIR` | `~/.qingclaws` | State directory path |
+| `QINGCLAWS_HOME` | `~` | Home directory |
 
 ### Database
 
 | Variable | Default | Description |
 |----------|---------|-------------|
-| `ENCLAWS_DB_URL` | `sqlite://...` | Full connection URL |
-| `ENCLAWS_DB_HOST` | `localhost` | PostgreSQL host |
-| `ENCLAWS_DB_PORT` | `5432` | PostgreSQL port |
-| `ENCLAWS_DB_NAME` | `enclaws` | Database name |
-| `ENCLAWS_DB_USER` | `enclaws` | Database user |
-| `ENCLAWS_DB_PASSWORD` | — | Database password |
-| `ENCLAWS_DB_SSL` | `false` | Enable SSL |
-| `ENCLAWS_DB_POOL_MAX` | `20` | Connection pool size |
+| `QINGCLAWS_DB_URL` | `sqlite://...` | Full connection URL |
+| `QINGCLAWS_DB_HOST` | `localhost` | PostgreSQL host |
+| `QINGCLAWS_DB_PORT` | `5432` | PostgreSQL port |
+| `QINGCLAWS_DB_NAME` | `qingclaws` | Database name |
+| `QINGCLAWS_DB_USER` | `qingclaws` | Database user |
+| `QINGCLAWS_DB_PASSWORD` | — | Database password |
+| `QINGCLAWS_DB_SSL` | `false` | Enable SSL |
+| `QINGCLAWS_DB_POOL_MAX` | `20` | Connection pool size |
 
 ### Authentication
 
 | Variable | Default | Description |
 |----------|---------|-------------|
-| `ENCLAWS_JWT_SECRET` | — | JWT signing secret (required for multi-tenant) |
-| `ENCLAWS_JWT_ACCESS_EXPIRES` | `30m` | Access token TTL |
-| `ENCLAWS_JWT_REFRESH_EXPIRES` | `7d` | Refresh token TTL |
-| `ENCLAWS_CONTROL_UI_DISABLE_DEVICE_AUTH` | `false` | Disable device auth in UI |
-| `ENCLAWS_CONTROL_UI_ALLOWED_ORIGINS` | — | CORS origins for Control UI |
+| `QINGCLAWS_JWT_SECRET` | — | JWT signing secret (required for multi-tenant) |
+| `QINGCLAWS_JWT_ACCESS_EXPIRES` | `30m` | Access token TTL |
+| `QINGCLAWS_JWT_REFRESH_EXPIRES` | `7d` | Refresh token TTL |
+| `QINGCLAWS_CONTROL_UI_DISABLE_DEVICE_AUTH` | `false` | Disable device auth in UI |
+| `QINGCLAWS_CONTROL_UI_ALLOWED_ORIGINS` | — | CORS origins for Control UI |
 
 ### LLM Providers
 
@@ -513,32 +513,32 @@ node --import tsx src/db/migrate.ts --status
 
 ### Database Selection Logic
 
-EnClaws automatically detects the database type:
+QingClaws automatically detects the database type:
 
-1. `ENCLAWS_DB_URL` starts with `postgresql://` or `postgres://` → **PostgreSQL**
-2. `ENCLAWS_DB_URL` starts with `sqlite://` → **SQLite**
-3. `ENCLAWS_DB_HOST` is set (no URL) → **PostgreSQL**
+1. `QINGCLAWS_DB_URL` starts with `postgresql://` or `postgres://` → **PostgreSQL**
+2. `QINGCLAWS_DB_URL` starts with `sqlite://` → **SQLite**
+3. `QINGCLAWS_DB_HOST` is set (no URL) → **PostgreSQL**
 4. Nothing set → **SQLite** (default, stored in state dir)
 
 ### Backup
 
 ```bash
 # PostgreSQL backup
-pg_dump -U enclaws -h localhost enclaws > backup.sql
+pg_dump -U qingclaws -h localhost qingclaws > backup.sql
 
 # PostgreSQL restore
-psql -U enclaws -h localhost enclaws < backup.sql
+psql -U qingclaws -h localhost qingclaws < backup.sql
 
 # SQLite backup (just copy the file)
-cp ~/.enclaws/data.db ~/.enclaws/data.db.backup
+cp ~/.qingclaws/data.db ~/.qingclaws/data.db.backup
 ```
 
 ---
 
 ## Security Checklist
 
-- [ ] Set a strong `ENCLAWS_JWT_SECRET` (32+ characters)
-- [ ] Set `ENCLAWS_GATEWAY_PASSWORD` for production
+- [ ] Set a strong `QINGCLAWS_JWT_SECRET` (32+ characters)
+- [ ] Set `QINGCLAWS_GATEWAY_PASSWORD` for production
 - [ ] Use `--bind loopback` unless LAN access is needed
 - [ ] Enable TLS via reverse proxy (Nginx/Caddy) for public access
 - [ ] Restrict PostgreSQL access to gateway instances only
@@ -558,17 +558,17 @@ cp ~/.enclaws/data.db ~/.enclaws/data.db.backup
 lsof -i :18789
 
 # Check logs
-enclaws gateway --verbose
+qingclaws gateway --verbose
 
 # Validate config
-enclaws gateway --allow-unconfigured
+qingclaws gateway --allow-unconfigured
 ```
 
 ### Database connection fails
 
 ```bash
 # Test PostgreSQL connection
-psql -U enclaws -h localhost -d enclaws -c "SELECT 1"
+psql -U qingclaws -h localhost -d qingclaws -c "SELECT 1"
 
 # Check migration status
 pnpm db:migrate:status
@@ -581,8 +581,8 @@ pnpm db:migrate
 
 ```bash
 # Check gateway status
-enclaws gateway status
+qingclaws gateway status
 
 # Check channel health via RPC
-enclaws gateway call tenant.channels.list
+qingclaws gateway call tenant.channels.list
 ```

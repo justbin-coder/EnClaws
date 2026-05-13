@@ -104,7 +104,7 @@ function createWorkSetupCommandConfig(scope: "agent" | "shared"): OpenClawConfig
       list: [
         {
           id: "work",
-          workspace: "~/enclaws-work",
+          workspace: "~/qingclaws-work",
           sandbox: {
             mode: "all",
             scope,
@@ -141,13 +141,13 @@ describe("Agent-specific sandbox config", () => {
           sandbox: {
             mode: "all",
             scope: "agent",
-            workspaceRoot: "~/.enclaws/sandboxes",
+            workspaceRoot: "~/.qingclaws/sandboxes",
           },
         },
         list: [
           {
             id: "isolated",
-            workspace: "~/enclaws-isolated",
+            workspace: "~/qingclaws-isolated",
             sandbox: {
               mode: "all",
               scope: "agent",
@@ -176,14 +176,14 @@ describe("Agent-specific sandbox config", () => {
         list: [
           {
             id: "main",
-            workspace: "~/enclaws",
+            workspace: "~/qingclaws",
             sandbox: {
               mode: "off",
             },
           },
           {
             id: "family",
-            workspace: "~/enclaws-family",
+            workspace: "~/qingclaws-family",
             sandbox: {
               mode: "all",
               scope: "agent",
@@ -243,7 +243,7 @@ describe("Agent-specific sandbox config", () => {
         list: [
           {
             id: "main",
-            workspace: "~/enclaws",
+            workspace: "~/qingclaws",
           },
         ],
       },
@@ -293,7 +293,7 @@ describe("Agent-specific sandbox config", () => {
         list: [
           {
             id: "work",
-            workspace: "~/enclaws-work",
+            workspace: "~/qingclaws-work",
             sandbox: {
               mode: "all",
               scope: "agent",
@@ -326,7 +326,7 @@ describe("Agent-specific sandbox config", () => {
             list: [
               {
                 id: "main",
-                workspace: "~/enclaws",
+                workspace: "~/qingclaws",
                 sandbox: {
                   mode: "off",
                 },
@@ -351,7 +351,7 @@ describe("Agent-specific sandbox config", () => {
             list: [
               {
                 id: "family",
-                workspace: "~/enclaws-family",
+                workspace: "~/qingclaws-family",
                 sandbox: {
                   mode: "all",
                   scope: "agent",
@@ -387,7 +387,7 @@ describe("Agent-specific sandbox config", () => {
         list: [
           {
             id: "work",
-            workspace: "~/enclaws-work",
+            workspace: "~/qingclaws-work",
             sandbox: {
               mode: "all",
               scope: "agent",

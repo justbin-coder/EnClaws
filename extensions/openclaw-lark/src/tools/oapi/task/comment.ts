@@ -12,7 +12,7 @@
  *   - get:    GET  /open-apis/task/v2/comments/:comment_id
  */
 
-import type { OpenClawPluginApi } from 'openclaw/plugin-sdk';
+import type { QingClawsPluginApi } from 'openclaw/plugin-sdk';
 import { Type } from '@sinclair/typebox';
 
 import { StringEnum, assertLarkOk, createToolContext, handleInvokeErrorWithAutoAuth, json, registerTool } from '../helpers';
@@ -78,7 +78,7 @@ type FeishuTaskCommentParams =
 // Registration
 // ---------------------------------------------------------------------------
 
-export function registerFeishuTaskCommentTool(api: OpenClawPluginApi): void {
+export function registerFeishuTaskCommentTool(api: QingClawsPluginApi): void {
   if (!api.config) return;
   const cfg = api.config;
 

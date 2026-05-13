@@ -11,7 +11,7 @@
  */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
-import type { OpenClawPluginApi } from 'openclaw/plugin-sdk';
+import type { QingClawsPluginApi } from 'openclaw/plugin-sdk';
 import { Type } from '@sinclair/typebox';
 import {
   StringEnum,
@@ -176,7 +176,7 @@ function normalizeSearchResultTimeFields<T>(value: T, converted: { count: number
 // Registration
 // ---------------------------------------------------------------------------
 
-export function registerFeishuSearchDocWikiTool(api: OpenClawPluginApi): boolean {
+export function registerFeishuSearchDocWikiTool(api: QingClawsPluginApi): boolean {
   if (!api.config) return false;
   const cfg = api.config;
 

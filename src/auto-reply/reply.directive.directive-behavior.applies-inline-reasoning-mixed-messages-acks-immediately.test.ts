@@ -273,7 +273,7 @@ describe("directive behavior", () => {
   });
   it("treats skill commands as reserved for model aliases", async () => {
     await withTempHome(async (home) => {
-      const workspace = path.join(home, "enclaws");
+      const workspace = path.join(home, "qingclaws");
       await writeSkill({
         workspaceDir: workspace,
         name: "demo-skill",

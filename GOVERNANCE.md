@@ -1,6 +1,6 @@
 # Governance
 
-EnClaws is not trying to be only a more talkative interface. Its goal is to gradually capture how enterprises actually operate in an open, collaborative, and evolvable AI runtime system.
+QingClaws is not trying to be only a more talkative interface. Its goal is to gradually capture how enterprises actually operate in an open, collaborative, and evolvable AI runtime system.
 That means it needs not only code, but also clear decision boundaries.
 
 ## 1. Governance Goals
@@ -17,7 +17,7 @@ Project governance focuses first on the following:
 
 ### Project Steward
 
-The initial steward is the repository owner or maintainer, `hashSTACS`.
+The initial steward is the repository owner or maintainer, `QingClaws Team`.
 The steward is responsible for project direction, governance files, release authorization, key role appointments, and final judgment when disputes cannot be resolved otherwise.
 
 ### Maintainers

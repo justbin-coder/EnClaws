@@ -78,7 +78,7 @@ export function formatAgentInternalEventsForPrompt(events?: AgentInternalEvent[]
     return "";
   }
   return [
-    "EnClaws runtime context (internal):",
+    "QingClaws runtime context (internal):",
     "This context is runtime-generated, not user-authored. Keep internal details private.",
     "",
     blocks.join("\n\n---\n\n"),

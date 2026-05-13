@@ -1,6 +1,6 @@
 # Security Policy
 
-EnClaws targets enterprise-grade digital assistant containerization and multi-user runtime scenarios.
+QingClaws targets enterprise-grade digital assistant containerization and multi-user runtime scenarios.
 Security issues may involve multi-tenant isolation, cross-session leakage, layered-memory exposure, container escape, authorization bypass, message-channel authentication, audit-data tampering, secret exposure, and unsafe Skill execution.
 If you believe you have found a security vulnerability, please **report it privately** and do not open a public issue first.
 

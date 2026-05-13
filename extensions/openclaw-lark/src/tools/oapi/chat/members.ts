@@ -8,7 +8,7 @@
  * 使用 sdk.im.v1.chatMembers.get 接口
  */
 
-import type { OpenClawPluginApi } from 'openclaw/plugin-sdk';
+import type { QingClawsPluginApi } from 'openclaw/plugin-sdk';
 import { Type } from '@sinclair/typebox';
 import { StringEnum, assertLarkOk, createToolContext, handleInvokeErrorWithAutoAuth, json, registerTool } from '../helpers';
 import type { ChatMemberListData } from '../sdk-types';
@@ -52,7 +52,7 @@ interface ChatMembersParams {
 // Registration
 // ---------------------------------------------------------------------------
 
-export function registerChatMembersTool(api: OpenClawPluginApi): boolean {
+export function registerChatMembersTool(api: QingClawsPluginApi): boolean {
   if (!api.config) return false;
   const cfg = api.config;
 

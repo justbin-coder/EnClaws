@@ -1,10 +1,10 @@
 #!/usr/bin/env node
 
 /**
- * postinstall script for enclaws.
+ * postinstall script for qingclaws.
  *
- * Runs after `npm install -g enclaws` to generate a working
- * ~/.enclaws/.env with sensible defaults so the gateway starts
+ * Runs after `npm install -g qingclaws` to generate a working
+ * ~/.qingclaws/.env with sensible defaults so the gateway starts
  * out of the box. Skips if .env already exists (never overwrites).
  *
  * Zero dependencies — uses only Node built-ins.
@@ -22,13 +22,13 @@ const appDir = join(import.meta.dirname, "..");
 const tarPath = join(appDir, "node_modules.tar");
 
 if (existsSync(tarPath) && !existsSync(join(appDir, "node_modules"))) {
-  console.log("[enclaws] Extracting node_modules...");
+  console.log("[qingclaws] Extracting node_modules...");
   execSync(`tar -xf "${tarPath}"`, { cwd: appDir, stdio: "inherit" });
   unlinkSync(tarPath);
-  console.log("[enclaws] node_modules extracted.");
+  console.log("[qingclaws] node_modules extracted.");
 }
 
-const stateDir = join(homedir(), ".enclaws");
+const stateDir = join(homedir(), ".qingclaws");
 const envPath = join(stateDir, ".env");
 
 if (existsSync(envPath)) {
@@ -44,12 +44,12 @@ const skillPackDir = join(appDir, "skills-pack").replace(/\\/g, "/");
 // Use project's .env.example as template (assumed to exist)
 const projectEnvPath = join(appDir, ".env.example");
 let content = readFileSync(projectEnvPath, "utf-8");
-// Replace template ENCLAWS_DB_URL with absolute path (template may contain a relative placeholder)
+// Replace template QINGCLAWS_DB_URL with absolute path (template may contain a relative placeholder)
 const dbUrl = `sqlite://${dbPath}`;
-if (/^ENCLAWS_DB_URL=/m.test(content)) {
-  content = content.replace(/^ENCLAWS_DB_URL=.*$/m, `ENCLAWS_DB_URL=${dbUrl}`);
+if (/^QINGCLAWS_DB_URL=/m.test(content)) {
+  content = content.replace(/^QINGCLAWS_DB_URL=.*$/m, `QINGCLAWS_DB_URL=${dbUrl}`);
 } else {
-  content += `\nENCLAWS_DB_URL=${dbUrl}`;
+  content += `\nQINGCLAWS_DB_URL=${dbUrl}`;
 }
 // Replace empty placeholder (from .env.example) or append if missing entirely
 if (/^SKILL_PACK_LOCAL_DIR=/m.test(content)) {
@@ -61,7 +61,7 @@ if (/^SKILL_PACK_LOCAL_DIR=/m.test(content)) {
 try {
   mkdirSync(stateDir, { recursive: true });
   writeFileSync(envPath, content, "utf-8");
-  console.log(`[enclaws] Config created: ${envPath}`);
+  console.log(`[qingclaws] Config created: ${envPath}`);
 } catch (err) {
-  console.warn(`[enclaws] Could not create ${envPath}:`, err.message);
+  console.warn(`[qingclaws] Could not create ${envPath}:`, err.message);
 }

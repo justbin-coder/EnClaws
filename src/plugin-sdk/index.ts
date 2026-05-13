@@ -96,13 +96,18 @@ export { ACP_ERROR_CODES, AcpRuntimeError } from "../acp/runtime/errors.js";
 export type { AcpRuntimeErrorCode } from "../acp/runtime/errors.js";
 export type {
   AnyAgentTool,
-  OpenClawPluginConfigSchema,
-  OpenClawPluginApi,
-  OpenClawPluginService,
-  OpenClawPluginServiceContext,
+  QingClawsPluginConfigSchema,
+  QingClawsPluginApi,
+  QingClawsPluginService,
+  QingClawsPluginServiceContext,
   PluginLogger,
   ProviderAuthContext,
   ProviderAuthResult,
+  // QINGCLAWS-CUSTOM: brand — backward-compat aliases so extensions importing old names still compile
+  QingClawsPluginConfigSchema as OpenClawPluginConfigSchema,
+  QingClawsPluginApi as OpenClawPluginApi,
+  QingClawsPluginService as OpenClawPluginService,
+  QingClawsPluginServiceContext as OpenClawPluginServiceContext,
 } from "../plugins/types.js";
 export type {
   GatewayRequestHandler,
@@ -257,7 +262,10 @@ export type {
   WindowsSpawnProgram,
   WindowsSpawnResolution,
 } from "./windows-spawn.js";
-export { resolvePreferredOpenClawTmpDir } from "../infra/tmp-openclaw-dir.js";
+export {
+  resolvePreferredQingClawsTmpDir,
+  resolvePreferredQingClawsTmpDir as resolvePreferredOpenClawTmpDir, // QINGCLAWS-CUSTOM: brand — backward-compat alias
+} from "../infra/tmp-qingclaws-dir.js";
 export {
   runPluginCommandWithTimeout,
   type PluginCommandRunOptions,

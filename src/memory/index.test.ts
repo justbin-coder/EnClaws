@@ -44,7 +44,7 @@ describe("memory index", () => {
   const managersForCleanup = new Set<MemoryIndexManager>();
 
   beforeAll(async () => {
-    fixtureRoot = await fs.mkdtemp(path.join(os.tmpdir(), "enclaws-mem-fixtures-"));
+    fixtureRoot = await fs.mkdtemp(path.join(os.tmpdir(), "qingclaws-mem-fixtures-"));
     workspaceDir = path.join(fixtureRoot, "workspace");
     memoryDir = path.join(workspaceDir, "memory");
     extraDir = path.join(workspaceDir, "extra");
@@ -67,7 +67,7 @@ describe("memory index", () => {
   beforeEach(async () => {
     // Perf: most suites don't need atomic swap behavior for full reindexes.
     // Keep atomic reindex tests on the safe path.
-    vi.stubEnv("ENCLAWS_TEST_MEMORY_UNSAFE_REINDEX", "1");
+    vi.stubEnv("QINGCLAWS_TEST_MEMORY_UNSAFE_REINDEX", "1");
     embedBatchCalls = 0;
 
     // Keep the workspace stable to allow manager reuse across tests.
@@ -228,8 +228,8 @@ describe("memory index", () => {
       ].join("\n") + "\n",
     );
 
-    const previousStateDir = process.env.ENCLAWS_STATE_DIR;
-    process.env.ENCLAWS_STATE_DIR = stateDir;
+    const previousStateDir = process.env.QINGCLAWS_STATE_DIR;
+    process.env.QINGCLAWS_STATE_DIR = stateDir;
 
     const firstCfg = createCfg({
       storePath: indexSourceChangePath,
@@ -271,9 +271,9 @@ describe("memory index", () => {
       await second.manager.close?.();
     } finally {
       if (previousStateDir === undefined) {
-        delete process.env.ENCLAWS_STATE_DIR;
+        delete process.env.QINGCLAWS_STATE_DIR;
       } else {
-        process.env.ENCLAWS_STATE_DIR = previousStateDir;
+        process.env.QINGCLAWS_STATE_DIR = previousStateDir;
       }
       await fs.rm(stateDir, { recursive: true, force: true });
     }

@@ -9,7 +9,7 @@ title: "Logging"
 
 # Logging
 
-OpenClaw logs in two places:
+QingClaws logs in two places:
 
 - **File logs** (JSON lines) written by the Gateway.
 - **Console output** shown in terminals and the Control UI.
@@ -30,7 +30,7 @@ You can override this in `~/.openclaw/openclaw.json`:
 ```json
 {
   "logging": {
-    "file": "/path/to/openclaw.log"
+    "file": "/path/to/qingclaws.log"
   }
 }
 ```
@@ -42,7 +42,7 @@ You can override this in `~/.openclaw/openclaw.json`:
 Use the CLI to tail the gateway log file via RPC:
 
 ```bash
-openclaw logs --follow
+qingclaws logs --follow
 ```
 
 Output modes:
@@ -63,7 +63,7 @@ In JSON mode, the CLI emits `type`-tagged objects:
 If the Gateway is unreachable, the CLI prints a short hint to run:
 
 ```bash
-openclaw doctor
+qingclaws doctor
 ```
 
 ### Control UI (web)
@@ -76,7 +76,7 @@ See [/web/control-ui](/web/control-ui) for how to open it.
 To filter channel activity (WhatsApp/Telegram/etc), use:
 
 ```bash
-openclaw channels logs --channel whatsapp
+qingclaws channels logs --channel whatsapp
 ```
 
 ## Log formats
@@ -118,7 +118,7 @@ All logging configuration lives under `logging` in `~/.openclaw/openclaw.json`.
 - `logging.level`: **file logs** (JSONL) level.
 - `logging.consoleLevel`: **console** verbosity level.
 
-You can override both via the **`OPENCLAW_LOG_LEVEL`** environment variable (e.g. `OPENCLAW_LOG_LEVEL=debug`). The env var takes precedence over the config file, so you can raise verbosity for a single run without editing `openclaw.json`. You can also pass the global CLI option **`--log-level <level>`** (for example, `openclaw --log-level debug gateway run`), which overrides the environment variable for that command.
+You can override both via the **`QINGCLAWS_LOG_LEVEL`** environment variable (e.g. `QINGCLAWS_LOG_LEVEL=debug`). The env var takes precedence over the config file, so you can raise verbosity for a single run without editing `qingclaws.json`. You can also pass the global CLI option **`--log-level <level>`** (for example, `qingclaws --log-level debug gateway run`), which overrides the environment variable for that command.
 
 `--verbose` only affects console output; it does not change file log levels.
 
@@ -152,7 +152,7 @@ diagnostics + the exporter plugin are enabled.
 
 - **OpenTelemetry (OTel)**: the data model + SDKs for traces, metrics, and logs.
 - **OTLP**: the wire protocol used to export OTel data to a collector/backend.
-- OpenClaw exports via **OTLP/HTTP (protobuf)** today.
+- QingClaws exports via **OTLP/HTTP (protobuf)** today.
 
 ### Signals exported
 
@@ -212,7 +212,7 @@ Flags are case-insensitive and support wildcards (e.g. `telegram.*` or `*`).
 Env override (one-off):
 
 ```
-OPENCLAW_DIAGNOSTICS=telegram.http,telegram.payload
+QINGCLAWS_DIAGNOSTICS=telegram.http,telegram.payload
 ```
 
 Notes:
@@ -242,7 +242,7 @@ works with any OpenTelemetry collector/backend that accepts OTLP/HTTP.
       "enabled": true,
       "endpoint": "http://otel-collector:4318",
       "protocol": "http/protobuf",
-      "serviceName": "openclaw-gateway",
+      "serviceName": "qingclaws-gateway",
       "traces": true,
       "metrics": true,
       "logs": true,
@@ -255,7 +255,7 @@ works with any OpenTelemetry collector/backend that accepts OTLP/HTTP.
 
 Notes:
 
-- You can also enable the plugin with `openclaw plugins enable diagnostics-otel`.
+- You can also enable the plugin with `qingclaws plugins enable diagnostics-otel`.
 - `protocol` currently supports `http/protobuf` only. `grpc` is ignored.
 - Metrics include token usage, cost, context size, run duration, and message-flow
   counters/histograms (webhooks, queueing, session state, queue depth/wait).
@@ -269,60 +269,60 @@ Notes:
 
 Model usage:
 
-- `openclaw.tokens` (counter, attrs: `openclaw.token`, `openclaw.channel`,
-  `openclaw.provider`, `openclaw.model`)
-- `openclaw.cost.usd` (counter, attrs: `openclaw.channel`, `openclaw.provider`,
-  `openclaw.model`)
-- `openclaw.run.duration_ms` (histogram, attrs: `openclaw.channel`,
-  `openclaw.provider`, `openclaw.model`)
-- `openclaw.context.tokens` (histogram, attrs: `openclaw.context`,
-  `openclaw.channel`, `openclaw.provider`, `openclaw.model`)
+- `qingclaws.tokens` (counter, attrs: `qingclaws.token`, `qingclaws.channel`,
+  `qingclaws.provider`, `qingclaws.model`)
+- `qingclaws.cost.usd` (counter, attrs: `qingclaws.channel`, `qingclaws.provider`,
+  `qingclaws.model`)
+- `qingclaws.run.duration_ms` (histogram, attrs: `qingclaws.channel`,
+  `qingclaws.provider`, `qingclaws.model`)
+- `qingclaws.context.tokens` (histogram, attrs: `qingclaws.context`,
+  `qingclaws.channel`, `qingclaws.provider`, `qingclaws.model`)
 
 Message flow:
 
-- `openclaw.webhook.received` (counter, attrs: `openclaw.channel`,
-  `openclaw.webhook`)
-- `openclaw.webhook.error` (counter, attrs: `openclaw.channel`,
-  `openclaw.webhook`)
-- `openclaw.webhook.duration_ms` (histogram, attrs: `openclaw.channel`,
-  `openclaw.webhook`)
-- `openclaw.message.queued` (counter, attrs: `openclaw.channel`,
-  `openclaw.source`)
-- `openclaw.message.processed` (counter, attrs: `openclaw.channel`,
-  `openclaw.outcome`)
-- `openclaw.message.duration_ms` (histogram, attrs: `openclaw.channel`,
-  `openclaw.outcome`)
+- `qingclaws.webhook.received` (counter, attrs: `qingclaws.channel`,
+  `qingclaws.webhook`)
+- `qingclaws.webhook.error` (counter, attrs: `qingclaws.channel`,
+  `qingclaws.webhook`)
+- `qingclaws.webhook.duration_ms` (histogram, attrs: `qingclaws.channel`,
+  `qingclaws.webhook`)
+- `qingclaws.message.queued` (counter, attrs: `qingclaws.channel`,
+  `qingclaws.source`)
+- `qingclaws.message.processed` (counter, attrs: `qingclaws.channel`,
+  `qingclaws.outcome`)
+- `qingclaws.message.duration_ms` (histogram, attrs: `qingclaws.channel`,
+  `qingclaws.outcome`)
 
 Queues + sessions:
 
-- `openclaw.queue.lane.enqueue` (counter, attrs: `openclaw.lane`)
-- `openclaw.queue.lane.dequeue` (counter, attrs: `openclaw.lane`)
-- `openclaw.queue.depth` (histogram, attrs: `openclaw.lane` or
-  `openclaw.channel=heartbeat`)
-- `openclaw.queue.wait_ms` (histogram, attrs: `openclaw.lane`)
-- `openclaw.session.state` (counter, attrs: `openclaw.state`, `openclaw.reason`)
-- `openclaw.session.stuck` (counter, attrs: `openclaw.state`)
-- `openclaw.session.stuck_age_ms` (histogram, attrs: `openclaw.state`)
-- `openclaw.run.attempt` (counter, attrs: `openclaw.attempt`)
+- `qingclaws.queue.lane.enqueue` (counter, attrs: `qingclaws.lane`)
+- `qingclaws.queue.lane.dequeue` (counter, attrs: `qingclaws.lane`)
+- `qingclaws.queue.depth` (histogram, attrs: `qingclaws.lane` or
+  `qingclaws.channel=heartbeat`)
+- `qingclaws.queue.wait_ms` (histogram, attrs: `qingclaws.lane`)
+- `qingclaws.session.state` (counter, attrs: `qingclaws.state`, `qingclaws.reason`)
+- `qingclaws.session.stuck` (counter, attrs: `qingclaws.state`)
+- `qingclaws.session.stuck_age_ms` (histogram, attrs: `qingclaws.state`)
+- `qingclaws.run.attempt` (counter, attrs: `qingclaws.attempt`)
 
 ### Exported spans (names + key attributes)
 
-- `openclaw.model.usage`
-  - `openclaw.channel`, `openclaw.provider`, `openclaw.model`
-  - `openclaw.sessionKey`, `openclaw.sessionId`
-  - `openclaw.tokens.*` (input/output/cache_read/cache_write/total)
-- `openclaw.webhook.processed`
-  - `openclaw.channel`, `openclaw.webhook`, `openclaw.chatId`
-- `openclaw.webhook.error`
-  - `openclaw.channel`, `openclaw.webhook`, `openclaw.chatId`,
-    `openclaw.error`
-- `openclaw.message.processed`
-  - `openclaw.channel`, `openclaw.outcome`, `openclaw.chatId`,
-    `openclaw.messageId`, `openclaw.sessionKey`, `openclaw.sessionId`,
-    `openclaw.reason`
-- `openclaw.session.stuck`
-  - `openclaw.state`, `openclaw.ageMs`, `openclaw.queueDepth`,
-    `openclaw.sessionKey`, `openclaw.sessionId`
+- `qingclaws.model.usage`
+  - `qingclaws.channel`, `qingclaws.provider`, `qingclaws.model`
+  - `qingclaws.sessionKey`, `qingclaws.sessionId`
+  - `qingclaws.tokens.*` (input/output/cache_read/cache_write/total)
+- `qingclaws.webhook.processed`
+  - `qingclaws.channel`, `qingclaws.webhook`, `qingclaws.chatId`
+- `qingclaws.webhook.error`
+  - `qingclaws.channel`, `qingclaws.webhook`, `qingclaws.chatId`,
+    `qingclaws.error`
+- `qingclaws.message.processed`
+  - `qingclaws.channel`, `qingclaws.outcome`, `qingclaws.chatId`,
+    `qingclaws.messageId`, `qingclaws.sessionKey`, `qingclaws.sessionId`,
+    `qingclaws.reason`
+- `qingclaws.session.stuck`
+  - `qingclaws.state`, `qingclaws.ageMs`, `qingclaws.queueDepth`,
+    `qingclaws.sessionKey`, `qingclaws.sessionId`
 
 ### Sampling + flushing
 
@@ -346,7 +346,7 @@ Queues + sessions:
 
 ## Troubleshooting tips
 
-- **Gateway not reachable?** Run `openclaw doctor` first.
+- **Gateway not reachable?** Run `qingclaws doctor` first.
 - **Logs empty?** Check that the Gateway is running and writing to the file path
   in `logging.file`.
 - **Need more detail?** Set `logging.level` to `debug` or `trace` and retry.

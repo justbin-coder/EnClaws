@@ -136,7 +136,7 @@ describe("QmdMemoryManager", () => {
     await fs.mkdir(workspaceDir);
     stateDir = path.join(tmpRoot, "state");
     await fs.mkdir(stateDir);
-    process.env.ENCLAWS_STATE_DIR = stateDir;
+    process.env.QINGCLAWS_STATE_DIR = stateDir;
     cfg = {
       agents: {
         list: [{ id: agentId, default: true, workspace: workspaceDir }],
@@ -154,9 +154,9 @@ describe("QmdMemoryManager", () => {
 
   afterEach(async () => {
     vi.useRealTimers();
-    delete process.env.ENCLAWS_STATE_DIR;
-    delete (globalThis as Record<string, unknown>).__enclawsMcporterDaemonStart;
-    delete (globalThis as Record<string, unknown>).__enclawsMcporterColdStartWarned;
+    delete process.env.QINGCLAWS_STATE_DIR;
+    delete (globalThis as Record<string, unknown>).__qingclawsMcporterDaemonStart;
+    delete (globalThis as Record<string, unknown>).__qingclawsMcporterColdStartWarned;
   });
 
   it("debounces back-to-back sync calls", async () => {

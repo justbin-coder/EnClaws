@@ -35,21 +35,21 @@ describe("restart-helper", () => {
     it("creates a systemd restart script on Linux", async () => {
       Object.defineProperty(process, "platform", { value: "linux" });
       const { scriptPath, content } = await prepareAndReadScript({
-        ENCLAWS_PROFILE: "default",
+        QINGCLAWS_PROFILE: "default",
       });
       expect(scriptPath.endsWith(".sh")).toBe(true);
       expect(content).toContain("#!/bin/sh");
-      expect(content).toContain("systemctl --user restart 'enclaws-gateway.service'");
+      expect(content).toContain("systemctl --user restart 'qingclaws-gateway.service'");
       // Script should self-cleanup
       expect(content).toContain('rm -f "$0"');
       await cleanupScript(scriptPath);
     });
 
-    it("uses ENCLAWS_SYSTEMD_UNIT override for systemd scripts", async () => {
+    it("uses QINGCLAWS_SYSTEMD_UNIT override for systemd scripts", async () => {
       Object.defineProperty(process, "platform", { value: "linux" });
       const { scriptPath, content } = await prepareAndReadScript({
-        ENCLAWS_PROFILE: "default",
-        ENCLAWS_SYSTEMD_UNIT: "custom-gateway",
+        QINGCLAWS_PROFILE: "default",
+        QINGCLAWS_SYSTEMD_UNIT: "custom-gateway",
       });
       expect(content).toContain("systemctl --user restart 'custom-gateway.service'");
       await cleanupScript(scriptPath);
@@ -60,24 +60,24 @@ describe("restart-helper", () => {
       process.getuid = () => 501;
 
       const { scriptPath, content } = await prepareAndReadScript({
-        ENCLAWS_PROFILE: "default",
+        QINGCLAWS_PROFILE: "default",
       });
       expect(scriptPath.endsWith(".sh")).toBe(true);
       expect(content).toContain("#!/bin/sh");
-      expect(content).toContain("launchctl kickstart -k 'gui/501/ai.enclaws.gateway'");
+      expect(content).toContain("launchctl kickstart -k 'gui/501/ai.qingclaws.gateway'");
       expect(content).toContain('rm -f "$0"');
       await cleanupScript(scriptPath);
     });
 
-    it("uses ENCLAWS_LAUNCHD_LABEL override on macOS", async () => {
+    it("uses QINGCLAWS_LAUNCHD_LABEL override on macOS", async () => {
       Object.defineProperty(process, "platform", { value: "darwin" });
       process.getuid = () => 501;
 
       const { scriptPath, content } = await prepareAndReadScript({
-        ENCLAWS_PROFILE: "default",
-        ENCLAWS_LAUNCHD_LABEL: "com.custom.enclaws",
+        QINGCLAWS_PROFILE: "default",
+        QINGCLAWS_LAUNCHD_LABEL: "com.custom.qingclaws",
       });
-      expect(content).toContain("launchctl kickstart -k 'gui/501/com.custom.enclaws'");
+      expect(content).toContain("launchctl kickstart -k 'gui/501/com.custom.qingclaws'");
       await cleanupScript(scriptPath);
     });
 
@@ -85,35 +85,35 @@ describe("restart-helper", () => {
       Object.defineProperty(process, "platform", { value: "win32" });
 
       const { scriptPath, content } = await prepareAndReadScript({
-        ENCLAWS_PROFILE: "default",
+        QINGCLAWS_PROFILE: "default",
       });
       expect(scriptPath.endsWith(".bat")).toBe(true);
       expect(content).toContain("@echo off");
-      expect(content).toContain('schtasks /End /TN "EnClaws Gateway"');
-      expect(content).toContain('schtasks /Run /TN "EnClaws Gateway"');
+      expect(content).toContain('schtasks /End /TN "QingClaws Gateway"');
+      expect(content).toContain('schtasks /Run /TN "QingClaws Gateway"');
       // Batch self-cleanup
       expect(content).toContain('del "%~f0"');
       await cleanupScript(scriptPath);
     });
 
-    it("uses ENCLAWS_WINDOWS_TASK_NAME override on Windows", async () => {
+    it("uses QINGCLAWS_WINDOWS_TASK_NAME override on Windows", async () => {
       Object.defineProperty(process, "platform", { value: "win32" });
 
       const { scriptPath, content } = await prepareAndReadScript({
-        ENCLAWS_PROFILE: "default",
-        ENCLAWS_WINDOWS_TASK_NAME: "EnClaws Gateway (custom)",
+        QINGCLAWS_PROFILE: "default",
+        QINGCLAWS_WINDOWS_TASK_NAME: "QingClaws Gateway (custom)",
       });
-      expect(content).toContain('schtasks /End /TN "EnClaws Gateway (custom)"');
-      expect(content).toContain('schtasks /Run /TN "EnClaws Gateway (custom)"');
+      expect(content).toContain('schtasks /End /TN "QingClaws Gateway (custom)"');
+      expect(content).toContain('schtasks /Run /TN "QingClaws Gateway (custom)"');
       await cleanupScript(scriptPath);
     });
 
     it("uses custom profile in service names", async () => {
       Object.defineProperty(process, "platform", { value: "linux" });
       const { scriptPath, content } = await prepareAndReadScript({
-        ENCLAWS_PROFILE: "production",
+        QINGCLAWS_PROFILE: "production",
       });
-      expect(content).toContain("enclaws-gateway-production.service");
+      expect(content).toContain("qingclaws-gateway-production.service");
       await cleanupScript(scriptPath);
     });
 
@@ -122,9 +122,9 @@ describe("restart-helper", () => {
       process.getuid = () => 502;
 
       const { scriptPath, content } = await prepareAndReadScript({
-        ENCLAWS_PROFILE: "staging",
+        QINGCLAWS_PROFILE: "staging",
       });
-      expect(content).toContain("gui/502/ai.enclaws.staging");
+      expect(content).toContain("gui/502/ai.qingclaws.staging");
       await cleanupScript(scriptPath);
     });
 
@@ -132,9 +132,9 @@ describe("restart-helper", () => {
       Object.defineProperty(process, "platform", { value: "win32" });
 
       const { scriptPath, content } = await prepareAndReadScript({
-        ENCLAWS_PROFILE: "production",
+        QINGCLAWS_PROFILE: "production",
       });
-      expect(content).toContain('schtasks /End /TN "EnClaws Gateway (production)"');
+      expect(content).toContain('schtasks /End /TN "QingClaws Gateway (production)"');
       await cleanupScript(scriptPath);
     });
 
@@ -151,7 +151,7 @@ describe("restart-helper", () => {
         .mockRejectedValueOnce(new Error("simulated write failure"));
 
       const scriptPath = await prepareRestartScript({
-        ENCLAWS_PROFILE: "default",
+        QINGCLAWS_PROFILE: "default",
       });
 
       expect(scriptPath).toBeNull();
@@ -161,7 +161,7 @@ describe("restart-helper", () => {
     it("escapes single quotes in profile names for shell scripts", async () => {
       Object.defineProperty(process, "platform", { value: "linux" });
       const { scriptPath, content } = await prepareAndReadScript({
-        ENCLAWS_PROFILE: "it's-a-test",
+        QINGCLAWS_PROFILE: "it's-a-test",
       });
       // Single quotes should be escaped with '\'' pattern
       expect(content).not.toContain("it's");
@@ -172,7 +172,7 @@ describe("restart-helper", () => {
     it("rejects unsafe batch profile names on Windows", async () => {
       Object.defineProperty(process, "platform", { value: "win32" });
       const scriptPath = await prepareRestartScript({
-        ENCLAWS_PROFILE: "test&whoami",
+        QINGCLAWS_PROFILE: "test&whoami",
       });
 
       expect(scriptPath).toBeNull();

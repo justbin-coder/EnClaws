@@ -1,4 +1,4 @@
-import type { OpenClawPluginApi } from "openclaw/plugin-sdk";
+import type { QingClawsPluginApi } from "openclaw/plugin-sdk";
 import {
   autoBindSpawnedDiscordSubagent,
   listThreadBindingsBySessionKey,
@@ -16,7 +16,7 @@ function summarizeError(err: unknown): string {
   return "error";
 }
 
-export function registerDiscordSubagentHooks(api: OpenClawPluginApi) {
+export function registerDiscordSubagentHooks(api: QingClawsPluginApi) {
   const resolveThreadBindingFlags = (accountId?: string) => {
     const account = resolveDiscordAccount({
       cfg: api.config,

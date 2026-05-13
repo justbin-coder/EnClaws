@@ -2,7 +2,7 @@
 
 **版本**：v4.0　**日期**：2026-05-12　**类型**：产品研发需求　**第一阶段（基础阶段）**
 
-> **目标产品**：基于 EnClaws v0.2.0 fork 改造的、公司独立品牌的**企业级 Agent 平台底座**。
+> **目标产品**：基于 QingClaws v0.2.0 fork 改造的、公司独立品牌的**企业级 Agent 平台底座**。
 > 复用：所有 2B 垂域客户（统计调查只是首个垂域）。
 
 ---
@@ -14,9 +14,9 @@
 | 项 | 内容 |
 |---|---|
 | 产品形态 | 公司独立品牌的企业级 Agent 平台 |
-| 技术基础 | **EnClaws v0.2.0** (commit `0109d664`, fork → 自维护) |
+| 技术基础 | **QingClaws v0.2.0** (commit `0109d664`, fork → 自维护) |
 | OSS 协议 | Apache-2.0（保留 LICENSE / NOTICE / THIRD_PARTY_NOTICES） |
-| 上游品牌 | EnClaws by hashSTACS-Global（社区版）→ 我方 fork 后做品牌化 |
+| 上游品牌 | QingClaws by QingClaws Team（社区版）→ 我方 fork 后做品牌化 |
 | 部署形态 | 客户内网 / 信创环境 / 服务器端 |
 | 客户端形态 | Web 浏览器 + 桌面 App（待选 Tauri/Electron） |
 
@@ -26,26 +26,26 @@
 Layer 3: 客户领域包（Skill 组）        ← 每客户独立交付
 Layer 2: 行业 IP（业务记忆/规则演进）   ← 我方核心 IP
 Layer 1: 产品底座（本文档范围）         ← 一次研发，多次复用
-Layer 0: EnClaws 上游 fork              ← 跟进上游 + 安全 patch
+Layer 0: QingClaws 上游 fork              ← 跟进上游 + 安全 patch
 ```
 
 ### 1.3 OSS 协议合规
 
 - 保留 `LICENSE`（Apache-2.0）、`NOTICE`、`THIRD_PARTY_NOTICES.md`
-- README 标注"基于 EnClaws 改造"（SaaS 形态下不强制，私有化部署必须）
+- README 标注"基于 QingClaws 改造"（SaaS 形态下不强制，私有化部署必须）
 - 不混用商业不兼容 license 的依赖
 - 上游修复关键安全 patch 必须回流到 fork
 
 ---
 
-## 2. EnClaws 能力继承清单（KEEP — 直接复用，不动）
+## 2. QingClaws 能力继承清单（KEEP — 直接复用，不动）
 
-> 这些是 EnClaws 已实现且满足企业需求的能力。研发**不需要重写**，但需要做品牌化和文档化。
+> 这些是 QingClaws 已实现且满足企业需求的能力。研发**不需要重写**，但需要做品牌化和文档化。
 
-| ID | 能力 | EnClaws 源码/文档证据 |
+| ID | 能力 | QingClaws 源码/文档证据 |
 |----|------|---------------------|
 | **K1** | Agent 体系（AGENTS.md/SOUL.md/USER.md + ReAct loop） | `docs/concepts/agent.md`, `agent-loop.md`, `agent-workspace.md` |
-| **K2** | **多 Agent 原生隔离**（每 Agent 独立 workspace / agentDir / sessions） | `docs/concepts/multi-agent.md` + `openclaw agents add` CLI |
+| **K2** | **多 Agent 原生隔离**（每 Agent 独立 workspace / agentDir / sessions） | `docs/concepts/multi-agent.md` + `qingclaws agents add` CLI |
 | **K3** | Skill 系统（per-agent + shared 双层；chokidar 热加载；snapshot） | `src/agents/skills/refresh.ts:62,176,210` |
 | **K4** | A2A 通信（sessions_send-tool 工具） | `docs/concepts/sessions.md` + `src/agents/sessions_send-tool*` |
 | **K5** | Multi-Channel AI Gateway（WhatsApp/Discord/iMessage/Web 等） | `src/channels/`, `src/gateway/` |
@@ -63,7 +63,7 @@ Layer 0: EnClaws 上游 fork              ← 跟进上游 + 安全 patch
 
 ## 3. 加固项（HARDEN — 已有但需硬化）
 
-> EnClaws 有，但不满足企业生产标准 / 客户合规要求。
+> QingClaws 有，但不满足企业生产标准 / 客户合规要求。
 
 ### H1. 多租户数据模型对齐
 **问题**：DB 表实际命名 `users` / `audit_logs`，文档声称是 `tenant_users` / `tenant_audit_logs`（调研发现）。
@@ -71,17 +71,17 @@ Layer 0: EnClaws 上游 fork              ← 跟进上游 + 安全 patch
 **验收**：所有租户相关表带 tenant_id；跨租户查询零泄漏；migration 单元测试覆盖。
 
 ### H2. 审计日志覆盖度补全
-**问题**：EnClaws 基础审计存在，但 Skill 增删改 / 数据访问 / 规则变更 / 角色变更等关键操作未必全覆盖。
+**问题**：QingClaws 基础审计存在，但 Skill 增删改 / 数据访问 / 规则变更 / 角色变更等关键操作未必全覆盖。
 **改造**：审计事件枚举 + 全链路埋点 + 不可篡改的 append-only 存储 + 查询 API。
 **验收**：审计事件清单经合规评审通过；关键操作 100% 覆盖；日志可导出。
 
 ### H3. ARM aarch64 多架构构建 + 麒麟 V10 兼容
-**问题**：EnClaws 有 Linux/Raspberry Pi 文档但未确认麒麟 V10 ARM aarch64 完整兼容。
+**问题**：QingClaws 有 Linux/Raspberry Pi 文档但未确认麒麟 V10 ARM aarch64 完整兼容。
 **改造**：buildx 多架构 Docker 镜像；麒麟 V10 ARM 实机 PoC；依赖库（如 onnxruntime、node-canvas）国产替代或重新构建。
 **验收**：在客户飞腾 D2000/8 麒麟 V10 工作站上完整启动 + 跑通核心流程。
 
 ### H4. 离线安装包
-**问题**：EnClaws 默认在线安装（npm/Docker pull），客户内网无外网。
+**问题**：QingClaws 默认在线安装（npm/Docker pull），客户内网无外网。
 **改造**：完整离线安装包（包含全部依赖 + 模型 + Docker images）+ npm/pip 私服方案 + 安装脚本。
 **验收**：纯离线环境完成全栈部署。
 
@@ -95,9 +95,9 @@ Layer 0: EnClaws 上游 fork              ← 跟进上游 + 安全 patch
 ## 4. 扩展项（EXTEND — 已有但能力不足）
 
 ### X1. Agent 多层记忆体系
-**基础**：EnClaws 有 LanceDB 向量记忆（K12），但缺乏分层结构。
+**基础**：QingClaws 有 LanceDB 向量记忆（K12），但缺乏分层结构。
 **扩展**：三层记忆 — 短期（会话级）/ 长期（跨会话事实偏好）/ 业务沉淀（跨 Agent 共享，用于规则/经验累积）。
-**约束**：保留 EnClaws 原 plugin 形态，作为现有 memory-lancedb 的能力扩展。
+**约束**：保留 QingClaws 原 plugin 形态，作为现有 memory-lancedb 的能力扩展。
 **验收**：三层记忆 API 分明；可独立检索；业务沉淀层支持显式 promotion。
 
 ### X2. 向量记忆业务命名空间隔离
@@ -116,16 +116,16 @@ Layer 0: EnClaws 上游 fork              ← 跟进上游 + 安全 patch
 **基础**：K7 cron 可定时触发 Agent；K4 A2A 可 Agent 间消息。
 **问题**：A2A 是按需对话式（LLM 自主判断要不要继续），缺**预定义固定步骤流水线**（企业生产需求）。
 **扩展**：流水线 skill 模板（一种特殊 skill 类型，内含固定步骤定义 + 失败重试 + 中间产物保留），由 cron 或事件触发。
-**实现方式**：作为 L1-Skill 扩展（一个新 skill 类型），不改 EnClaws core。
+**实现方式**：作为 L1-Skill 扩展（一个新 skill 类型），不改 QingClaws core。
 **验收**：可定义"取数→分析→核验→撰写→预警"5 步流水线；每步可观测；失败重试可配置；中间产物可查。
 
 ---
 
-## 5. 新建项（NEW — EnClaws 完全没有，需从零写）
+## 5. 新建项（NEW — QingClaws 完全没有，需从零写）
 
 ### N1. Skill Meta-Creator ⭐ 核心产品差异化
 **目标**：用户用自然语言描述目标 → meta-agent 多轮交互式提问澄清 → 自动生成新 Skill（含 Python 脚本/SKILL.md/配套配置）→ 注册到工坊。
-**实现层级**：L1-Skill（基于 EnClaws Skill 系统的特殊 skill），零侵入 core。
+**实现层级**：L1-Skill（基于 QingClaws Skill 系统的特殊 skill），零侵入 core。
 **关键约束**：
 - 生成的代码必须经过沙箱化（复用 K8 Docker Sandbox + H5）
 - 创建过程必须审计（联动 H2）
@@ -135,7 +135,7 @@ Layer 0: EnClaws 上游 fork              ← 跟进上游 + 安全 patch
 
 ### N2. RAG Pipeline 工程化
 **目标**：完整 RAG 链路 — 文档解析（PDF/Word/Markdown/Obsidian）→ 切分 → 向量化 → 索引（用 K12 LanceDB）→ 检索 → LLM 答复 + **引用展示**。
-**问题**：EnClaws 有向量库（K12）但没有完整 RAG 流程框架，缺：文档解析、切分策略、检索后处理、引用 metadata 维护。
+**问题**：QingClaws 有向量库（K12）但没有完整 RAG 流程框架，缺：文档解析、切分策略、检索后处理、引用 metadata 维护。
 **实现层级**：L2-Plugin（扩展现有 memory-lancedb 或新建 plugin）。
 **验收**：知识入库 5min 内可被检索；问答附带引用源；语义检索 + BM25 混合策略。
 
@@ -147,7 +147,7 @@ Layer 0: EnClaws 上游 fork              ← 跟进上游 + 安全 patch
 
 ### N4. LLM 内网网关强制路由
 **目标**：所有 LLM 推理走客户内网网关 / 服务；运行时拒绝外网 LLM endpoint；管理员可显式授权外网。
-**问题**：EnClaws 有 provider 抽象，但默认允许任意 endpoint。
+**问题**：QingClaws 有 provider 抽象，但默认允许任意 endpoint。
 **实现层级**：L3-Patch（配置中心 + 启动期校验 + 运行时拦截）。
 **验收**：配置错误的外网 endpoint 启动失败；运行时网络隔离测试通过；管理员授权流程可审计。
 
@@ -166,10 +166,10 @@ Layer 0: EnClaws 上游 fork              ← 跟进上游 + 安全 patch
 - 默认 banner / 文档配图
 
 ### B2. 包名 / 路径 / API 命名
-- npm 包名（`enclaws` → 自有命名空间下）
-- 默认配置路径（`~/.openclaw/` → `~/.{brand}/`）
-- CLI 命令（`openclaw` → `{brand}` 命令）
-- API endpoint 命名（去除 openclaw 痕迹）
+- npm 包名（`qingclaws` → 自有命名空间下）
+- 默认配置路径（`~/.qingclaws/` → `~/.{brand}/`）
+- CLI 命令（`qingclaws` → `{brand}` 命令）
+- API endpoint 命名（去除 qingclaws 痕迹）
 
 ### B3. 默认模板品牌化
 - 默认 Agent persona / SOUL.md 模板

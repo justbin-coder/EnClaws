@@ -18,7 +18,7 @@ export async function noteMacLaunchAgentOverrides() {
     return;
   }
   const home = resolveHomeDir();
-  const markerCandidates = [path.join(home, ".enclaws", "disable-launchagent")];
+  const markerCandidates = [path.join(home, ".qingclaws", "disable-launchagent")];
   const markerPath = markerCandidates.find((candidate) => fs.existsSync(candidate));
   if (!markerPath) {
     return;
@@ -81,17 +81,17 @@ export async function noteMacLaunchctlGatewayEnvOverrides(
       "- Deprecated launchctl environment variables detected (ignored).",
       ...deprecatedLaunchctlEntries.map(
         ([key]) =>
-          `- \`${key}\` is set; use \`ENCLAWS_${key.slice(key.indexOf("_") + 1)}\` instead.`,
+          `- \`${key}\` is set; use \`QINGCLAWS_${key.slice(key.indexOf("_") + 1)}\` instead.`,
       ),
     ];
     (deps?.noteFn ?? note)(lines.join("\n"), "Gateway (macOS)");
   }
 
   const tokenEntries = [
-    ["ENCLAWS_GATEWAY_TOKEN", await getenv("ENCLAWS_GATEWAY_TOKEN")],
+    ["QINGCLAWS_GATEWAY_TOKEN", await getenv("QINGCLAWS_GATEWAY_TOKEN")],
   ] as const;
   const passwordEntries = [
-    ["ENCLAWS_GATEWAY_PASSWORD", await getenv("ENCLAWS_GATEWAY_PASSWORD")],
+    ["QINGCLAWS_GATEWAY_PASSWORD", await getenv("QINGCLAWS_GATEWAY_PASSWORD")],
   ] as const;
   const tokenEntry = tokenEntries.find(([, value]) => value?.trim());
   const passwordEntry = passwordEntries.find(([, value]) => value?.trim());
@@ -109,7 +109,7 @@ export async function noteMacLaunchctlGatewayEnvOverrides(
       ? `- \`${envTokenKey}\` is set; it overrides config tokens.`
       : undefined,
     envPassword
-      ? `- \`${envPasswordKey ?? "ENCLAWS_GATEWAY_PASSWORD"}\` is set; it overrides config passwords.`
+      ? `- \`${envPasswordKey ?? "QINGCLAWS_GATEWAY_PASSWORD"}\` is set; it overrides config passwords.`
       : undefined,
     "- Clear overrides and restart the app/gateway:",
     envTokenKey ? `  launchctl unsetenv ${envTokenKey}` : undefined,
@@ -132,10 +132,10 @@ export function noteDeprecatedLegacyEnvVars(
 
   const lines = [
     "- Deprecated legacy environment variables detected (ignored).",
-    "- Use ENCLAWS_* equivalents instead:",
+    "- Use QINGCLAWS_* equivalents instead:",
     ...entries.map((key) => {
       const suffix = key.slice(key.indexOf("_") + 1);
-      return `  ${key} -> ENCLAWS_${suffix}`;
+      return `  ${key} -> QINGCLAWS_${suffix}`;
     }),
   ];
   (deps?.noteFn ?? note)(lines.join("\n"), "Environment");
@@ -181,7 +181,7 @@ export function noteStartupOptimizationHints(
   const noteFn = deps?.noteFn ?? note;
   const compileCache = env.NODE_COMPILE_CACHE?.trim() ?? "";
   const disableCompileCache = env.NODE_DISABLE_COMPILE_CACHE?.trim() ?? "";
-  const noRespawn = env.ENCLAWS_NO_RESPAWN?.trim() ?? "";
+  const noRespawn = env.QINGCLAWS_NO_RESPAWN?.trim() ?? "";
   const lines: string[] = [];
 
   if (!compileCache) {
@@ -200,7 +200,7 @@ export function noteStartupOptimizationHints(
 
   if (noRespawn !== "1") {
     lines.push(
-      "- ENCLAWS_NO_RESPAWN is not set to 1; set it to avoid extra startup overhead from self-respawn.",
+      "- QINGCLAWS_NO_RESPAWN is not set to 1; set it to avoid extra startup overhead from self-respawn.",
     );
   }
 
@@ -210,9 +210,9 @@ export function noteStartupOptimizationHints(
 
   const suggestions = [
     "- Suggested env for low-power hosts:",
-    "  export NODE_COMPILE_CACHE=/var/tmp/enclaws-compile-cache",
-    "  mkdir -p /var/tmp/enclaws-compile-cache",
-    "  export ENCLAWS_NO_RESPAWN=1",
+    "  export NODE_COMPILE_CACHE=/var/tmp/qingclaws-compile-cache",
+    "  mkdir -p /var/tmp/qingclaws-compile-cache",
+    "  export QINGCLAWS_NO_RESPAWN=1",
     isTruthyEnvValue(disableCompileCache) ? "  unset NODE_DISABLE_COMPILE_CACHE" : undefined,
   ].filter((line): line is string => Boolean(line));
 

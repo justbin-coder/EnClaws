@@ -254,7 +254,7 @@ export async function runUpdate(state: ConfigState) {
         confirmText: t("update.downloadInstall"),
         hideCancel: true,
       });
-      window.open("https://www.enclaws.ai/", "_blank");
+      window.open("https://www.qingclaws.ai/", "_blank");
       return;
     } else {
       const reason = result?.reason ?? result?.status ?? "Update failed";

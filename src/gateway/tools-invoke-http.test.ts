@@ -5,7 +5,7 @@ import { afterAll, beforeAll, beforeEach, describe, expect, it, vi } from "vites
 const TEST_GATEWAY_TOKEN = "test-gateway-token-1234567890";
 
 let cfg: Record<string, unknown> = {};
-let lastCreateOpenClawToolsContext: Record<string, unknown> | undefined;
+let lastCreateQingClawsToolsContext: Record<string, unknown> | undefined;
 
 // Perf: keep this suite pure unit. Mock heavyweight config/session modules.
 vi.mock("../config/config.js", () => ({
@@ -52,7 +52,7 @@ vi.mock("../plugins/tools.js", () => ({
 
 // Perf: the real tool factory instantiates many tools per request; for these HTTP
 // routing/policy tests we only need a small set of tool names.
-vi.mock("../agents/openclaw-tools.js", () => {
+vi.mock("../agents/qingclaws-tools.js", () => {
   const toolInputError = (message: string) => {
     const err = new Error(message);
     err.name = "ToolInputError";
@@ -82,8 +82,8 @@ vi.mock("../agents/openclaw-tools.js", () => {
       execute: async () => ({
         ok: true,
         route: {
-          agentTo: lastCreateOpenClawToolsContext?.agentTo,
-          agentThreadId: lastCreateOpenClawToolsContext?.agentThreadId,
+          agentTo: lastCreateQingClawsToolsContext?.agentTo,
+          agentThreadId: lastCreateQingClawsToolsContext?.agentThreadId,
         },
       }),
     },
@@ -126,8 +126,8 @@ vi.mock("../agents/openclaw-tools.js", () => {
   ];
 
   return {
-    createOpenClawTools: (ctx: Record<string, unknown>) => {
-      lastCreateOpenClawToolsContext = ctx;
+    createQingClawsTools: (ctx: Record<string, unknown>) => {
+      lastCreateQingClawsToolsContext = ctx;
       return tools;
     },
   };
@@ -182,11 +182,11 @@ afterAll(async () => {
 });
 
 beforeEach(() => {
-  delete process.env.ENCLAWS_GATEWAY_TOKEN;
-  delete process.env.ENCLAWS_GATEWAY_PASSWORD;
+  delete process.env.QINGCLAWS_GATEWAY_TOKEN;
+  delete process.env.QINGCLAWS_GATEWAY_PASSWORD;
   pluginHttpHandlers = [];
   cfg = {};
-  lastCreateOpenClawToolsContext = undefined;
+  lastCreateQingClawsToolsContext = undefined;
 });
 
 const resolveGatewayToken = (): string => TEST_GATEWAY_TOKEN;
@@ -389,8 +389,8 @@ describe("POST /tools/invoke", () => {
       port: sharedPort,
       headers: {
         ...gatewayAuthHeaders(),
-        "x-enclaws-message-to": "channel:24514",
-        "x-enclaws-thread-id": "thread-24514",
+        "x-qingclaws-message-to": "channel:24514",
+        "x-qingclaws-thread-id": "thread-24514",
       },
       tool: "sessions_spawn",
       sessionKey: "main",

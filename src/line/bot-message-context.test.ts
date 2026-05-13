@@ -53,7 +53,7 @@ describe("buildLineMessageContext", () => {
     }) as PostbackEvent;
 
   beforeEach(async () => {
-    tmpDir = await fs.mkdtemp(path.join(os.tmpdir(), "enclaws-line-context-"));
+    tmpDir = await fs.mkdtemp(path.join(os.tmpdir(), "qingclaws-line-context-"));
     storePath = path.join(tmpDir, "sessions.json");
     cfg = { session: { store: storePath } };
   });

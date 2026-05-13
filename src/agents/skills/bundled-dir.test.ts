@@ -11,24 +11,24 @@ describe("resolveBundledSkillsDir", () => {
   let envSnapshot: ReturnType<typeof captureEnv>;
 
   beforeEach(() => {
-    envSnapshot = captureEnv(["ENCLAWS_BUNDLED_SKILLS_DIR"]);
+    envSnapshot = captureEnv(["QINGCLAWS_BUNDLED_SKILLS_DIR"]);
   });
 
   afterEach(() => {
     envSnapshot.restore();
   });
 
-  it("returns ENCLAWS_BUNDLED_SKILLS_DIR override when set", async () => {
-    const overrideDir = await fs.mkdtemp(path.join(os.tmpdir(), "enclaws-bundled-override-"));
-    process.env.ENCLAWS_BUNDLED_SKILLS_DIR = ` ${overrideDir} `;
+  it("returns QINGCLAWS_BUNDLED_SKILLS_DIR override when set", async () => {
+    const overrideDir = await fs.mkdtemp(path.join(os.tmpdir(), "qingclaws-bundled-override-"));
+    process.env.QINGCLAWS_BUNDLED_SKILLS_DIR = ` ${overrideDir} `;
     expect(resolveBundledSkillsDir()).toBe(overrideDir);
   });
 
   it("resolves bundled skills under a flattened dist layout", async () => {
-    delete process.env.ENCLAWS_BUNDLED_SKILLS_DIR;
+    delete process.env.QINGCLAWS_BUNDLED_SKILLS_DIR;
 
-    const root = await fs.mkdtemp(path.join(os.tmpdir(), "enclaws-bundled-"));
-    await fs.writeFile(path.join(root, "package.json"), JSON.stringify({ name: "enclaws" }));
+    const root = await fs.mkdtemp(path.join(os.tmpdir(), "qingclaws-bundled-"));
+    await fs.writeFile(path.join(root, "package.json"), JSON.stringify({ name: "qingclaws" }));
 
     await writeSkill({
       dir: path.join(root, "skills", "peekaboo"),
