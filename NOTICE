@@ -19,3 +19,19 @@ Third-party names, logos, and marks mentioned in this repository remain the prop
 respective owners and are used only for identification, compatibility, attribution, or nominative reference.
 
 The contents of this NOTICE file are for informational purposes only and do not modify the License.
+
+================================================================================
+QingClaws
+Copyright 2026 QingClaws Contributors
+
+QingClaws is a fork of EnClaws (https://github.com/hashSTACS-Global/EnClaws)
+by QingClaws Team, used under the Apache License, Version 2.0.
+
+This product includes software developed by:
+- hashSTACS-Global (EnClaws, https://github.com/hashSTACS-Global/EnClaws)
+- OpenClaw Contributors (OpenClaw, https://github.com/openclaw/openclaw)
+
+All upstream copyright notices, license texts, and attribution statements
+above this section are preserved in their original form as required by
+the Apache License, Version 2.0, Section 4(d).
+================================================================================

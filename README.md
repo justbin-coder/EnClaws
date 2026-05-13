@@ -1,41 +1,24 @@
-# QingClaws — Enterprise AI Assistant Container Platform
+# QingClaws — 企业级 AI 助手容器平台
 
 <p align="center">
-  <img src="https://raw.githubusercontent.com/hashSTACS-Global/EnClaws/main/docs/assets/banner-enclaws-placeholder.png" alt="EnClaws banner placeholder" width="100%" />
+  <img src="src/branding/assets/banner.svg" alt="QingClaws banner" width="100%" />
 </p>
 
 <p align="center">
-  English | <a href="./README.zh-CN.md">简体中文</a>
+  <a href="./README.zh-CN.md">简体中文</a> | English
 </p>
 
 <p align="center">
-  <strong>Turn AI from one person's tool into an enterprise operating capability.</strong>
+  <strong>将 AI 从个人工具升级为企业运营能力。</strong>
 </p>
 
 <p align="center">
-  <a href="https://github.com/hashSTACS-Global/EnClaws/stargazers"><img alt="GitHub stars" src="https://img.shields.io/github/stars/hashSTACS-Global/EnClaws?style=social"></a>
-  <a href="https://www.npmjs.com/package/qingclaws"><img alt="npm version" src="https://img.shields.io/npm/v/qingclaws?color=cb3837&label=npm"></a>
-  <a href="https://github.com/hashSTACS-Global/EnClaws/commits/main"><img alt="Last commit" src="https://img.shields.io/github/last-commit/hashSTACS-Global/EnClaws"></a>
-  <a href="https://github.com/hashSTACS-Global/EnClaws/issues"><img alt="GitHub issues" src="https://img.shields.io/github/issues/hashSTACS-Global/EnClaws"></a>
-  <a href="https://discord.gg/ExT4MEnK4w"><img alt="Discord" src="https://img.shields.io/discord/1483754815434526742?color=5865F2&label=Discord&logo=discord&logoColor=white"></a>
-  <a href="https://applink.feishu.cn/client/chat/chatter/add_by_link?link_token=1b6r1c67-a833-4d36-b748-5e6729d65045"><img alt="Feishu" src="https://img.shields.io/badge/Feishu-Join%20Group-00D6B9?logo=bytedance&logoColor=white"></a>
-  <img alt="Node.js" src="https://img.shields.io/badge/node-%3E%3D22.12.0-43853d?logo=node.js&logoColor=white">
   <a href="./LICENSE"><img alt="Apache-2.0 license" src="https://img.shields.io/badge/license-Apache%202.0-blue.svg"></a>
+  <img alt="Node.js" src="https://img.shields.io/badge/node-%3E%3D22.12.0-43853d?logo=node.js&logoColor=white">
 </p>
 
-<p align="center">
-  <a href="#quick-start-tldr">Quick start</a>
-  ·
-  <a href="#highlights">Highlights</a>
-  ·
-  <a href="#how-it-works-short">How it works</a>
-  ·
-  <a href="#community">Community</a>
-  ·
-  <a href="#license">License</a>
-  ·
-  <a href="#trademark">Trademark</a>
-</p>
+> QingClaws 是基于 [EnClaws](https://github.com/hashSTACS-Global/EnClaws)（Apache-2.0）的企业级 fork，
+> 专为 2B 企业内网/离线部署场景构建。上游归属：QingClaws by QingClaws Team，基于 QingClaws。
 
 **QingClaws** is an **enterprise AI assistant container platform**. It is designed to create, schedule, isolate, upgrade, and audit large numbers of assistant instances across teams, workflows, and business systems.
 

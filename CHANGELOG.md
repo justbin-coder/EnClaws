@@ -5,6 +5,22 @@ The format generally follows Keep a Changelog, and versions should follow Semant
 
 ## [Unreleased]
 
+### PE1 — Brand Customization
+
+#### Added
+- Brand abstraction layer: `src/branding/brand.config.ts` as single source of truth for QingClaws brand identifiers
+- Placeholder SVG brand assets in `src/branding/assets/` (designer-replaceable)
+- `scripts/brand-codemod.mjs` — one-time codemod tool for upstream merge reuse
+- `scripts/check-brand-residue.sh` + CI tests to prevent brand regression
+- `docs/upstream-divergence.md` — fork divergence registry for upstream merge navigation
+
+#### Changed
+- Product renamed from QingClaws → QingClaws across all user-visible surfaces
+- CLI binary: `qingclaws` → `qingclaws`; config directory: `~/.qingclaws/` → `~/.qingclaws/`
+- Environment variables: `QINGCLAWS_*` → `QINGCLAWS_*`
+- Default locale: UI and templates default to zh-CN (2B enterprise context)
+- Default Agent templates (AGENTS.md / SOUL.md / USER.md) localized to Chinese 2B enterprise context
+
 ### Added
 - `NOTICE`
 - `TRADEMARKS.md`
