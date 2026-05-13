@@ -322,7 +322,7 @@ export const zh_CN: TranslationMap = {
       searchJobs: "搜索任务",
       searchPlaceholder: "名称、描述或代理",
       enabled: "启用状态",
-      schedule: "调度计划",
+      schedule: "调度",
       lastRun: "上次运行",
       all: "全部",
       sort: "排序",
