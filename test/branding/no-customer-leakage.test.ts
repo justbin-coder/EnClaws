@@ -28,6 +28,10 @@ const WHITELIST_RE =
 
 describe("customer-info leakage gate", () => {
   it("no customer-specific terms appear in platform layer (PE) files", () => {
+    for (const p of CUSTOMER_PATTERNS) {
+      expect(/[`$"\\;&|<>]/.test(p), `Pattern contains shell metachar: ${p}`).toBe(false);
+    }
+
     const hits: string[] = [];
 
     for (const pattern of CUSTOMER_PATTERNS) {
@@ -35,6 +39,7 @@ describe("customer-info leakage gate", () => {
         const result = execSync(
           `grep -rn --include="*.ts" --include="*.tsx" --include="*.js" ` +
             `--include="*.mjs" --include="*.md" --include="*.json" ` +
+            `--exclude-dir=dist --exclude-dir=.git --exclude-dir=node_modules ` +
             `-e "${pattern}" .`,
           {
             cwd: REPO_ROOT,
@@ -44,7 +49,7 @@ describe("customer-info leakage gate", () => {
         );
         const lines = result.split("\n").filter(Boolean);
         for (const line of lines) {
-          if (!WHITELIST_RE.test(line) && !line.includes("node_modules")) {
+          if (!WHITELIST_RE.test(line)) {
             hits.push(line);
           }
         }

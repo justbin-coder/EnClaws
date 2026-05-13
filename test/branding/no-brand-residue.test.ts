@@ -14,10 +14,11 @@ describe("brand residue gate", () => {
         cwd: REPO_ROOT,
         encoding: "utf-8",
         stdio: ["pipe", "pipe", "pipe"],
+        timeout: 30_000,
       });
     } catch (err: unknown) {
-      const e = err as { stdout?: string; status?: number };
-      output = e.stdout ?? "";
+      const e = err as { stdout?: string; stderr?: string; status?: number };
+      output = (e.stdout ?? "") + (e.stderr ?? "");
       exitCode = e.status ?? 1;
     }
     expect(exitCode, `Brand residue found:\n${output}`).toBe(0);

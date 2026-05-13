@@ -25,7 +25,7 @@ function runCli(args: string[]): { stdout: string; stderr: string; status: numbe
   };
 }
 
-const OLD_BRAND_RE = /\b(enclaws|EnClaws|ENCLAWS)\b/;
+const OLD_BRAND_RE = /\b(QingClaws Team|hashSTACS|enclaws|EnClaws|ENCLAWS)\b/;
 
 describe("CLI subprocess — brand correctness", () => {
   it("--help output contains qingclaws and no old brand strings", () => {

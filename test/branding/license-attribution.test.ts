@@ -34,5 +34,6 @@ describe("license attribution completeness", () => {
     const notice = readFile("NOTICE");
     expect(notice).toMatch(/EnClaws/i);
     expect(notice).toMatch(/hashSTACS/i);
+    expect(notice).toMatch(/QingClaws Team/i);
   });
 });
