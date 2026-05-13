@@ -307,7 +307,7 @@ describe("promptCustomApiConfig", () => {
         providers: {
           filemain: {
             source: "file",
-            path: "/tmp/enclaws-missing-provider.json",
+            path: "/tmp/qingclaws-missing-provider.json",
             mode: "json",
           },
         },

@@ -147,7 +147,7 @@ describe("gateway server hooks", () => {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
-          "x-enclaws-token": "hook-secret",
+          "x-qingclaws-token": "hook-secret",
         },
         body: JSON.stringify({ text: "Header auth" }),
       });

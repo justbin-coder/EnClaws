@@ -86,10 +86,10 @@ async function cleanupCronTestRun(params: {
   }
   testState.cronEnabled = undefined;
   if (params.prevSkipCron === undefined) {
-    delete process.env.ENCLAWS_SKIP_CRON;
+    delete process.env.QINGCLAWS_SKIP_CRON;
     return;
   }
-  process.env.ENCLAWS_SKIP_CRON = params.prevSkipCron;
+  process.env.QINGCLAWS_SKIP_CRON = params.prevSkipCron;
 }
 
 async function setupCronTestRun(params: {
@@ -98,8 +98,8 @@ async function setupCronTestRun(params: {
   sessionConfig?: { mainKey: string };
   jobs?: unknown[];
 }): Promise<{ prevSkipCron: string | undefined; dir: string }> {
-  const prevSkipCron = process.env.ENCLAWS_SKIP_CRON;
-  process.env.ENCLAWS_SKIP_CRON = "0";
+  const prevSkipCron = process.env.QINGCLAWS_SKIP_CRON;
+  process.env.QINGCLAWS_SKIP_CRON = "0";
   const dir = await fs.mkdtemp(path.join(os.tmpdir(), params.tempPrefix));
   testState.cronStorePath = path.join(dir, "cron", "jobs.json");
   testState.sessionConfig = params.sessionConfig;
@@ -120,7 +120,7 @@ describe("gateway server cron", () => {
 
   test("handles cron CRUD, normalization, and patch semantics", { timeout: 20_000 }, async () => {
     const { prevSkipCron, dir } = await setupCronTestRun({
-      tempPrefix: "enclaws-gw-cron-",
+      tempPrefix: "qingclaws-gw-cron-",
       sessionConfig: { mainKey: "primary" },
       cronEnabled: false,
     });
@@ -393,7 +393,7 @@ describe("gateway server cron", () => {
 
   test("writes cron run history and auto-runs due jobs", async () => {
     const { prevSkipCron, dir } = await setupCronTestRun({
-      tempPrefix: "enclaws-gw-cron-log-",
+      tempPrefix: "qingclaws-gw-cron-log-",
     });
 
     const { server, ws } = await startServerWithClient();
@@ -514,12 +514,12 @@ describe("gateway server cron", () => {
       state: {},
     };
     const { prevSkipCron, dir } = await setupCronTestRun({
-      tempPrefix: "enclaws-gw-cron-webhook-",
+      tempPrefix: "qingclaws-gw-cron-webhook-",
       cronEnabled: false,
       jobs: [legacyNotifyJob],
     });
 
-    const configPath = process.env.ENCLAWS_CONFIG_PATH;
+    const configPath = process.env.QINGCLAWS_CONFIG_PATH;
     expect(typeof configPath).toBe("string");
     await fs.mkdir(path.dirname(configPath as string), { recursive: true });
     await fs.writeFile(

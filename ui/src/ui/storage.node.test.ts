@@ -42,22 +42,22 @@ describe("loadSettings default gateway URL derivation", () => {
       host: "gateway.example:8443",
       pathname: "/ignored/path",
     } as Location);
-    vi.stubGlobal("window", { __ENCLAWS_CONTROL_UI_BASE_PATH__: " /enclaws/ " } as Window &
+    vi.stubGlobal("window", { __QINGCLAWS_CONTROL_UI_BASE_PATH__: " /qingclaws/ " } as Window &
       typeof globalThis);
 
     const { loadSettings } = await import("./storage.ts");
-    expect(loadSettings().gatewayUrl).toBe("wss://gateway.example:8443/enclaws");
+    expect(loadSettings().gatewayUrl).toBe("wss://gateway.example:8443/qingclaws");
   });
 
   it("infers base path from nested pathname when configured base path is not set", async () => {
     vi.stubGlobal("location", {
       protocol: "http:",
       host: "gateway.example:18789",
-      pathname: "/apps/enclaws/chat",
+      pathname: "/apps/qingclaws/chat",
     } as Location);
     vi.stubGlobal("window", {} as Window & typeof globalThis);
 
     const { loadSettings } = await import("./storage.ts");
-    expect(loadSettings().gatewayUrl).toBe("ws://gateway.example:18789/apps/enclaws");
+    expect(loadSettings().gatewayUrl).toBe("ws://gateway.example:18789/apps/qingclaws");
   });
 });

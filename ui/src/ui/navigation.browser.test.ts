@@ -33,22 +33,22 @@ describe("control UI routing", () => {
   });
 
   it("infers nested base paths", async () => {
-    const app = mountApp("/apps/enclaws/cron");
+    const app = mountApp("/apps/qingclaws/cron");
     await app.updateComplete;
 
-    expect(app.basePath).toBe("/apps/enclaws");
+    expect(app.basePath).toBe("/apps/qingclaws");
     expect(app.tab).toBe("cron");
-    expect(window.location.pathname).toBe("/apps/enclaws/cron");
+    expect(window.location.pathname).toBe("/apps/qingclaws/cron");
   });
 
   it("honors explicit base path overrides", async () => {
-    window.__ENCLAWS_CONTROL_UI_BASE_PATH__ = "/enclaws";
-    const app = mountApp("/enclaws/sessions");
+    window.__QINGCLAWS_CONTROL_UI_BASE_PATH__ = "/qingclaws";
+    const app = mountApp("/qingclaws/sessions");
     await app.updateComplete;
 
-    expect(app.basePath).toBe("/enclaws");
+    expect(app.basePath).toBe("/qingclaws");
     expect(app.tab).toBe("sessions");
-    expect(window.location.pathname).toBe("/enclaws/sessions");
+    expect(window.location.pathname).toBe("/qingclaws/sessions");
   });
 
   it("updates the URL when clicking nav items", async () => {
@@ -166,7 +166,7 @@ describe("control UI routing", () => {
 
   it("hydrates token from URL params even when settings already set", async () => {
     localStorage.setItem(
-      "enclaws.control.settings.v1",
+      "qingclaws.control.settings.v1",
       JSON.stringify({ token: "existing-token" }),
     );
     const app = mountApp("/ui/overview?token=abc123");

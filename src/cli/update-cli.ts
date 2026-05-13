@@ -34,7 +34,7 @@ function inheritedUpdateTimeout(
 export function registerUpdateCli(program: Command) {
   const update = program
     .command("update")
-    .description("Update EnClaws and inspect update channel status")
+    .description("Update QingClaws and inspect update channel status")
     .option("--json", "Output result as JSON", false)
     .option("--no-restart", "Skip restarting the gateway service after a successful update")
     .option("--dry-run", "Preview update actions without making changes", false)
@@ -44,16 +44,16 @@ export function registerUpdateCli(program: Command) {
     .option("--yes", "Skip confirmation prompts (non-interactive)", false)
     .addHelpText("after", () => {
       const examples = [
-        ["enclaws update", "Update a source checkout (git)"],
-        ["enclaws update --track beta", "Switch to beta release track"],
-        ["enclaws update --track dev", "Switch to dev release track"],
-        ["enclaws update --tag beta", "One-off update to a dist-tag or version"],
-        ["enclaws update --dry-run", "Preview actions without changing anything"],
-        ["enclaws update --no-restart", "Update without restarting the service"],
-        ["enclaws update --json", "Output result as JSON"],
-        ["enclaws update --yes", "Non-interactive (accept downgrade prompts)"],
-        ["enclaws update wizard", "Interactive update wizard"],
-        ["enclaws --update", "Shorthand for enclaws update"],
+        ["qingclaws update", "Update a source checkout (git)"],
+        ["qingclaws update --track beta", "Switch to beta release track"],
+        ["qingclaws update --track dev", "Switch to dev release track"],
+        ["qingclaws update --tag beta", "One-off update to a dist-tag or version"],
+        ["qingclaws update --dry-run", "Preview actions without changing anything"],
+        ["qingclaws update --no-restart", "Update without restarting the service"],
+        ["qingclaws update --json", "Output result as JSON"],
+        ["qingclaws update --yes", "Non-interactive (accept downgrade prompts)"],
+        ["qingclaws update wizard", "Interactive update wizard"],
+        ["qingclaws --update", "Shorthand for qingclaws update"],
       ] as const;
       const fmtExamples = examples
         .map(([cmd, desc]) => `  ${theme.command(cmd)} ${theme.muted(`# ${desc}`)}`)
@@ -65,7 +65,7 @@ ${theme.heading("What this does:")}
 
 ${theme.heading("Switch release track:")}
   - Use --track stable|beta|dev to persist the release track in update-settings.json
-  - Run enclaws update status to see the active track and source
+  - Run qingclaws update status to see the active track and source
   - Use --tag <dist-tag|version> for a one-off npm update without persisting
 
 ${theme.heading("Non-interactive:")}
@@ -82,7 +82,7 @@ ${theme.heading("Notes:")}
   - Downgrades require confirmation (can break configuration)
   - Skips update if the working directory has uncommitted changes
 
-${theme.muted("Docs:")} ${formatDocsLink("/cli/update", "docs.enclaws.ai/cli/update")}`;
+${theme.muted("Docs:")} ${formatDocsLink("/cli/update", "docs.qingclaws.ai/cli/update")}`;
     })
     .action(async (opts) => {
       try {
@@ -107,7 +107,7 @@ ${theme.muted("Docs:")} ${formatDocsLink("/cli/update", "docs.enclaws.ai/cli/upd
     .option("--timeout <seconds>", "Timeout for each update step in seconds (default: 1200)")
     .addHelpText(
       "after",
-      `\n${theme.muted("Docs:")} ${formatDocsLink("/cli/update", "docs.enclaws.ai/cli/update")}\n`,
+      `\n${theme.muted("Docs:")} ${formatDocsLink("/cli/update", "docs.qingclaws.ai/cli/update")}\n`,
     )
     .action(async (opts, command) => {
       try {
@@ -129,14 +129,14 @@ ${theme.muted("Docs:")} ${formatDocsLink("/cli/update", "docs.enclaws.ai/cli/upd
       "after",
       () =>
         `\n${theme.heading("Examples:")}\n${formatHelpExamples([
-          ["enclaws update status", "Show channel + version status."],
-          ["enclaws update status --json", "JSON output."],
-          ["enclaws update status --timeout 10", "Custom timeout."],
+          ["qingclaws update status", "Show channel + version status."],
+          ["qingclaws update status --json", "JSON output."],
+          ["qingclaws update status --timeout 10", "Custom timeout."],
         ])}\n\n${theme.heading("Notes:")}\n${theme.muted(
           "- Shows current update channel (stable/beta/dev) and source",
         )}\n${theme.muted("- Includes git tag/branch/SHA for source checkouts")}\n\n${theme.muted(
           "Docs:",
-        )} ${formatDocsLink("/cli/update", "docs.enclaws.ai/cli/update")}`,
+        )} ${formatDocsLink("/cli/update", "docs.qingclaws.ai/cli/update")}`,
     )
     .action(async (opts, command) => {
       try {

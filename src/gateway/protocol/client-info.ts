@@ -1,16 +1,16 @@
 export const GATEWAY_CLIENT_IDS = {
   WEBCHAT_UI: "webchat-ui",
-  CONTROL_UI: "enclaws-control-ui",
+  CONTROL_UI: "qingclaws-control-ui",
   WEBCHAT: "webchat",
   CLI: "cli",
   GATEWAY_CLIENT: "gateway-client",
-  MACOS_APP: "enclaws-macos",
-  IOS_APP: "enclaws-ios",
-  ANDROID_APP: "enclaws-android",
+  MACOS_APP: "qingclaws-macos",
+  IOS_APP: "qingclaws-ios",
+  ANDROID_APP: "qingclaws-android",
   NODE_HOST: "node-host",
   TEST: "test",
   FINGERPRINT: "fingerprint",
-  PROBE: "enclaws-probe",
+  PROBE: "qingclaws-probe",
 } as const;
 
 export type GatewayClientId = (typeof GATEWAY_CLIENT_IDS)[keyof typeof GATEWAY_CLIENT_IDS];

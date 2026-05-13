@@ -14,13 +14,13 @@ function withNodeServiceEnv(
 ): Record<string, string | undefined> {
   return {
     ...env,
-    ENCLAWS_LAUNCHD_LABEL: resolveNodeLaunchAgentLabel(),
-    ENCLAWS_SYSTEMD_UNIT: resolveNodeSystemdServiceName(),
-    ENCLAWS_WINDOWS_TASK_NAME: resolveNodeWindowsTaskName(),
-    ENCLAWS_TASK_SCRIPT_NAME: NODE_WINDOWS_TASK_SCRIPT_NAME,
-    ENCLAWS_LOG_PREFIX: "node",
-    ENCLAWS_SERVICE_MARKER: NODE_SERVICE_MARKER,
-    ENCLAWS_SERVICE_KIND: NODE_SERVICE_KIND,
+    QINGCLAWS_LAUNCHD_LABEL: resolveNodeLaunchAgentLabel(),
+    QINGCLAWS_SYSTEMD_UNIT: resolveNodeSystemdServiceName(),
+    QINGCLAWS_WINDOWS_TASK_NAME: resolveNodeWindowsTaskName(),
+    QINGCLAWS_TASK_SCRIPT_NAME: NODE_WINDOWS_TASK_SCRIPT_NAME,
+    QINGCLAWS_LOG_PREFIX: "node",
+    QINGCLAWS_SERVICE_MARKER: NODE_SERVICE_MARKER,
+    QINGCLAWS_SERVICE_KIND: NODE_SERVICE_KIND,
   };
 }
 
@@ -30,13 +30,13 @@ function withNodeInstallEnv(args: GatewayServiceInstallArgs): GatewayServiceInst
     env: withNodeServiceEnv(args.env),
     environment: {
       ...args.environment,
-      ENCLAWS_LAUNCHD_LABEL: resolveNodeLaunchAgentLabel(),
-      ENCLAWS_SYSTEMD_UNIT: resolveNodeSystemdServiceName(),
-      ENCLAWS_WINDOWS_TASK_NAME: resolveNodeWindowsTaskName(),
-      ENCLAWS_TASK_SCRIPT_NAME: NODE_WINDOWS_TASK_SCRIPT_NAME,
-      ENCLAWS_LOG_PREFIX: "node",
-      ENCLAWS_SERVICE_MARKER: NODE_SERVICE_MARKER,
-      ENCLAWS_SERVICE_KIND: NODE_SERVICE_KIND,
+      QINGCLAWS_LAUNCHD_LABEL: resolveNodeLaunchAgentLabel(),
+      QINGCLAWS_SYSTEMD_UNIT: resolveNodeSystemdServiceName(),
+      QINGCLAWS_WINDOWS_TASK_NAME: resolveNodeWindowsTaskName(),
+      QINGCLAWS_TASK_SCRIPT_NAME: NODE_WINDOWS_TASK_SCRIPT_NAME,
+      QINGCLAWS_LOG_PREFIX: "node",
+      QINGCLAWS_SERVICE_MARKER: NODE_SERVICE_MARKER,
+      QINGCLAWS_SERVICE_KIND: NODE_SERVICE_KIND,
     },
   };
 }

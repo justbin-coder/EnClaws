@@ -31,11 +31,11 @@ vi.mock("../web/session.js", () => ({
 
 import { getReplyFromConfig } from "./reply.js";
 
-const { withTempHome } = createTempHomeHarness({ prefix: "enclaws-rawbody-" });
+const { withTempHome } = createTempHomeHarness({ prefix: "qingclaws-rawbody-" });
 
 describe("RawBody directive parsing", () => {
   beforeEach(() => {
-    vi.stubEnv("ENCLAWS_TEST_FAST", "1");
+    vi.stubEnv("QINGCLAWS_TEST_FAST", "1");
     agentMocks.runEmbeddedPiAgent.mockClear();
     agentMocks.loadModelCatalog.mockClear();
     agentMocks.loadModelCatalog.mockResolvedValue([

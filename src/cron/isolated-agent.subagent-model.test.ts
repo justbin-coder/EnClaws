@@ -20,11 +20,11 @@ import { runEmbeddedPiAgent } from "../agents/pi-embedded.js";
 import { runCronIsolatedAgentTurn } from "./isolated-agent.js";
 
 async function withTempHome<T>(fn: (home: string) => Promise<T>): Promise<T> {
-  return withTempHomeBase(fn, { prefix: "enclaws-cron-submodel-" });
+  return withTempHomeBase(fn, { prefix: "qingclaws-cron-submodel-" });
 }
 
 async function writeSessionStore(home: string) {
-  const dir = path.join(home, ".enclaws", "sessions");
+  const dir = path.join(home, ".qingclaws", "sessions");
   await fs.mkdir(dir, { recursive: true });
   const storePath = path.join(dir, "sessions.json");
   await fs.writeFile(
@@ -55,7 +55,7 @@ function makeCfg(
     agents: {
       defaults: {
         model: "anthropic/claude-sonnet-4-5",
-        workspace: path.join(home, "enclaws"),
+        workspace: path.join(home, "qingclaws"),
       },
     },
     session: { store: storePath, mainKey: "main" },
@@ -116,7 +116,7 @@ describe("runCronIsolatedAgentTurn: subagent model resolution (#11461)", () => {
           agents: {
             defaults: {
               model: "anthropic/claude-sonnet-4-5",
-              workspace: path.join(home, "enclaws"),
+              workspace: path.join(home, "qingclaws"),
               subagents: { model: "ollama/llama3.2:3b" },
             },
           },
@@ -147,7 +147,7 @@ describe("runCronIsolatedAgentTurn: subagent model resolution (#11461)", () => {
           agents: {
             defaults: {
               model: "anthropic/claude-sonnet-4-5",
-              workspace: path.join(home, "enclaws"),
+              workspace: path.join(home, "qingclaws"),
               subagents: { model: "ollama/llama3.2:3b" },
             },
           },
@@ -195,7 +195,7 @@ describe("runCronIsolatedAgentTurn: subagent model resolution (#11461)", () => {
           agents: {
             defaults: {
               model: "anthropic/claude-sonnet-4-5",
-              workspace: path.join(home, "enclaws"),
+              workspace: path.join(home, "qingclaws"),
               subagents: { model: { primary: "google/gemini-2.5-flash" } },
             },
           },

@@ -39,7 +39,7 @@ exit 0
 }
 
 async function createDockerSetupSandbox(): Promise<DockerSetupSandbox> {
-  const rootDir = await mkdtemp(join(tmpdir(), "enclaws-docker-setup-"));
+  const rootDir = await mkdtemp(join(tmpdir(), "qingclaws-docker-setup-"));
   const scriptPath = join(rootDir, "docker-setup.sh");
   const dockerfilePath = join(rootDir, "Dockerfile");
   const composePath = join(rootDir, "docker-compose.yml");
@@ -51,7 +51,7 @@ async function createDockerSetupSandbox(): Promise<DockerSetupSandbox> {
   await writeFile(dockerfilePath, "FROM scratch\n");
   await writeFile(
     composePath,
-    "services:\n  enclaws-gateway:\n    image: noop\n  enclaws-cli:\n    image: noop\n",
+    "services:\n  qingclaws-gateway:\n    image: noop\n  qingclaws-cli:\n    image: noop\n",
   );
   await writeDockerStub(binDir, logPath);
 
@@ -69,9 +69,9 @@ function createEnv(
     LC_ALL: process.env.LC_ALL,
     TMPDIR: process.env.TMPDIR,
     DOCKER_STUB_LOG: sandbox.logPath,
-    ENCLAWS_GATEWAY_TOKEN: "test-token",
-    ENCLAWS_CONFIG_DIR: join(sandbox.rootDir, "config"),
-    ENCLAWS_WORKSPACE_DIR: join(sandbox.rootDir, "enclaws"),
+    QINGCLAWS_GATEWAY_TOKEN: "test-token",
+    QINGCLAWS_CONFIG_DIR: join(sandbox.rootDir, "config"),
+    QINGCLAWS_WORKSPACE_DIR: join(sandbox.rootDir, "qingclaws"),
   };
 
   for (const [key, value] of Object.entries(overrides)) {
@@ -133,27 +133,27 @@ describe("docker-setup.sh", () => {
     const activeSandbox = requireSandbox(sandbox);
 
     const result = runDockerSetup(activeSandbox, {
-      ENCLAWS_DOCKER_APT_PACKAGES: "ffmpeg build-essential",
-      ENCLAWS_EXTRA_MOUNTS: undefined,
-      ENCLAWS_HOME_VOLUME: "enclaws-home",
+      QINGCLAWS_DOCKER_APT_PACKAGES: "ffmpeg build-essential",
+      QINGCLAWS_EXTRA_MOUNTS: undefined,
+      QINGCLAWS_HOME_VOLUME: "qingclaws-home",
     });
     expect(result.status).toBe(0);
     const envFile = await readFile(join(activeSandbox.rootDir, ".env"), "utf8");
-    expect(envFile).toContain("ENCLAWS_DOCKER_APT_PACKAGES=ffmpeg build-essential");
-    expect(envFile).toContain("ENCLAWS_EXTRA_MOUNTS=");
-    expect(envFile).toContain("ENCLAWS_HOME_VOLUME=enclaws-home");
+    expect(envFile).toContain("QINGCLAWS_DOCKER_APT_PACKAGES=ffmpeg build-essential");
+    expect(envFile).toContain("QINGCLAWS_EXTRA_MOUNTS=");
+    expect(envFile).toContain("QINGCLAWS_HOME_VOLUME=qingclaws-home");
     const extraCompose = await readFile(
       join(activeSandbox.rootDir, "docker-compose.extra.yml"),
       "utf8",
     );
-    expect(extraCompose).toContain("enclaws-home:/home/node");
+    expect(extraCompose).toContain("qingclaws-home:/home/node");
     expect(extraCompose).toContain("volumes:");
-    expect(extraCompose).toContain("enclaws-home:");
+    expect(extraCompose).toContain("qingclaws-home:");
     const log = await readFile(activeSandbox.logPath, "utf8");
-    expect(log).toContain("--build-arg ENCLAWS_DOCKER_APT_PACKAGES=ffmpeg build-essential");
-    expect(log).toContain("run --rm enclaws-cli onboard --mode local --no-install-daemon");
-    expect(log).toContain("run --rm enclaws-cli config set gateway.mode local");
-    expect(log).toContain("run --rm enclaws-cli config set gateway.bind lan");
+    expect(log).toContain("--build-arg QINGCLAWS_DOCKER_APT_PACKAGES=ffmpeg build-essential");
+    expect(log).toContain("run --rm qingclaws-cli onboard --mode local --no-install-daemon");
+    expect(log).toContain("run --rm qingclaws-cli config set gateway.mode local");
+    expect(log).toContain("run --rm qingclaws-cli config set gateway.bind lan");
   });
 
   it("precreates config identity dir for CLI device auth writes", async () => {
@@ -162,8 +162,8 @@ describe("docker-setup.sh", () => {
     const workspaceDir = join(activeSandbox.rootDir, "workspace-identity");
 
     const result = runDockerSetup(activeSandbox, {
-      ENCLAWS_CONFIG_DIR: configDir,
-      ENCLAWS_WORKSPACE_DIR: workspaceDir,
+      QINGCLAWS_CONFIG_DIR: configDir,
+      QINGCLAWS_WORKSPACE_DIR: workspaceDir,
     });
 
     expect(result.status).toBe(0);
@@ -171,58 +171,58 @@ describe("docker-setup.sh", () => {
     expect(identityDirStat.isDirectory()).toBe(true);
   });
 
-  it("reuses existing config token when ENCLAWS_GATEWAY_TOKEN is unset", async () => {
+  it("reuses existing config token when QINGCLAWS_GATEWAY_TOKEN is unset", async () => {
     const activeSandbox = requireSandbox(sandbox);
     const configDir = join(activeSandbox.rootDir, "config-token-reuse");
     const workspaceDir = join(activeSandbox.rootDir, "workspace-token-reuse");
     await mkdir(configDir, { recursive: true });
     await writeFile(
-      join(configDir, "enclaws.json"),
+      join(configDir, "qingclaws.json"),
       JSON.stringify({ gateway: { auth: { mode: "token", token: "config-token-123" } } }),
     );
 
     const result = runDockerSetup(activeSandbox, {
-      ENCLAWS_GATEWAY_TOKEN: undefined,
-      ENCLAWS_CONFIG_DIR: configDir,
-      ENCLAWS_WORKSPACE_DIR: workspaceDir,
+      QINGCLAWS_GATEWAY_TOKEN: undefined,
+      QINGCLAWS_CONFIG_DIR: configDir,
+      QINGCLAWS_WORKSPACE_DIR: workspaceDir,
     });
 
     expect(result.status).toBe(0);
     const envFile = await readFile(join(activeSandbox.rootDir, ".env"), "utf8");
-    expect(envFile).toContain("ENCLAWS_GATEWAY_TOKEN=config-token-123");
+    expect(envFile).toContain("QINGCLAWS_GATEWAY_TOKEN=config-token-123");
   });
 
-  it("rejects injected multiline ENCLAWS_EXTRA_MOUNTS values", async () => {
+  it("rejects injected multiline QINGCLAWS_EXTRA_MOUNTS values", async () => {
     const activeSandbox = requireSandbox(sandbox);
 
     const result = runDockerSetup(activeSandbox, {
-      ENCLAWS_EXTRA_MOUNTS: "/tmp:/tmp\n  evil-service:\n    image: alpine",
+      QINGCLAWS_EXTRA_MOUNTS: "/tmp:/tmp\n  evil-service:\n    image: alpine",
     });
 
     expect(result.status).not.toBe(0);
-    expect(result.stderr).toContain("ENCLAWS_EXTRA_MOUNTS cannot contain control characters");
+    expect(result.stderr).toContain("QINGCLAWS_EXTRA_MOUNTS cannot contain control characters");
   });
 
-  it("rejects invalid ENCLAWS_EXTRA_MOUNTS mount format", async () => {
+  it("rejects invalid QINGCLAWS_EXTRA_MOUNTS mount format", async () => {
     const activeSandbox = requireSandbox(sandbox);
 
     const result = runDockerSetup(activeSandbox, {
-      ENCLAWS_EXTRA_MOUNTS: "bad mount spec",
+      QINGCLAWS_EXTRA_MOUNTS: "bad mount spec",
     });
 
     expect(result.status).not.toBe(0);
     expect(result.stderr).toContain("Invalid mount format");
   });
 
-  it("rejects invalid ENCLAWS_HOME_VOLUME names", async () => {
+  it("rejects invalid QINGCLAWS_HOME_VOLUME names", async () => {
     const activeSandbox = requireSandbox(sandbox);
 
     const result = runDockerSetup(activeSandbox, {
-      ENCLAWS_HOME_VOLUME: "bad name",
+      QINGCLAWS_HOME_VOLUME: "bad name",
     });
 
     expect(result.status).not.toBe(0);
-    expect(result.stderr).toContain("ENCLAWS_HOME_VOLUME must match");
+    expect(result.stderr).toContain("QINGCLAWS_HOME_VOLUME must match");
   });
 
   it("avoids associative arrays so the script remains Bash 3.2-compatible", async () => {
@@ -259,7 +259,7 @@ describe("docker-setup.sh", () => {
 
   it("keeps docker-compose CLI network namespace settings in sync", async () => {
     const compose = await readFile(join(repoRoot, "docker-compose.yml"), "utf8");
-    expect(compose).toContain('network_mode: "service:enclaws-gateway"');
-    expect(compose).toContain("depends_on:\n      - enclaws-gateway");
+    expect(compose).toContain('network_mode: "service:qingclaws-gateway"');
+    expect(compose).toContain("depends_on:\n      - qingclaws-gateway");
   });
 });

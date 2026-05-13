@@ -18,7 +18,7 @@ body:
     id: setup
     attributes:
       label: Setup instructions
-      description: How to install or configure this skill in an EnClaws instance.
+      description: How to install or configure this skill in an QingClaws instance.
     validations:
       required: true
 

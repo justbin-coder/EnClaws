@@ -6,7 +6,7 @@
  * 统一导出所有 doc 相关工具的注册函数
  */
 
-import type { OpenClawPluginApi } from 'openclaw/plugin-sdk';
+import type { QingClawsPluginApi } from 'openclaw/plugin-sdk';
 import { getEnabledLarkAccounts } from '../../../core/accounts';
 import { resolveAnyEnabledToolsConfig } from '../../../core/tools-config';
 import { extractMcpUrlFromConfig, setMcpEndpointOverride } from '../shared';
@@ -17,7 +17,7 @@ import { registerUpdateDocTool } from './update';
 /**
  * 注册 MCP Doc 工具（仅保留 create/fetch/update，search/list 已由 OAPI 替代）
  */
-export function registerFeishuMcpDocTools(api: OpenClawPluginApi): void {
+export function registerFeishuMcpDocTools(api: QingClawsPluginApi): void {
   if (!api.config) {
     api.logger.debug?.('feishu_doc: No config available, skipping');
     return;

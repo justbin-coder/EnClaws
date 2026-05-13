@@ -13,7 +13,7 @@
       "name": "带断言的问候",
       "message": "你是谁？",
       "assert": {
-        "contains": "EnClaws AI 助手",
+        "contains": "QingClaws AI 助手",
         "notContains": "error",
         "minLength": 2,
         "maxLength": 500

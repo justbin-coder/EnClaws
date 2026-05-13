@@ -14,7 +14,7 @@ export function resolveChannelDefaultAccountId<ResolvedAccount>(params: {
 }
 
 export function formatPairingApproveHint(channelId: string): string {
-  const listCmd = formatCliCommand(`enclaws pairing list ${channelId}`);
-  const approveCmd = formatCliCommand(`enclaws pairing approve ${channelId} <code>`);
+  const listCmd = formatCliCommand(`qingclaws pairing list ${channelId}`);
+  const approveCmd = formatCliCommand(`qingclaws pairing approve ${channelId} <code>`);
   return `Approve via: ${listCmd} / ${approveCmd}`;
 }

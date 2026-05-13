@@ -2,7 +2,7 @@
  * Copyright (c) 2026 ByteDance Ltd. and/or its affiliates
  * SPDX-License-Identifier: MIT
  *
- * Zod-based configuration schema for the OpenClaw Lark/Feishu channel plugin.
+ * Zod-based configuration schema for the QingClaws Lark/Feishu channel plugin.
  *
  * Provides runtime validation, sensible defaults, and cross-field refinements
  * so that every consuming module can rely on well-typed configuration objects.

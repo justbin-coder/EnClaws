@@ -1,10 +1,10 @@
 {
-  "name": "@openclaw/imessage",
+  "name": "@qingclaws/imessage",
   "version": "2026.3.1",
   "private": true,
-  "description": "OpenClaw iMessage channel plugin",
+  "description": "QingClaws iMessage channel plugin",
   "type": "module",
-  "openclaw": {
+  "qingclaws": {
     "extensions": [
       "./index.ts"
     ]

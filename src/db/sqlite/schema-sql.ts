@@ -4,7 +4,7 @@
  */
 
 export const SQLITE_SCHEMA_SQL = `
--- EnClaws Multi-Tenant Schema (SQLite)
+-- QingClaws Multi-Tenant Schema (SQLite)
 
 PRAGMA foreign_keys = ON;
 PRAGMA journal_mode = WAL;
@@ -273,11 +273,11 @@ INSERT OR IGNORE INTO sys_logging_config (id) VALUES (1);
 CREATE TABLE IF NOT EXISTS sys_plugins_config (
   id                       INTEGER PRIMARY KEY CHECK (id = 1),
   enabled                  INTEGER NOT NULL DEFAULT 1,
-  allow                    TEXT NOT NULL DEFAULT '["openclaw-lark"]',
+  allow                    TEXT NOT NULL DEFAULT '["qingclaws-lark"]',
   deny                     TEXT NOT NULL DEFAULT '[]',
   load                     TEXT NOT NULL DEFAULT '{}',
   slots                    TEXT NOT NULL DEFAULT '{}',
-  entries                  TEXT NOT NULL DEFAULT '{"openclaw-lark":{"enabled":true}}',
+  entries                  TEXT NOT NULL DEFAULT '{"qingclaws-lark":{"enabled":true}}',
   installs                 TEXT NOT NULL DEFAULT '{}',
   updated_at               TEXT NOT NULL DEFAULT (datetime('now'))
 );
@@ -348,7 +348,7 @@ CREATE TRIGGER IF NOT EXISTS trg_channel_apps_updated_at AFTER UPDATE ON tenant_
 INSERT OR IGNORE INTO tenants (id, name, slug, plan, status, quotas)
 VALUES (
   '00000000-0000-0000-0000-000000000001',
-  'EnClaws Platform',
+  'QingClaws Platform',
   '_platform',
   'enterprise',
   'active',
@@ -359,7 +359,7 @@ INSERT OR IGNORE INTO users (id, tenant_id, email, password_hash, display_name, 
 VALUES (
   '00000000-0000-0000-0000-000000000002',
   '00000000-0000-0000-0000-000000000001',
-  'admin@enclaws.local',
+  'admin@qingclaws.local',
   '$2b$12$KIBNGrqC9DmrXbPeutbl5.IebhcHmsWEld9jeS3XvSQk07NV3EPB.',
   'Platform Admin',
   'platform-admin',

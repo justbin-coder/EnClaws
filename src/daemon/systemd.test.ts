@@ -63,37 +63,37 @@ describe("systemd runtime parsing", () => {
 describe("resolveSystemdUserUnitPath", () => {
   it.each([
     {
-      name: "uses default service name when ENCLAWS_PROFILE is unset",
+      name: "uses default service name when QINGCLAWS_PROFILE is unset",
       env: { HOME: "/home/test" },
-      expected: "/home/test/.config/systemd/user/enclaws-gateway.service",
+      expected: "/home/test/.config/systemd/user/qingclaws-gateway.service",
     },
     {
-      name: "uses profile-specific service name when ENCLAWS_PROFILE is set to a custom value",
-      env: { HOME: "/home/test", ENCLAWS_PROFILE: "jbphoenix" },
-      expected: "/home/test/.config/systemd/user/enclaws-gateway-jbphoenix.service",
+      name: "uses profile-specific service name when QINGCLAWS_PROFILE is set to a custom value",
+      env: { HOME: "/home/test", QINGCLAWS_PROFILE: "jbphoenix" },
+      expected: "/home/test/.config/systemd/user/qingclaws-gateway-jbphoenix.service",
     },
     {
-      name: "prefers ENCLAWS_SYSTEMD_UNIT over ENCLAWS_PROFILE",
+      name: "prefers QINGCLAWS_SYSTEMD_UNIT over QINGCLAWS_PROFILE",
       env: {
         HOME: "/home/test",
-        ENCLAWS_PROFILE: "jbphoenix",
-        ENCLAWS_SYSTEMD_UNIT: "custom-unit",
+        QINGCLAWS_PROFILE: "jbphoenix",
+        QINGCLAWS_SYSTEMD_UNIT: "custom-unit",
       },
       expected: "/home/test/.config/systemd/user/custom-unit.service",
     },
     {
-      name: "handles ENCLAWS_SYSTEMD_UNIT with .service suffix",
+      name: "handles QINGCLAWS_SYSTEMD_UNIT with .service suffix",
       env: {
         HOME: "/home/test",
-        ENCLAWS_SYSTEMD_UNIT: "custom-unit.service",
+        QINGCLAWS_SYSTEMD_UNIT: "custom-unit.service",
       },
       expected: "/home/test/.config/systemd/user/custom-unit.service",
     },
     {
-      name: "trims whitespace from ENCLAWS_SYSTEMD_UNIT",
+      name: "trims whitespace from QINGCLAWS_SYSTEMD_UNIT",
       env: {
         HOME: "/home/test",
-        ENCLAWS_SYSTEMD_UNIT: "  custom-unit  ",
+        QINGCLAWS_SYSTEMD_UNIT: "  custom-unit  ",
       },
       expected: "/home/test/.config/systemd/user/custom-unit.service",
     },
@@ -104,8 +104,8 @@ describe("resolveSystemdUserUnitPath", () => {
 
 describe("splitArgsPreservingQuotes", () => {
   it("splits on whitespace outside quotes", () => {
-    expect(splitArgsPreservingQuotes('/usr/bin/enclaws gateway start --name "My Bot"')).toEqual([
-      "/usr/bin/enclaws",
+    expect(splitArgsPreservingQuotes('/usr/bin/qingclaws gateway start --name "My Bot"')).toEqual([
+      "/usr/bin/qingclaws",
       "gateway",
       "start",
       "--name",
@@ -115,32 +115,32 @@ describe("splitArgsPreservingQuotes", () => {
 
   it("supports systemd-style backslash escaping", () => {
     expect(
-      splitArgsPreservingQuotes('enclaws --name "My \\"Bot\\"" --foo bar', {
+      splitArgsPreservingQuotes('qingclaws --name "My \\"Bot\\"" --foo bar', {
         escapeMode: "backslash",
       }),
-    ).toEqual(["enclaws", "--name", 'My "Bot"', "--foo", "bar"]);
+    ).toEqual(["qingclaws", "--name", 'My "Bot"', "--foo", "bar"]);
   });
 
   it("supports schtasks-style escaped quotes while preserving other backslashes", () => {
     expect(
-      splitArgsPreservingQuotes('enclaws --path "C:\\\\Program Files\\\\EnClaws"', {
+      splitArgsPreservingQuotes('qingclaws --path "C:\\\\Program Files\\\\QingClaws"', {
         escapeMode: "backslash-quote-only",
       }),
-    ).toEqual(["enclaws", "--path", "C:\\\\Program Files\\\\EnClaws"]);
+    ).toEqual(["qingclaws", "--path", "C:\\\\Program Files\\\\QingClaws"]);
 
     expect(
-      splitArgsPreservingQuotes('enclaws --label "My \\"Quoted\\" Name"', {
+      splitArgsPreservingQuotes('qingclaws --label "My \\"Quoted\\" Name"', {
         escapeMode: "backslash-quote-only",
       }),
-    ).toEqual(["enclaws", "--label", 'My "Quoted" Name']);
+    ).toEqual(["qingclaws", "--label", 'My "Quoted" Name']);
   });
 });
 
 describe("parseSystemdExecStart", () => {
   it("preserves quoted arguments", () => {
-    const execStart = '/usr/bin/enclaws gateway start --name "My Bot"';
+    const execStart = '/usr/bin/qingclaws gateway start --name "My Bot"';
     expect(parseSystemdExecStart(execStart)).toEqual([
-      "/usr/bin/enclaws",
+      "/usr/bin/qingclaws",
       "gateway",
       "start",
       "--name",
@@ -158,7 +158,7 @@ describe("systemd service control", () => {
     execFileMock
       .mockImplementationOnce((_cmd, _args, _opts, cb) => cb(null, "", ""))
       .mockImplementationOnce((_cmd, args, _opts, cb) => {
-        expect(args).toEqual(["--user", "stop", "enclaws-gateway.service"]);
+        expect(args).toEqual(["--user", "stop", "qingclaws-gateway.service"]);
         cb(null, "", "");
       });
     const write = vi.fn();
@@ -174,13 +174,13 @@ describe("systemd service control", () => {
     execFileMock
       .mockImplementationOnce((_cmd, _args, _opts, cb) => cb(null, "", ""))
       .mockImplementationOnce((_cmd, args, _opts, cb) => {
-        expect(args).toEqual(["--user", "restart", "enclaws-gateway-work.service"]);
+        expect(args).toEqual(["--user", "restart", "qingclaws-gateway-work.service"]);
         cb(null, "", "");
       });
     const write = vi.fn();
     const stdout = { write } as unknown as NodeJS.WritableStream;
 
-    await restartSystemdService({ stdout, env: { ENCLAWS_PROFILE: "work" } });
+    await restartSystemdService({ stdout, env: { QINGCLAWS_PROFILE: "work" } });
 
     expect(write).toHaveBeenCalledTimes(1);
     expect(String(write.mock.calls[0]?.[0])).toContain("Restarted systemd service");

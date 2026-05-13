@@ -8,8 +8,8 @@ type HomeEnvSnapshot = {
   USERPROFILE: string | undefined;
   HOMEDRIVE: string | undefined;
   HOMEPATH: string | undefined;
-  ENCLAWS_STATE_DIR: string | undefined;
-  ENCLAWS_AGENT_DIR: string | undefined;
+  QINGCLAWS_STATE_DIR: string | undefined;
+  QINGCLAWS_AGENT_DIR: string | undefined;
   PI_CODING_AGENT_DIR: string | undefined;
 };
 
@@ -19,8 +19,8 @@ function snapshotHomeEnv(): HomeEnvSnapshot {
     USERPROFILE: process.env.USERPROFILE,
     HOMEDRIVE: process.env.HOMEDRIVE,
     HOMEPATH: process.env.HOMEPATH,
-    ENCLAWS_STATE_DIR: process.env.ENCLAWS_STATE_DIR,
-    ENCLAWS_AGENT_DIR: process.env.ENCLAWS_AGENT_DIR,
+    QINGCLAWS_STATE_DIR: process.env.QINGCLAWS_STATE_DIR,
+    QINGCLAWS_AGENT_DIR: process.env.QINGCLAWS_AGENT_DIR,
     PI_CODING_AGENT_DIR: process.env.PI_CODING_AGENT_DIR,
   };
 }
@@ -52,13 +52,13 @@ export function createTempHomeHarness(options: { prefix: string; beforeEachCase?
 
   async function withTempHome<T>(fn: (home: string) => Promise<T>): Promise<T> {
     const home = path.join(fixtureRoot, `case-${++caseId}`);
-    await fs.mkdir(path.join(home, ".enclaws", "agents", "main", "sessions"), { recursive: true });
+    await fs.mkdir(path.join(home, ".qingclaws", "agents", "main", "sessions"), { recursive: true });
     const envSnapshot = snapshotHomeEnv();
     process.env.HOME = home;
     process.env.USERPROFILE = home;
-    process.env.ENCLAWS_STATE_DIR = path.join(home, ".enclaws");
-    process.env.ENCLAWS_AGENT_DIR = path.join(home, ".enclaws", "agent");
-    process.env.PI_CODING_AGENT_DIR = path.join(home, ".enclaws", "agent");
+    process.env.QINGCLAWS_STATE_DIR = path.join(home, ".qingclaws");
+    process.env.QINGCLAWS_AGENT_DIR = path.join(home, ".qingclaws", "agent");
+    process.env.PI_CODING_AGENT_DIR = path.join(home, ".qingclaws", "agent");
 
     if (process.platform === "win32") {
       const match = home.match(/^([A-Za-z]:)(.*)$/);
@@ -84,7 +84,7 @@ export function makeReplyConfig(home: string) {
     agents: {
       defaults: {
         model: "anthropic/claude-opus-4-5",
-        workspace: path.join(home, "enclaws"),
+        workspace: path.join(home, "qingclaws"),
       },
     },
     channels: {

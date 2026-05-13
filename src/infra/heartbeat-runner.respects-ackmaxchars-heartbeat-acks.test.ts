@@ -219,8 +219,8 @@ describe("runHeartbeatOnce ack handling", () => {
     },
     {
       title: "strips responsePrefix before HEARTBEAT_OK detection and suppresses short ack text",
-      replyText: "[enclaws] HEARTBEAT_OK all good",
-      messages: { responsePrefix: "[enclaws]" },
+      replyText: "[qingclaws] HEARTBEAT_OK all good",
+      messages: { responsePrefix: "[qingclaws]" },
       expectedCalls: 0,
     },
     {

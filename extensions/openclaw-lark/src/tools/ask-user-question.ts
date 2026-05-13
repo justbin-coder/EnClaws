@@ -17,7 +17,7 @@
  */
 
 import { randomUUID } from 'node:crypto';
-import type { ClawdbotConfig, OpenClawPluginApi } from 'openclaw/plugin-sdk';
+import type { ClawdbotConfig, QingClawsPluginApi } from 'openclaw/plugin-sdk';
 import { Type } from '@sinclair/typebox';
 import { getTicket, withTicket } from '../core/lark-ticket';
 import { larkLogger } from '../core/lark-logger';
@@ -915,7 +915,7 @@ const AskUserQuestionSchema = Type.Object({
 // Tool Registration
 // ---------------------------------------------------------------------------
 
-export function registerAskUserQuestionTool(api: OpenClawPluginApi): void {
+export function registerAskUserQuestionTool(api: QingClawsPluginApi): void {
   const toolName = 'feishu_ask_user_question';
 
   if (!checkToolRegistration(api, toolName)) return;

@@ -120,7 +120,7 @@ export async function maybeRepairGatewayDaemon(params: {
     await maybeRepairLaunchAgentBootstrap({
       env: {
         ...process.env,
-        ENCLAWS_LAUNCHD_LABEL: resolveNodeLaunchAgentLabel(),
+        QINGCLAWS_LAUNCHD_LABEL: resolveNodeLaunchAgentLabel(),
       },
       title: "Node",
       runtime: params.runtime,
@@ -175,7 +175,7 @@ export async function maybeRepairGatewayDaemon(params: {
         const { programArguments, workingDirectory, environment } = await buildGatewayInstallPlan({
           env: process.env,
           port,
-          token: params.cfg.gateway?.auth?.token ?? process.env.ENCLAWS_GATEWAY_TOKEN,
+          token: params.cfg.gateway?.auth?.token ?? process.env.QINGCLAWS_GATEWAY_TOKEN,
           runtime: daemonRuntime,
           warn: (message, title) => note(message, title),
           config: params.cfg,
@@ -226,9 +226,9 @@ export async function maybeRepairGatewayDaemon(params: {
   }
 
   if (process.platform === "darwin") {
-    const label = resolveGatewayLaunchAgentLabel(process.env.ENCLAWS_PROFILE);
+    const label = resolveGatewayLaunchAgentLabel(process.env.QINGCLAWS_PROFILE);
     note(
-      `LaunchAgent loaded; stopping requires "${formatCliCommand("enclaws gateway stop")}" or launchctl bootout gui/$UID/${label}.`,
+      `LaunchAgent loaded; stopping requires "${formatCliCommand("qingclaws gateway stop")}" or launchctl bootout gui/$UID/${label}.`,
       "Gateway",
     );
   }

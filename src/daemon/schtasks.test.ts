@@ -7,7 +7,7 @@ import { parseSchtasksQuery, readScheduledTaskCommand, resolveTaskScriptPath } f
 describe("schtasks runtime parsing", () => {
   it.each(["Ready", "Running"])("parses %s status", (status) => {
     const output = [
-      "TaskName: \\EnClaws Gateway",
+      "TaskName: \\QingClaws Gateway",
       `Status: ${status}`,
       "Last Run Time: 1/8/2026 1:23:45 AM",
       "Last Run Result: 0x0",
@@ -23,28 +23,28 @@ describe("schtasks runtime parsing", () => {
 describe("resolveTaskScriptPath", () => {
   it.each([
     {
-      name: "uses default path when ENCLAWS_PROFILE is unset",
+      name: "uses default path when QINGCLAWS_PROFILE is unset",
       env: { USERPROFILE: "C:\\Users\\test" },
-      expected: path.join("C:\\Users\\test", ".enclaws", "gateway.cmd"),
+      expected: path.join("C:\\Users\\test", ".qingclaws", "gateway.cmd"),
     },
     {
-      name: "uses profile-specific path when ENCLAWS_PROFILE is set to a custom value",
-      env: { USERPROFILE: "C:\\Users\\test", ENCLAWS_PROFILE: "jbphoenix" },
-      expected: path.join("C:\\Users\\test", ".enclaws-jbphoenix", "gateway.cmd"),
+      name: "uses profile-specific path when QINGCLAWS_PROFILE is set to a custom value",
+      env: { USERPROFILE: "C:\\Users\\test", QINGCLAWS_PROFILE: "jbphoenix" },
+      expected: path.join("C:\\Users\\test", ".qingclaws-jbphoenix", "gateway.cmd"),
     },
     {
-      name: "prefers ENCLAWS_STATE_DIR over profile-derived defaults",
+      name: "prefers QINGCLAWS_STATE_DIR over profile-derived defaults",
       env: {
         USERPROFILE: "C:\\Users\\test",
-        ENCLAWS_PROFILE: "rescue",
-        ENCLAWS_STATE_DIR: "C:\\State.enclaws",
+        QINGCLAWS_PROFILE: "rescue",
+        QINGCLAWS_STATE_DIR: "C:\\State.qingclaws",
       },
-      expected: path.join("C:\\State.enclaws", "gateway.cmd"),
+      expected: path.join("C:\\State.qingclaws", "gateway.cmd"),
     },
     {
       name: "falls back to HOME when USERPROFILE is not set",
-      env: { HOME: "/home/test", ENCLAWS_PROFILE: "default" },
-      expected: path.join("/home/test", ".enclaws", "gateway.cmd"),
+      env: { HOME: "/home/test", QINGCLAWS_PROFILE: "default" },
+      expected: path.join("/home/test", ".qingclaws", "gateway.cmd"),
     },
   ])("$name", ({ env, expected }) => {
     expect(resolveTaskScriptPath(env)).toBe(expected);
@@ -61,12 +61,12 @@ describe("readScheduledTaskCommand", () => {
     },
     run: (env: Record<string, string | undefined>) => Promise<void>,
   ) {
-    const tmpDir = await fs.mkdtemp(path.join(os.tmpdir(), "enclaws-schtasks-test-"));
+    const tmpDir = await fs.mkdtemp(path.join(os.tmpdir(), "qingclaws-schtasks-test-"));
     try {
       const extraEnv = typeof options.env === "function" ? options.env(tmpDir) : options.env;
       const env = {
         USERPROFILE: tmpDir,
-        ENCLAWS_PROFILE: "default",
+        QINGCLAWS_PROFILE: "default",
         ...extraEnv,
       };
       if (options.scriptLines) {
@@ -117,10 +117,10 @@ describe("readScheduledTaskCommand", () => {
       {
         scriptLines: [
           "@echo off",
-          "rem EnClaws Gateway",
-          "cd /d C:\\Projects.enclaws",
+          "rem QingClaws Gateway",
+          "cd /d C:\\Projects.qingclaws",
           "set NODE_ENV=production",
-          "set ENCLAWS_PORT=18789",
+          "set QINGCLAWS_PORT=18789",
           "node gateway.js --verbose",
         ],
       },
@@ -128,10 +128,10 @@ describe("readScheduledTaskCommand", () => {
         const result = await readScheduledTaskCommand(env);
         expect(result).toEqual({
           programArguments: ["node", "gateway.js", "--verbose"],
-          workingDirectory: "C:\\Projects.enclaws",
+          workingDirectory: "C:\\Projects.qingclaws",
           environment: {
             NODE_ENV: "production",
-            ENCLAWS_PORT: "18789",
+            QINGCLAWS_PORT: "18789",
           },
         });
       },
@@ -143,7 +143,7 @@ describe("readScheduledTaskCommand", () => {
       {
         scriptLines: [
           "@echo off",
-          '"C:\\Program Files\\nodejs\\node.exe" C:\\Users\\test\\AppData\\Roaming\\npm\\node_modules.enclaws\\dist\\index.js gateway --port 18789',
+          '"C:\\Program Files\\nodejs\\node.exe" C:\\Users\\test\\AppData\\Roaming\\npm\\node_modules.qingclaws\\dist\\index.js gateway --port 18789',
         ],
       },
       async (env) => {
@@ -151,7 +151,7 @@ describe("readScheduledTaskCommand", () => {
         expect(result).toEqual({
           programArguments: [
             "C:\\Program Files\\nodejs\\node.exe",
-            "C:\\Users\\test\\AppData\\Roaming\\npm\\node_modules.enclaws\\dist\\index.js",
+            "C:\\Users\\test\\AppData\\Roaming\\npm\\node_modules.qingclaws\\dist\\index.js",
             "gateway",
             "--port",
             "18789",
@@ -166,15 +166,15 @@ describe("readScheduledTaskCommand", () => {
       {
         scriptLines: [
           "@echo off",
-          '"\\\\fileserver\\EnClaws Share\\node.exe" "\\\\fileserver\\EnClaws Share\\dist\\index.js" gateway --port 18789',
+          '"\\\\fileserver\\QingClaws Share\\node.exe" "\\\\fileserver\\QingClaws Share\\dist\\index.js" gateway --port 18789',
         ],
       },
       async (env) => {
         const result = await readScheduledTaskCommand(env);
         expect(result).toEqual({
           programArguments: [
-            "\\\\fileserver\\EnClaws Share\\node.exe",
-            "\\\\fileserver\\EnClaws Share\\dist\\index.js",
+            "\\\\fileserver\\QingClaws Share\\node.exe",
+            "\\\\fileserver\\QingClaws Share\\dist\\index.js",
             "gateway",
             "--port",
             "18789",
@@ -184,10 +184,10 @@ describe("readScheduledTaskCommand", () => {
     );
   });
 
-  it("reads script from ENCLAWS_STATE_DIR override", async () => {
+  it("reads script from QINGCLAWS_STATE_DIR override", async () => {
     await withScheduledTaskScript(
       {
-        env: (tmpDir) => ({ ENCLAWS_STATE_DIR: path.join(tmpDir, "custom-state") }),
+        env: (tmpDir) => ({ QINGCLAWS_STATE_DIR: path.join(tmpDir, "custom-state") }),
         scriptLines: ["@echo off", "node gateway.js --from-state-dir"],
       },
       async (env) => {

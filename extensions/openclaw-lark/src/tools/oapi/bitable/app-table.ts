@@ -14,7 +14,7 @@
  *   - batch_create: POST /open-apis/bitable/v1/apps/:app_token/tables/batch_create
  */
 
-import type { OpenClawPluginApi } from 'openclaw/plugin-sdk';
+import type { QingClawsPluginApi } from 'openclaw/plugin-sdk';
 import { Type } from '@sinclair/typebox';
 
 import { assertLarkOk, createToolContext, handleInvokeErrorWithAutoAuth, json , registerTool } from '../helpers';
@@ -119,7 +119,7 @@ type FeishuBitableAppTableParams =
 // Registration
 // ---------------------------------------------------------------------------
 
-export function registerFeishuBitableAppTableTool(api: OpenClawPluginApi): void {
+export function registerFeishuBitableAppTableTool(api: QingClawsPluginApi): void {
   if (!api.config) return;
 
   const cfg = api.config;

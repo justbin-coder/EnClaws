@@ -8,13 +8,13 @@ export function buildPairingReply(params: {
 }): string {
   const { channel, idLine, code } = params;
   return [
-    "EnClaws: access not configured.",
+    "QingClaws: access not configured.",
     "",
     idLine,
     "",
     `Pairing code: ${code}`,
     "",
     "Ask the bot owner to approve with:",
-    formatCliCommand(`enclaws pairing approve ${channel} ${code}`),
+    formatCliCommand(`qingclaws pairing approve ${channel} ${code}`),
   ].join("\n");
 }

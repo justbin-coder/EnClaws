@@ -8,7 +8,7 @@
 
 import fs from 'node:fs';
 import path from 'node:path';
-import type { OpenClawPluginApi } from 'openclaw/plugin-sdk';
+import type { QingClawsPluginApi } from 'openclaw/plugin-sdk';
 import type { TSchema } from '@sinclair/typebox';
 import { createToolContext, formatToolResult, registerTool } from '../helpers';
 import { handleInvokeErrorWithAutoAuth } from '../oapi/helpers';
@@ -113,10 +113,10 @@ export function setMcpEndpointOverride(endpoint: string | undefined): void {
 }
 
 function readMcpUrlFromOpenclawJson(): string | undefined {
-  // 优先读取工作目录下的 `.openclaw/openclaw.json`
+  // 优先读取工作目录下的 `.qingclaws/qingclaws.json`
   // 约定：channels.feishu.mcpEndpoint（兼容旧字段 mcp_url）
   try {
-    const p = path.join(process.cwd(), '.openclaw', 'openclaw.json');
+    const p = path.join(process.cwd(), '.qingclaws', 'qingclaws.json');
     if (!fs.existsSync(p)) return undefined;
 
     const raw = fs.readFileSync(p, 'utf8');
@@ -223,7 +223,7 @@ export async function callMcpTool(
  * 注册 MCP 工具的通用函数 (使用 invoke 机制进行权限检查)
  */
 export function registerMcpTool<T extends Record<string, unknown>>(
-  api: OpenClawPluginApi,
+  api: QingClawsPluginApi,
   config: McpToolConfig<T>,
 ): boolean {
   const { toolClient, log } = createToolContext(api, config.name);

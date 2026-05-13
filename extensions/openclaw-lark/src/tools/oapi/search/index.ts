@@ -6,7 +6,7 @@
  * 统一导出所有搜索相关工具的注册函数
  */
 
-import type { OpenClawPluginApi } from 'openclaw/plugin-sdk';
+import type { QingClawsPluginApi } from 'openclaw/plugin-sdk';
 import { getEnabledLarkAccounts } from '../../../core/accounts';
 import { resolveAnyEnabledToolsConfig } from '../../../core/tools-config';
 import { registerFeishuSearchDocWikiTool } from './doc-search';
@@ -14,7 +14,7 @@ import { registerFeishuSearchDocWikiTool } from './doc-search';
 /**
  * 注册所有 Search 工具
  */
-export function registerFeishuSearchTools(api: OpenClawPluginApi): void {
+export function registerFeishuSearchTools(api: QingClawsPluginApi): void {
   if (!api.config) {
     api.logger.debug?.('feishu_search: No config available, skipping');
     return;

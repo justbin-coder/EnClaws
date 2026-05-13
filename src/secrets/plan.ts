@@ -9,7 +9,7 @@ export type SecretsPlanTargetType =
 export type SecretsPlanTarget = {
   type: SecretsPlanTargetType;
   /**
-   * Dot path in enclaws.json for operator readability.
+   * Dot path in qingclaws.json for operator readability.
    * Example: "models.providers.openai.apiKey"
    */
   path: string;
@@ -33,7 +33,7 @@ export type SecretsApplyPlan = {
   version: 1;
   protocolVersion: 1;
   generatedAt: string;
-  generatedBy: "enclaws secrets configure" | "manual";
+  generatedBy: "qingclaws secrets configure" | "manual";
   providerUpserts?: Record<string, SecretProviderConfig>;
   providerDeletes?: string[];
   targets: SecretsPlanTarget[];

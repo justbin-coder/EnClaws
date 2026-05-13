@@ -7,12 +7,12 @@ import {
   resetSessionsSpawnConfigOverride,
   setupSessionsSpawnGatewayMock,
   setSessionsSpawnConfigOverride,
-} from "./openclaw-tools.subagents.sessions-spawn.test-harness.js";
+} from "./qingclaws-tools.subagents.sessions-spawn.test-harness.js";
 import { resetSubagentRegistryForTests } from "./subagent-registry.js";
 
 const fastModeEnv = vi.hoisted(() => {
-  const previous = process.env.ENCLAWS_TEST_FAST;
-  process.env.ENCLAWS_TEST_FAST = "1";
+  const previous = process.env.QINGCLAWS_TEST_FAST;
+  process.env.QINGCLAWS_TEST_FAST = "1";
   return { previous };
 });
 
@@ -103,7 +103,7 @@ async function emitLifecycleEndAndFlush(params: {
   }
 }
 
-describe("enclaws-tools: subagents (sessions_spawn lifecycle)", () => {
+describe("qingclaws-tools: subagents (sessions_spawn lifecycle)", () => {
   beforeEach(() => {
     resetSessionsSpawnConfigOverride();
     setSessionsSpawnConfigOverride({
@@ -123,10 +123,10 @@ describe("enclaws-tools: subagents (sessions_spawn lifecycle)", () => {
 
   afterAll(() => {
     if (fastModeEnv.previous === undefined) {
-      delete process.env.ENCLAWS_TEST_FAST;
+      delete process.env.QINGCLAWS_TEST_FAST;
       return;
     }
-    process.env.ENCLAWS_TEST_FAST = fastModeEnv.previous;
+    process.env.QINGCLAWS_TEST_FAST = fastModeEnv.previous;
   });
 
   it("sessions_spawn runs cleanup flow after subagent completion", async () => {

@@ -30,7 +30,7 @@
  *
  * 3. 运行 TypeScript 类型检查验证一致性：
  *    ```bash
- *    cd openclaw/feishu && npx tsc --noEmit
+ *    cd qingclaws/feishu && npx tsc --noEmit
  *    ```
  *
  * ### 如何确定所需 Scope

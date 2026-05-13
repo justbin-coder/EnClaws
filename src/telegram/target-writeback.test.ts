@@ -65,7 +65,7 @@ describe("maybePersistResolvedTelegramTarget", () => {
           },
         },
       },
-      writeOptions: { expectedConfigPath: "/tmp/enclaws.json" },
+      writeOptions: { expectedConfigPath: "/tmp/qingclaws.json" },
     });
     loadCronStore.mockResolvedValue({
       version: 1,
@@ -97,7 +97,7 @@ describe("maybePersistResolvedTelegramTarget", () => {
           },
         },
       }),
-      expect.objectContaining({ expectedConfigPath: "/tmp/enclaws.json" }),
+      expect.objectContaining({ expectedConfigPath: "/tmp/qingclaws.json" }),
     );
     expect(saveCronStore).toHaveBeenCalledTimes(1);
     expect(saveCronStore).toHaveBeenCalledWith(

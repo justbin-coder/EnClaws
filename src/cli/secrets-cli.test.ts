@@ -107,7 +107,7 @@ describe("secrets CLI", () => {
         version: 1,
         protocolVersion: 1,
         generatedAt: "2026-02-26T00:00:00.000Z",
-        generatedBy: "enclaws secrets configure",
+        generatedBy: "qingclaws secrets configure",
         targets: [
           {
             type: "skills.entries.apiKey",
@@ -124,7 +124,7 @@ describe("secrets CLI", () => {
       preflight: {
         mode: "dry-run",
         changed: true,
-        changedFiles: ["/tmp/enclaws.json"],
+        changedFiles: ["/tmp/qingclaws.json"],
         warningCount: 0,
         warnings: [],
       },
@@ -133,7 +133,7 @@ describe("secrets CLI", () => {
     runSecretsApply.mockResolvedValue({
       mode: "write",
       changed: true,
-      changedFiles: ["/tmp/enclaws.json"],
+      changedFiles: ["/tmp/qingclaws.json"],
       warningCount: 0,
       warnings: [],
     });

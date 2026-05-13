@@ -31,15 +31,15 @@ function createHuggingfacePrompter(params: {
 
 describe("applyAuthChoiceHuggingface", () => {
   const lifecycle = createAuthTestLifecycle([
-    "ENCLAWS_STATE_DIR",
-    "ENCLAWS_AGENT_DIR",
+    "QINGCLAWS_STATE_DIR",
+    "QINGCLAWS_AGENT_DIR",
     "PI_CODING_AGENT_DIR",
     "HF_TOKEN",
     "HUGGINGFACE_HUB_TOKEN",
   ]);
 
   async function setupTempState() {
-    const env = await setupAuthTestEnv("enclaws-hf-");
+    const env = await setupAuthTestEnv("qingclaws-hf-");
     lifecycle.setStateDir(env.stateDir);
     return env.agentDir;
   }

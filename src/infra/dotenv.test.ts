@@ -38,17 +38,17 @@ type DotEnvFixture = {
 };
 
 async function withDotEnvFixture(run: (fixture: DotEnvFixture) => Promise<void>) {
-  const base = await fs.mkdtemp(path.join(os.tmpdir(), "enclaws-dotenv-test-"));
+  const base = await fs.mkdtemp(path.join(os.tmpdir(), "qingclaws-dotenv-test-"));
   const cwdDir = path.join(base, "cwd");
   const stateDir = path.join(base, "state");
-  process.env.ENCLAWS_STATE_DIR = stateDir;
+  process.env.QINGCLAWS_STATE_DIR = stateDir;
   await fs.mkdir(cwdDir, { recursive: true });
   await fs.mkdir(stateDir, { recursive: true });
   await run({ base, cwdDir, stateDir });
 }
 
 describe("loadDotEnv", () => {
-  it("loads ~/.enclaws/.env as fallback without overriding CWD .env", async () => {
+  it("loads ~/.qingclaws/.env as fallback without overriding CWD .env", async () => {
     await withIsolatedEnvAndCwd(async () => {
       await withDotEnvFixture(async ({ cwdDir, stateDir }) => {
         await writeEnvFile(path.join(stateDir, ".env"), "FOO=from-global\nBAR=1\n");

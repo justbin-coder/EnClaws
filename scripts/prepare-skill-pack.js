@@ -16,7 +16,7 @@ import { execSync } from "node:child_process";
 import { existsSync } from "node:fs";
 import { join } from "node:path";
 
-const GIT_URL = "https://github.com/hashSTACS-Global/feishu-skills.git";
+const GIT_URL = "https://github.com/QingClaws Team/feishu-skills.git";
 const projectRoot = join(import.meta.dirname, "..");
 const targetDir = join(projectRoot, "skills-pack");
 

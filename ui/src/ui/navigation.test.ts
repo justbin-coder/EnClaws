@@ -72,7 +72,7 @@ describe("subtitleForTab", () => {
 
   it("returns descriptive subtitles", () => {
     expect(subtitleForTab("chat")).toContain("chat session");
-    expect(subtitleForTab("config")).toContain("enclaws.json");
+    expect(subtitleForTab("config")).toContain("qingclaws.json");
   });
 });
 
@@ -94,7 +94,7 @@ describe("normalizeBasePath", () => {
   });
 
   it("handles nested paths", () => {
-    expect(normalizeBasePath("/apps/enclaws")).toBe("/apps/enclaws");
+    expect(normalizeBasePath("/apps/qingclaws")).toBe("/apps/qingclaws");
   });
 });
 
@@ -121,7 +121,7 @@ describe("pathForTab", () => {
 
   it("prepends base path", () => {
     expect(pathForTab("chat", "/ui")).toBe("/ui/chat");
-    expect(pathForTab("sessions", "/apps/enclaws")).toBe("/apps/enclaws/sessions");
+    expect(pathForTab("sessions", "/apps/qingclaws")).toBe("/apps/qingclaws/sessions");
   });
 });
 
@@ -138,7 +138,7 @@ describe("tabFromPath", () => {
 
   it("handles base paths", () => {
     expect(tabFromPath("/ui/chat", "/ui")).toBe("chat");
-    expect(tabFromPath("/apps/enclaws/sessions", "/apps/enclaws")).toBe("sessions");
+    expect(tabFromPath("/apps/qingclaws/sessions", "/apps/qingclaws")).toBe("sessions");
   });
 
   it("returns null for unknown path", () => {
@@ -163,7 +163,7 @@ describe("inferBasePathFromPathname", () => {
 
   it("infers base path from nested paths", () => {
     expect(inferBasePathFromPathname("/ui/chat")).toBe("/ui");
-    expect(inferBasePathFromPathname("/apps/enclaws/sessions")).toBe("/apps/enclaws");
+    expect(inferBasePathFromPathname("/apps/qingclaws/sessions")).toBe("/apps/qingclaws");
   });
 
   it("handles index.html suffix", () => {

@@ -17,7 +17,7 @@ import {
 import { listChannelAgentTools } from "./channel-tools.js";
 import { resolveImageSanitizationLimits } from "./image-sanitization.js";
 import type { ModelAuthMode } from "./model-auth.js";
-import { createOpenClawTools } from "./openclaw-tools.js";
+import { createQingClawsTools } from "./qingclaws-tools.js";
 import { wrapToolWithAbortSignal } from "./pi-tools.abort.js";
 import { wrapToolWithBeforeToolCallHook } from "./pi-tools.before-tool-call.js";
 import {
@@ -30,7 +30,7 @@ import {
   assertRequiredParams,
   createHostWorkspaceEditTool,
   createHostWorkspaceWriteTool,
-  createOpenClawReadTool,
+  createQingClawsReadTool,
   createSandboxedEditTool,
   createSandboxedReadTool,
   createSandboxedWriteTool,
@@ -176,10 +176,10 @@ export function resolveToolLoopDetectionConfig(params: {
  *
  * Injects process-isolated environment variables so that tenant skill scripts
  * can read context without relying on shared files or model parameter passing:
- *   - ENCLAWS_TENANT_ID / ENCLAWS_TENANT_USER_ID — multi-tenant identity
- *   - ENCLAWS_USER_WORKSPACE — full path to the current user's workspace directory
+ *   - QINGCLAWS_TENANT_ID / QINGCLAWS_TENANT_USER_ID — multi-tenant identity
+ *   - QINGCLAWS_USER_WORKSPACE — full path to the current user's workspace directory
  *   - FEISHU_APP_ID / FEISHU_APP_SECRET — channel app credentials (concurrency-safe)
- *   - ENCLAWS_CHAT_ID — current chat id for auth card routing
+ *   - QINGCLAWS_CHAT_ID — current chat id for auth card routing
  */
 function buildExecExtraEnv(options?: {
   tenantId?: string;
@@ -193,15 +193,15 @@ function buildExecExtraEnv(options?: {
   const env: Record<string, string> = {};
 
   // Tenant identity
-  if (options?.tenantId) env.ENCLAWS_TENANT_ID = options.tenantId;
-  if (options?.tenantUserId) env.ENCLAWS_TENANT_USER_ID = options.tenantUserId;
+  if (options?.tenantId) env.QINGCLAWS_TENANT_ID = options.tenantId;
+  if (options?.tenantUserId) env.QINGCLAWS_TENANT_USER_ID = options.tenantUserId;
 
   // User workspace path — enables skill scripts to save files to the correct user directory
-  if (options?.workspaceDir) env.ENCLAWS_USER_WORKSPACE = options.workspaceDir;
+  if (options?.workspaceDir) env.QINGCLAWS_USER_WORKSPACE = options.workspaceDir;
 
   // Chat ID — extract from "chat:{chatId}" format in messageTo
   if (options?.messageTo?.startsWith("chat:")) {
-    env.ENCLAWS_CHAT_ID = options.messageTo.slice(5);
+    env.QINGCLAWS_CHAT_ID = options.messageTo.slice(5);
   }
 
   // Feishu app credentials — only for feishu provider, resolved from channel config
@@ -217,7 +217,7 @@ function buildExecExtraEnv(options?: {
       if (creds?.appId) env.FEISHU_APP_ID = creds.appId;
       if (creds?.appSecret) env.FEISHU_APP_SECRET = creds.appSecret;
     } catch {
-      // Non-fatal — skill scripts fall back to config.json / enclaws.json
+      // Non-fatal — skill scripts fall back to config.json / qingclaws.json
     }
   }
 
@@ -232,7 +232,7 @@ export const __testing = {
   assertRequiredParams,
 } as const;
 
-export function createOpenClawCodingTools(options?: {
+export function createQingClawsCodingTools(options?: {
   agentId?: string;
   exec?: ExecToolDefaults & ProcessToolDefaults;
   messageProvider?: string;
@@ -411,7 +411,7 @@ export function createOpenClawCodingTools(options?: {
         ];
       }
       const freshReadTool = createReadTool(workspaceRoot);
-      const wrapped = createOpenClawReadTool(freshReadTool, {
+      const wrapped = createQingClawsReadTool(freshReadTool, {
         modelContextWindowTokens: options?.modelContextWindowTokens,
         imageSanitization,
       });
@@ -519,7 +519,7 @@ export function createOpenClawCodingTools(options?: {
     processTool as unknown as AnyAgentTool,
     // Channel docking: include channel-defined agent tools (login, etc.).
     ...listChannelAgentTools({ cfg: options?.config }),
-    ...createOpenClawTools({
+    ...createQingClawsTools({
       sandboxBrowserBridgeUrl: sandbox?.browser?.bridgeUrl,
       allowHostBrowserControl: sandbox ? sandbox.browserAllowHostControl : true,
       agentSessionKey: options?.sessionKey,

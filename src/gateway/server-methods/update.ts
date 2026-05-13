@@ -1,6 +1,6 @@
 import { extractDeliveryInfo } from "../../config/sessions.js";
 import { resolveGatewayPort } from "../../config/paths.js";
-import { resolveOpenClawPackageRoot } from "../../infra/openclaw-root.js";
+import { resolveQingClawsPackageRoot } from "../../infra/qingclaws-root.js";
 import {
   formatDoctorNonInteractiveHint,
   type RestartSentinelPayload,
@@ -40,7 +40,7 @@ export const updateHandlers: GatewayRequestHandlers = {
 
     let storedTrack: string | null | undefined;
     const root =
-      (await resolveOpenClawPackageRoot({
+      (await resolveQingClawsPackageRoot({
         moduleUrl: import.meta.url,
         argv1: process.argv[1],
         cwd: process.cwd(),
@@ -59,7 +59,7 @@ export const updateHandlers: GatewayRequestHandlers = {
         5000,
       );
       if (globalManager) {
-        const packageName = (await readPackageName(root)) ?? "enclaws";
+        const packageName = (await readPackageName(root)) ?? "qingclaws";
         const track = storedTrack ?? "stable";
         const tag = trackToNpmTag(track as "stable" | "beta" | "dev");
         const spec = `${packageName}@${tag}`;

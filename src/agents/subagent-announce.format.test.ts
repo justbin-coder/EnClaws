@@ -146,19 +146,19 @@ describe("subagent announce formatting", () => {
 
   beforeAll(async () => {
     ({ runSubagentAnnounceFlow } = await import("./subagent-announce.js"));
-    previousFastTestEnv = process.env.ENCLAWS_TEST_FAST;
+    previousFastTestEnv = process.env.QINGCLAWS_TEST_FAST;
   });
 
   afterAll(() => {
     if (previousFastTestEnv === undefined) {
-      delete process.env.ENCLAWS_TEST_FAST;
+      delete process.env.QINGCLAWS_TEST_FAST;
       return;
     }
-    process.env.ENCLAWS_TEST_FAST = previousFastTestEnv;
+    process.env.QINGCLAWS_TEST_FAST = previousFastTestEnv;
   });
 
   beforeEach(() => {
-    vi.stubEnv("ENCLAWS_TEST_FAST", "1");
+    vi.stubEnv("QINGCLAWS_TEST_FAST", "1");
     agentSpy
       .mockClear()
       .mockImplementation(async (_req: AgentCallRequest) => ({ runId: "run-main", status: "ok" }));
@@ -221,7 +221,7 @@ describe("subagent announce formatting", () => {
     };
     const msg = call?.params?.message as string;
     expect(call?.params?.sessionKey).toBe("agent:main:main");
-    expect(msg).toContain("EnClaws runtime context (internal):");
+    expect(msg).toContain("QingClaws runtime context (internal):");
     expect(msg).toContain("[Internal task completion event]");
     expect(msg).toContain("session_id: child-session-123");
     expect(msg).toContain("subagent task");

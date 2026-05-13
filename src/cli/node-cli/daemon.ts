@@ -55,7 +55,7 @@ type NodeDaemonStatusOptions = {
 };
 
 function renderNodeServiceStartHints(): string[] {
-  const base = [formatCliCommand("enclaws node install"), formatCliCommand("enclaws node start")];
+  const base = [formatCliCommand("qingclaws node install"), formatCliCommand("qingclaws node start")];
   switch (process.platform) {
     case "darwin":
       return [
@@ -143,7 +143,7 @@ export async function runNodeDaemonInstall(opts: NodeDaemonInstallOptions) {
     });
     if (!json) {
       defaultRuntime.log(`Node service already ${service.loadedText}.`);
-      defaultRuntime.log(`Reinstall with: ${formatCliCommand("enclaws node install --force")}`);
+      defaultRuntime.log(`Reinstall with: ${formatCliCommand("qingclaws node install --force")}`);
     }
     return;
   }
@@ -284,7 +284,7 @@ export async function runNodeDaemonStatus(opts: NodeDaemonStatusOptions = {}) {
   };
   const hintEnv = {
     ...baseEnv,
-    ENCLAWS_LOG_PREFIX: baseEnv.ENCLAWS_LOG_PREFIX ?? "node",
+    QINGCLAWS_LOG_PREFIX: baseEnv.QINGCLAWS_LOG_PREFIX ?? "node",
   } as NodeJS.ProcessEnv;
 
   if (runtime?.missingUnit) {

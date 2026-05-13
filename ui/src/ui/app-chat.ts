@@ -2,7 +2,7 @@ import { parseAgentSessionKey } from "../../../src/sessions/session-key-utils.js
 import { scheduleChatScroll } from "./app-scroll.ts";
 import { setLastActiveSessionKey } from "./app-settings.ts";
 import { resetToolStream } from "./app-tool-stream.ts";
-import type { EnClawsApp } from "./app.ts";
+import type { QingClawsApp } from "./app.ts";
 import { abortChatRun, loadChatHistory, sendChatMessage } from "./controllers/chat.ts";
 import { loadSessions } from "./controllers/sessions.ts";
 import type { GatewayHelloOk } from "./gateway.ts";
@@ -66,7 +66,7 @@ export async function handleAbortChat(host: ChatHost) {
     return;
   }
   host.chatMessage = "";
-  await abortChatRun(host as unknown as EnClawsApp);
+  await abortChatRun(host as unknown as QingClawsApp);
 }
 
 function enqueueChatMessage(
@@ -112,7 +112,7 @@ async function sendChatMessageNow(
       s.sandboxTaskPlanSuppressed = false;
     }
   }
-  const runId = await sendChatMessage(host as unknown as EnClawsApp, message, opts?.attachments, {
+  const runId = await sendChatMessage(host as unknown as QingClawsApp, message, opts?.attachments, {
     webSearchEnabled: host.chatWebSearchEnabled,
   });
   const ok = Boolean(runId);
@@ -230,8 +230,8 @@ export async function handleSendChat(
 
 export async function refreshChat(host: ChatHost, opts?: { scheduleScroll?: boolean }) {
   await Promise.all([
-    loadChatHistory(host as unknown as EnClawsApp),
-    loadSessions(host as unknown as EnClawsApp, {
+    loadChatHistory(host as unknown as QingClawsApp),
+    loadSessions(host as unknown as QingClawsApp, {
       activeMinutes: CHAT_SESSIONS_ACTIVE_MINUTES,
     }),
     refreshChatAvatar(host),

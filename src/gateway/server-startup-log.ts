@@ -45,7 +45,7 @@ export function logGatewayStartup(params: {
     if (enabledDangerousFlags.length > 0) {
       const warning =
         `security warning: dangerous config flags enabled: ${enabledDangerousFlags.join(", ")}. ` +
-        "Run `enclaws security audit`.";
+        "Run `qingclaws security audit`.";
       params.log.warn(warning);
     }
   }

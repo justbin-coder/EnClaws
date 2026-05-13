@@ -7,7 +7,7 @@
  * 提供所有工具通用的模式，减少重复代码。
  */
 
-import type { ClawdbotConfig, OpenClawPluginApi } from 'openclaw/plugin-sdk';
+import type { ClawdbotConfig, QingClawsPluginApi } from 'openclaw/plugin-sdk';
 import type { Client as LarkSdkClient } from '@larksuiteoapi/node-sdk';
 import { getEnabledLarkAccounts, getLarkAccount } from '../core/accounts';
 import { LarkClient, getResolvedConfig } from '../core/lark-client';
@@ -76,14 +76,14 @@ export { getResolvedConfig } from '../core/lark-client';
  * 2. 如果没有 LarkTicket，回退到 accountIndex 指定的账号
  * 3. 返回创建好的客户端实例
  *
- * @param config - OpenClaw 配置对象
+ * @param config - QingClaws 配置对象
  * @param accountIndex - 使用第几个账号（默认 0，即第一个），仅在无 LarkTicket 时使用
  * @returns 飞书 SDK 客户端实例
  * @throws 如果没有启用的账号
  *
  * @example
  * ```typescript
- * export function registerMyTool(api: OpenClawPluginApi) {
+ * export function registerMyTool(api: QingClawsPluginApi) {
  *   const getClient = createClientGetter(api.config);
  *
  *   api.registerTool({
@@ -135,7 +135,7 @@ export function createClientGetter(config: ClawdbotConfig, accountIndex = 0): Cl
  *
  * 优先使用 LarkTicket 中的 accountId，回退到第一个启用的账号。
  *
- * @param config - OpenClaw 配置对象
+ * @param config - QingClaws 配置对象
  * @returns 解析后的账号信息
  * @throws 如果没有启用的账号
  *
@@ -175,14 +175,14 @@ export function getFirstAccount(config: ClawdbotConfig): LarkAccount {
  *
  * 这是推荐的模式，避免在每个工具中重复调用 createClientGetter 和 createToolLogger。
  *
- * @param api - OpenClaw 插件 API
+ * @param api - QingClaws 插件 API
  * @param toolName - 工具名称
  * @param options - 可选配置
  * @returns 工具上下文对象
  *
  * @example
  * ```typescript
- * export function registerMyTool(api: OpenClawPluginApi) {
+ * export function registerMyTool(api: QingClawsPluginApi) {
  *   if (!api.config) return;
  *
  *   const { toolClient, log } = createToolContext(api, "my_tool");
@@ -200,7 +200,7 @@ export function getFirstAccount(config: ClawdbotConfig): LarkAccount {
  * ```
  */
 export function createToolContext(
-  api: OpenClawPluginApi,
+  api: QingClawsPluginApi,
   toolName: string,
   options?: {
     /** 使用第几个账号（默认 0，即第一个） */
@@ -230,13 +230,13 @@ export function createToolContext(
  *
  * 在工具注册函数开头调用此函数，如果返回 `false` 则应该直接 return。
  *
- * @param api - OpenClaw Plugin API
+ * @param api - QingClaws Plugin API
  * @param toolName - 工具名称
  * @returns `true` 如果应该继续注册，`false` 如果应该跳过
  *
  * @example
  * ```typescript
- * export function registerMyTool(api: OpenClawPluginApi) {
+ * export function registerMyTool(api: QingClawsPluginApi) {
  *   if (!checkToolRegistration(api, 'feishu_my_tool')) {
  *     return;
  *   }
@@ -246,7 +246,7 @@ export function createToolContext(
  * }
  * ```
  */
-export function checkToolRegistration(api: OpenClawPluginApi, toolName: string): boolean {
+export function checkToolRegistration(api: QingClawsPluginApi, toolName: string): boolean {
   if (!api.config) return false;
 
   if (!shouldRegisterTool(api.config, toolName)) {
@@ -262,7 +262,7 @@ export function checkToolRegistration(api: OpenClawPluginApi, toolName: string):
  *
  * 用法：将 `api.registerTool(...)` 替换为 `registerTool(api, ...)`。
  *
- * @param api - OpenClaw Plugin API
+ * @param api - QingClaws Plugin API
  * @param tool - 工具配置对象或工具工厂函数
  * @param opts - 可选的工具注册选项
  *
@@ -276,9 +276,9 @@ export function checkToolRegistration(api: OpenClawPluginApi, toolName: string):
  * ```
  */
 export function registerTool(
-  api: OpenClawPluginApi,
-  tool: Parameters<OpenClawPluginApi['registerTool']>[0],
-  opts?: Parameters<OpenClawPluginApi['registerTool']>[1],
+  api: QingClawsPluginApi,
+  tool: Parameters<QingClawsPluginApi['registerTool']>[0],
+  opts?: Parameters<QingClawsPluginApi['registerTool']>[1],
 ): boolean {
   // 提取工具名称
   const toolName = typeof tool === 'function' ? tool.name : (tool as { name?: string }).name;
@@ -304,11 +304,11 @@ export function registerTool(
 // ---------------------------------------------------------------------------
 
 /**
- * 格式化工具返回值为 OpenClaw 期望的格式
+ * 格式化工具返回值为 QingClaws 期望的格式
  *
  * @param data - 要返回的数据（会被序列化为 JSON）
  * @param options - 可选配置
- * @returns OpenClaw 工具返回值格式
+ * @returns QingClaws 工具返回值格式
  *
  * @example
  * ```typescript
@@ -372,13 +372,13 @@ export function formatToolError(error: unknown, context?: Record<string, unknown
 /**
  * 创建带工具名前缀的日志函数
  *
- * @param api - OpenClaw 插件 API
+ * @param api - QingClaws 插件 API
  * @param toolName - 工具名称
  * @returns 日志函数对象
  *
  * @example
  * ```typescript
- * export function registerMyTool(api: OpenClawPluginApi) {
+ * export function registerMyTool(api: QingClawsPluginApi) {
  *   const log = createToolLogger(api, "my_tool");
  *
  *   log.info("Tool started");
@@ -388,7 +388,7 @@ export function formatToolError(error: unknown, context?: Record<string, unknown
  * }
  * ```
  */
-export function createToolLogger(api: OpenClawPluginApi, toolName: string): ToolLogger {
+export function createToolLogger(api: QingClawsPluginApi, toolName: string): ToolLogger {
   const prefix = `${toolName}:`;
 
   return {

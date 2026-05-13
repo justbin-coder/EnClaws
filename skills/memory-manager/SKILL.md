@@ -3,7 +3,7 @@ name: memory-manager
 description: 'Skill for implementing the 3-step Memory-First Protocol (Research, Response, Learning). Use when starting ANY task to understand past context, and MUST use when completing a task to save new conventions, architectural decisions, or learned user preferences to the memory/ directory.'
 metadata:
   {
-    "openclaw": { "emoji": "🧠", "requires": { "tools": ["memory_search", "memory_get", "write", "read"] } },
+    "qingclaws": { "emoji": "🧠", "requires": { "tools": ["memory_search", "memory_get", "write", "read"] } },
   }
 ---
 

@@ -1,0 +1,15 @@
+/* src/branding/tokens.css */
+/* QINGCLAWS-CUSTOM: brand — neutral color palette pending designer sign-off.
+   Replace values here when design system is finalized. */
+:root {
+  --brand-primary: #1a3a5c;
+  --brand-primary-light: #2a5a8c;
+  --brand-accent: #0ea5e9;
+  --brand-accent-dim: #0369a1;
+  --brand-bg: #f8fafc;
+  --brand-bg-dark: #0f172a;
+  --brand-text: #1e293b;
+  --brand-text-dark: #f1f5f9;
+  --brand-muted: #64748b;
+  --brand-border: #e2e8f0;
+}

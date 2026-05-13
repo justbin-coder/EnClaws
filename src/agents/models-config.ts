@@ -2,7 +2,7 @@ import fs from "node:fs/promises";
 import path from "node:path";
 import { type OpenClawConfig, loadConfig } from "../config/config.js";
 import { isRecord } from "../utils.js";
-import { resolveOpenClawAgentDir } from "./agent-paths.js";
+import { resolveQingClawsAgentDir } from "./agent-paths.js";
 import {
   normalizeProviders,
   type ProviderConfig,
@@ -110,15 +110,15 @@ async function readJson(pathname: string): Promise<unknown> {
   }
 }
 
-export async function ensureOpenClawModelsJson(
+export async function ensureQingClawsModelsJson(
   config?: OpenClawConfig,
   agentDirOverride?: string,
 ): Promise<{ agentDir: string; wrote: boolean }> {
   const cfg = config ?? loadConfig();
-  const agentDir = agentDirOverride?.trim() ? agentDirOverride.trim() : resolveOpenClawAgentDir();
+  const agentDir = agentDirOverride?.trim() ? agentDirOverride.trim() : resolveQingClawsAgentDir();
 
   // Skip models.json generation in multi-tenant mode (models come from DB)
-  if (process.env.ENCLAWS_DB_URL || process.env.ENCLAWS_DB_HOST) {
+  if (process.env.QINGCLAWS_DB_URL || process.env.QINGCLAWS_DB_HOST) {
     return { agentDir, wrote: false };
   }
 

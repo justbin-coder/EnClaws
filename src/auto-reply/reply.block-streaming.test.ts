@@ -52,7 +52,7 @@ function createReplyConfig(home: string, streamMode?: "block"): OpenClawConfig {
     agents: {
       defaults: {
         model: { primary: "anthropic/claude-opus-4-5" },
-        workspace: path.join(home, "enclaws"),
+        workspace: path.join(home, "qingclaws"),
       },
     },
     channels: { telegram: { allowFrom: ["*"], streamMode } },
@@ -80,15 +80,15 @@ async function runTelegramReply(params: {
 }
 
 async function withTempHome<T>(fn: (home: string) => Promise<T>): Promise<T> {
-  return withTempHomeHarness("enclaws-stream-", async (home) => {
-    await fs.mkdir(path.join(home, ".enclaws", "agents", "main", "sessions"), { recursive: true });
+  return withTempHomeHarness("qingclaws-stream-", async (home) => {
+    await fs.mkdir(path.join(home, ".qingclaws", "agents", "main", "sessions"), { recursive: true });
     return fn(home);
   });
 }
 
 describe("block streaming", () => {
   beforeEach(() => {
-    vi.stubEnv("ENCLAWS_TEST_FAST", "1");
+    vi.stubEnv("QINGCLAWS_TEST_FAST", "1");
     piEmbeddedMock.abortEmbeddedPiRun.mockClear().mockReturnValue(false);
     piEmbeddedMock.queueEmbeddedPiMessage.mockClear().mockReturnValue(false);
     piEmbeddedMock.isEmbeddedPiRunActive.mockClear().mockReturnValue(false);

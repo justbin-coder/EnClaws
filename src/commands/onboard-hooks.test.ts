@@ -54,7 +54,7 @@ describe("onboard-hooks", () => {
     eligible: boolean,
   ) => ({
     ...params,
-    source: "enclaws-bundled" as const,
+    source: "qingclaws-bundled" as const,
     pluginId: undefined,
     homepage: undefined,
     always: false,
@@ -81,7 +81,7 @@ describe("onboard-hooks", () => {
 
   const createMockHookReport = (eligible = true): HookStatusReport => ({
     workspaceDir: "/mock/workspace",
-    managedHooksDir: "/mock/.enclaws/hooks",
+    managedHooksDir: "/mock/.qingclaws/hooks",
     hooks: [
       createMockHook(
         {
@@ -230,7 +230,7 @@ describe("onboard-hooks", () => {
 
       // Second note should confirm configuration
       expect(noteCalls[1][0]).toContain("Enabled 1 hook: session-memory");
-      expect(noteCalls[1][0]).toMatch(/(?:enclaws|enclaws)( --profile isolated)? hooks list/);
+      expect(noteCalls[1][0]).toMatch(/(?:qingclaws|qingclaws)( --profile isolated)? hooks list/);
     });
   });
 });

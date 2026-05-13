@@ -23,16 +23,16 @@ describe("normalizeCompatibilityConfigValues", () => {
   };
 
   beforeEach(() => {
-    previousOauthDir = process.env.ENCLAWS_OAUTH_DIR;
-    tempOauthDir = fs.mkdtempSync(path.join(os.tmpdir(), "enclaws-oauth-"));
-    process.env.ENCLAWS_OAUTH_DIR = tempOauthDir;
+    previousOauthDir = process.env.QINGCLAWS_OAUTH_DIR;
+    tempOauthDir = fs.mkdtempSync(path.join(os.tmpdir(), "qingclaws-oauth-"));
+    process.env.QINGCLAWS_OAUTH_DIR = tempOauthDir;
   });
 
   afterEach(() => {
     if (previousOauthDir === undefined) {
-      delete process.env.ENCLAWS_OAUTH_DIR;
+      delete process.env.QINGCLAWS_OAUTH_DIR;
     } else {
-      process.env.ENCLAWS_OAUTH_DIR = previousOauthDir;
+      process.env.QINGCLAWS_OAUTH_DIR = previousOauthDir;
     }
     if (tempOauthDir) {
       fs.rmSync(tempOauthDir, { recursive: true, force: true });
@@ -87,7 +87,7 @@ describe("normalizeCompatibilityConfigValues", () => {
   });
 
   it("copies legacy ack reaction when authDir override exists", () => {
-    const customDir = fs.mkdtempSync(path.join(os.tmpdir(), "enclaws-wa-auth-"));
+    const customDir = fs.mkdtempSync(path.join(os.tmpdir(), "qingclaws-wa-auth-"));
     try {
       writeCreds(customDir);
 

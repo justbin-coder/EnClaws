@@ -133,7 +133,7 @@ export async function runNonInteractiveOnboardingLocal(params: {
 
   if (!opts.json) {
     runtime.log(
-      `Tip: run \`${formatCliCommand("enclaws configure --section web")}\` to store your Brave API key for web_search. Docs: https://docs.enclaws.ai/tools/web`,
+      `Tip: run \`${formatCliCommand("qingclaws configure --section web")}\` to store your Brave API key for web_search. Docs: https://docs.qingclaws.ai/tools/web`,
     );
   }
 }

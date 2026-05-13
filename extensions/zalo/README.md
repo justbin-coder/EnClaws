@@ -1,17 +1,17 @@
-# @openclaw/zalo
+# @qingclaws/zalo
 
-Zalo channel plugin for OpenClaw (Bot API).
+Zalo channel plugin for QingClaws (Bot API).
 
 ## Install (local checkout)
 
 ```bash
-openclaw plugins install ./extensions/zalo
+qingclaws plugins install ./extensions/zalo
 ```
 
 ## Install (npm)
 
 ```bash
-openclaw plugins install @openclaw/zalo
+qingclaws plugins install @qingclaws/zalo
 ```
 
 Onboarding: select Zalo and confirm the install prompt to fetch the plugin automatically.

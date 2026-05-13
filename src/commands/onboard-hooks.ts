@@ -15,7 +15,7 @@ export async function setupInternalHooks(
       "Hooks let you automate actions when agent commands are issued.",
       "Example: Save session context to memory when you issue /new or /reset.",
       "",
-      "Learn more: https://docs.enclaws.ai/automation/hooks",
+      "Learn more: https://docs.qingclaws.ai/automation/hooks",
     ].join("\n"),
     "Hooks",
   );
@@ -74,9 +74,9 @@ export async function setupInternalHooks(
       `Enabled ${selected.length} hook${selected.length > 1 ? "s" : ""}: ${selected.join(", ")}`,
       "",
       "You can manage hooks later with:",
-      `  ${formatCliCommand("enclaws hooks list")}`,
-      `  ${formatCliCommand("enclaws hooks enable <name>")}`,
-      `  ${formatCliCommand("enclaws hooks disable <name>")}`,
+      `  ${formatCliCommand("qingclaws hooks list")}`,
+      `  ${formatCliCommand("qingclaws hooks enable <name>")}`,
+      `  ${formatCliCommand("qingclaws hooks disable <name>")}`,
     ].join("\n"),
     "Hooks Configured",
   );

@@ -1,6 +1,6 @@
 # Deep Agents 闭环逻辑集成与架构更新说明
 
-本文档对 OpenClaw 项目中最新引入的 **Deep Agents 闭环协作与子代理任务分发系统**的整体逻辑、验证情况以及前端页面渲染包装进行了详细梳理和总结。
+本文档对 QingClaws 项目中最新引入的 **Deep Agents 闭环协作与子代理任务分发系统**的整体逻辑、验证情况以及前端页面渲染包装进行了详细梳理和总结。
 
 此架构全面对齐了 LangChain Deep Agents 的最佳实践，实现了由主代理制定计划、下发子任务、子任务自动完成状态同步、并在前端 UI 提供实时动画与进度可视化支持的完整闭环。
 
@@ -14,7 +14,7 @@
 2. **计划生成**：主代理（Manager）根据 `System Prompt` 中的 `Task Coordination` 指令，首先调用 `write_todos(action="create_plan")` 建立任务大纲（Todo List）。
 3. **子代理委派**：主代理针对每个子任务，通过 `sessions_spawn` 工具派发一个 Subagent，并将任务的 `taskId` 作为参数 `associatedTaskId` 传递给子代理。
 4. **状态自动更新**：子代理由于是被委派状态，其提示词让它在拿到结果后自动调用 `write_todos(action="update_todo", status="done")` 来向主任务板汇报进度。
-5. **实时感知注入**：网关的运行拦截器会在每次 LLM 调用前，异步读取存储在磁盘（`.openclaw/planner/`）的最新任务状态，并动态注入到当前会话的 System Prompt（`## Current Task Plan`）中，确保主代理和其他相关代理具备全局上下文意识。
+5. **实时感知注入**：网关的运行拦截器会在每次 LLM 调用前，异步读取存储在磁盘（`.qingclaws/planner/`）的最新任务状态，并动态注入到当前会话的 System Prompt（`## Current Task Plan`）中，确保主代理和其他相关代理具备全局上下文意识。
 6. **收尾汇总**：主代理观察到所有分配的子任务均为 `done` 时，调用 `write_todos(action="read_plan")` 或 `complete_plan` 进行封板，总结任务结果并回复给用户。
 
 ---

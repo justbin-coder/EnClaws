@@ -1,11 +1,11 @@
 
-> openclaw@2026.3.1 test
-> node scripts/test-parallel.mjs src/agents/pi-tools.create-openclaw-coding-tools.adds-claude-style-aliases-schemas-without-dropping.test.ts
+> qingclaws@2026.3.1 test
+> node scripts/test-parallel.mjs src/agents/pi-tools.create-qingclaws-coding-tools.adds-claude-style-aliases-schemas-without-dropping.test.ts
 
 
-[1m[46m RUN [49m[22m [36mv4.0.18 [39m[90m/Users/opnclaw/Documents/GitHub/openclawWeComzh[39m
+[1m[46m RUN [49m[22m [36mv4.0.18 [39m[90m/Users/opnclaw/Documents/GitHub/qingclawsWeComzh[39m
 
-[90mstdout[2m | src/agents/pi-tools.create-openclaw-coding-tools.adds-claude-style-aliases-schemas-without-dropping.test.ts[2m > [22m[2mcreateOpenClawCodingTools[2m > [22m[2mavoids anyOf/oneOf/allOf in tool schemas
+[90mstdout[2m | src/agents/pi-tools.create-qingclaws-coding-tools.adds-claude-style-aliases-schemas-without-dropping.test.ts[2m > [22m[2mcreateQingClawsCodingTools[2m > [22m[2mavoids anyOf/oneOf/allOf in tool schemas
 [22m[39mREAD SCHEMA: {
   "type": "object",
   "required": [
@@ -31,7 +31,7 @@
   }
 }
 
- [31m❯[39m src/agents/pi-tools.create-openclaw-coding-tools.adds-claude-style-aliases-schemas-without-dropping.test.ts [2m([22m[2m25 tests[22m[2m | [22m[31m1 failed[39m[2m)[22m[32m 34[2mms[22m[39m
+ [31m❯[39m src/agents/pi-tools.create-qingclaws-coding-tools.adds-claude-style-aliases-schemas-without-dropping.test.ts [2m([22m[2m25 tests[22m[2m | [22m[31m1 failed[39m[2m)[22m[32m 34[2mms[22m[39m
        [32m✓[39m adds Claude-style aliases to schemas without dropping metadata[32m 2[2mms[22m[39m
        [32m✓[39m normalizes file_path to path and enforces required groups at runtime[32m 2[2mms[22m[39m
      [32m✓[39m keeps browser tool schema OpenAI-compatible without normalization[32m 0[2mms[22m[39m
@@ -60,7 +60,7 @@
 
 [31m⎯⎯⎯⎯⎯⎯⎯[39m[1m[41m Failed Tests 1 [49m[22m[31m⎯⎯⎯⎯⎯⎯⎯[39m
 
-[41m[1m FAIL [22m[49m src/agents/pi-tools.create-openclaw-coding-tools.adds-claude-style-aliases-schemas-without-dropping.test.ts[2m > [22mcreateOpenClawCodingTools[2m > [22mavoids anyOf/oneOf/allOf in tool schemas
+[41m[1m FAIL [22m[49m src/agents/pi-tools.create-qingclaws-coding-tools.adds-claude-style-aliases-schemas-without-dropping.test.ts[2m > [22mcreateQingClawsCodingTools[2m > [22mavoids anyOf/oneOf/allOf in tool schemas
 [31m[1mAssertionError[22m: expected [ { name: 'write_todos', …(2) }, …(2) ] to deeply equal [][39m
 
 [32m- Expected[39m
@@ -85,7 +85,7 @@
 [31m+   },[39m
 [31m+ ][39m
 
-[36m [2m❯[22m src/agents/pi-tools.create-openclaw-coding-tools.adds-claude-style-aliases-schemas-without-dropping.test.ts:[2m294:53[22m[39m
+[36m [2m❯[22m src/agents/pi-tools.create-qingclaws-coding-tools.adds-claude-style-aliases-schemas-without-dropping.test.ts:[2m294:53[22m[39m
     [90m292| [39m    const readSchema = defaultTools.find(t => t.name === 'read')?.para…
     [90m293| [39m    console[33m.[39m[34mlog[39m([32m"READ SCHEMA:"[39m[33m,[39m [33mJSON[39m[33m.[39m[34mstringify[39m(readSchema[33m,[39m [35mnull[39m[33m,[39m [34m2[39m))[33m;[39m
     [90m294| [39m    [34mexpect[39m([34mfindUnionKeywordOffenders[39m(defaultTools))[33m.[39m[34mtoEqual[39m([])[33m;[39m

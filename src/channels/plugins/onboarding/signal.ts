@@ -229,9 +229,9 @@ export const signalOnboardingAdapter: ChannelOnboardingAdapter = {
 
     await prompter.note(
       [
-        'Link device with: signal-cli link -n "EnClaws"',
+        'Link device with: signal-cli link -n "QingClaws"',
         "Scan QR in Signal → Linked Devices",
-        `Then run: ${formatCliCommand("enclaws gateway call channels.status --params '{\"probe\":true}'")}`,
+        `Then run: ${formatCliCommand("qingclaws gateway call channels.status --params '{\"probe\":true}'")}`,
         `Docs: ${formatDocsLink("/signal", "signal")}`,
       ].join("\n"),
       "Signal next steps",

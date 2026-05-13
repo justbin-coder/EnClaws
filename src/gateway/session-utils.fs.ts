@@ -104,7 +104,7 @@ export function readSessionMessages(
           role: "system",
           content: [{ type: "text", text: "Compaction" }],
           timestamp,
-          __enclaws: {
+          __qingclaws: {
             kind: "compaction",
             id: typeof parsed.id === "string" ? parsed.id : undefined,
           },
@@ -156,7 +156,7 @@ export function resolveSessionTranscriptCandidates(
   }
 
   const home = resolveRequiredHomeDir(process.env, os.homedir);
-  const legacyDir = path.join(home, ".enclaws", "sessions");
+  const legacyDir = path.join(home, ".qingclaws", "sessions");
   pushCandidate(() => resolveSessionTranscriptPathInDir(sessionId, legacyDir));
 
   return Array.from(new Set(candidates));

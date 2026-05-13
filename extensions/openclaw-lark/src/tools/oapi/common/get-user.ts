@@ -9,7 +9,7 @@
  * 2. 传 user_id: 获取指定用户的信息 (sdk.contact.v3.user.get)
  */
 
-import type { OpenClawPluginApi } from 'openclaw/plugin-sdk';
+import type { QingClawsPluginApi } from 'openclaw/plugin-sdk';
 import { Type } from '@sinclair/typebox';
 import { StringEnum, assertLarkOk, createToolContext, handleInvokeErrorWithAutoAuth, json, registerTool } from '../helpers';
 
@@ -39,7 +39,7 @@ interface GetUserParams {
 // Registration
 // ---------------------------------------------------------------------------
 
-export function registerGetUserTool(api: OpenClawPluginApi): void {
+export function registerGetUserTool(api: QingClawsPluginApi): void {
   if (!api.config) return;
   const cfg = api.config;
 

@@ -101,7 +101,7 @@ export async function updateStatusCommand(opts: UpdateStatusOptions): Promise<vo
     },
   ];
 
-  defaultRuntime.log(theme.heading("EnClaws update status"));
+  defaultRuntime.log(theme.heading("QingClaws update status"));
   defaultRuntime.log("");
   defaultRuntime.log(
     renderTable({

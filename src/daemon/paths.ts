@@ -31,12 +31,12 @@ export function resolveUserPathWithHome(input: string, home?: string): string {
 }
 
 export function resolveGatewayStateDir(env: Record<string, string | undefined>): string {
-  const override = env.ENCLAWS_STATE_DIR?.trim();
+  const override = env.QINGCLAWS_STATE_DIR?.trim();
   if (override) {
     const home = override.startsWith("~") ? resolveHomeDir(env) : undefined;
     return resolveUserPathWithHome(override, home);
   }
   const home = resolveHomeDir(env);
-  const suffix = resolveGatewayProfileSuffix(env.ENCLAWS_PROFILE);
-  return path.join(home, `.enclaws${suffix}`);
+  const suffix = resolveGatewayProfileSuffix(env.QINGCLAWS_PROFILE);
+  return path.join(home, `.qingclaws${suffix}`);
 }

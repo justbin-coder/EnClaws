@@ -10,7 +10,7 @@ import { resolveUserPath } from "../utils.js";
 
 /**
  * Check whether memory search has a usable embedding provider.
- * Runs as part of `enclaws doctor` — config-only, no network calls.
+ * Runs as part of `qingclaws doctor` — config-only, no network calls.
  */
 export async function noteMemorySearchHealth(
   cfg: OpenClawConfig,
@@ -51,9 +51,9 @@ export async function noteMemorySearchHealth(
           "",
           "Fix (pick one):",
           `- Install node-llama-cpp and set a local model path in config`,
-          `- Switch to a remote provider: ${formatCliCommand("enclaws config set agents.defaults.memorySearch.provider openai")}`,
+          `- Switch to a remote provider: ${formatCliCommand("qingclaws config set agents.defaults.memorySearch.provider openai")}`,
           "",
-          `Verify: ${formatCliCommand("enclaws memory status --deep")}`,
+          `Verify: ${formatCliCommand("qingclaws memory status --deep")}`,
         ].join("\n"),
         "Memory search",
       );
@@ -68,7 +68,7 @@ export async function noteMemorySearchHealth(
         [
           `Memory search provider is set to "${resolved.provider}" but the API key was not found in the CLI environment.`,
           "The running gateway reports memory embeddings are ready for the default agent.",
-          `Verify: ${formatCliCommand("enclaws memory status --deep")}`,
+          `Verify: ${formatCliCommand("qingclaws memory status --deep")}`,
         ].join("\n"),
         "Memory search",
       );
@@ -84,10 +84,10 @@ export async function noteMemorySearchHealth(
         "",
         "Fix (pick one):",
         `- Set ${envVar} in your environment`,
-        `- Configure credentials: ${formatCliCommand("enclaws configure --section model")}`,
-        `- To disable: ${formatCliCommand("enclaws config set agents.defaults.memorySearch.enabled false")}`,
+        `- Configure credentials: ${formatCliCommand("qingclaws configure --section model")}`,
+        `- To disable: ${formatCliCommand("qingclaws config set agents.defaults.memorySearch.enabled false")}`,
         "",
-        `Verify: ${formatCliCommand("enclaws memory status --deep")}`,
+        `Verify: ${formatCliCommand("qingclaws memory status --deep")}`,
       ].join("\n"),
       "Memory search",
     );
@@ -109,7 +109,7 @@ export async function noteMemorySearchHealth(
       [
         'Memory search provider is set to "auto" but the API key was not found in the CLI environment.',
         "The running gateway reports memory embeddings are ready for the default agent.",
-        `Verify: ${formatCliCommand("enclaws memory status --deep")}`,
+        `Verify: ${formatCliCommand("qingclaws memory status --deep")}`,
       ].join("\n"),
       "Memory search",
     );
@@ -125,11 +125,11 @@ export async function noteMemorySearchHealth(
       "",
       "Fix (pick one):",
       "- Set OPENAI_API_KEY, GEMINI_API_KEY, VOYAGE_API_KEY, or MISTRAL_API_KEY in your environment",
-      `- Configure credentials: ${formatCliCommand("enclaws configure --section model")}`,
+      `- Configure credentials: ${formatCliCommand("qingclaws configure --section model")}`,
       `- For local embeddings: configure agents.defaults.memorySearch.provider and local model path`,
-      `- To disable: ${formatCliCommand("enclaws config set agents.defaults.memorySearch.enabled false")}`,
+      `- To disable: ${formatCliCommand("qingclaws config set agents.defaults.memorySearch.enabled false")}`,
       "",
-      `Verify: ${formatCliCommand("enclaws memory status --deep")}`,
+      `Verify: ${formatCliCommand("qingclaws memory status --deep")}`,
     ].join("\n"),
     "Memory search",
   );

@@ -1,6 +1,6 @@
 # Architecture Deep Dive
 
-A comprehensive look at EnClaws internals — how messages flow, how tenants are isolated, and how the agent runtime executes tasks.
+A comprehensive look at QingClaws internals — how messages flow, how tenants are isolated, and how the agent runtime executes tasks.
 
 ---
 
@@ -124,7 +124,7 @@ A complete request lifecycle from user message to bot reply:
 
 ### Tenant Isolation Model
 
-Every piece of data in EnClaws is scoped to a tenant:
+Every piece of data in QingClaws is scoped to a tenant:
 
 ```
 Tenant (company/team/department)
@@ -144,7 +144,7 @@ Tenant (company/team/department)
 ### File System Isolation
 
 ```
-~/.enclaws/tenants/{tenantId}/
+~/.qingclaws/tenants/{tenantId}/
 ├── SOUL.md                          # Tenant-level personality
 ├── TOOLS.md                         # Tenant-level tool config
 ├── MEMORY.md                        # Tenant-level memory
@@ -478,4 +478,4 @@ Plugin Active (hooks registered, ready to process)
 | `src/acp/` | Concurrent execution engine |
 | `src/auth/` | JWT + RBAC implementation |
 | `src/cron/` | Scheduled task engine |
-| `extensions/openclaw-lark/` | Feishu integration plugin |
+| `extensions/qingclaws-lark/` | Feishu integration plugin |

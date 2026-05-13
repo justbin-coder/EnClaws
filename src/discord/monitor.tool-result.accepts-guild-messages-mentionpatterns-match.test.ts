@@ -123,10 +123,10 @@ function createDefaultThreadConfig(): LoadedConfig {
     agents: {
       defaults: {
         model: "anthropic/claude-opus-4-5",
-        workspace: "/tmp/enclaws",
+        workspace: "/tmp/qingclaws",
       },
     },
-    session: { store: "/tmp/enclaws-sessions.json" },
+    session: { store: "/tmp/qingclaws-sessions.json" },
     messages: { responsePrefix: "PFX" },
     channels: {
       discord: {
@@ -147,10 +147,10 @@ function createMentionRequiredGuildConfig(
     agents: {
       defaults: {
         model: "anthropic/claude-opus-4-5",
-        workspace: "/tmp/enclaws",
+        workspace: "/tmp/qingclaws",
       },
     },
-    session: { store: "/tmp/enclaws-sessions.json" },
+    session: { store: "/tmp/qingclaws-sessions.json" },
     channels: {
       discord: {
         dm: { enabled: true, policy: "open" },
@@ -274,7 +274,7 @@ describe("discord tool result dispatch", () => {
       const cfg = createMentionRequiredGuildConfig({
         messages: {
           responsePrefix: "PFX",
-          groupChat: { mentionPatterns: ["\.enclaws\\b"] },
+          groupChat: { mentionPatterns: ["\.qingclaws\\b"] },
         },
       });
 
@@ -282,7 +282,7 @@ describe("discord tool result dispatch", () => {
       const client = createGuildTextClient();
 
       await handler(
-        createGuildMessageEvent({ messageId: "m2", content: "enclaws: hello" }),
+        createGuildMessageEvent({ messageId: "m2", content: "qingclaws: hello" }),
         client,
       );
 
@@ -301,10 +301,10 @@ describe("discord tool result dispatch", () => {
           defaults: {
             model: "anthropic/claude-opus-4-5",
             humanDelay: { mode: "off" },
-            workspace: "/tmp/enclaws",
+            workspace: "/tmp/qingclaws",
           },
         },
-        session: { store: "/tmp/enclaws-sessions.json" },
+        session: { store: "/tmp/qingclaws-sessions.json" },
         channels: {
           discord: { dm: { enabled: true, policy: "open" } },
         },
@@ -368,7 +368,7 @@ describe("discord tool result dispatch", () => {
             mentionedEveryone: false,
             mentionedUsers: [],
             mentionedRoles: [],
-            author: { id: "bot-id", bot: true, username: "EnClaws" },
+            author: { id: "bot-id", bot: true, username: "QingClaws" },
           },
         },
         eventPatch: {
@@ -449,8 +449,8 @@ describe("discord tool result dispatch", () => {
     }>();
 
     const cfg = {
-      agent: { model: "anthropic/claude-opus-4-5", workspace: "/tmp/enclaws" },
-      session: { store: "/tmp/enclaws-sessions.json" },
+      agent: { model: "anthropic/claude-opus-4-5", workspace: "/tmp/qingclaws" },
+      session: { store: "/tmp/qingclaws-sessions.json" },
       channels: {
         discord: {
           dm: { enabled: true, policy: "open" },

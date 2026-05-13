@@ -13,17 +13,17 @@ vi.mock("../terminal/note.js", () => ({
 
 type EnvSnapshot = {
   HOME?: string;
-  ENCLAWS_HOME?: string;
-  ENCLAWS_STATE_DIR?: string;
-  ENCLAWS_OAUTH_DIR?: string;
+  QINGCLAWS_HOME?: string;
+  QINGCLAWS_STATE_DIR?: string;
+  QINGCLAWS_OAUTH_DIR?: string;
 };
 
 function captureEnv(): EnvSnapshot {
   return {
     HOME: process.env.HOME,
-    ENCLAWS_HOME: process.env.ENCLAWS_HOME,
-    ENCLAWS_STATE_DIR: process.env.ENCLAWS_STATE_DIR,
-    ENCLAWS_OAUTH_DIR: process.env.ENCLAWS_OAUTH_DIR,
+    QINGCLAWS_HOME: process.env.QINGCLAWS_HOME,
+    QINGCLAWS_STATE_DIR: process.env.QINGCLAWS_STATE_DIR,
+    QINGCLAWS_OAUTH_DIR: process.env.QINGCLAWS_OAUTH_DIR,
   };
 }
 
@@ -71,12 +71,12 @@ describe("doctor state integrity oauth dir checks", () => {
 
   beforeEach(() => {
     envSnapshot = captureEnv();
-    tempHome = fs.mkdtempSync(path.join(os.tmpdir(), "enclaws-doctor-state-integrity-"));
+    tempHome = fs.mkdtempSync(path.join(os.tmpdir(), "qingclaws-doctor-state-integrity-"));
     process.env.HOME = tempHome;
-    process.env.ENCLAWS_HOME = tempHome;
-    process.env.ENCLAWS_STATE_DIR = path.join(tempHome, ".enclaws");
-    delete process.env.ENCLAWS_OAUTH_DIR;
-    fs.mkdirSync(process.env.ENCLAWS_STATE_DIR, { recursive: true, mode: 0o700 });
+    process.env.QINGCLAWS_HOME = tempHome;
+    process.env.QINGCLAWS_STATE_DIR = path.join(tempHome, ".qingclaws");
+    delete process.env.QINGCLAWS_OAUTH_DIR;
+    fs.mkdirSync(process.env.QINGCLAWS_STATE_DIR, { recursive: true, mode: 0o700 });
     vi.mocked(note).mockClear();
   });
 
@@ -117,8 +117,8 @@ describe("doctor state integrity oauth dir checks", () => {
     expect(confirmSkipInNonInteractive).toHaveBeenCalledWith(OAUTH_PROMPT_MATCHER);
   });
 
-  it("prompts for oauth dir when ENCLAWS_OAUTH_DIR is explicitly configured", async () => {
-    process.env.ENCLAWS_OAUTH_DIR = path.join(tempHome, ".oauth");
+  it("prompts for oauth dir when QINGCLAWS_OAUTH_DIR is explicitly configured", async () => {
+    process.env.QINGCLAWS_OAUTH_DIR = path.join(tempHome, ".oauth");
     const cfg: OpenClawConfig = {};
     const confirmSkipInNonInteractive = await runStateIntegrity(cfg);
     expect(confirmSkipInNonInteractive).toHaveBeenCalledWith(OAUTH_PROMPT_MATCHER);
@@ -144,7 +144,7 @@ describe("doctor state integrity oauth dir checks", () => {
     expect(files.some((name) => name.startsWith("orphan-session.jsonl.deleted."))).toBe(true);
   });
 
-  it("prints enclaws-only verification hints when recent sessions are missing transcripts", async () => {
+  it("prints qingclaws-only verification hints when recent sessions are missing transcripts", async () => {
     const cfg: OpenClawConfig = {};
     setupSessionState(cfg, process.env, process.env.HOME ?? "");
     const storePath = resolveStorePath(cfg.session?.store, { agentId: "main" });
@@ -166,10 +166,10 @@ describe("doctor state integrity oauth dir checks", () => {
 
     const text = stateIntegrityText();
     expect(text).toContain("recent sessions are missing transcripts");
-    expect(text).toMatch(/enclaws sessions --store ".*sessions\.json"/);
-    expect(text).toMatch(/enclaws sessions cleanup --store ".*sessions\.json" --dry-run/);
+    expect(text).toMatch(/qingclaws sessions --store ".*sessions\.json"/);
+    expect(text).toMatch(/qingclaws sessions cleanup --store ".*sessions\.json" --dry-run/);
     expect(text).toMatch(
-      /enclaws sessions cleanup --store ".*sessions\.json" --enforce --fix-missing/,
+      /qingclaws sessions cleanup --store ".*sessions\.json" --enforce --fix-missing/,
     );
     expect(text).not.toContain("--active");
     expect(text).not.toContain(" ls ");

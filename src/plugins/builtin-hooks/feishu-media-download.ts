@@ -1,9 +1,9 @@
 /**
  * Built-in after_tool_call hook: redirect Feishu media downloads
- * from /tmp/enclaws/ to the user's workspace download/ directory.
+ * from /tmp/qingclaws/ to the user's workspace download/ directory.
  *
  * Registered as an internal typed hook so it runs alongside plugin hooks
- * without modifying the official openclaw-lark plugin.
+ * without modifying the official qingclaws-lark plugin.
  */
 import * as fs from "node:fs/promises";
 import * as path from "node:path";
@@ -33,7 +33,7 @@ export function registerFeishuMediaDownloadHook(registry: PluginRegistry): void 
       const savedPath = result.saved_path as string | undefined;
       if (!savedPath || typeof savedPath !== "string") return;
 
-      const workspace = process.env.ENCLAWS_USER_WORKSPACE || process.cwd();
+      const workspace = process.env.QINGCLAWS_USER_WORKSPACE || process.cwd();
       const downloadDir = path.join(workspace, "download");
 
       try {

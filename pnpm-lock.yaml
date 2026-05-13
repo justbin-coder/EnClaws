@@ -5,7 +5,7 @@ settings:
   excludeLinksFromLockfile: false
 
 overrides:
-  openclaw: workspace:enclaws@*
+  qingclaws: workspace:qingclaws@*
   hono: 4.11.10
   fast-xml-parser: 5.3.6
   request: npm:@cypress/request@3.0.10
@@ -362,8 +362,8 @@ importers:
       google-auth-library:
         specifier: ^10.6.1
         version: 10.6.2
-      openclaw:
-        specifier: workspace:enclaws@*
+      qingclaws:
+        specifier: workspace:qingclaws@*
         version: link:../..
 
   extensions/imessage: {}
@@ -398,8 +398,8 @@ importers:
 
   extensions/memory-core:
     dependencies:
-      openclaw:
-        specifier: workspace:enclaws@*
+      qingclaws:
+        specifier: workspace:qingclaws@*
         version: link:../..
 
   extensions/memory-lancedb:
@@ -438,7 +438,7 @@ importers:
 
   extensions/open-prose: {}
 
-  extensions/openclaw-lark:
+  extensions/qingclaws-lark:
     dependencies:
       '@larksuiteoapi/node-sdk':
         specifier: ^1.60.0
@@ -483,8 +483,8 @@ importers:
       minimist:
         specifier: ^1.2.8
         version: 1.2.8
-      openclaw:
-        specifier: workspace:enclaws@*
+      qingclaws:
+        specifier: workspace:qingclaws@*
         version: link:../..
       prettier:
         specifier: ^3.8.1
@@ -563,13 +563,13 @@ importers:
 
   packages/clawdbot:
     dependencies:
-      enclaws:
+      qingclaws:
         specifier: workspace:*
         version: link:../..
 
   packages/moltbot:
     dependencies:
-      enclaws:
+      qingclaws:
         specifier: workspace:*
         version: link:../..
 

@@ -519,7 +519,7 @@ export function renderUsage(props: UsageProps) {
                   class="usage-export-item"
                   @click=${() =>
                     downloadTextFile(
-                      `enclaws-usage-sessions-${exportStamp}.csv`,
+                      `qingclaws-usage-sessions-${exportStamp}.csv`,
                       buildSessionsCsv(filteredSessions),
                       "text/csv",
                     )}
@@ -531,7 +531,7 @@ export function renderUsage(props: UsageProps) {
                   class="usage-export-item"
                   @click=${() =>
                     downloadTextFile(
-                      `enclaws-usage-daily-${exportStamp}.csv`,
+                      `qingclaws-usage-daily-${exportStamp}.csv`,
                       buildDailyCsv(filteredDaily),
                       "text/csv",
                     )}
@@ -543,7 +543,7 @@ export function renderUsage(props: UsageProps) {
                   class="usage-export-item"
                   @click=${() =>
                     downloadTextFile(
-                      `enclaws-usage-${exportStamp}.json`,
+                      `qingclaws-usage-${exportStamp}.json`,
                       JSON.stringify(
                         {
                           totals: displayTotals,

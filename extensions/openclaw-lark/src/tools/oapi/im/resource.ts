@@ -12,7 +12,7 @@
 
 import * as fs from 'node:fs/promises';
 import * as path from 'node:path';
-import type { OpenClawPluginApi } from 'openclaw/plugin-sdk';
+import type { QingClawsPluginApi } from 'openclaw/plugin-sdk';
 import { buildRandomTempFilePath } from 'openclaw/plugin-sdk/temp-path';
 import { Type } from '@sinclair/typebox';
 import { StringEnum, createToolContext, handleInvokeErrorWithAutoAuth, json, registerTool } from '../helpers';
@@ -87,7 +87,7 @@ interface FetchResourceParams {
 // Registration
 // ---------------------------------------------------------------------------
 
-export function registerFeishuImUserFetchResourceTool(api: OpenClawPluginApi): boolean {
+export function registerFeishuImUserFetchResourceTool(api: QingClawsPluginApi): boolean {
   if (!api.config) return false;
   const cfg = api.config;
 
@@ -108,7 +108,7 @@ export function registerFeishuImUserFetchResourceTool(api: OpenClawPluginApi): b
         '\n- message_id：消息 ID（om_xxx），从消息事件或消息列表中获取' +
         '\n- file_key：资源 Key，从消息体中获取。图片用 image_key（img_xxx），文件用 file_key（file_xxx）' +
         '\n- type：图片用 image，文件/音频/视频用 file' +
-        '\n\n文件自动保存到 /tmp/openclaw/ 下，返回值中的 saved_path 为实际保存路径。' +
+        '\n\n文件自动保存到 /tmp/qingclaws/ 下，返回值中的 saved_path 为实际保存路径。' +
         '\n限制：文件大小不超过 100MB。不支持下载表情包、合并转发消息、卡片中的资源。',
       parameters: FetchResourceSchema,
       async execute(_toolCallId: string, params: unknown) {

@@ -212,14 +212,14 @@ function auditGatewayToken(
   if (!expectedToken) {
     return;
   }
-  const serviceToken = command?.environment?.ENCLAWS_GATEWAY_TOKEN?.trim();
+  const serviceToken = command?.environment?.QINGCLAWS_GATEWAY_TOKEN?.trim();
   if (serviceToken === expectedToken) {
     return;
   }
   issues.push({
     code: SERVICE_AUDIT_CODES.gatewayTokenMismatch,
     message:
-      "Gateway service ENCLAWS_GATEWAY_TOKEN does not match gateway.auth.token in enclaws.json",
+      "Gateway service QINGCLAWS_GATEWAY_TOKEN does not match gateway.auth.token in qingclaws.json",
     detail: serviceToken ? "service token is stale" : "service token is missing",
     level: "recommended",
   });
@@ -373,7 +373,7 @@ export function checkTokenDrift(params: {
       code: SERVICE_AUDIT_CODES.gatewayTokenDrift,
       message:
         "Config token differs from service token. The daemon will use the old token after restart.",
-      detail: "Run `enclaws gateway install --force` to sync the token.",
+      detail: "Run `qingclaws gateway install --force` to sync the token.",
       level: "recommended",
     };
   }

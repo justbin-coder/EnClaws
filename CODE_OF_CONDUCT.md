@@ -2,7 +2,7 @@
 
 # Code of Conduct
 
-The EnClaws community aims to be a professional, measured, fact-respecting, and collaboration-friendly place.
+The QingClaws community aims to be a professional, measured, fact-respecting, and collaboration-friendly place.
 We discuss systems, but we deal with people.
 
 ## 1. Our Commitment
@@ -35,7 +35,7 @@ This Code of Conduct applies to:
 
 - GitHub Issues, Pull Requests, and Discussions
 - Repository-related documentation, comments, and review records
-- Public interactions where maintainers represent EnClaws
+- Public interactions where maintainers represent QingClaws
 - Other online or offline spaces clearly designated as project community spaces
 
 ## 5. Enforcement

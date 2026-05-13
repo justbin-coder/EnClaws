@@ -25,7 +25,7 @@ async function writeInstallableSkill(workspaceDir: string, name: string): Promis
     `---
 name: ${name}
 description: test skill
-metadata: {"enclaws":{"install":[{"id":"deps","kind":"node","package":"example-package"}]}}
+metadata: {"qingclaws":{"install":[{"id":"deps","kind":"node","package":"example-package"}]}}
 ---
 
 # ${name}

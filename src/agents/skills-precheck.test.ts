@@ -20,14 +20,14 @@ function makeEntry(name: string, baseDir: string): SkillEntry {
 
 describe("resolveSkillNameFromPath", () => {
   const entries: SkillEntry[] = [
-    makeEntry("github", "/home/user/.enclaws/skills/github"),
+    makeEntry("github", "/home/user/.qingclaws/skills/github"),
     makeEntry("create-doc", "/workspace/skills/feishu/create-doc"),
     makeEntry("tenant-skill", "/data/tenants/t1/skills/my-skill"),
   ];
 
   it("从 managed 技能路径解析技能名", () => {
     const result = resolveSkillNameFromPath(
-      "/home/user/.enclaws/skills/github/SKILL.md",
+      "/home/user/.qingclaws/skills/github/SKILL.md",
       entries,
     );
     expect(result).toBe("github");
@@ -51,7 +51,7 @@ describe("resolveSkillNameFromPath", () => {
 
   it("非 SKILL.md 路径返回 null", () => {
     const result = resolveSkillNameFromPath(
-      "/home/user/.enclaws/skills/github/README.md",
+      "/home/user/.qingclaws/skills/github/README.md",
       entries,
     );
     expect(result).toBeNull();

@@ -17,7 +17,7 @@ function makeSnapshot() {
     valid: true,
     issues: [],
     legacyIssues: [],
-    path: "/tmp/enclaws.json",
+    path: "/tmp/qingclaws.json",
   };
 }
 

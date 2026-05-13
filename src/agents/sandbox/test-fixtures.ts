@@ -7,8 +7,8 @@ export function createSandboxTestContext(params?: {
   const overrides = params?.overrides ?? {};
   const { docker: _unusedDockerOverrides, ...sandboxOverrides } = overrides;
   const docker = {
-    image: "enclaws-sandbox:bookworm-slim",
-    containerPrefix: "enclaws-sbx-",
+    image: "qingclaws-sandbox:bookworm-slim",
+    containerPrefix: "qingclaws-sbx-",
     network: "none",
     user: "1000:1000",
     workdir: "/workspace",
@@ -32,7 +32,7 @@ export function createSandboxTestContext(params?: {
     workspaceDir: "/tmp/workspace",
     agentWorkspaceDir: "/tmp/workspace",
     workspaceAccess: "rw",
-    containerName: "enclaws-sbx-test",
+    containerName: "qingclaws-sbx-test",
     containerWorkdir: "/workspace",
     tools: { allow: ["*"], deny: [] },
     browserAllowHostControl: false,

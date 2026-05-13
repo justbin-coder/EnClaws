@@ -1,4 +1,4 @@
-import type { OpenClawConfig, OpenClawPluginApi } from "openclaw/plugin-sdk";
+import type { OpenClawConfig, QingClawsPluginApi } from "openclaw/plugin-sdk";
 
 type ThreadOwnershipConfig = {
   forwarderUrl?: string;
@@ -39,7 +39,7 @@ function resolveOwnershipAgent(config: OpenClawConfig): { id: string; name: stri
   return { id, name };
 }
 
-export default function register(api: OpenClawPluginApi) {
+export default function register(api: QingClawsPluginApi) {
   const pluginCfg = (api.pluginConfig ?? {}) as ThreadOwnershipConfig;
   const forwarderUrl = (
     pluginCfg.forwarderUrl ??

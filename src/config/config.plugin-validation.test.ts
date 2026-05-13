@@ -24,14 +24,14 @@ async function writePluginFixture(params: {
     manifest.channels = params.channels;
   }
   await fs.writeFile(
-    path.join(params.dir, "openclaw.plugin.json"),
+    path.join(params.dir, "qingclaws.plugin.json"),
     JSON.stringify(manifest, null, 2),
     "utf-8",
   );
 }
 
 describe("config plugin validation", () => {
-  const fixtureRoot = path.join(os.tmpdir(), "enclaws-config-plugin-validation");
+  const fixtureRoot = path.join(os.tmpdir(), "qingclaws-config-plugin-validation");
   let caseIndex = 0;
 
   function createCaseHome() {
@@ -40,7 +40,7 @@ describe("config plugin validation", () => {
   }
 
   const validateInHome = (home: string, raw: unknown) => {
-    process.env.ENCLAWS_STATE_DIR = path.join(home, ".enclaws");
+    process.env.QINGCLAWS_STATE_DIR = path.join(home, ".qingclaws");
     return validateConfigObjectWithPlugins(raw);
   };
 

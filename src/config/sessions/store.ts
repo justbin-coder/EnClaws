@@ -50,7 +50,7 @@ function isSessionStoreRecord(value: unknown): value is Record<string, SessionEn
 
 function getSessionStoreTtl(): number {
   return resolveCacheTtlMs({
-    envValue: process.env.ENCLAWS_SESSION_CACHE_TTL_MS,
+    envValue: process.env.QINGCLAWS_SESSION_CACHE_TTL_MS,
     defaultTtlMs: DEFAULT_SESSION_STORE_TTL_MS,
   });
 }
@@ -424,7 +424,7 @@ function resolveHighWaterBytes(
 }
 
 /**
- * Resolve maintenance settings from enclaws.json (`session.maintenance`).
+ * Resolve maintenance settings from qingclaws.json (`session.maintenance`).
  * Falls back to built-in defaults when config is missing or unset.
  */
 export function resolveMaintenanceConfig(): ResolvedSessionMaintenanceConfig {

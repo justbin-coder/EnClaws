@@ -1,11 +1,11 @@
 import path from "node:path";
 import { describe, expect, it, vi } from "vitest";
-import { POSIX_ENCLAWS_TMP_DIR, resolvePreferredOpenClawTmpDir } from "./tmp-openclaw-dir.js";
+import { POSIX_QINGCLAWS_TMP_DIR, resolvePreferredQingClawsTmpDir } from "./tmp-qingclaws-dir.js";
 
-type TmpDirOptions = NonNullable<Parameters<typeof resolvePreferredOpenClawTmpDir>[0]>;
+type TmpDirOptions = NonNullable<Parameters<typeof resolvePreferredQingClawsTmpDir>[0]>;
 
 function fallbackTmp(uid = 501) {
-  return path.join("/var/fallback", `enclaws-${uid}`);
+  return path.join("/var/fallback", `qingclaws-${uid}`);
 }
 
 function nodeErrorWithCode(code: string) {
@@ -38,7 +38,7 @@ function resolveWithMocks(params: {
   const chmodSync = params.chmodSync ?? vi.fn();
   const warn = params.warn ?? vi.fn();
   const wrappedLstatSync = vi.fn((target: string) => {
-    if (target === POSIX_ENCLAWS_TMP_DIR) {
+    if (target === POSIX_QINGCLAWS_TMP_DIR) {
       return params.lstatSync(target);
     }
     if (target === fallbackPath) {
@@ -52,7 +52,7 @@ function resolveWithMocks(params: {
   const mkdirSync = vi.fn();
   const getuid = vi.fn(() => uid);
   const tmpdir = vi.fn(() => params.tmpdirPath ?? "/var/fallback");
-  const resolved = resolvePreferredOpenClawTmpDir({
+  const resolved = resolvePreferredQingClawsTmpDir({
     accessSync,
     chmodSync,
     lstatSync: wrappedLstatSync,
@@ -64,8 +64,8 @@ function resolveWithMocks(params: {
   return { resolved, accessSync, lstatSync: wrappedLstatSync, mkdirSync, tmpdir };
 }
 
-describe("resolvePreferredOpenClawTmpDir", () => {
-  it("prefers /tmp/enclaws when it already exists and is writable", () => {
+describe("resolvePreferredQingClawsTmpDir", () => {
+  it("prefers /tmp/qingclaws when it already exists and is writable", () => {
     const lstatSync: NonNullable<TmpDirOptions["lstatSync"]> = vi.fn(() => ({
       isDirectory: () => true,
       isSymbolicLink: () => false,
@@ -76,11 +76,11 @@ describe("resolvePreferredOpenClawTmpDir", () => {
 
     expect(lstatSync).toHaveBeenCalledTimes(1);
     expect(accessSync).toHaveBeenCalledTimes(1);
-    expect(resolved).toBe(POSIX_ENCLAWS_TMP_DIR);
+    expect(resolved).toBe(POSIX_QINGCLAWS_TMP_DIR);
     expect(tmpdir).not.toHaveBeenCalled();
   });
 
-  it("prefers /tmp/enclaws when it does not exist but /tmp is writable", () => {
+  it("prefers /tmp/qingclaws when it does not exist but /tmp is writable", () => {
     const lstatSyncMock = vi
       .fn<NonNullable<TmpDirOptions["lstatSync"]>>()
       .mockImplementationOnce(() => {
@@ -92,13 +92,13 @@ describe("resolvePreferredOpenClawTmpDir", () => {
       lstatSync: lstatSyncMock,
     });
 
-    expect(resolved).toBe(POSIX_ENCLAWS_TMP_DIR);
+    expect(resolved).toBe(POSIX_QINGCLAWS_TMP_DIR);
     expect(accessSync).toHaveBeenCalledWith("/tmp", expect.any(Number));
-    expect(mkdirSync).toHaveBeenCalledWith(POSIX_ENCLAWS_TMP_DIR, expect.any(Object));
+    expect(mkdirSync).toHaveBeenCalledWith(POSIX_QINGCLAWS_TMP_DIR, expect.any(Object));
     expect(tmpdir).not.toHaveBeenCalled();
   });
 
-  it("falls back to os.tmpdir()/enclaws when /tmp/enclaws is not a directory", () => {
+  it("falls back to os.tmpdir()/qingclaws when /tmp/qingclaws is not a directory", () => {
     const lstatSync = vi.fn(() => ({
       isDirectory: () => false,
       isSymbolicLink: () => false,
@@ -111,7 +111,7 @@ describe("resolvePreferredOpenClawTmpDir", () => {
     expect(tmpdir).toHaveBeenCalled();
   });
 
-  it("falls back to os.tmpdir()/enclaws when /tmp is not writable", () => {
+  it("falls back to os.tmpdir()/qingclaws when /tmp is not writable", () => {
     const accessSync = vi.fn((target: string) => {
       if (target === "/tmp") {
         throw new Error("read-only");
@@ -129,7 +129,7 @@ describe("resolvePreferredOpenClawTmpDir", () => {
     expect(tmpdir).toHaveBeenCalled();
   });
 
-  it("falls back when /tmp/enclaws is a symlink", () => {
+  it("falls back when /tmp/qingclaws is a symlink", () => {
     const lstatSync = vi.fn(() => ({
       isDirectory: () => true,
       isSymbolicLink: () => true,
@@ -143,7 +143,7 @@ describe("resolvePreferredOpenClawTmpDir", () => {
     expect(tmpdir).toHaveBeenCalled();
   });
 
-  it("falls back when /tmp/enclaws is not owned by the current user", () => {
+  it("falls back when /tmp/qingclaws is not owned by the current user", () => {
     const lstatSync = vi.fn(() => ({
       isDirectory: () => true,
       isSymbolicLink: () => false,
@@ -157,7 +157,7 @@ describe("resolvePreferredOpenClawTmpDir", () => {
     expect(tmpdir).toHaveBeenCalled();
   });
 
-  it("falls back when /tmp/enclaws is group/other writable", () => {
+  it("falls back when /tmp/qingclaws is group/other writable", () => {
     const lstatSync = vi.fn(() => ({
       isDirectory: () => true,
       isSymbolicLink: () => false,
@@ -189,7 +189,7 @@ describe("resolvePreferredOpenClawTmpDir", () => {
         lstatSync,
         fallbackLstatSync,
       }),
-    ).toThrow(/Unsafe fallback EnClaws temp dir/);
+    ).toThrow(/Unsafe fallback QingClaws temp dir/);
   });
 
   it("creates fallback directory when missing, then validates ownership and mode", () => {
@@ -238,14 +238,14 @@ describe("resolvePreferredOpenClawTmpDir", () => {
       }
     });
 
-    const resolved = resolvePreferredOpenClawTmpDir({
+    const resolved = resolvePreferredQingClawsTmpDir({
       accessSync: vi.fn((target: string) => {
         if (target === "/tmp") {
           throw new Error("read-only");
         }
       }),
       lstatSync: vi.fn((target: string) => {
-        if (target === POSIX_ENCLAWS_TMP_DIR) {
+        if (target === POSIX_QINGCLAWS_TMP_DIR) {
           return lstatSync(target);
         }
         if (target === fallbackPath) {
@@ -274,14 +274,14 @@ describe("resolvePreferredOpenClawTmpDir", () => {
     });
     const warn = vi.fn();
 
-    const resolved = resolvePreferredOpenClawTmpDir({
+    const resolved = resolvePreferredQingClawsTmpDir({
       accessSync: vi.fn((target: string) => {
         if (target === "/tmp") {
           throw new Error("read-only");
         }
       }),
       lstatSync: vi.fn((target: string) => {
-        if (target === POSIX_ENCLAWS_TMP_DIR) {
+        if (target === POSIX_QINGCLAWS_TMP_DIR) {
           throw nodeErrorWithCode("ENOENT");
         }
         if (target === fallbackPath) {

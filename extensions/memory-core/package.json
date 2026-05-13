@@ -1,13 +1,13 @@
 {
-  "name": "@openclaw/memory-core",
+  "name": "@qingclaws/memory-core",
   "version": "2026.3.1",
   "private": true,
-  "description": "OpenClaw core memory search plugin",
+  "description": "QingClaws core memory search plugin",
   "type": "module",
   "peerDependencies": {
-    "openclaw": ">=2026.1.26"
+    "qingclaws": ">=2026.1.26"
   },
-  "openclaw": {
+  "qingclaws": {
     "extensions": [
       "./index.ts"
     ]

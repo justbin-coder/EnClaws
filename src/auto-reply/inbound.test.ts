@@ -283,7 +283,7 @@ describe("createInboundDebouncer", () => {
 
 describe("initSessionState BodyStripped", () => {
   it("prefers BodyForAgent over Body for group chats", async () => {
-    const root = await fs.mkdtemp(path.join(os.tmpdir(), "enclaws-sender-meta-"));
+    const root = await fs.mkdtemp(path.join(os.tmpdir(), "qingclaws-sender-meta-"));
     const storePath = path.join(root, "sessions.json");
     const cfg = { session: { store: storePath } } as OpenClawConfig;
 
@@ -305,7 +305,7 @@ describe("initSessionState BodyStripped", () => {
   });
 
   it("prefers BodyForAgent over Body for direct chats", async () => {
-    const root = await fs.mkdtemp(path.join(os.tmpdir(), "enclaws-sender-meta-direct-"));
+    const root = await fs.mkdtemp(path.join(os.tmpdir(), "qingclaws-sender-meta-direct-"));
     const storePath = path.join(root, "sessions.json");
     const cfg = { session: { store: storePath } } as OpenClawConfig;
 
@@ -330,22 +330,22 @@ describe("mention helpers", () => {
   it("builds regexes and skips invalid patterns", () => {
     const regexes = buildMentionRegexes({
       messages: {
-        groupChat: { mentionPatterns: ["\.enclaws\\b", "(invalid"] },
+        groupChat: { mentionPatterns: ["\.qingclaws\\b", "(invalid"] },
       },
     });
     expect(regexes).toHaveLength(1);
-    expect(regexes[0]?.test("enclaws")).toBe(true);
+    expect(regexes[0]?.test("qingclaws")).toBe(true);
   });
 
   it("normalizes zero-width characters", () => {
-    expect(normalizeMentionText("open\u200bclaw")).toBe("enclaws");
+    expect(normalizeMentionText("open\u200bclaw")).toBe("qingclaws");
   });
 
   it("matches patterns case-insensitively", () => {
     const regexes = buildMentionRegexes({
-      messages: { groupChat: { mentionPatterns: ["\.enclaws\\b"] } },
+      messages: { groupChat: { mentionPatterns: ["\.qingclaws\\b"] } },
     });
-    expect(matchesMentionPatterns("OPENCLAW: hi", regexes)).toBe(true);
+    expect(matchesMentionPatterns("QINGCLAWS: hi", regexes)).toBe(true);
   });
 
   it("uses per-agent mention patterns when configured", () => {

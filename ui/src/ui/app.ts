@@ -91,7 +91,7 @@ import type { NostrProfileFormState } from "./views/channels.nostr-profile-form.
 
 declare global {
   interface Window {
-    __ENCLAWS_CONTROL_UI_BASE_PATH__?: string;
+    __QINGCLAWS_CONTROL_UI_BASE_PATH__?: string;
   }
 }
 
@@ -110,8 +110,8 @@ function resolveOnboardingMode(): boolean {
   return normalized === "1" || normalized === "true" || normalized === "yes" || normalized === "on";
 }
 
-@customElement("enclaws-app")
-export class EnClawsApp extends LitElement {
+@customElement("qingclaws-app")
+export class QingClawsApp extends LitElement {
   private i18nController = new I18nController(this);
   clientInstanceId = generateUUID();
   @state() settings: UiSettings = loadSettings();

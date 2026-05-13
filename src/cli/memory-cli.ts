@@ -543,11 +543,11 @@ export function registerMemoryCli(program: Command) {
       "after",
       () =>
         `\n${theme.heading("Examples:")}\n${formatHelpExamples([
-          ["enclaws memory status", "Show index and provider status."],
-          ["enclaws memory index --force", "Force a full reindex."],
-          ['enclaws memory search --query "deployment notes"', "Search indexed memory entries."],
-          ["enclaws memory status --json", "Output machine-readable JSON."],
-        ])}\n\n${theme.muted("Docs:")} ${formatDocsLink("/cli/memory", "docs.enclaws.ai/cli/memory")}\n`,
+          ["qingclaws memory status", "Show index and provider status."],
+          ["qingclaws memory index --force", "Force a full reindex."],
+          ['qingclaws memory search --query "deployment notes"', "Search indexed memory entries."],
+          ["qingclaws memory status --json", "Output machine-readable JSON."],
+        ])}\n\n${theme.muted("Docs:")} ${formatDocsLink("/cli/memory", "docs.qingclaws.ai/cli/memory")}\n`,
     );
 
   memory

@@ -10,7 +10,7 @@ async function withTempSkillDir(
   name: string,
   run: (params: { root: string; skillDir: string }) => Promise<void>,
 ) {
-  const root = await fs.mkdtemp(path.join(os.tmpdir(), "enclaws-skill-helper-"));
+  const root = await fs.mkdtemp(path.join(os.tmpdir(), "qingclaws-skill-helper-"));
   tempDirs.push(root);
   const skillDir = path.join(root, name);
   await run({ root, skillDir });
@@ -44,13 +44,13 @@ describe("writeSkill", () => {
         dir: skillDir,
         name: "custom-skill",
         description: "Custom",
-        metadata: '{"enclaws":{"always":true}}',
+        metadata: '{"qingclaws":{"always":true}}',
         frontmatterExtra: "user-invocable: false",
         body: "# Custom Body\n",
       });
 
       const content = await fs.readFile(path.join(skillDir, "SKILL.md"), "utf-8");
-      expect(content).toContain('metadata: {"enclaws":{"always":true}}');
+      expect(content).toContain('metadata: {"qingclaws":{"always":true}}');
       expect(content).toContain("user-invocable: false");
       expect(content).toContain("# Custom Body");
     });

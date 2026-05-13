@@ -1,6 +1,9 @@
+// src/terminal/links.ts
+import { BRAND } from "../branding/brand.config.js";
 import { formatTerminalLink } from "../utils.js";
 
-export const DOCS_ROOT = "https://docs.enclaws.ai";
+// QINGCLAWS-CUSTOM: brand — empty until docs site is set up; callers get plain-text fallback
+export const DOCS_ROOT = BRAND.links.docs; // type: "" (intentionally empty)
 
 export function formatDocsLink(
   path: string,
@@ -8,6 +11,10 @@ export function formatDocsLink(
   opts?: { fallback?: string; force?: boolean },
 ): string {
   const trimmed = path.trim();
+  // When DOCS_ROOT is empty, fall back to the path itself or the provided fallback
+  if (!DOCS_ROOT) {
+    return opts?.fallback ?? label ?? trimmed;
+  }
   const url = trimmed.startsWith("http")
     ? trimmed
     : `${DOCS_ROOT}${trimmed.startsWith("/") ? trimmed : `/${trimmed}`}`;
@@ -18,6 +25,9 @@ export function formatDocsLink(
 }
 
 export function formatDocsRootLink(label?: string): string {
+  if (!DOCS_ROOT) {
+    return label ?? "QingClaws Docs"; // QINGCLAWS-CUSTOM: brand — avoid empty string when DOCS_ROOT not configured
+  }
   return formatTerminalLink(label ?? DOCS_ROOT, DOCS_ROOT, {
     fallback: DOCS_ROOT,
   });

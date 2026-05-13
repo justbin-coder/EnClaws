@@ -1,15 +1,15 @@
 ---
 name: boot-md
 description: "Run BOOT.md on gateway startup"
-homepage: https://docs.enclaws.ai/automation/hooks#boot-md
+homepage: https://docs.qingclaws.ai/automation/hooks#boot-md
 metadata:
   {
-    "enclaws":
+    "qingclaws":
       {
         "emoji": "🚀",
         "events": ["gateway:startup"],
         "requires": { "config": ["workspace.dir"] },
-        "install": [{ "id": "bundled", "kind": "bundled", "label": "Bundled with EnClaws" }],
+        "install": [{ "id": "bundled", "kind": "bundled", "label": "Bundled with QingClaws" }],
       },
   }
 ---

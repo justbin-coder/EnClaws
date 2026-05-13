@@ -8,7 +8,7 @@ import { resolveTelegramToken } from "./token.js";
 import { readTelegramUpdateOffset, writeTelegramUpdateOffset } from "./update-offset-store.js";
 
 function withTempDir(): string {
-  return fs.mkdtempSync(path.join(os.tmpdir(), "enclaws-telegram-token-"));
+  return fs.mkdtempSync(path.join(os.tmpdir(), "qingclaws-telegram-token-"));
 }
 
 describe("resolveTelegramToken", () => {
@@ -92,7 +92,7 @@ describe("resolveTelegramToken", () => {
 
 describe("telegram update offset store", () => {
   it("persists and reloads the last update id", async () => {
-    await withStateDirEnv("enclaws-telegram-", async () => {
+    await withStateDirEnv("qingclaws-telegram-", async () => {
       expect(await readTelegramUpdateOffset({ accountId: "primary" })).toBeNull();
 
       await writeTelegramUpdateOffset({

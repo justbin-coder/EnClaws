@@ -1,9 +1,9 @@
 import path from "node:path";
 
-export const DEFAULT_CLI_NAME = "enclaws";
+export const DEFAULT_CLI_NAME = "qingclaws";
 
-const KNOWN_CLI_NAMES = new Set([DEFAULT_CLI_NAME, "enclaws"]);
-const CLI_PREFIX_RE = /^(?:((?:pnpm|npm|bunx|npx)\s+))?(enclaws|enclaws)\b/;
+const KNOWN_CLI_NAMES = new Set([DEFAULT_CLI_NAME, "qingclaws"]);
+const CLI_PREFIX_RE = /^(?:((?:pnpm|npm|bunx|npx)\s+))?(qingclaws|qingclaws)\b/;
 
 export function resolveCliName(argv: string[] = process.argv): string {
   const argv1 = argv[1];

@@ -12,7 +12,7 @@ describe("handleControlUiHttpRequest", () => {
     indexHtml?: string;
     fn: (tmp: string) => Promise<T>;
   }) {
-    const tmp = await fs.mkdtemp(path.join(os.tmpdir(), "enclaws-ui-"));
+    const tmp = await fs.mkdtemp(path.join(os.tmpdir(), "qingclaws-ui-"));
     try {
       await fs.writeFile(path.join(tmp, "index.html"), params.indexHtml ?? "<html></html>\n");
       return await params.fn(tmp);
@@ -88,7 +88,7 @@ describe("handleControlUiHttpRequest", () => {
     siblingDir: string;
     fn: (paths: { root: string; sibling: string }) => Promise<T>;
   }) {
-    const tmp = await fs.mkdtemp(path.join(os.tmpdir(), "enclaws-ui-root-"));
+    const tmp = await fs.mkdtemp(path.join(os.tmpdir(), "qingclaws-ui-root-"));
     try {
       const root = path.join(tmp, "ui");
       const sibling = path.join(tmp, params.siblingDir);
@@ -176,10 +176,10 @@ describe("handleControlUiHttpRequest", () => {
       fn: async (tmp) => {
         const { res, end } = makeMockHttpResponse();
         const handled = handleControlUiHttpRequest(
-          { url: `/enclaws${CONTROL_UI_BOOTSTRAP_CONFIG_PATH}`, method: "GET" } as IncomingMessage,
+          { url: `/qingclaws${CONTROL_UI_BOOTSTRAP_CONFIG_PATH}`, method: "GET" } as IncomingMessage,
           res,
           {
-            basePath: "/enclaws",
+            basePath: "/qingclaws",
             root: { kind: "resolved", path: tmp },
             config: {
               agents: { defaults: { workspace: tmp } },
@@ -189,16 +189,16 @@ describe("handleControlUiHttpRequest", () => {
         );
         expect(handled).toBe(true);
         const parsed = parseBootstrapPayload(end);
-        expect(parsed.basePath).toBe("/enclaws");
+        expect(parsed.basePath).toBe("/qingclaws");
         expect(parsed.assistantName).toBe("Ops");
-        expect(parsed.assistantAvatar).toBe("/enclaws/avatar/main");
+        expect(parsed.assistantAvatar).toBe("/qingclaws/avatar/main");
         expect(parsed.assistantAgentId).toBe("main");
       },
     });
   });
 
   it("serves local avatar bytes through hardened avatar handler", async () => {
-    const tmp = await fs.mkdtemp(path.join(os.tmpdir(), "enclaws-avatar-http-"));
+    const tmp = await fs.mkdtemp(path.join(os.tmpdir(), "qingclaws-avatar-http-"));
     try {
       const avatarPath = path.join(tmp, "main.png");
       await fs.writeFile(avatarPath, "avatar-bytes\n");
@@ -218,8 +218,8 @@ describe("handleControlUiHttpRequest", () => {
   });
 
   it("rejects avatar symlink paths from resolver", async () => {
-    const tmp = await fs.mkdtemp(path.join(os.tmpdir(), "enclaws-avatar-http-link-"));
-    const outside = await fs.mkdtemp(path.join(os.tmpdir(), "enclaws-avatar-http-outside-"));
+    const tmp = await fs.mkdtemp(path.join(os.tmpdir(), "qingclaws-avatar-http-link-"));
+    const outside = await fs.mkdtemp(path.join(os.tmpdir(), "qingclaws-avatar-http-outside-"));
     try {
       const outsideFile = path.join(outside, "secret.txt");
       await fs.writeFile(outsideFile, "outside-secret\n");
@@ -243,7 +243,7 @@ describe("handleControlUiHttpRequest", () => {
     await withControlUiRoot({
       fn: async (tmp) => {
         const assetsDir = path.join(tmp, "assets");
-        const outsideDir = await fs.mkdtemp(path.join(os.tmpdir(), "enclaws-ui-outside-"));
+        const outsideDir = await fs.mkdtemp(path.join(os.tmpdir(), "qingclaws-ui-outside-"));
         try {
           const outsideFile = path.join(outsideDir, "secret.txt");
           await fs.mkdir(assetsDir, { recursive: true });
@@ -306,7 +306,7 @@ describe("handleControlUiHttpRequest", () => {
   it("rejects symlinked SPA fallback index.html outside control-ui root", async () => {
     await withControlUiRoot({
       fn: async (tmp) => {
-        const outsideDir = await fs.mkdtemp(path.join(os.tmpdir(), "enclaws-ui-index-outside-"));
+        const outsideDir = await fs.mkdtemp(path.join(os.tmpdir(), "qingclaws-ui-index-outside-"));
         try {
           const outsideIndex = path.join(outsideDir, "index.html");
           await fs.writeFile(outsideIndex, "<html>outside</html>\n");
@@ -351,10 +351,10 @@ describe("handleControlUiHttpRequest", () => {
         const secretPathUrl = secretPath.split(path.sep).join("/");
         const absolutePathUrl = secretPathUrl.startsWith("/") ? secretPathUrl : `/${secretPathUrl}`;
         const { res, end, handled } = runControlUiRequest({
-          url: `/enclaws/${absolutePathUrl}`,
+          url: `/qingclaws/${absolutePathUrl}`,
           method: "GET",
           rootPath: root,
-          basePath: "/enclaws",
+          basePath: "/qingclaws",
         });
         expectNotFoundResponse({ handled, res, end });
       },
@@ -380,10 +380,10 @@ describe("handleControlUiHttpRequest", () => {
         }
 
         const { res, end, handled } = runControlUiRequest({
-          url: "/enclaws/assets/leak.txt",
+          url: "/qingclaws/assets/leak.txt",
           method: "GET",
           rootPath: root,
-          basePath: "/enclaws",
+          basePath: "/qingclaws",
         });
         expectNotFoundResponse({ handled, res, end });
       },

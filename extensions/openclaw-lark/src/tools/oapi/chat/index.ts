@@ -7,11 +7,11 @@
  * 群组相关工具
  */
 
-import type { OpenClawPluginApi } from 'openclaw/plugin-sdk';
+import type { QingClawsPluginApi } from 'openclaw/plugin-sdk';
 import { registerChatSearchTool } from './chat';
 import { registerChatMembersTool } from './members';
 
-export function registerFeishuChatTools(api: OpenClawPluginApi): void {
+export function registerFeishuChatTools(api: QingClawsPluginApi): void {
   const registered: string[] = [];
   if (registerChatSearchTool(api)) registered.push('feishu_chat');
   if (registerChatMembersTool(api)) registered.push('feishu_chat_members');

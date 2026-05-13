@@ -8,7 +8,7 @@
  * These tools are placed here to distinguish them from MCP-based tools.
  */
 
-import type { OpenClawPluginApi } from 'openclaw/plugin-sdk';
+import type { QingClawsPluginApi } from 'openclaw/plugin-sdk';
 import { registerFeishuImTools as registerFeishuImBotTools } from '../tat/im/index';
 import {
   registerFeishuCalendarCalendarTool,
@@ -40,7 +40,7 @@ import { registerFeishuSheetsTools } from './sheets/index';
 import { registerFeishuChatTools } from './chat/index';
 import { registerFeishuImTools as registerFeishuImUserTools } from './im/index';
 
-export function registerOapiTools(api: OpenClawPluginApi): void {
+export function registerOapiTools(api: QingClawsPluginApi): void {
   // Common tools
   registerGetUserTool(api);
   registerSearchUserTool(api);

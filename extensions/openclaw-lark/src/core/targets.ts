@@ -22,7 +22,7 @@ import type { FeishuIdType } from './types';
 const CHAT_PREFIX = 'oc_';
 const OPEN_ID_PREFIX = 'ou_';
 
-// Canonical routing prefixes used inside OpenClaw (not Feishu-native).
+// Canonical routing prefixes used inside QingClaws (not Feishu-native).
 const TAG_CHAT = 'chat:';
 const TAG_USER = 'user:';
 const TAG_OPEN_ID = 'open_id:';
@@ -56,7 +56,7 @@ export function detectIdType(id: string): FeishuIdType | null {
 // ---------------------------------------------------------------------------
 
 /**
- * Strip OpenClaw routing prefixes (`chat:`, `user:`, `open_id:`) from a
+ * Strip QingClaws routing prefixes (`chat:`, `user:`, `open_id:`) from a
  * raw target string, returning the bare Feishu identifier.
  *
  * Returns `null` when the input is empty or falsy.
@@ -131,7 +131,7 @@ export function encodeFeishuRouteTarget(params: {
 // ---------------------------------------------------------------------------
 
 /**
- * Add the appropriate OpenClaw routing prefix to a bare Feishu identifier.
+ * Add the appropriate QingClaws routing prefix to a bare Feishu identifier.
  *
  * When `type` is omitted, the prefix is inferred via `detectIdType`.
  */
@@ -179,7 +179,7 @@ export function normalizeMessageId(messageId: string | undefined): string | unde
 
 /**
  * Return `true` when a raw string looks like it could be a Feishu target
- * (either an OpenClaw-tagged form or a native prefix).
+ * (either an QingClaws-tagged form or a native prefix).
  */
 export function looksLikeFeishuId(raw: string): boolean {
   if (!raw) return false;

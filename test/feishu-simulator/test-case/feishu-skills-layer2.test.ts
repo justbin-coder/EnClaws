@@ -5,7 +5,7 @@
  * waits for replies, and validates with text/file/card assertions.
  *
  * Prerequisites:
- *   - EnClaws Gateway running with Lark plugin connected
+ *   - QingClaws Gateway running with Lark plugin connected
  *   - Feishu app has im:message + im:message.send_as_user permissions
  *   - User authorization completed (or will be prompted via Device Flow)
  *

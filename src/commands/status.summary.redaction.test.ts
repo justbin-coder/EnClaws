@@ -29,14 +29,14 @@ describe("redactSensitiveStatusSummary", () => {
       channelSummary: ["ok"],
       queuedSystemEvents: ["none"],
       sessions: {
-        paths: ["/tmp/enclaws/sessions.json"],
+        paths: ["/tmp/qingclaws/sessions.json"],
         count: 1,
         defaults: { model: "gpt-5", contextTokens: 200_000 },
         recent: [createRecentSessionRow()],
         byAgent: [
           {
             agentId: "main",
-            path: "/tmp/enclaws/main-sessions.json",
+            path: "/tmp/qingclaws/main-sessions.json",
             count: 1,
             recent: [createRecentSessionRow()],
           },

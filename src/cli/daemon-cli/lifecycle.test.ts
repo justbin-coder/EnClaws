@@ -68,7 +68,7 @@ describe("runDaemonRestart health checks", () => {
     loadConfig.mockClear();
 
     service.readCommand.mockResolvedValue({
-      programArguments: ["enclaws", "gateway", "--port", "18789"],
+      programArguments: ["qingclaws", "gateway", "--port", "18789"],
       environment: {},
     });
 
@@ -126,7 +126,7 @@ describe("runDaemonRestart health checks", () => {
 
     await expect(runDaemonRestart({ json: true })).rejects.toMatchObject({
       message: "Gateway restart timed out after 60s waiting for health checks.",
-      hints: ["enclaws gateway status --deep", "enclaws doctor"],
+      hints: ["qingclaws gateway status --deep", "qingclaws doctor"],
     });
     expect(terminateStaleGatewayPids).not.toHaveBeenCalled();
     expect(renderRestartDiagnostics).toHaveBeenCalledTimes(1);

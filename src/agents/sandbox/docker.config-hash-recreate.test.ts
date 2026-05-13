@@ -54,7 +54,7 @@ vi.mock("node:child_process", async (importOriginal) => {
       } else if (
         args[0] === "inspect" &&
         args[1] === "-f" &&
-        args[2]?.includes('index .Config.Labels "enclaws.configHash"')
+        args[2]?.includes('index .Config.Labels "qingclaws.configHash"')
       ) {
         stdout = `${spawnState.labelHash}\n`;
       } else if (
@@ -88,9 +88,9 @@ function createSandboxConfig(dns: string[], binds?: string[]): SandboxConfig {
     mode: "all",
     scope: "shared",
     workspaceAccess: "rw",
-    workspaceRoot: "~/.enclaws/sandboxes",
+    workspaceRoot: "~/.qingclaws/sandboxes",
     docker: {
-      image: "enclaws-sandbox:test",
+      image: "qingclaws-sandbox:test",
       containerPrefix: "oc-test-",
       workdir: "/workspace",
       readOnlyRoot: true,
@@ -105,9 +105,9 @@ function createSandboxConfig(dns: string[], binds?: string[]): SandboxConfig {
     },
     browser: {
       enabled: false,
-      image: "enclaws-browser:test",
+      image: "qingclaws-browser:test",
       containerPrefix: "oc-browser-",
-      network: "enclaws-sandbox-browser",
+      network: "qingclaws-sandbox-browser",
       cdpPort: 9222,
       vncPort: 5900,
       noVncPort: 6080,
@@ -182,7 +182,7 @@ describe("ensureSandboxContainer config-hash recreation", () => {
     ).toBe(true);
     const createCall = dockerCalls.find((call) => call.args[0] === "create");
     expect(createCall).toBeDefined();
-    expect(createCall?.args).toContain(`enclaws.configHash=${newHash}`);
+    expect(createCall?.args).toContain(`qingclaws.configHash=${newHash}`);
     expect(registryMocks.updateRegistry).toHaveBeenCalledWith(
       expect.objectContaining({
         containerName: "oc-test-shared",
@@ -231,7 +231,7 @@ describe("ensureSandboxContainer config-hash recreation", () => {
       (call) => call.command === "docker" && call.args[0] === "create",
     );
     expect(createCall).toBeDefined();
-    expect(createCall?.args).toContain(`enclaws.configHash=${expectedHash}`);
+    expect(createCall?.args).toContain(`qingclaws.configHash=${expectedHash}`);
 
     const bindArgs: string[] = [];
     const args = createCall?.args ?? [];

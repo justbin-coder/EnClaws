@@ -23,7 +23,7 @@ describe("resolveSandboxHostPathViaExistingAncestor", () => {
       return;
     }
 
-    const root = mkdtempSync(join(tmpdir(), "enclaws-host-paths-"));
+    const root = mkdtempSync(join(tmpdir(), "qingclaws-host-paths-"));
     const workspace = join(root, "workspace");
     const outside = join(root, "outside");
     mkdirSync(workspace, { recursive: true });

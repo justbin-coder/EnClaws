@@ -18,7 +18,7 @@ function envWith(overrides: Record<string, string | undefined>): NodeJS.ProcessE
 
 function loadConfigForHome(home: string) {
   return createConfigIO({
-    env: envWith({ ENCLAWS_HOME: home }),
+    env: envWith({ QINGCLAWS_HOME: home }),
     homedir: () => home,
   }).loadConfig();
 }
@@ -35,84 +35,84 @@ async function withLoadedConfigForHome(
 
 describe("Nix integration (U3, U5, U9)", () => {
   describe("U3: isNixMode env var detection", () => {
-    it("isNixMode is false when ENCLAWS_NIX_MODE is not set", () => {
-      expect(resolveIsNixMode(envWith({ ENCLAWS_NIX_MODE: undefined }))).toBe(false);
+    it("isNixMode is false when QINGCLAWS_NIX_MODE is not set", () => {
+      expect(resolveIsNixMode(envWith({ QINGCLAWS_NIX_MODE: undefined }))).toBe(false);
     });
 
-    it("isNixMode is false when ENCLAWS_NIX_MODE is empty", () => {
-      expect(resolveIsNixMode(envWith({ ENCLAWS_NIX_MODE: "" }))).toBe(false);
+    it("isNixMode is false when QINGCLAWS_NIX_MODE is empty", () => {
+      expect(resolveIsNixMode(envWith({ QINGCLAWS_NIX_MODE: "" }))).toBe(false);
     });
 
-    it("isNixMode is false when ENCLAWS_NIX_MODE is not '1'", () => {
-      expect(resolveIsNixMode(envWith({ ENCLAWS_NIX_MODE: "true" }))).toBe(false);
+    it("isNixMode is false when QINGCLAWS_NIX_MODE is not '1'", () => {
+      expect(resolveIsNixMode(envWith({ QINGCLAWS_NIX_MODE: "true" }))).toBe(false);
     });
 
-    it("isNixMode is true when ENCLAWS_NIX_MODE=1", () => {
-      expect(resolveIsNixMode(envWith({ ENCLAWS_NIX_MODE: "1" }))).toBe(true);
+    it("isNixMode is true when QINGCLAWS_NIX_MODE=1", () => {
+      expect(resolveIsNixMode(envWith({ QINGCLAWS_NIX_MODE: "1" }))).toBe(true);
     });
   });
 
   describe("U5: CONFIG_PATH and STATE_DIR env var overrides", () => {
-    it("STATE_DIR defaults to ~/.enclaws when env not set", () => {
-      expect(resolveStateDir(envWith({ ENCLAWS_STATE_DIR: undefined }))).toMatch(/.enclaws$/);
+    it("STATE_DIR defaults to ~/.qingclaws when env not set", () => {
+      expect(resolveStateDir(envWith({ QINGCLAWS_STATE_DIR: undefined }))).toMatch(/.qingclaws$/);
     });
 
-    it("STATE_DIR respects ENCLAWS_STATE_DIR override", () => {
-      expect(resolveStateDir(envWith({ ENCLAWS_STATE_DIR: "/custom/state/dir" }))).toBe(
+    it("STATE_DIR respects QINGCLAWS_STATE_DIR override", () => {
+      expect(resolveStateDir(envWith({ QINGCLAWS_STATE_DIR: "/custom/state/dir" }))).toBe(
         path.resolve("/custom/state/dir"),
       );
     });
 
-    it("STATE_DIR respects ENCLAWS_HOME when state override is unset", () => {
+    it("STATE_DIR respects QINGCLAWS_HOME when state override is unset", () => {
       const customHome = path.join(path.sep, "custom", "home");
       expect(
-        resolveStateDir(envWith({ ENCLAWS_HOME: customHome, ENCLAWS_STATE_DIR: undefined })),
-      ).toBe(path.join(path.resolve(customHome), ".enclaws"));
+        resolveStateDir(envWith({ QINGCLAWS_HOME: customHome, QINGCLAWS_STATE_DIR: undefined })),
+      ).toBe(path.join(path.resolve(customHome), ".qingclaws"));
     });
 
-    it("CONFIG_PATH defaults to ENCLAWS_HOME/.enclaws/enclaws.json", () => {
+    it("CONFIG_PATH defaults to QINGCLAWS_HOME/.qingclaws/qingclaws.json", () => {
       const customHome = path.join(path.sep, "custom", "home");
       expect(
         resolveConfigPathCandidate(
           envWith({
-            ENCLAWS_HOME: customHome,
-            ENCLAWS_CONFIG_PATH: undefined,
-            ENCLAWS_STATE_DIR: undefined,
+            QINGCLAWS_HOME: customHome,
+            QINGCLAWS_CONFIG_PATH: undefined,
+            QINGCLAWS_STATE_DIR: undefined,
           }),
         ),
-      ).toBe(path.join(path.resolve(customHome), ".enclaws", "enclaws.json"));
+      ).toBe(path.join(path.resolve(customHome), ".qingclaws", "qingclaws.json"));
     });
 
-    it("CONFIG_PATH defaults to ~/.enclaws/enclaws.json when env not set", () => {
+    it("CONFIG_PATH defaults to ~/.qingclaws/qingclaws.json when env not set", () => {
       expect(
         resolveConfigPathCandidate(
-          envWith({ ENCLAWS_CONFIG_PATH: undefined, ENCLAWS_STATE_DIR: undefined }),
+          envWith({ QINGCLAWS_CONFIG_PATH: undefined, QINGCLAWS_STATE_DIR: undefined }),
         ),
-      ).toMatch(/.enclaws[\\/]enclaws\.json$/);
+      ).toMatch(/.qingclaws[\\/]qingclaws\.json$/);
     });
 
-    it("CONFIG_PATH respects ENCLAWS_CONFIG_PATH override", () => {
+    it("CONFIG_PATH respects QINGCLAWS_CONFIG_PATH override", () => {
       expect(
         resolveConfigPathCandidate(
-          envWith({ ENCLAWS_CONFIG_PATH: "/nix/store/abc/enclaws.json" }),
+          envWith({ QINGCLAWS_CONFIG_PATH: "/nix/store/abc/qingclaws.json" }),
         ),
-      ).toBe(path.resolve("/nix/store/abc/enclaws.json"));
+      ).toBe(path.resolve("/nix/store/abc/qingclaws.json"));
     });
 
-    it("CONFIG_PATH expands ~ in ENCLAWS_CONFIG_PATH override", async () => {
+    it("CONFIG_PATH expands ~ in QINGCLAWS_CONFIG_PATH override", async () => {
       await withTempHome(async (home) => {
         expect(
           resolveConfigPathCandidate(
-            envWith({ ENCLAWS_HOME: home, ENCLAWS_CONFIG_PATH: "~/.enclaws/custom.json" }),
+            envWith({ QINGCLAWS_HOME: home, QINGCLAWS_CONFIG_PATH: "~/.qingclaws/custom.json" }),
             () => home,
           ),
-        ).toBe(path.join(home, ".enclaws", "custom.json"));
+        ).toBe(path.join(home, ".qingclaws", "custom.json"));
       });
     });
 
     it("CONFIG_PATH uses STATE_DIR when only state dir is overridden", () => {
-      expect(resolveConfigPathCandidate(envWith({ ENCLAWS_STATE_DIR: "/custom/state" }))).toBe(
-        path.join(path.resolve("/custom/state"), "enclaws.json"),
+      expect(resolveConfigPathCandidate(envWith({ QINGCLAWS_STATE_DIR: "/custom/state" }))).toBe(
+        path.join(path.resolve("/custom/state"), "qingclaws.json"),
       );
     });
   });
@@ -120,7 +120,7 @@ describe("Nix integration (U3, U5, U9)", () => {
   describe("U5b: tilde expansion for config paths", () => {
     it("expands ~ in common path-ish config fields", async () => {
       await withTempHome(async (home) => {
-        const configDir = path.join(home, ".enclaws");
+        const configDir = path.join(home, ".qingclaws");
         await fs.mkdir(configDir, { recursive: true });
         const pluginDir = path.join(home, "plugins", "demo-plugin");
         await fs.mkdir(pluginDir, { recursive: true });
@@ -130,7 +130,7 @@ describe("Nix integration (U3, U5, U9)", () => {
           "utf-8",
         );
         await fs.writeFile(
-          path.join(pluginDir, "openclaw.plugin.json"),
+          path.join(pluginDir, "qingclaws.plugin.json"),
           JSON.stringify(
             {
               id: "demo-plugin",
@@ -142,7 +142,7 @@ describe("Nix integration (U3, U5, U9)", () => {
           "utf-8",
         );
         await fs.writeFile(
-          path.join(configDir, "enclaws.json"),
+          path.join(configDir, "qingclaws.json"),
           JSON.stringify(
             {
               plugins: {
@@ -156,7 +156,7 @@ describe("Nix integration (U3, U5, U9)", () => {
                   {
                     id: "main",
                     workspace: "~/ws-agent",
-                    agentDir: "~/.enclaws/agents/main",
+                    agentDir: "~/.qingclaws/agents/main",
                     sandbox: { workspaceRoot: "~/sandbox-root" },
                   },
                 ],
@@ -165,7 +165,7 @@ describe("Nix integration (U3, U5, U9)", () => {
                 whatsapp: {
                   accounts: {
                     personal: {
-                      authDir: "~/.enclaws/credentials/wa-personal",
+                      authDir: "~/.qingclaws/credentials/wa-personal",
                     },
                   },
                 },
@@ -183,11 +183,11 @@ describe("Nix integration (U3, U5, U9)", () => {
         expect(cfg.agents?.defaults?.workspace).toBe(path.join(home, "ws-default"));
         expect(cfg.agents?.list?.[0]?.workspace).toBe(path.join(home, "ws-agent"));
         expect(cfg.agents?.list?.[0]?.agentDir).toBe(
-          path.join(home, ".enclaws", "agents", "main"),
+          path.join(home, ".qingclaws", "agents", "main"),
         );
         expect(cfg.agents?.list?.[0]?.sandbox?.workspaceRoot).toBe(path.join(home, "sandbox-root"));
         expect(cfg.channels?.whatsapp?.accounts?.personal?.authDir).toBe(
-          path.join(home, ".enclaws", "credentials", "wa-personal"),
+          path.join(home, ".qingclaws", "credentials", "wa-personal"),
         );
       });
     });
@@ -195,16 +195,16 @@ describe("Nix integration (U3, U5, U9)", () => {
 
   describe("U6: gateway port resolution", () => {
     it("uses default when env and config are unset", () => {
-      expect(resolveGatewayPort({}, envWith({ ENCLAWS_GATEWAY_PORT: undefined }))).toBe(
+      expect(resolveGatewayPort({}, envWith({ QINGCLAWS_GATEWAY_PORT: undefined }))).toBe(
         DEFAULT_GATEWAY_PORT,
       );
     });
 
-    it("prefers ENCLAWS_GATEWAY_PORT over config", () => {
+    it("prefers QINGCLAWS_GATEWAY_PORT over config", () => {
       expect(
         resolveGatewayPort(
           { gateway: { port: 19002 } },
-          envWith({ ENCLAWS_GATEWAY_PORT: "19001" }),
+          envWith({ QINGCLAWS_GATEWAY_PORT: "19001" }),
         ),
       ).toBe(19001);
     });
@@ -213,7 +213,7 @@ describe("Nix integration (U3, U5, U9)", () => {
       expect(
         resolveGatewayPort(
           { gateway: { port: 19003 } },
-          envWith({ ENCLAWS_GATEWAY_PORT: "nope" }),
+          envWith({ QINGCLAWS_GATEWAY_PORT: "nope" }),
         ),
       ).toBe(19003);
     });

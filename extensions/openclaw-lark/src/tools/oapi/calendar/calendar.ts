@@ -12,7 +12,7 @@
  *   - primary: POST /open-apis/calendar/v4/calendars/primary
  */
 
-import type { OpenClawPluginApi } from 'openclaw/plugin-sdk';
+import type { QingClawsPluginApi } from 'openclaw/plugin-sdk';
 import { Type } from '@sinclair/typebox';
 import { assertLarkOk, createToolContext, handleInvokeErrorWithAutoAuth, json , registerTool } from '../helpers';
 import type { CalendarGetData, CalendarListData, CalendarPrimaryData } from '../sdk-types';
@@ -64,7 +64,7 @@ type FeishuCalendarCalendarParams =
 // Registration
 // ---------------------------------------------------------------------------
 
-export function registerFeishuCalendarCalendarTool(api: OpenClawPluginApi): void {
+export function registerFeishuCalendarCalendarTool(api: QingClawsPluginApi): void {
   if (!api.config) return;
   const cfg = api.config;
 

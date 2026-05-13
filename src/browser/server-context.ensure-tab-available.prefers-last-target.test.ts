@@ -31,7 +31,7 @@ function makeBrowserState(): BrowserServerState {
           cdpPort: 18792,
           color: "#00AA00",
         },
-        enclaws: { cdpPort: 18800, color: "#FF4500" },
+        qingclaws: { cdpPort: 18800, color: "#FF4500" },
       },
     },
     profiles: new Map(),

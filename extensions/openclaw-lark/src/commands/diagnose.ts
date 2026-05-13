@@ -293,7 +293,7 @@ export async function runDiagnosis(params: { config: OpenClawConfig; logger?: Di
   });
 
   // -- Log file --
-  const logPath = path.join(os.homedir(), '.openclaw', 'logs', 'gateway.log');
+  const logPath = path.join(os.homedir(), '.qingclaws', 'logs', 'gateway.log');
   let logExists = false;
   try {
     await fs.access(logPath);
@@ -474,7 +474,7 @@ function formatCheckCli(c: DiagCheckResult): string {
  * Returns matching lines in chronological order.
  */
 export async function traceByMessageId(messageId: string): Promise<string[]> {
-  const logPath = path.join(os.homedir(), '.openclaw', 'logs', 'gateway.log');
+  const logPath = path.join(os.homedir(), '.qingclaws', 'logs', 'gateway.log');
   try {
     await fs.access(logPath);
   } catch {

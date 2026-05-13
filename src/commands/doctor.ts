@@ -15,7 +15,7 @@ import { logConfigUpdated } from "../config/logging.js";
 import { resolveGatewayService } from "../daemon/service.js";
 import { resolveGatewayAuth } from "../gateway/auth.js";
 import { buildGatewayConnectionDetails } from "../gateway/call.js";
-import { resolveOpenClawPackageRoot } from "../infra/openclaw-root.js";
+import { resolveQingClawsPackageRoot } from "../infra/qingclaws-root.js";
 import type { RuntimeEnv } from "../runtime.js";
 import { defaultRuntime } from "../runtime.js";
 import { note } from "../terminal/note.js";
@@ -71,9 +71,9 @@ export async function doctorCommand(
 ) {
   const prompter = createDoctorPrompter({ runtime, options });
   printWizardHeader(runtime);
-  intro("EnClaws doctor");
+  intro("QingClaws doctor");
 
-  const root = await resolveOpenClawPackageRoot({
+  const root = await resolveQingClawsPackageRoot({
     moduleUrl: import.meta.url,
     argv1: process.argv[1],
     cwd: process.cwd(),
@@ -107,11 +107,11 @@ export async function doctorCommand(
   if (!cfg.gateway?.mode) {
     const lines = [
       "gateway.mode is unset; gateway start will be blocked.",
-      `Fix: run ${formatCliCommand("enclaws configure")} and set Gateway mode (local/remote).`,
-      `Or set directly: ${formatCliCommand("enclaws config set gateway.mode local")}`,
+      `Fix: run ${formatCliCommand("qingclaws configure")} and set Gateway mode (local/remote).`,
+      `Or set directly: ${formatCliCommand("qingclaws config set gateway.mode local")}`,
     ];
     if (!fs.existsSync(configPath)) {
-      lines.push(`Missing config: run ${formatCliCommand("enclaws setup")} first.`);
+      lines.push(`Missing config: run ${formatCliCommand("qingclaws setup")} first.`);
     }
     note(lines.join("\n"), "Gateway");
   }
@@ -304,7 +304,7 @@ export async function doctorCommand(
       runtime.log(`Backup: ${shortenHomePath(backupPath)}`);
     }
   } else if (!prompter.shouldRepair) {
-    runtime.log(`Run "${formatCliCommand("enclaws doctor --fix")}" to apply changes.`);
+    runtime.log(`Run "${formatCliCommand("qingclaws doctor --fix")}" to apply changes.`);
   }
 
   if (options.workspaceSuggestions !== false) {

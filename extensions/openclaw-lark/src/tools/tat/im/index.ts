@@ -6,7 +6,7 @@
  * 统一导出所有即时通讯相关工具的注册函数
  */
 
-import type { OpenClawPluginApi } from 'openclaw/plugin-sdk';
+import type { QingClawsPluginApi } from 'openclaw/plugin-sdk';
 import { registerFeishuImBotImageTool } from './resource';
 
 /**
@@ -15,7 +15,7 @@ import { registerFeishuImBotImageTool } from './resource';
  * Note: feishu_im_message_reaction 和 feishu_im_message_recall 已移除，
  * 其功能由 ChannelMessageActionAdapter (actions.ts) 的 react/delete action 统一覆盖。
  */
-export function registerFeishuImTools(api: OpenClawPluginApi): void {
+export function registerFeishuImTools(api: QingClawsPluginApi): void {
   if (registerFeishuImBotImageTool(api)) {
     api.logger.debug?.('feishu_im: Registered feishu_im_bot_image');
   }

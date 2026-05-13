@@ -1,16 +1,16 @@
-# OpenClaw  Lark/飞书 插件
+# QingClaws  Lark/飞书 插件
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
-[![npm version](https://img.shields.io/npm/v/@larksuite/openclaw-lark.svg)](https://www.npmjs.com/package/@larksuite/openclaw-lark)
+[![npm version](https://img.shields.io/npm/v/@larksuite/qingclaws-lark.svg)](https://www.npmjs.com/package/@larksuite/qingclaws-lark)
 [![Node.js Version](https://img.shields.io/badge/node-%3E%3D22-blue.svg)](https://nodejs.org/)
 
 [English](./README.md) | 中文版
 
-这是 OpenClaw 的官方  Lark/飞书 插件，由 Lark/飞书开放平台团队开发和维护。它将你的 OpenClaw Agent 无缝对接到  Lark/飞书 工作区，赋予其直接读写消息、文档、多维表格、日历、任务等应用的能力。
+这是 QingClaws 的官方  Lark/飞书 插件，由 Lark/飞书开放平台团队开发和维护。它将你的 QingClaws Agent 无缝对接到  Lark/飞书 工作区，赋予其直接读写消息、文档、多维表格、日历、任务等应用的能力。
 
 ## 特性
 
-本插件为 OpenClaw 提供了全面的 Lark/飞书集成能力，主要包括：
+本插件为 QingClaws 提供了全面的 Lark/飞书集成能力，主要包括：
 
 | 类别 | 能力 |
 |------|------|
@@ -28,9 +28,9 @@
 - **⚙️ 高级群组配置**：每个群聊的独立设置，包括白名单、技能绑定和自定义系统提示词
 
 ## 安全与风险提示（使用前必读）
-本插件对接 OpenClaw AI 自动化能力，存在模型幻觉、执行不可控、提示词注入等固有风险；授权飞书权限后，OpenClaw 将以您的用户身份在授权范围内执行操作，可能导致敏感数据泄露、越权操作等高风险后果，请您谨慎操作和使用。
+本插件对接 QingClaws AI 自动化能力，存在模型幻觉、执行不可控、提示词注入等固有风险；授权飞书权限后，QingClaws 将以您的用户身份在授权范围内执行操作，可能导致敏感数据泄露、越权操作等高风险后果，请您谨慎操作和使用。
 为降低上述风险，插件已在多个层面启用默认安全保护以降低上述风险，但上述风险仍然存在。我们强烈建议不要主动修改任何默认安全配置；一旦放开相关限制，上述风险将显著提高，由此产生的后果需由您自行承担。
-我们建议您将接入 OpenClaw 的飞书机器人作为私人对话助手使用，请勿将其拉入群聊或允许其他用户与其交互，以避免权限被滥用或数据泄露。
+我们建议您将接入 QingClaws 的飞书机器人作为私人对话助手使用，请勿将其拉入群聊或允许其他用户与其交互，以避免权限被滥用或数据泄露。
 请您充分知悉全部使用风险，使用本插件即视为您自愿承担相关所有责任。
 
 **免责声明：** 
@@ -49,19 +49,19 @@
 在开始之前，请确保你已准备好以下各项：
 
 - **Node.js**: `v22` 或更高版本。
-- **OpenClaw**: OpenClaw 已成功安装并可运行。详情请访问 [OpenClaw 官方网站](https://openclaw.ai)。
+- **QingClaws**: QingClaws 已成功安装并可运行。详情请访问 [QingClaws 官方网站](https://qingclaws.ai)。
 
-> **注意**：OpenClaw 版本需在 **2026.2.26** 及以上，可通过 `openclaw -v` 命令查看。如果低于该版本可能出现异常，执行以下命令升级：
+> **注意**：QingClaws 版本需在 **2026.2.26** 及以上，可通过 `qingclaws -v` 命令查看。如果低于该版本可能出现异常，执行以下命令升级：
 > ```bash
-> npm install -g openclaw
+> npm install -g qingclaws
 > ```
 
 ## 使用说明
-[OpenClaw  Lark/飞书官方插件使用指南](https://bytedance.larkoffice.com/docx/MFK7dDFLFoVlOGxWCv5cTXKmnMh)
+[QingClaws  Lark/飞书官方插件使用指南](https://bytedance.larkoffice.com/docx/MFK7dDFLFoVlOGxWCv5cTXKmnMh)
 
 ## 贡献
 
-我们欢迎社区的贡献！如果你发现 Bug 或有功能建议，请随时提交 [Issue](https://github.com/larksuite/openclaw-larksuite/issues) 或 [Pull Request](https://github.com/larksuite/openclaw-larksuite/pulls)。
+我们欢迎社区的贡献！如果你发现 Bug 或有功能建议，请随时提交 [Issue](https://github.com/larksuite/qingclaws-larksuite/issues) 或 [Pull Request](https://github.com/larksuite/qingclaws-larksuite/pulls)。
 
 对于较大的改动，我们建议你先通过 Issue 与我们讨论。
 

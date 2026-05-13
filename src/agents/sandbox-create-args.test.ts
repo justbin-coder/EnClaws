@@ -8,8 +8,8 @@ describe("buildSandboxCreateArgs", () => {
     binds?: string[],
   ): SandboxDockerConfig {
     return {
-      image: "enclaws-sandbox:bookworm-slim",
-      containerPrefix: "enclaws-sbx-",
+      image: "qingclaws-sandbox:bookworm-slim",
+      containerPrefix: "qingclaws-sbx-",
       workdir: "/workspace",
       readOnlyRoot: false,
       tmpfs: [],
@@ -39,8 +39,8 @@ describe("buildSandboxCreateArgs", () => {
 
   it("includes hardening and resource flags", () => {
     const cfg: SandboxDockerConfig = {
-      image: "enclaws-sandbox:bookworm-slim",
-      containerPrefix: "enclaws-sbx-",
+      image: "qingclaws-sandbox:bookworm-slim",
+      containerPrefix: "qingclaws-sbx-",
       workdir: "/workspace",
       readOnlyRoot: true,
       tmpfs: ["/tmp"],
@@ -58,32 +58,32 @@ describe("buildSandboxCreateArgs", () => {
         core: "0",
       },
       seccompProfile: "/tmp/seccomp.json",
-      apparmorProfile: "enclaws-sandbox",
+      apparmorProfile: "qingclaws-sandbox",
       dns: ["1.1.1.1"],
       extraHosts: ["internal.service:10.0.0.5"],
     };
 
     const args = buildSandboxCreateArgs({
-      name: "enclaws-sbx-test",
+      name: "qingclaws-sbx-test",
       cfg,
       scopeKey: "main",
       createdAtMs: 1700000000000,
-      labels: { "enclaws.sandboxBrowser": "1" },
+      labels: { "qingclaws.sandboxBrowser": "1" },
     });
 
     expect(args).toEqual(
       expect.arrayContaining([
         "create",
         "--name",
-        "enclaws-sbx-test",
+        "qingclaws-sbx-test",
         "--label",
-        "enclaws.sandbox=1",
+        "qingclaws.sandbox=1",
         "--label",
-        "enclaws.sessionKey=main",
+        "qingclaws.sessionKey=main",
         "--label",
-        "enclaws.createdAtMs=1700000000000",
+        "qingclaws.createdAtMs=1700000000000",
         "--label",
-        "enclaws.sandboxBrowser=1",
+        "qingclaws.sandboxBrowser=1",
         "--read-only",
         "--tmpfs",
         "/tmp",
@@ -98,7 +98,7 @@ describe("buildSandboxCreateArgs", () => {
         "--security-opt",
         "seccomp=/tmp/seccomp.json",
         "--security-opt",
-        "apparmor=enclaws-sandbox",
+        "apparmor=qingclaws-sandbox",
         "--dns",
         "1.1.1.1",
         "--add-host",
@@ -131,8 +131,8 @@ describe("buildSandboxCreateArgs", () => {
 
   it("emits -v flags for safe custom binds", () => {
     const cfg: SandboxDockerConfig = {
-      image: "enclaws-sandbox:bookworm-slim",
-      containerPrefix: "enclaws-sbx-",
+      image: "qingclaws-sandbox:bookworm-slim",
+      containerPrefix: "qingclaws-sbx-",
       workdir: "/workspace",
       readOnlyRoot: false,
       tmpfs: [],
@@ -142,7 +142,7 @@ describe("buildSandboxCreateArgs", () => {
     };
 
     const args = buildSandboxCreateArgs({
-      name: "enclaws-sbx-binds",
+      name: "qingclaws-sbx-binds",
       cfg,
       scopeKey: "main",
       createdAtMs: 1700000000000,
@@ -165,37 +165,37 @@ describe("buildSandboxCreateArgs", () => {
   it.each([
     {
       name: "dangerous Docker socket bind mounts",
-      containerName: "enclaws-sbx-dangerous",
+      containerName: "qingclaws-sbx-dangerous",
       cfg: createSandboxConfig({}, ["/var/run/docker.sock:/var/run/docker.sock"]),
       expected: /blocked path/,
     },
     {
       name: "dangerous parent bind mounts",
-      containerName: "enclaws-sbx-dangerous-parent",
+      containerName: "qingclaws-sbx-dangerous-parent",
       cfg: createSandboxConfig({}, ["/run:/run"]),
       expected: /blocked path/,
     },
     {
       name: "network host mode",
-      containerName: "enclaws-sbx-host",
+      containerName: "qingclaws-sbx-host",
       cfg: createSandboxConfig({ network: "host" }),
       expected: /network mode "host" is blocked/,
     },
     {
       name: "network container namespace join",
-      containerName: "enclaws-sbx-container-network",
+      containerName: "qingclaws-sbx-container-network",
       cfg: createSandboxConfig({ network: "container:peer" }),
       expected: /network mode "container:peer" is blocked by default/,
     },
     {
       name: "seccomp unconfined",
-      containerName: "enclaws-sbx-seccomp",
+      containerName: "qingclaws-sbx-seccomp",
       cfg: createSandboxConfig({ seccompProfile: "unconfined" }),
       expected: /seccomp profile "unconfined" is blocked/,
     },
     {
       name: "apparmor unconfined",
-      containerName: "enclaws-sbx-apparmor",
+      containerName: "qingclaws-sbx-apparmor",
       cfg: createSandboxConfig({ apparmorProfile: "unconfined" }),
       expected: /apparmor profile "unconfined" is blocked/,
     },
@@ -205,8 +205,8 @@ describe("buildSandboxCreateArgs", () => {
 
   it("omits -v flags when binds is empty or undefined", () => {
     const cfg: SandboxDockerConfig = {
-      image: "enclaws-sandbox:bookworm-slim",
-      containerPrefix: "enclaws-sbx-",
+      image: "qingclaws-sandbox:bookworm-slim",
+      containerPrefix: "qingclaws-sbx-",
       workdir: "/workspace",
       readOnlyRoot: false,
       tmpfs: [],
@@ -216,7 +216,7 @@ describe("buildSandboxCreateArgs", () => {
     };
 
     const args = buildSandboxCreateArgs({
-      name: "enclaws-sbx-no-binds",
+      name: "qingclaws-sbx-no-binds",
       cfg,
       scopeKey: "main",
       createdAtMs: 1700000000000,
@@ -239,7 +239,7 @@ describe("buildSandboxCreateArgs", () => {
     const cfg = createSandboxConfig({}, ["/opt/external:/data:rw"]);
     expect(() =>
       buildSandboxCreateArgs({
-        name: "enclaws-sbx-outside-roots",
+        name: "qingclaws-sbx-outside-roots",
         cfg,
         scopeKey: "main",
         createdAtMs: 1700000000000,
@@ -251,7 +251,7 @@ describe("buildSandboxCreateArgs", () => {
   it("allows bind sources outside runtime allowlist with explicit override", () => {
     const cfg = createSandboxConfig({}, ["/opt/external:/data:rw"]);
     const args = buildSandboxCreateArgs({
-      name: "enclaws-sbx-outside-roots-override",
+      name: "qingclaws-sbx-outside-roots-override",
       cfg,
       scopeKey: "main",
       createdAtMs: 1700000000000,
@@ -263,13 +263,13 @@ describe("buildSandboxCreateArgs", () => {
 
   it("blocks reserved /workspace target bind mounts by default", () => {
     const cfg = createSandboxConfig({}, ["/tmp/override:/workspace:rw"]);
-    expectBuildToThrow("enclaws-sbx-reserved-target", cfg, /reserved container path/);
+    expectBuildToThrow("qingclaws-sbx-reserved-target", cfg, /reserved container path/);
   });
 
   it("allows reserved /workspace target bind mounts with explicit dangerous override", () => {
     const cfg = createSandboxConfig({}, ["/tmp/override:/workspace:rw"]);
     const args = buildSandboxCreateArgs({
-      name: "enclaws-sbx-reserved-target-override",
+      name: "qingclaws-sbx-reserved-target-override",
       cfg,
       scopeKey: "main",
       createdAtMs: 1700000000000,
@@ -284,7 +284,7 @@ describe("buildSandboxCreateArgs", () => {
       dangerouslyAllowContainerNamespaceJoin: true,
     });
     const args = buildSandboxCreateArgs({
-      name: "enclaws-sbx-container-network-override",
+      name: "qingclaws-sbx-container-network-override",
       cfg,
       scopeKey: "main",
       createdAtMs: 1700000000000,

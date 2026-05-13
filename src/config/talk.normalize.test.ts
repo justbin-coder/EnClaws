@@ -9,8 +9,8 @@ async function withTempConfig(
   config: unknown,
   run: (configPath: string) => Promise<void>,
 ): Promise<void> {
-  const dir = await fs.mkdtemp(path.join(os.tmpdir(), "enclaws-talk-"));
-  const configPath = path.join(dir, "enclaws.json");
+  const dir = await fs.mkdtemp(path.join(os.tmpdir(), "qingclaws-talk-"));
+  const configPath = path.join(dir, "qingclaws.json");
   await fs.writeFile(configPath, JSON.stringify(config, null, 2));
   try {
     await run(configPath);

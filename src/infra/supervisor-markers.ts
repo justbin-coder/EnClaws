@@ -2,10 +2,10 @@ export const SUPERVISOR_HINT_ENV_VARS = [
   // macOS launchd
   "LAUNCH_JOB_LABEL",
   "LAUNCH_JOB_NAME",
-  // EnClaws service env markers
-  "ENCLAWS_LAUNCHD_LABEL",
-  "ENCLAWS_SYSTEMD_UNIT",
-  "ENCLAWS_SERVICE_MARKER",
+  // QingClaws service env markers
+  "QINGCLAWS_LAUNCHD_LABEL",
+  "QINGCLAWS_SYSTEMD_UNIT",
+  "QINGCLAWS_SERVICE_MARKER",
   // Linux systemd
   "INVOCATION_ID",
   "SYSTEMD_EXEC_PID",

@@ -25,7 +25,7 @@ function buildSessionHeaderAndMessage() {
 const tempDirs: string[] = [];
 
 async function createTempSessionPath() {
-  const dir = await fs.mkdtemp(path.join(os.tmpdir(), "enclaws-session-repair-"));
+  const dir = await fs.mkdtemp(path.join(os.tmpdir(), "qingclaws-session-repair-"));
   tempDirs.push(dir);
   return { dir, file: path.join(dir, "session.jsonl") };
 }

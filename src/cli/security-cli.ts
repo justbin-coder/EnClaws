@@ -35,11 +35,11 @@ export function registerSecurityCli(program: Command) {
       "after",
       () =>
         `\n${theme.heading("Examples:")}\n${formatHelpExamples([
-          ["enclaws security audit", "Run a local security audit."],
-          ["enclaws security audit --deep", "Include best-effort live Gateway probe checks."],
-          ["enclaws security audit --fix", "Apply safe remediations and file-permission fixes."],
-          ["enclaws security audit --json", "Output machine-readable JSON."],
-        ])}\n\n${theme.muted("Docs:")} ${formatDocsLink("/cli/security", "docs.enclaws.ai/cli/security")}\n`,
+          ["qingclaws security audit", "Run a local security audit."],
+          ["qingclaws security audit --deep", "Include best-effort live Gateway probe checks."],
+          ["qingclaws security audit --fix", "Apply safe remediations and file-permission fixes."],
+          ["qingclaws security audit --json", "Output machine-readable JSON."],
+        ])}\n\n${theme.muted("Docs:")} ${formatDocsLink("/cli/security", "docs.qingclaws.ai/cli/security")}\n`,
     );
 
   security
@@ -71,12 +71,12 @@ export function registerSecurityCli(program: Command) {
       const muted = (text: string) => (rich ? theme.muted(text) : text);
 
       const lines: string[] = [];
-      lines.push(heading("EnClaws security audit"));
+      lines.push(heading("QingClaws security audit"));
       lines.push(muted(`Summary: ${formatSummary(report.summary)}`));
-      lines.push(muted(`Run deeper: ${formatCliCommand("enclaws security audit --deep")}`));
+      lines.push(muted(`Run deeper: ${formatCliCommand("qingclaws security audit --deep")}`));
 
       if (opts.fix) {
-        lines.push(muted(`Fix: ${formatCliCommand("enclaws security audit --fix")}`));
+        lines.push(muted(`Fix: ${formatCliCommand("qingclaws security audit --fix")}`));
         if (!fixResult) {
           lines.push(muted("Fixes: failed to apply (unexpected error)"));
         } else if (

@@ -1,14 +1,14 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-# Build and bundle EnClaws into a minimal .app we can open.
-# Outputs to dist/EnClaws.app
+# Build and bundle QingClaws into a minimal .app we can open.
+# Outputs to dist/QingClaws.app
 
 ROOT_DIR="$(cd "$(dirname "$0")/.." && pwd)"
-APP_ROOT="$ROOT_DIR/dist/EnClaws.app"
+APP_ROOT="$ROOT_DIR/dist/QingClaws.app"
 BUILD_ROOT="$ROOT_DIR/apps/macos/.build"
-PRODUCT="OpenClaw"
-BUNDLE_ID="${BUNDLE_ID:-ai.enclaws.mac.debug}"
+PRODUCT="QingClaws"
+BUNDLE_ID="${BUNDLE_ID:-ai.qingclaws.mac.debug}"
 PKG_VERSION="$(cd "$ROOT_DIR" && node -p "require('./package.json').version" 2>/dev/null || echo "0.0.0")"
 BUILD_TS=$(date -u +"%Y-%m-%dT%H:%M:%SZ")
 GIT_COMMIT=$(cd "$ROOT_DIR" && git rev-parse --short HEAD 2>/dev/null || echo "unknown")
@@ -23,7 +23,7 @@ fi
 IFS=' ' read -r -a BUILD_ARCHS <<< "$BUILD_ARCHS_VALUE"
 PRIMARY_ARCH="${BUILD_ARCHS[0]}"
 SPARKLE_PUBLIC_ED_KEY="${SPARKLE_PUBLIC_ED_KEY:-AGCY8w5vHirVfGGDGc8Szc5iuOqupZSh9pMj/Qs67XI=}"
-SPARKLE_FEED_URL="${SPARKLE_FEED_URL:-https://raw.githubusercontent.com/hashSTACS-Global/EnClaws/main/appcast.xml}"
+SPARKLE_FEED_URL="${SPARKLE_FEED_URL:-}"
 AUTO_CHECKS=true
 if [[ "$BUNDLE_ID" == *.debug ]]; then
   SPARKLE_FEED_URL=""
@@ -159,7 +159,7 @@ mkdir -p "$APP_ROOT/Contents/Resources"
 mkdir -p "$APP_ROOT/Contents/Frameworks"
 
 echo "📄 Copying Info.plist template"
-INFO_PLIST_SRC="$ROOT_DIR/apps/macos/Sources/OpenClaw/Resources/Info.plist"
+INFO_PLIST_SRC="$ROOT_DIR/apps/macos/Sources/QingClaws/Resources/Info.plist"
 if [ ! -f "$INFO_PLIST_SRC" ]; then
   echo "ERROR: Info.plist template missing at $INFO_PLIST_SRC" >&2
   exit 1
@@ -168,8 +168,8 @@ cp "$INFO_PLIST_SRC" "$APP_ROOT/Contents/Info.plist"
 /usr/libexec/PlistBuddy -c "Set :CFBundleIdentifier ${BUNDLE_ID}" "$APP_ROOT/Contents/Info.plist" || true
 /usr/libexec/PlistBuddy -c "Set :CFBundleShortVersionString ${APP_VERSION}" "$APP_ROOT/Contents/Info.plist" || true
 /usr/libexec/PlistBuddy -c "Set :CFBundleVersion ${APP_BUILD}" "$APP_ROOT/Contents/Info.plist" || true
-/usr/libexec/PlistBuddy -c "Set :OpenClawBuildTimestamp ${BUILD_TS}" "$APP_ROOT/Contents/Info.plist" || true
-/usr/libexec/PlistBuddy -c "Set :OpenClawGitCommit ${GIT_COMMIT}" "$APP_ROOT/Contents/Info.plist" || true
+/usr/libexec/PlistBuddy -c "Set :QingClawsBuildTimestamp ${BUILD_TS}" "$APP_ROOT/Contents/Info.plist" || true
+/usr/libexec/PlistBuddy -c "Set :QingClawsGitCommit ${GIT_COMMIT}" "$APP_ROOT/Contents/Info.plist" || true
 /usr/libexec/PlistBuddy -c "Set :SUFeedURL ${SPARKLE_FEED_URL}" "$APP_ROOT/Contents/Info.plist" \
   || /usr/libexec/PlistBuddy -c "Add :SUFeedURL string ${SPARKLE_FEED_URL}" "$APP_ROOT/Contents/Info.plist" || true
 /usr/libexec/PlistBuddy -c "Set :SUPublicEDKey ${SPARKLE_PUBLIC_ED_KEY}" "$APP_ROOT/Contents/Info.plist" \
@@ -181,17 +181,17 @@ else
 fi
 
 echo "🚚 Copying binary"
-cp "$BIN_PRIMARY" "$APP_ROOT/Contents/MacOS/EnClaws"
+cp "$BIN_PRIMARY" "$APP_ROOT/Contents/MacOS/QingClaws"
 if [[ "${#BUILD_ARCHS[@]}" -gt 1 ]]; then
   BIN_INPUTS=()
   for arch in "${BUILD_ARCHS[@]}"; do
     BIN_INPUTS+=("$(bin_for_arch "$arch")")
   done
-  /usr/bin/lipo -create "${BIN_INPUTS[@]}" -output "$APP_ROOT/Contents/MacOS/EnClaws"
+  /usr/bin/lipo -create "${BIN_INPUTS[@]}" -output "$APP_ROOT/Contents/MacOS/QingClaws"
 fi
-chmod +x "$APP_ROOT/Contents/MacOS/EnClaws"
+chmod +x "$APP_ROOT/Contents/MacOS/QingClaws"
 # SwiftPM outputs ad-hoc signed binaries; strip the signature before install_name_tool to avoid warnings.
-/usr/bin/codesign --remove-signature "$APP_ROOT/Contents/MacOS/EnClaws" 2>/dev/null || true
+/usr/bin/codesign --remove-signature "$APP_ROOT/Contents/MacOS/QingClaws" 2>/dev/null || true
 
 SPARKLE_FRAMEWORK_PRIMARY="$(sparkle_framework_for_arch "$PRIMARY_ARCH")"
 if [ -d "$SPARKLE_FRAMEWORK_PRIMARY" ]; then
@@ -220,11 +220,11 @@ else
 fi
 
 echo "🖼  Copying app icon"
-cp "$ROOT_DIR/apps/macos/Sources/OpenClaw/Resources/EnClaws.icns" "$APP_ROOT/Contents/Resources/EnClaws.icns"
+cp "$ROOT_DIR/apps/macos/Sources/QingClaws/Resources/QingClaws.icns" "$APP_ROOT/Contents/Resources/QingClaws.icns"
 
 echo "📦 Copying device model resources"
 rm -rf "$APP_ROOT/Contents/Resources/DeviceModels"
-cp -R "$ROOT_DIR/apps/macos/Sources/OpenClaw/Resources/DeviceModels" "$APP_ROOT/Contents/Resources/DeviceModels"
+cp -R "$ROOT_DIR/apps/macos/Sources/QingClaws/Resources/DeviceModels" "$APP_ROOT/Contents/Resources/DeviceModels"
 
 echo "📦 Copying model catalog"
 MODEL_CATALOG_SRC="$ROOT_DIR/node_modules/@mariozechner/pi-ai/dist/models.generated.js"
@@ -235,13 +235,13 @@ else
   echo "WARN: model catalog missing at $MODEL_CATALOG_SRC (continuing)" >&2
 fi
 
-echo "📦 Copying OpenClawKit resources"
-OPENCLAWKIT_BUNDLE="$(build_path_for_arch "$PRIMARY_ARCH")/$BUILD_CONFIG/OpenClawKit_OpenClawKit.bundle"
-if [ -d "$OPENCLAWKIT_BUNDLE" ]; then
-  rm -rf "$APP_ROOT/Contents/Resources/OpenClawKit_OpenClawKit.bundle"
-  cp -R "$OPENCLAWKIT_BUNDLE" "$APP_ROOT/Contents/Resources/OpenClawKit_OpenClawKit.bundle"
+echo "📦 Copying QingClawsKit resources"
+QINGCLAWSKIT_BUNDLE="$(build_path_for_arch "$PRIMARY_ARCH")/$BUILD_CONFIG/QingClawsKit_QingClawsKit.bundle"
+if [ -d "$QINGCLAWSKIT_BUNDLE" ]; then
+  rm -rf "$APP_ROOT/Contents/Resources/QingClawsKit_QingClawsKit.bundle"
+  cp -R "$QINGCLAWSKIT_BUNDLE" "$APP_ROOT/Contents/Resources/QingClawsKit_QingClawsKit.bundle"
 else
-  echo "WARN: OpenClawKit resource bundle not found at $OPENCLAWKIT_BUNDLE (continuing)" >&2
+  echo "WARN: QingClawsKit resource bundle not found at $QINGCLAWSKIT_BUNDLE (continuing)" >&2
 fi
 
 echo "📦 Copying Textual resources"
@@ -310,12 +310,12 @@ RESOURCES="$APP_ROOT/Contents/Resources"
 
 echo "📦 Bundling JS application code..."
 
-cp "$ROOT_DIR/enclaws.mjs" "$RESOURCES/enclaws.mjs"
+cp "$ROOT_DIR/qingclaws.mjs" "$RESOURCES/qingclaws.mjs"
 cp "$ROOT_DIR/.env.example" "$RESOURCES/.env.example"
 
 for dir in dist extensions skills assets; do
   if [ -d "$ROOT_DIR/$dir" ]; then
-    # Exclude .app bundles to prevent nesting (dist/ may contain EnClaws.app from earlier build)
+    # Exclude .app bundles to prevent nesting (dist/ may contain QingClaws.app from earlier build)
     rsync -a --exclude='*.app' "$ROOT_DIR/$dir/" "$RESOURCES/$dir/"
     echo "    Copied $dir/"
   else
@@ -343,7 +343,7 @@ fi
 # ---------------------------------------------------------------------------
 
 SKILL_PACK_DIR="$RESOURCES/skills-pack"
-SKILL_PACK_GIT_URL="https://github.com/hashSTACS-Global/feishu-skills.git"
+SKILL_PACK_GIT_URL="https://github.com/QingClaws Team/feishu-skills.git"
 
 if [ -d "$ROOT_DIR/skills-pack/.git" ]; then
   echo "📦 Copying existing skills-pack..."
@@ -424,10 +424,10 @@ rm -rf "$RESOURCES/node_modules/echarts/dist"
 BUNDLE_SIZE=$(du -sm "$RESOURCES" | awk '{print $1}')
 echo "[OK] Bundle size: ${BUNDLE_SIZE} MB"
 
-echo "⏹  Stopping any running EnClaws"
-killall -q EnClaws 2>/dev/null || true
+echo "⏹  Stopping any running QingClaws"
+killall -q QingClaws 2>/dev/null || true
 
 echo "🔏 Signing bundle (auto-selects signing identity if SIGN_IDENTITY is unset)"
 "$ROOT_DIR/scripts/codesign-mac-app.sh" "$APP_ROOT"
 
-echo "✅ EnClaws bundle ready at $APP_ROOT"
+echo "✅ QingClaws bundle ready at $APP_ROOT"

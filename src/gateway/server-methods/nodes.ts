@@ -214,8 +214,8 @@ async function maybeSendNodeWakeNudge(nodeId: string): Promise<NodeWakeNudgeAtte
       auth: auth.value,
       registration,
       nodeId,
-      title: "EnClaws needs a quick reopen",
-      body: "Tap to reopen EnClaws and restore the node connection.",
+      title: "QingClaws needs a quick reopen",
+      body: "Tap to reopen QingClaws and restore the node connection.",
     });
     if (!result.ok) {
       return withDuration({

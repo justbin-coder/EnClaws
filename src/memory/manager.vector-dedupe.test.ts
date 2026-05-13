@@ -40,7 +40,7 @@ describe("memory vector dedupe", () => {
   }
 
   beforeEach(async () => {
-    workspaceDir = await fs.mkdtemp(path.join(os.tmpdir(), "enclaws-mem-"));
+    workspaceDir = await fs.mkdtemp(path.join(os.tmpdir(), "qingclaws-mem-"));
     indexPath = path.join(workspaceDir, "index.sqlite");
     await seedMemoryWorkspace(workspaceDir);
   });

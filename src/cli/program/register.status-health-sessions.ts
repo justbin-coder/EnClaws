@@ -55,21 +55,21 @@ export function registerStatusHealthSessionsCommands(program: Command) {
       "after",
       () =>
         `\n${theme.heading("Examples:")}\n${formatHelpExamples([
-          ["enclaws status", "Show channel health + session summary."],
-          ["enclaws status --all", "Full diagnosis (read-only)."],
-          ["enclaws status --json", "Machine-readable output."],
-          ["enclaws status --usage", "Show model provider usage/quota snapshots."],
+          ["qingclaws status", "Show channel health + session summary."],
+          ["qingclaws status --all", "Full diagnosis (read-only)."],
+          ["qingclaws status --json", "Machine-readable output."],
+          ["qingclaws status --usage", "Show model provider usage/quota snapshots."],
           [
-            "enclaws status --deep",
+            "qingclaws status --deep",
             "Run channel probes (WA + Telegram + Discord + Slack + Signal).",
           ],
-          ["enclaws status --deep --timeout 5000", "Tighten probe timeout."],
+          ["qingclaws status --deep --timeout 5000", "Tighten probe timeout."],
         ])}`,
     )
     .addHelpText(
       "after",
       () =>
-        `\n${theme.muted("Docs:")} ${formatDocsLink("/cli/status", "docs.enclaws.ai/cli/status")}\n`,
+        `\n${theme.muted("Docs:")} ${formatDocsLink("/cli/status", "docs.qingclaws.ai/cli/status")}\n`,
     )
     .action(async (opts) => {
       await runWithVerboseAndTimeout(opts, async ({ verbose, timeoutMs }) => {
@@ -97,7 +97,7 @@ export function registerStatusHealthSessionsCommands(program: Command) {
     .addHelpText(
       "after",
       () =>
-        `\n${theme.muted("Docs:")} ${formatDocsLink("/cli/health", "docs.enclaws.ai/cli/health")}\n`,
+        `\n${theme.muted("Docs:")} ${formatDocsLink("/cli/health", "docs.qingclaws.ai/cli/health")}\n`,
     )
     .action(async (opts) => {
       await runWithVerboseAndTimeout(opts, async ({ verbose, timeoutMs }) => {
@@ -125,12 +125,12 @@ export function registerStatusHealthSessionsCommands(program: Command) {
       "after",
       () =>
         `\n${theme.heading("Examples:")}\n${formatHelpExamples([
-          ["enclaws sessions", "List all sessions."],
-          ["enclaws sessions --agent work", "List sessions for one agent."],
-          ["enclaws sessions --all-agents", "Aggregate sessions across agents."],
-          ["enclaws sessions --active 120", "Only last 2 hours."],
-          ["enclaws sessions --json", "Machine-readable output."],
-          ["enclaws sessions --store ./tmp/sessions.json", "Use a specific session store."],
+          ["qingclaws sessions", "List all sessions."],
+          ["qingclaws sessions --agent work", "List sessions for one agent."],
+          ["qingclaws sessions --all-agents", "Aggregate sessions across agents."],
+          ["qingclaws sessions --active 120", "Only last 2 hours."],
+          ["qingclaws sessions --json", "Machine-readable output."],
+          ["qingclaws sessions --store ./tmp/sessions.json", "Use a specific session store."],
         ])}\n\n${theme.muted(
           "Shows token usage per session when the agent reports it; set agents.defaults.contextTokens to cap the window and show %.",
         )}`,
@@ -138,7 +138,7 @@ export function registerStatusHealthSessionsCommands(program: Command) {
     .addHelpText(
       "after",
       () =>
-        `\n${theme.muted("Docs:")} ${formatDocsLink("/cli/sessions", "docs.enclaws.ai/cli/sessions")}\n`,
+        `\n${theme.muted("Docs:")} ${formatDocsLink("/cli/sessions", "docs.qingclaws.ai/cli/sessions")}\n`,
     )
     .action(async (opts) => {
       setVerbose(Boolean(opts.verbose));
@@ -174,16 +174,16 @@ export function registerStatusHealthSessionsCommands(program: Command) {
       "after",
       () =>
         `\n${theme.heading("Examples:")}\n${formatHelpExamples([
-          ["enclaws sessions cleanup --dry-run", "Preview stale/cap cleanup."],
+          ["qingclaws sessions cleanup --dry-run", "Preview stale/cap cleanup."],
           [
-            "enclaws sessions cleanup --dry-run --fix-missing",
+            "qingclaws sessions cleanup --dry-run --fix-missing",
             "Also preview pruning entries with missing transcript files.",
           ],
-          ["enclaws sessions cleanup --enforce", "Apply maintenance now."],
-          ["enclaws sessions cleanup --agent work --dry-run", "Preview one agent store."],
-          ["enclaws sessions cleanup --all-agents --dry-run", "Preview all agent stores."],
+          ["qingclaws sessions cleanup --enforce", "Apply maintenance now."],
+          ["qingclaws sessions cleanup --agent work --dry-run", "Preview one agent store."],
+          ["qingclaws sessions cleanup --all-agents --dry-run", "Preview all agent stores."],
           [
-            "enclaws sessions cleanup --enforce --store ./tmp/sessions.json",
+            "qingclaws sessions cleanup --enforce --store ./tmp/sessions.json",
             "Use a specific store.",
           ],
         ])}`,

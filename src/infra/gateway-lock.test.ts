@@ -15,13 +15,13 @@ let fixtureCount = 0;
 async function makeEnv() {
   const dir = path.join(fixtureRoot, `case-${fixtureCount++}`);
   await fs.mkdir(dir, { recursive: true });
-  const configPath = path.join(dir, "enclaws.json");
+  const configPath = path.join(dir, "qingclaws.json");
   await fs.writeFile(configPath, "{}", "utf8");
   await fs.mkdir(resolveGatewayLockDir(), { recursive: true });
   return {
     ...process.env,
-    ENCLAWS_STATE_DIR: dir,
-    ENCLAWS_CONFIG_PATH: configPath,
+    QINGCLAWS_STATE_DIR: dir,
+    QINGCLAWS_CONFIG_PATH: configPath,
   };
 }
 
@@ -139,7 +139,7 @@ async function writeRecentLockFile(env: NodeJS.ProcessEnv, startTime = 111) {
 
 describe("gateway lock", () => {
   beforeAll(async () => {
-    fixtureRoot = await fs.mkdtemp(path.join(os.tmpdir(), "enclaws-gateway-lock-"));
+    fixtureRoot = await fs.mkdtemp(path.join(os.tmpdir(), "qingclaws-gateway-lock-"));
   });
 
   beforeEach(() => {
@@ -273,7 +273,7 @@ describe("gateway lock", () => {
   it("returns null when multi-gateway override is enabled", async () => {
     const env = await makeEnv();
     const lock = await acquireGatewayLock({
-      env: { ...env, ENCLAWS_ALLOW_MULTI_GATEWAY: "1", VITEST: "" },
+      env: { ...env, QINGCLAWS_ALLOW_MULTI_GATEWAY: "1", VITEST: "" },
     });
     expect(lock).toBeNull();
   });

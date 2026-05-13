@@ -11,7 +11,7 @@ type AcpRuntimeRegistryGlobalState = {
   backendsById: Map<string, AcpRuntimeBackend>;
 };
 
-const ACP_RUNTIME_REGISTRY_STATE_KEY = Symbol.for("enclaws.acpRuntimeRegistryState");
+const ACP_RUNTIME_REGISTRY_STATE_KEY = Symbol.for("qingclaws.acpRuntimeRegistryState");
 
 function createAcpRuntimeRegistryGlobalState(): AcpRuntimeRegistryGlobalState {
   return {

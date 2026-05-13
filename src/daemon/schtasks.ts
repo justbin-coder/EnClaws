@@ -19,19 +19,19 @@ import type {
 } from "./service-types.js";
 
 function resolveTaskName(env: GatewayServiceEnv): string {
-  const override = env.ENCLAWS_WINDOWS_TASK_NAME?.trim();
+  const override = env.QINGCLAWS_WINDOWS_TASK_NAME?.trim();
   if (override) {
     return override;
   }
-  return resolveGatewayWindowsTaskName(env.ENCLAWS_PROFILE);
+  return resolveGatewayWindowsTaskName(env.QINGCLAWS_PROFILE);
 }
 
 export function resolveTaskScriptPath(env: GatewayServiceEnv): string {
-  const override = env.ENCLAWS_TASK_SCRIPT?.trim();
+  const override = env.QINGCLAWS_TASK_SCRIPT?.trim();
   if (override) {
     return override;
   }
-  const scriptName = env.ENCLAWS_TASK_SCRIPT_NAME?.trim() || "gateway.cmd";
+  const scriptName = env.QINGCLAWS_TASK_SCRIPT_NAME?.trim() || "gateway.cmd";
   const stateDir = resolveGatewayStateDir(env);
   return path.join(stateDir, scriptName);
 }

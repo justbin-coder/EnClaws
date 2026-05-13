@@ -5,7 +5,7 @@ import { CronService } from "./service.js";
 import { setupCronServiceSuite } from "./service.test-harness.js";
 
 const { logger: noopLogger, makeStorePath } = setupCronServiceSuite({
-  prefix: "enclaws-cron-",
+  prefix: "qingclaws-cron-",
   baseTimeIso: "2025-12-13T17:00:00.000Z",
 });
 

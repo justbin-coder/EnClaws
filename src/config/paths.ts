@@ -5,22 +5,22 @@ import { expandHomePrefix, resolveRequiredHomeDir } from "../infra/home-dir.js";
 import type { OpenClawConfig } from "./types.js";
 
 /**
- * Nix mode detection: When ENCLAWS_NIX_MODE=1, the gateway is running under Nix.
+ * Nix mode detection: When QINGCLAWS_NIX_MODE=1, the gateway is running under Nix.
  * In this mode:
  * - No auto-install flows should be attempted
  * - Missing dependencies should produce actionable Nix-specific error messages
  * - Config is managed externally (read-only from Nix perspective)
  */
 export function resolveIsNixMode(env: NodeJS.ProcessEnv = process.env): boolean {
-  return env.ENCLAWS_NIX_MODE === "1";
+  return env.QINGCLAWS_NIX_MODE === "1";
 }
 
 export const isNixMode = resolveIsNixMode();
 
 // Support historical (and occasionally misspelled) legacy state dirs.
 const LEGACY_STATE_DIRNAMES = [".clawdbot", ".moldbot", ".moltbot"] as const;
-const NEW_STATE_DIRNAME = ".enclaws";
-const CONFIG_FILENAME = "enclaws.json";
+const NEW_STATE_DIRNAME = ".qingclaws"; // QINGCLAWS-CUSTOM: brand
+const CONFIG_FILENAME = "qingclaws.json"; // QINGCLAWS-CUSTOM: brand
 const LEGACY_CONFIG_FILENAMES = [
   "clawdbot.json",
   "moldbot.json",
@@ -31,7 +31,7 @@ function resolveDefaultHomeDir(): string {
   return resolveRequiredHomeDir(process.env, os.homedir);
 }
 
-/** Build a homedir thunk that respects ENCLAWS_HOME for the given env. */
+/** Build a homedir thunk that respects QINGCLAWS_HOME for the given env. */
 function envHomedir(env: NodeJS.ProcessEnv): () => string {
   return () => resolveRequiredHomeDir(env, os.homedir);
 }
@@ -58,15 +58,15 @@ export function resolveNewStateDir(homedir: () => string = resolveDefaultHomeDir
 
 /**
  * State directory for mutable data (sessions, logs, caches).
- * Can be overridden via ENCLAWS_STATE_DIR.
- * Default: ~/.enclaws
+ * Can be overridden via QINGCLAWS_STATE_DIR.
+ * Default: ~/.qingclaws
  */
 export function resolveStateDir(
   env: NodeJS.ProcessEnv = process.env,
   homedir: () => string = envHomedir(env),
 ): string {
   const effectiveHomedir = () => resolveRequiredHomeDir(env, homedir);
-  const override = env.ENCLAWS_STATE_DIR?.trim() || env.CLAWDBOT_STATE_DIR?.trim();
+  const override = env.QINGCLAWS_STATE_DIR?.trim() || env.CLAWDBOT_STATE_DIR?.trim();
   if (override) {
     return resolveUserPath(override, env, effectiveHomedir);
   }
@@ -113,14 +113,14 @@ export const STATE_DIR = resolveStateDir();
 
 /**
  * Config file path (JSON5).
- * Can be overridden via ENCLAWS_CONFIG_PATH.
- * Default: ~/.enclaws/enclaws.json (or $ENCLAWS_STATE_DIR/enclaws.json)
+ * Can be overridden via QINGCLAWS_CONFIG_PATH.
+ * Default: ~/.qingclaws/qingclaws.json (or $QINGCLAWS_STATE_DIR/qingclaws.json)
  */
 export function resolveCanonicalConfigPath(
   env: NodeJS.ProcessEnv = process.env,
   stateDir: string = resolveStateDir(env, envHomedir(env)),
 ): string {
-  const override = env.ENCLAWS_CONFIG_PATH?.trim() || env.CLAWDBOT_CONFIG_PATH?.trim();
+  const override = env.QINGCLAWS_CONFIG_PATH?.trim() || env.CLAWDBOT_CONFIG_PATH?.trim();
   if (override) {
     return resolveUserPath(override, env, envHomedir(env));
   }
@@ -157,11 +157,11 @@ export function resolveConfigPath(
   stateDir: string = resolveStateDir(env, envHomedir(env)),
   homedir: () => string = envHomedir(env),
 ): string {
-  const override = env.ENCLAWS_CONFIG_PATH?.trim();
+  const override = env.QINGCLAWS_CONFIG_PATH?.trim();
   if (override) {
     return resolveUserPath(override, env, homedir);
   }
-  const stateOverride = env.ENCLAWS_STATE_DIR?.trim();
+  const stateOverride = env.QINGCLAWS_STATE_DIR?.trim();
   const candidates = [
     path.join(stateDir, CONFIG_FILENAME),
     ...LEGACY_CONFIG_FILENAMES.map((name) => path.join(stateDir, name)),
@@ -197,15 +197,15 @@ export function resolveDefaultConfigCandidates(
   homedir: () => string = envHomedir(env),
 ): string[] {
   const effectiveHomedir = () => resolveRequiredHomeDir(env, homedir);
-  const explicit = env.ENCLAWS_CONFIG_PATH?.trim() || env.CLAWDBOT_CONFIG_PATH?.trim();
+  const explicit = env.QINGCLAWS_CONFIG_PATH?.trim() || env.CLAWDBOT_CONFIG_PATH?.trim();
   if (explicit) {
     return [resolveUserPath(explicit, env, effectiveHomedir)];
   }
 
   const candidates: string[] = [];
-  const openclawStateDir = env.ENCLAWS_STATE_DIR?.trim() || env.CLAWDBOT_STATE_DIR?.trim();
-  if (openclawStateDir) {
-    const resolved = resolveUserPath(openclawStateDir, env, effectiveHomedir);
+  const qingclawsStateDir = env.QINGCLAWS_STATE_DIR?.trim() || env.CLAWDBOT_STATE_DIR?.trim();
+  if (qingclawsStateDir) {
+    const resolved = resolveUserPath(qingclawsStateDir, env, effectiveHomedir);
     candidates.push(path.join(resolved, CONFIG_FILENAME));
     candidates.push(...LEGACY_CONFIG_FILENAMES.map((name) => path.join(resolved, name)));
   }
@@ -222,12 +222,12 @@ export const DEFAULT_GATEWAY_PORT = 18888;
 
 /**
  * Gateway lock directory (ephemeral).
- * Default: os.tmpdir()/enclaws-<uid> (uid suffix when available).
+ * Default: os.tmpdir()/qingclaws-<uid> (uid suffix when available).
  */
 export function resolveGatewayLockDir(tmpdir: () => string = os.tmpdir): string {
   const base = tmpdir();
   const uid = typeof process.getuid === "function" ? process.getuid() : undefined;
-  const suffix = uid != null ? `enclaws-${uid}` : "enclaws";
+  const suffix = uid != null ? `qingclaws-${uid}` : "qingclaws";
   return path.join(base, suffix);
 }
 
@@ -237,14 +237,14 @@ const OAUTH_FILENAME = "oauth.json";
  * OAuth credentials storage directory.
  *
  * Precedence:
- * - `ENCLAWS_OAUTH_DIR` (explicit override)
+ * - `QINGCLAWS_OAUTH_DIR` (explicit override)
  * - `$*_STATE_DIR/credentials` (canonical server/default)
  */
 export function resolveOAuthDir(
   env: NodeJS.ProcessEnv = process.env,
   stateDir: string = resolveStateDir(env, envHomedir(env)),
 ): string {
-  const override = env.ENCLAWS_OAUTH_DIR?.trim();
+  const override = env.QINGCLAWS_OAUTH_DIR?.trim();
   if (override) {
     return resolveUserPath(override, env, envHomedir(env));
   }
@@ -262,7 +262,7 @@ export function resolveGatewayPort(
   cfg?: OpenClawConfig,
   env: NodeJS.ProcessEnv = process.env,
 ): number {
-  const envRaw = env.ENCLAWS_GATEWAY_PORT?.trim() || env.CLAWDBOT_GATEWAY_PORT?.trim();
+  const envRaw = env.QINGCLAWS_GATEWAY_PORT?.trim() || env.CLAWDBOT_GATEWAY_PORT?.trim();
   if (envRaw) {
     const parsed = Number.parseInt(envRaw, 10);
     if (Number.isFinite(parsed) && parsed > 0) {

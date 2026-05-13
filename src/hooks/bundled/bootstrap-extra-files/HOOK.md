@@ -1,15 +1,15 @@
 ---
 name: bootstrap-extra-files
 description: "Inject additional workspace bootstrap files via glob/path patterns"
-homepage: https://docs.enclaws.ai/automation/hooks#bootstrap-extra-files
+homepage: https://docs.qingclaws.ai/automation/hooks#bootstrap-extra-files
 metadata:
   {
-    "enclaws":
+    "qingclaws":
       {
         "emoji": "📎",
         "events": ["agent:bootstrap"],
         "requires": { "config": ["workspace.dir"] },
-        "install": [{ "id": "bundled", "kind": "bundled", "label": "Bundled with EnClaws" }],
+        "install": [{ "id": "bundled", "kind": "bundled", "label": "Bundled with QingClaws" }],
       },
   }
 ---

@@ -1,10 +1,10 @@
 {
-  "name": "@openclaw/line",
+  "name": "@qingclaws/line",
   "version": "2026.3.1",
   "private": true,
-  "description": "OpenClaw LINE channel plugin",
+  "description": "QingClaws LINE channel plugin",
   "type": "module",
-  "openclaw": {
+  "qingclaws": {
     "extensions": [
       "./index.ts"
     ],
@@ -19,7 +19,7 @@
       "quickstartAllowFrom": true
     },
     "install": {
-      "npmSpec": "@openclaw/line",
+      "npmSpec": "@qingclaws/line",
       "localPath": "extensions/line",
       "defaultChoice": "npm"
     }

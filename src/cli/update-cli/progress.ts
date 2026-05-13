@@ -24,8 +24,8 @@ const STEP_LABELS: Record<string, string> = {
   "ui:build": "Building UI assets",
   "ui:build (post-doctor repair)": "Restoring missing UI assets",
   "ui assets verify": "Validating UI assets",
-  "enclaws doctor entry": "Checking doctor entrypoint",
-  "enclaws doctor": "Running doctor checks",
+  "qingclaws doctor entry": "Checking doctor entrypoint",
+  "qingclaws doctor": "Running doctor checks",
   "git rev-parse HEAD (after)": "Verifying update",
   "global update": "Updating via package manager",
   "global update (omit optional)": "Retrying update without optional deps",
@@ -52,7 +52,7 @@ export function inferUpdateFailureHints(result: UpdateRunResult): string[] {
     hints.push(
       "Detected permission failure (EACCES). Re-run with a writable global prefix or sudo (for system-managed Node installs).",
     );
-    hints.push("Example: npm config set prefix ~/.local && npm i -g enclaws@latest");
+    hints.push("Example: npm config set prefix ~/.local && npm i -g qingclaws@latest");
   }
 
   if (
@@ -64,7 +64,7 @@ export function inferUpdateFailureHints(result: UpdateRunResult): string[] {
     hints.push(
       "Detected native optional dependency build failure (e.g. opus). The updater retries with --omit=optional automatically.",
     );
-    hints.push("If it still fails: npm i -g enclaws@latest --omit=optional");
+    hints.push("If it still fails: npm i -g qingclaws@latest --omit=optional");
   }
 
   return hints;

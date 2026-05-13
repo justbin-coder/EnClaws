@@ -11,7 +11,7 @@
  *   - list:   GET  /open-apis/task/v2/tasks/:task_guid/subtasks
  */
 
-import type { OpenClawPluginApi } from 'openclaw/plugin-sdk';
+import type { QingClawsPluginApi } from 'openclaw/plugin-sdk';
 import { Type } from '@sinclair/typebox';
 
 import {
@@ -97,7 +97,7 @@ type FeishuTaskSubtaskParams =
 // Registration
 // ---------------------------------------------------------------------------
 
-export function registerFeishuTaskSubtaskTool(api: OpenClawPluginApi): void {
+export function registerFeishuTaskSubtaskTool(api: QingClawsPluginApi): void {
   if (!api.config) return;
   const cfg = api.config;
 

@@ -19,7 +19,7 @@
 
 import * as fs from 'node:fs/promises';
 import * as path from 'node:path';
-import type { OpenClawPluginApi } from 'openclaw/plugin-sdk';
+import type { QingClawsPluginApi } from 'openclaw/plugin-sdk';
 import { Type } from '@sinclair/typebox';
 import {
   StringEnum,
@@ -296,7 +296,7 @@ type FeishuDriveFileParams =
 // Registration
 // ---------------------------------------------------------------------------
 
-export function registerFeishuDriveFileTool(api: OpenClawPluginApi): boolean {
+export function registerFeishuDriveFileTool(api: QingClawsPluginApi): boolean {
   if (!api.config) return false;
   const cfg = api.config;
 

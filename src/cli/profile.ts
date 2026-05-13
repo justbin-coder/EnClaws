@@ -94,7 +94,7 @@ function resolveProfileStateDir(
   homedir: () => string,
 ): string {
   const suffix = profile.toLowerCase() === "default" ? "" : `-${profile}`;
-  return path.join(resolveRequiredHomeDir(env as NodeJS.ProcessEnv, homedir), `.enclaws${suffix}`);
+  return path.join(resolveRequiredHomeDir(env as NodeJS.ProcessEnv, homedir), `.qingclaws${suffix}`);
 }
 
 export function applyCliProfileEnv(params: {
@@ -110,18 +110,18 @@ export function applyCliProfileEnv(params: {
   }
 
   // Convenience only: fill defaults, never override explicit env values.
-  env.ENCLAWS_PROFILE = profile;
+  env.QINGCLAWS_PROFILE = profile;
 
-  const stateDir = env.ENCLAWS_STATE_DIR?.trim() || resolveProfileStateDir(profile, env, homedir);
-  if (!env.ENCLAWS_STATE_DIR?.trim()) {
-    env.ENCLAWS_STATE_DIR = stateDir;
+  const stateDir = env.QINGCLAWS_STATE_DIR?.trim() || resolveProfileStateDir(profile, env, homedir);
+  if (!env.QINGCLAWS_STATE_DIR?.trim()) {
+    env.QINGCLAWS_STATE_DIR = stateDir;
   }
 
-  if (!env.ENCLAWS_CONFIG_PATH?.trim()) {
-    env.ENCLAWS_CONFIG_PATH = path.join(stateDir, "enclaws.json");
+  if (!env.QINGCLAWS_CONFIG_PATH?.trim()) {
+    env.QINGCLAWS_CONFIG_PATH = path.join(stateDir, "qingclaws.json");
   }
 
-  if (profile === "dev" && !env.ENCLAWS_GATEWAY_PORT?.trim()) {
-    env.ENCLAWS_GATEWAY_PORT = "19001";
+  if (profile === "dev" && !env.QINGCLAWS_GATEWAY_PORT?.trim()) {
+    env.QINGCLAWS_GATEWAY_PORT = "19001";
   }
 }

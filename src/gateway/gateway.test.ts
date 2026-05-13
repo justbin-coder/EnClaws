@@ -30,39 +30,39 @@ describe("gateway e2e", () => {
     async () => {
       const envSnapshot = captureEnv([
         "HOME",
-        "ENCLAWS_CONFIG_PATH",
-        "ENCLAWS_GATEWAY_TOKEN",
-        "ENCLAWS_SKIP_CHANNELS",
-        "ENCLAWS_SKIP_GMAIL_WATCHER",
-        "ENCLAWS_SKIP_CRON",
-        "ENCLAWS_SKIP_CANVAS_HOST",
-        "ENCLAWS_SKIP_BROWSER_CONTROL_SERVER",
+        "QINGCLAWS_CONFIG_PATH",
+        "QINGCLAWS_GATEWAY_TOKEN",
+        "QINGCLAWS_SKIP_CHANNELS",
+        "QINGCLAWS_SKIP_GMAIL_WATCHER",
+        "QINGCLAWS_SKIP_CRON",
+        "QINGCLAWS_SKIP_CANVAS_HOST",
+        "QINGCLAWS_SKIP_BROWSER_CONTROL_SERVER",
       ]);
 
       const { baseUrl: openaiBaseUrl, restore } = installOpenAiResponsesMock();
 
-      const tempHome = await fs.mkdtemp(path.join(os.tmpdir(), "enclaws-gw-mock-home-"));
+      const tempHome = await fs.mkdtemp(path.join(os.tmpdir(), "qingclaws-gw-mock-home-"));
       process.env.HOME = tempHome;
-      process.env.ENCLAWS_SKIP_CHANNELS = "1";
-      process.env.ENCLAWS_SKIP_GMAIL_WATCHER = "1";
-      process.env.ENCLAWS_SKIP_CRON = "1";
-      process.env.ENCLAWS_SKIP_CANVAS_HOST = "1";
-      process.env.ENCLAWS_SKIP_BROWSER_CONTROL_SERVER = "1";
+      process.env.QINGCLAWS_SKIP_CHANNELS = "1";
+      process.env.QINGCLAWS_SKIP_GMAIL_WATCHER = "1";
+      process.env.QINGCLAWS_SKIP_CRON = "1";
+      process.env.QINGCLAWS_SKIP_CANVAS_HOST = "1";
+      process.env.QINGCLAWS_SKIP_BROWSER_CONTROL_SERVER = "1";
 
       const token = `test-${randomUUID()}`;
-      process.env.ENCLAWS_GATEWAY_TOKEN = token;
+      process.env.QINGCLAWS_GATEWAY_TOKEN = token;
 
-      const workspaceDir = path.join(tempHome, "enclaws");
+      const workspaceDir = path.join(tempHome, "qingclaws");
       await fs.mkdir(workspaceDir, { recursive: true });
 
       const nonceA = randomUUID();
       const nonceB = randomUUID();
-      const toolProbePath = path.join(workspaceDir, `.enclaws-tool-probe.${nonceA}.txt`);
+      const toolProbePath = path.join(workspaceDir, `.qingclaws-tool-probe.${nonceA}.txt`);
       await fs.writeFile(toolProbePath, `nonceA=${nonceA}\nnonceB=${nonceB}\n`);
 
-      const configDir = path.join(tempHome, ".enclaws");
+      const configDir = path.join(tempHome, ".qingclaws");
       await fs.mkdir(configDir, { recursive: true });
-      const configPath = path.join(configDir, "enclaws.json");
+      const configPath = path.join(configDir, "qingclaws.json");
 
       const cfg = {
         agents: { defaults: { workspace: workspaceDir } },
@@ -127,27 +127,27 @@ describe("gateway e2e", () => {
     async () => {
       const envSnapshot = captureEnv([
         "HOME",
-        "ENCLAWS_STATE_DIR",
-        "ENCLAWS_CONFIG_PATH",
-        "ENCLAWS_GATEWAY_TOKEN",
-        "ENCLAWS_SKIP_CHANNELS",
-        "ENCLAWS_SKIP_GMAIL_WATCHER",
-        "ENCLAWS_SKIP_CRON",
-        "ENCLAWS_SKIP_CANVAS_HOST",
-        "ENCLAWS_SKIP_BROWSER_CONTROL_SERVER",
+        "QINGCLAWS_STATE_DIR",
+        "QINGCLAWS_CONFIG_PATH",
+        "QINGCLAWS_GATEWAY_TOKEN",
+        "QINGCLAWS_SKIP_CHANNELS",
+        "QINGCLAWS_SKIP_GMAIL_WATCHER",
+        "QINGCLAWS_SKIP_CRON",
+        "QINGCLAWS_SKIP_CANVAS_HOST",
+        "QINGCLAWS_SKIP_BROWSER_CONTROL_SERVER",
       ]);
 
-      process.env.ENCLAWS_SKIP_CHANNELS = "1";
-      process.env.ENCLAWS_SKIP_GMAIL_WATCHER = "1";
-      process.env.ENCLAWS_SKIP_CRON = "1";
-      process.env.ENCLAWS_SKIP_CANVAS_HOST = "1";
-      process.env.ENCLAWS_SKIP_BROWSER_CONTROL_SERVER = "1";
-      delete process.env.ENCLAWS_GATEWAY_TOKEN;
+      process.env.QINGCLAWS_SKIP_CHANNELS = "1";
+      process.env.QINGCLAWS_SKIP_GMAIL_WATCHER = "1";
+      process.env.QINGCLAWS_SKIP_CRON = "1";
+      process.env.QINGCLAWS_SKIP_CANVAS_HOST = "1";
+      process.env.QINGCLAWS_SKIP_BROWSER_CONTROL_SERVER = "1";
+      delete process.env.QINGCLAWS_GATEWAY_TOKEN;
 
-      const tempHome = await fs.mkdtemp(path.join(os.tmpdir(), "enclaws-wizard-home-"));
+      const tempHome = await fs.mkdtemp(path.join(os.tmpdir(), "qingclaws-wizard-home-"));
       process.env.HOME = tempHome;
-      delete process.env.ENCLAWS_STATE_DIR;
-      delete process.env.ENCLAWS_CONFIG_PATH;
+      delete process.env.QINGCLAWS_STATE_DIR;
+      delete process.env.QINGCLAWS_CONFIG_PATH;
 
       const wizardToken = `wiz-${randomUUID()}`;
       const port = await getFreeGatewayPort();

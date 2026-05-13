@@ -6,14 +6,14 @@ function createSandboxContext(overrides?: Partial<SandboxContext>): SandboxConte
   const base = {
     enabled: true,
     sessionKey: "session:test",
-    workspaceDir: "/tmp/enclaws-sandbox",
-    agentWorkspaceDir: "/tmp/enclaws-workspace",
+    workspaceDir: "/tmp/qingclaws-sandbox",
+    agentWorkspaceDir: "/tmp/qingclaws-workspace",
     workspaceAccess: "none",
-    containerName: "enclaws-sbx-test",
+    containerName: "qingclaws-sbx-test",
     containerWorkdir: "/workspace",
     docker: {
-      image: "enclaws-sandbox:bookworm-slim",
-      containerPrefix: "enclaws-sbx-",
+      image: "qingclaws-sandbox:bookworm-slim",
+      containerPrefix: "qingclaws-sbx-",
       workdir: "/workspace",
       readOnlyRoot: true,
       tmpfs: ["/tmp"],
@@ -30,7 +30,7 @@ function createSandboxContext(overrides?: Partial<SandboxContext>): SandboxConte
     browser: {
       bridgeUrl: "http://localhost:9222",
       noVncUrl: "http://localhost:6080",
-      containerName: "enclaws-sbx-browser-test",
+      containerName: "qingclaws-sbx-browser-test",
     },
   } satisfies SandboxContext;
   return { ...base, ...overrides };
@@ -46,7 +46,7 @@ describe("buildEmbeddedSandboxInfo", () => {
 
     expect(buildEmbeddedSandboxInfo(sandbox)).toEqual({
       enabled: true,
-      workspaceDir: "/tmp/enclaws-sandbox",
+      workspaceDir: "/tmp/qingclaws-sandbox",
       containerWorkspaceDir: "/workspace",
       workspaceAccess: "none",
       agentWorkspaceMount: undefined,
@@ -70,7 +70,7 @@ describe("buildEmbeddedSandboxInfo", () => {
       }),
     ).toEqual({
       enabled: true,
-      workspaceDir: "/tmp/enclaws-sandbox",
+      workspaceDir: "/tmp/qingclaws-sandbox",
       containerWorkspaceDir: "/workspace",
       workspaceAccess: "none",
       agentWorkspaceMount: undefined,

@@ -3,9 +3,9 @@ import { encodePairingSetupCode, resolvePairingSetupFromConfig } from "./setup-c
 
 describe("pairing setup code", () => {
   beforeEach(() => {
-    vi.stubEnv("ENCLAWS_GATEWAY_TOKEN", "");
+    vi.stubEnv("QINGCLAWS_GATEWAY_TOKEN", "");
     vi.stubEnv("CLAWDBOT_GATEWAY_TOKEN", "");
-    vi.stubEnv("ENCLAWS_GATEWAY_PASSWORD", "");
+    vi.stubEnv("QINGCLAWS_GATEWAY_PASSWORD", "");
     vi.stubEnv("CLAWDBOT_GATEWAY_PASSWORD", "");
   });
 
@@ -55,7 +55,7 @@ describe("pairing setup code", () => {
       },
       {
         env: {
-          ENCLAWS_GATEWAY_TOKEN: "new-token",
+          QINGCLAWS_GATEWAY_TOKEN: "new-token",
         },
       },
     );

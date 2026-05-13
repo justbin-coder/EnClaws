@@ -60,7 +60,7 @@ describe("installUnhandledRejectionHandler - fatal detection", () => {
       }
 
       expect(consoleErrorSpy).toHaveBeenCalledWith(
-        "[enclaws] FATAL unhandled rejection:",
+        "[qingclaws] FATAL unhandled rejection:",
         expect.stringContaining("Out of memory"),
       );
     });
@@ -78,7 +78,7 @@ describe("installUnhandledRejectionHandler - fatal detection", () => {
       }
 
       expect(consoleErrorSpy).toHaveBeenCalledWith(
-        "[enclaws] CONFIGURATION ERROR - requires fix:",
+        "[qingclaws] CONFIGURATION ERROR - requires fix:",
         expect.stringContaining("Invalid config"),
       );
     });
@@ -116,7 +116,7 @@ describe("installUnhandledRejectionHandler - fatal detection", () => {
       }
 
       expect(consoleWarnSpy).toHaveBeenCalledWith(
-        "[enclaws] Non-fatal unhandled rejection (continuing):",
+        "[qingclaws] Non-fatal unhandled rejection (continuing):",
         expect.stringContaining("fetch failed"),
       );
     });
@@ -126,7 +126,7 @@ describe("installUnhandledRejectionHandler - fatal detection", () => {
 
       expectExitCodeFromUnhandled(genericErr, [1]);
       expect(consoleErrorSpy).toHaveBeenCalledWith(
-        "[enclaws] Unhandled promise rejection:",
+        "[qingclaws] Unhandled promise rejection:",
         expect.stringContaining("Something went wrong"),
       );
     });
@@ -148,7 +148,7 @@ describe("installUnhandledRejectionHandler - fatal detection", () => {
 
       expectExitCodeFromUnhandled(abortErr, []);
       expect(consoleWarnSpy).toHaveBeenCalledWith(
-        "[enclaws] Suppressed AbortError:",
+        "[qingclaws] Suppressed AbortError:",
         expect.stringContaining("This operation was aborted"),
       );
     });

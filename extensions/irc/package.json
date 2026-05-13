@@ -1,9 +1,9 @@
 {
-  "name": "@openclaw/irc",
+  "name": "@qingclaws/irc",
   "version": "2026.3.1",
-  "description": "OpenClaw IRC channel plugin",
+  "description": "QingClaws IRC channel plugin",
   "type": "module",
-  "openclaw": {
+  "qingclaws": {
     "extensions": [
       "./index.ts"
     ]

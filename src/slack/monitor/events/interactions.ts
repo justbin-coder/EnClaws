@@ -6,8 +6,8 @@ import { authorizeSlackSystemEventSender } from "../auth.js";
 import type { SlackMonitorContext } from "../context.js";
 import { escapeSlackMrkdwn } from "../mrkdwn.js";
 
-// Prefix for EnClaws-generated action IDs to scope our handler
-const ENCLAWS_ACTION_PREFIX = "enclaws:";
+// Prefix for QingClaws-generated action IDs to scope our handler
+const QINGCLAWS_ACTION_PREFIX = "qingclaws:";
 const SLACK_INTERACTION_EVENT_PREFIX = "Slack interaction: ";
 const REDACTED_INTERACTION_VALUE = "[redacted]";
 const SLACK_INTERACTION_EVENT_MAX_CHARS = 2400;
@@ -700,11 +700,11 @@ export function registerSlackInteractionEvents(params: { ctx: SlackMonitorContex
     return;
   }
 
-  // Handle Block Kit button clicks from EnClaws-generated messages
+  // Handle Block Kit button clicks from QingClaws-generated messages
   // Only matches action_ids that start with our prefix to avoid interfering
   // with other Slack integrations or future features
   ctx.app.action(
-    new RegExp(`^${ENCLAWS_ACTION_PREFIX}`),
+    new RegExp(`^${QINGCLAWS_ACTION_PREFIX}`),
     async (args: SlackActionMiddlewareArgs) => {
       const { ack, body, action, respond } = args;
       const typedBody = body as unknown as {
@@ -882,9 +882,9 @@ export function registerSlackInteractionEvents(params: { ctx: SlackMonitorContex
   if (typeof ctx.app.view !== "function") {
     return;
   }
-  const modalMatcher = new RegExp(`^${ENCLAWS_ACTION_PREFIX}`);
+  const modalMatcher = new RegExp(`^${QINGCLAWS_ACTION_PREFIX}`);
 
-  // Handle EnClaws modal submissions with callback_ids scoped by our prefix.
+  // Handle QingClaws modal submissions with callback_ids scoped by our prefix.
   registerModalLifecycleHandler({
     register: (matcher, handler) => ctx.app.view(matcher, handler),
     matcher: modalMatcher,

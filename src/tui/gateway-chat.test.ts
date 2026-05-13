@@ -13,7 +13,7 @@ describe("resolveGatewayConnection", () => {
   let envSnapshot: ReturnType<typeof captureEnv>;
 
   beforeEach(() => {
-    envSnapshot = captureEnv(["ENCLAWS_GATEWAY_TOKEN", "ENCLAWS_GATEWAY_PASSWORD"]);
+    envSnapshot = captureEnv(["QINGCLAWS_GATEWAY_TOKEN", "QINGCLAWS_GATEWAY_PASSWORD"]);
     loadConfig.mockClear();
     resolveGatewayPort.mockClear();
     pickPrimaryTailnetIPv4.mockClear();
@@ -21,8 +21,8 @@ describe("resolveGatewayConnection", () => {
     resolveGatewayPort.mockReturnValue(18789);
     pickPrimaryTailnetIPv4.mockReturnValue(undefined);
     pickPrimaryLanIPv4.mockReturnValue(undefined);
-    delete process.env.ENCLAWS_GATEWAY_TOKEN;
-    delete process.env.ENCLAWS_GATEWAY_PASSWORD;
+    delete process.env.QINGCLAWS_GATEWAY_TOKEN;
+    delete process.env.QINGCLAWS_GATEWAY_PASSWORD;
   });
 
   afterEach(() => {
@@ -83,10 +83,10 @@ describe("resolveGatewayConnection", () => {
     expect(result.url).toBe("ws://127.0.0.1:18800");
   });
 
-  it("uses ENCLAWS_GATEWAY_TOKEN for local mode", () => {
+  it("uses QINGCLAWS_GATEWAY_TOKEN for local mode", () => {
     loadConfig.mockReturnValue({ gateway: { mode: "local" } });
 
-    withEnv({ ENCLAWS_GATEWAY_TOKEN: "env-token" }, () => {
+    withEnv({ QINGCLAWS_GATEWAY_TOKEN: "env-token" }, () => {
       const result = resolveGatewayConnection({});
       expect(result.token).toBe("env-token");
     });
@@ -99,7 +99,7 @@ describe("resolveGatewayConnection", () => {
     expect(result.token).toBe("config-token");
   });
 
-  it("prefers ENCLAWS_GATEWAY_PASSWORD over remote password fallback", () => {
+  it("prefers QINGCLAWS_GATEWAY_PASSWORD over remote password fallback", () => {
     loadConfig.mockReturnValue({
       gateway: {
         mode: "remote",
@@ -107,7 +107,7 @@ describe("resolveGatewayConnection", () => {
       },
     });
 
-    withEnv({ ENCLAWS_GATEWAY_PASSWORD: "env-pass" }, () => {
+    withEnv({ QINGCLAWS_GATEWAY_PASSWORD: "env-pass" }, () => {
       const result = resolveGatewayConnection({});
       expect(result.password).toBe("env-pass");
     });

@@ -15,7 +15,7 @@ afterEach(() => {
 });
 
 function makeState(
-  profile: "remote" | "enclaws",
+  profile: "remote" | "qingclaws",
 ): BrowserServerState & { profiles: Map<string, { lastTargetId?: string | null }> } {
   return {
     // oxlint-disable-next-line typescript/no-explicit-any
@@ -43,7 +43,7 @@ function makeState(
           cdpPort: 443,
           color: "#00AA00",
         },
-        enclaws: { cdpPort: 18800, color: "#FF4500" },
+        qingclaws: { cdpPort: 18800, color: "#FF4500" },
       },
     },
     profiles: new Map(),
@@ -295,13 +295,13 @@ describe("browser server-context tab selection state", () => {
 
     global.fetch = withFetchPreconnect(fetchMock);
 
-    const state = makeState("enclaws");
+    const state = makeState("qingclaws");
     const ctx = createBrowserRouteContext({ getState: () => state });
-    const enclaws = ctx.forProfile("enclaws");
+    const qingclaws = ctx.forProfile("qingclaws");
 
-    const opened = await enclaws.openTab("http://127.0.0.1:8080");
+    const opened = await qingclaws.openTab("http://127.0.0.1:8080");
     expect(opened.targetId).toBe("CREATED");
-    expect(state.profiles.get("enclaws")?.lastTargetId).toBe("CREATED");
+    expect(state.profiles.get("qingclaws")?.lastTargetId).toBe("CREATED");
     expect(createTargetViaCdp).toHaveBeenCalledWith({
       cdpUrl: "http://127.0.0.1:18800",
       url: "http://127.0.0.1:8080",
@@ -315,11 +315,11 @@ describe("browser server-context tab selection state", () => {
     });
 
     global.fetch = withFetchPreconnect(fetchMock);
-    const state = makeState("enclaws");
+    const state = makeState("qingclaws");
     const ctx = createBrowserRouteContext({ getState: () => state });
-    const enclaws = ctx.forProfile("enclaws");
+    const qingclaws = ctx.forProfile("qingclaws");
 
-    await expect(enclaws.openTab("file:///etc/passwd")).rejects.toBeInstanceOf(
+    await expect(qingclaws.openTab("file:///etc/passwd")).rejects.toBeInstanceOf(
       InvalidBrowserNavigationUrlError,
     );
     expect(fetchMock).not.toHaveBeenCalled();

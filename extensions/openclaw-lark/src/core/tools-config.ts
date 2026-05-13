@@ -120,7 +120,7 @@ function matchesAnyPattern(value: string, patterns: string[]): boolean {
  *
  * 从 `channels.feishu.tools.deny` 读取禁用列表，支持通配符模式。
  *
- * @param cfg - OpenClaw 配置对象
+ * @param cfg - QingClaws 配置对象
  * @param toolName - 工具名称（如 `feishu_im_user_message`）
  * @returns `true` 如果应该注册，`false` 如果应该跳过
  *

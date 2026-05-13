@@ -61,7 +61,7 @@ function groupBySource(skills: SkillStatusEntry[]): SourceGroup[] {
     if (!map.has(key)) map.set(key, []);
     map.get(key)!.push(s);
   }
-  const order = ["enclaws-tenant", "enclaws-workspace", "agents-skills-project", "agents-skills-personal", "enclaws-managed", "enclaws-extra", "enclaws-bundled"];
+  const order = ["qingclaws-tenant", "qingclaws-workspace", "agents-skills-project", "agents-skills-personal", "qingclaws-managed", "qingclaws-extra", "qingclaws-bundled"];
   const groups: SourceGroup[] = [];
   for (const key of order) {
     const list = map.get(key);
@@ -80,14 +80,14 @@ function groupBySource(skills: SkillStatusEntry[]): SourceGroup[] {
 
 function sourceLabel(source: string): string {
   switch (source) {
-    case "enclaws-workspace": return t("tenantSkills.sourceWorkspace");
-    case "enclaws-managed": return t("tenantSkills.sourceManaged");
-    case "enclaws-bundled": return t("tenantSkills.sourceBundled");
-    case "enclaws-extra": return t("tenantSkills.sourceExtra");
-    case "enclaws-tenant": return t("tenantSkills.sourceTenant");
+    case "qingclaws-workspace": return t("tenantSkills.sourceWorkspace");
+    case "qingclaws-managed": return t("tenantSkills.sourceManaged");
+    case "qingclaws-bundled": return t("tenantSkills.sourceBundled");
+    case "qingclaws-extra": return t("tenantSkills.sourceExtra");
+    case "qingclaws-tenant": return t("tenantSkills.sourceTenant");
     case "agents-skills-personal": return t("tenantSkills.sourcePersonal");
     case "agents-skills-project": return t("tenantSkills.sourceProject");
-    default: return source.startsWith("openclaw-plugin-") ? t("tenantSkills.sourcePlugin", { name: source.replace("openclaw-plugin-", "") }) : source;
+    default: return source.startsWith("qingclaws-plugin-") ? t("tenantSkills.sourcePlugin", { name: source.replace("qingclaws-plugin-", "") }) : source;
   }
 }
 

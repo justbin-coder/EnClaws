@@ -29,15 +29,15 @@ function createMinimaxPrompter(
 
 describe("applyAuthChoiceMiniMax", () => {
   const lifecycle = createAuthTestLifecycle([
-    "ENCLAWS_STATE_DIR",
-    "ENCLAWS_AGENT_DIR",
+    "QINGCLAWS_STATE_DIR",
+    "QINGCLAWS_AGENT_DIR",
     "PI_CODING_AGENT_DIR",
     "MINIMAX_API_KEY",
     "MINIMAX_OAUTH_TOKEN",
   ]);
 
   async function setupTempState() {
-    const env = await setupAuthTestEnv("enclaws-minimax-");
+    const env = await setupAuthTestEnv("qingclaws-minimax-");
     lifecycle.setStateDir(env.stateDir);
     return env.agentDir;
   }

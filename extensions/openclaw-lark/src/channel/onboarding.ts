@@ -4,7 +4,7 @@
  *
  * Onboarding wizard adapter for the Lark/Feishu channel plugin.
  *
- * Implements the ChannelOnboardingAdapter interface so the `openclaw
+ * Implements the ChannelOnboardingAdapter interface so the `qingclaws
  * setup` wizard can configure Feishu credentials, domain, group
  * policies, and DM allowlists interactively.
  */

@@ -12,7 +12,7 @@
  *   - create: POST /open-apis/wiki/v2/spaces
  */
 
-import type { OpenClawPluginApi } from 'openclaw/plugin-sdk';
+import type { QingClawsPluginApi } from 'openclaw/plugin-sdk';
 import { Type } from '@sinclair/typebox';
 
 import {
@@ -94,7 +94,7 @@ type FeishuWikiSpaceParams =
 // Registration
 // ---------------------------------------------------------------------------
 
-export function registerFeishuWikiSpaceTool(api: OpenClawPluginApi): boolean {
+export function registerFeishuWikiSpaceTool(api: QingClawsPluginApi): boolean {
   if (!api.config) return false;
   const cfg = api.config;
 

@@ -40,7 +40,7 @@ function buildCtx(overrides?: { replyToMode?: "all" | "first" | "off" }) {
     threadInheritParent: false,
     slashCommand: {
       enabled: false,
-      name: "enclaws",
+      name: "qingclaws",
       sessionPrefix: "slack:slash",
       ephemeral: true,
     },

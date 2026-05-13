@@ -39,7 +39,7 @@ overrides: feishu_create_doc, feishu_pre_auth
 | `src/agents/skills/frontmatter.ts` | 新增 `resolveSkillOverrides()` |
 | `src/agents/skills/types.ts` | `SkillEntry.overrides`, `SkillSnapshot.skillOverrides` |
 | `src/agents/skills/workspace.ts` | 构建 entry 时收集 overrides，写入 snapshot |
-| `src/agents/pi-tools.ts` | `createOpenClawCodingTools()` 新增 `skillOverrides` 参数，过滤工具列表 |
+| `src/agents/pi-tools.ts` | `createQingClawsCodingTools()` 新增 `skillOverrides` 参数，过滤工具列表 |
 | `src/agents/pi-embedded-runner/run/attempt.ts` | 从 skillEntries 或 snapshot 收集 overrides 传入 |
 | `src/agents/pi-embedded-runner/compact.ts` | 同上（compaction 路径） |
 | `src/config/sessions/types.ts` | `SessionSkillSnapshot.skillOverrides`（session 缓存同步） |
@@ -52,7 +52,7 @@ SKILL.md frontmatter
   → buildWorkspaceSkillSnapshot() → SkillSnapshot.skillOverrides
   → SessionSkillSnapshot.skillOverrides（session 缓存）
   → attempt.ts / compact.ts 收集 skillOverrides
-  → createOpenClawCodingTools({ skillOverrides })
+  → createQingClawsCodingTools({ skillOverrides })
   → 工具列表过滤（case-insensitive）
 ```
 
@@ -172,7 +172,7 @@ inline: true
 
 ## 调用方式（立即用 exec 工具执行）
 
-cd ~/.enclaws/tenants/{tenantId}/skills/feishu-create-doc && node create-doc.js \
+cd ~/.qingclaws/tenants/{tenantId}/skills/feishu-create-doc && node create-doc.js \
   --open-id  "SENDER_OPEN_ID" \
   --title    "文档标题" \
   --markdown "文档内容"

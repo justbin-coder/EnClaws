@@ -1,43 +1,43 @@
 services:
   # ---- PostgreSQL for multi-tenant data ----
-  openclaw-db:
+  qingclaws-db:
     image: postgres:16-alpine
     environment:
-      POSTGRES_DB: ${OPENCLAW_DB_NAME:-openclaw}
-      POSTGRES_USER: ${OPENCLAW_DB_USER:-openclaw}
-      POSTGRES_PASSWORD: ${OPENCLAW_DB_PASSWORD:-openclaw_secret}
+      POSTGRES_DB: ${QINGCLAWS_DB_NAME:-qingclaws}
+      POSTGRES_USER: ${QINGCLAWS_DB_USER:-qingclaws}
+      POSTGRES_PASSWORD: ${QINGCLAWS_DB_PASSWORD:-qingclaws_secret}
     volumes:
-      - openclaw-pgdata:/var/lib/postgresql/data
+      - qingclaws-pgdata:/var/lib/postgresql/data
     ports:
-      - "${OPENCLAW_DB_PORT:-5432}:5432"
+      - "${QINGCLAWS_DB_PORT:-5432}:5432"
     restart: unless-stopped
     healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U ${OPENCLAW_DB_USER:-openclaw}"]
+      test: ["CMD-SHELL", "pg_isready -U ${QINGCLAWS_DB_USER:-qingclaws}"]
       interval: 5s
       timeout: 5s
       retries: 5
 
-  openclaw-gateway:
-    image: ${OPENCLAW_IMAGE:-openclaw:local}
+  qingclaws-gateway:
+    image: ${QINGCLAWS_IMAGE:-qingclaws:local}
     depends_on:
-      openclaw-db:
+      qingclaws-db:
         condition: service_healthy
     environment:
       HOME: /home/node
       TERM: xterm-256color
-      OPENCLAW_GATEWAY_TOKEN: ${OPENCLAW_GATEWAY_TOKEN}
+      QINGCLAWS_GATEWAY_TOKEN: ${QINGCLAWS_GATEWAY_TOKEN}
       CLAUDE_AI_SESSION_KEY: ${CLAUDE_AI_SESSION_KEY:-}
       CLAUDE_WEB_SESSION_KEY: ${CLAUDE_WEB_SESSION_KEY:-}
       CLAUDE_WEB_COOKIE: ${CLAUDE_WEB_COOKIE:-}
       # Multi-tenant database
-      OPENCLAW_DB_URL: postgresql://${OPENCLAW_DB_USER:-openclaw}:${OPENCLAW_DB_PASSWORD:-openclaw_secret}@openclaw-db:5432/${OPENCLAW_DB_NAME:-openclaw}
-      OPENCLAW_JWT_SECRET: ${OPENCLAW_JWT_SECRET:-change-me-to-a-long-random-secret}
+      QINGCLAWS_DB_URL: postgresql://${QINGCLAWS_DB_USER:-qingclaws}:${QINGCLAWS_DB_PASSWORD:-qingclaws_secret}@qingclaws-db:5432/${QINGCLAWS_DB_NAME:-qingclaws}
+      QINGCLAWS_JWT_SECRET: ${QINGCLAWS_JWT_SECRET:-change-me-to-a-long-random-secret}
     volumes:
-      - ${OPENCLAW_CONFIG_DIR}:/home/node/.openclaw
-      - ${OPENCLAW_WORKSPACE_DIR}:/home/node/.openclaw/workspace
+      - ${QINGCLAWS_CONFIG_DIR}:/home/node/.qingclaws
+      - ${QINGCLAWS_WORKSPACE_DIR}:/home/node/.qingclaws/workspace
     ports:
-      - "${OPENCLAW_GATEWAY_PORT:-18789}:18789"
-      - "${OPENCLAW_BRIDGE_PORT:-18790}:18790"
+      - "${QINGCLAWS_GATEWAY_PORT:-18789}:18789"
+      - "${QINGCLAWS_BRIDGE_PORT:-18790}:18790"
     init: true
     restart: unless-stopped
     command:
@@ -46,14 +46,14 @@ services:
         "dist/index.js",
         "gateway",
         "--bind",
-        "${OPENCLAW_GATEWAY_BIND:-lan}",
+        "${QINGCLAWS_GATEWAY_BIND:-lan}",
         "--port",
         "18789",
       ]
 
-  openclaw-cli:
-    image: ${OPENCLAW_IMAGE:-openclaw:local}
-    network_mode: "service:openclaw-gateway"
+  qingclaws-cli:
+    image: ${QINGCLAWS_IMAGE:-qingclaws:local}
+    network_mode: "service:qingclaws-gateway"
     cap_drop:
       - NET_RAW
       - NET_ADMIN
@@ -62,20 +62,20 @@ services:
     environment:
       HOME: /home/node
       TERM: xterm-256color
-      OPENCLAW_GATEWAY_TOKEN: ${OPENCLAW_GATEWAY_TOKEN}
+      QINGCLAWS_GATEWAY_TOKEN: ${QINGCLAWS_GATEWAY_TOKEN}
       BROWSER: echo
       CLAUDE_AI_SESSION_KEY: ${CLAUDE_AI_SESSION_KEY:-}
       CLAUDE_WEB_SESSION_KEY: ${CLAUDE_WEB_SESSION_KEY:-}
       CLAUDE_WEB_COOKIE: ${CLAUDE_WEB_COOKIE:-}
     volumes:
-      - ${OPENCLAW_CONFIG_DIR}:/home/node/.openclaw
-      - ${OPENCLAW_WORKSPACE_DIR}:/home/node/.openclaw/workspace
+      - ${QINGCLAWS_CONFIG_DIR}:/home/node/.qingclaws
+      - ${QINGCLAWS_WORKSPACE_DIR}:/home/node/.qingclaws/workspace
     stdin_open: true
     tty: true
     init: true
     entrypoint: ["node", "dist/index.js"]
     depends_on:
-      - openclaw-gateway
+      - qingclaws-gateway
 
 volumes:
-  openclaw-pgdata:
+  qingclaws-pgdata:

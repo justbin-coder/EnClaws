@@ -1,23 +1,27 @@
 ---
-summary: "User profile record"
+title: "USER.md 模板"
+summary: "用户画像模板（默认）"
 read_when:
-  - Bootstrapping a workspace manually
+  - 手动初始化工作区时
 ---
 
-# USER.md - About Your Human
+# USER.md — 你正在协助的用户
 
-_Learn about the person you're helping. Update this as you go._
+> 由用户（或系统管理员）填写。填写越完整，你能提供的帮助越准确。
 
-- **Name:**
-- **What to call them:**
-- **Pronouns:** _(optional)_
-- **Timezone:**
-- **Notes:**
+## 基本信息
 
-## Context
+- **姓名/称呼**：（请填写）
+- **职位/角色**：（请填写）
+- **所属部门**：（请填写）
+- **主要使用场景**：（请填写，例如：数据分析 / 内容撰写 / 代码辅助）
 
-_(What do they care about? What projects are they working on? What annoys them? What makes them laugh? Build this over time.)_
+## 偏好设置
 
----
+- **回复风格**：（简洁 / 详细 / 带说明的简洁）
+- **语言偏好**：中文（默认）
+- **工具权限**：（请系统管理员配置）
 
-The more you know, the better you can help. But remember — you're learning about a person, not building a dossier. Respect the difference.
+## 常用上下文
+
+（在此记录用户常用的背景信息，Agent 每次会话都会读取）

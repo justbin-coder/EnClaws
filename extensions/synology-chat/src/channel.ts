@@ -1,5 +1,5 @@
 /**
- * Synology Chat Channel Plugin for OpenClaw.
+ * Synology Chat Channel Plugin for QingClaws.
  *
  * Implements the ChannelPlugin interface following the LINE pattern.
  */
@@ -32,7 +32,7 @@ export function createSynologyChatPlugin() {
       selectionLabel: "Synology Chat (Webhook)",
       detailLabel: "Synology Chat (Webhook)",
       docsPath: "/channels/synology-chat",
-      blurb: "Connect your Synology NAS Chat to OpenClaw",
+      blurb: "Connect your Synology NAS Chat to QingClaws",
       order: 90,
     },
 
@@ -87,7 +87,7 @@ export function createSynologyChatPlugin() {
         if (!account.incomingUrl) return;
         await sendMessage(
           account.incomingUrl,
-          "OpenClaw: your access has been approved.",
+          "QingClaws: your access has been approved.",
           id,
           account.allowInsecureSsl,
         );
@@ -115,7 +115,7 @@ export function createSynologyChatPlugin() {
           allowFrom: account.allowedUserIds ?? [],
           policyPath: `${basePath}dmPolicy`,
           allowFromPath: basePath,
-          approveHint: "openclaw pairing approve synology-chat <code>",
+          approveHint: "qingclaws pairing approve synology-chat <code>",
           normalizeEntry: (raw: string) => raw.toLowerCase().trim(),
         };
       },

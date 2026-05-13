@@ -24,8 +24,8 @@ export async function removeChannelConfigWizard(
     if (configured.length === 0) {
       note(
         [
-          "No channel config found in enclaws.json.",
-          `Tip: \`${formatCliCommand("enclaws channels status")}\` shows what is configured and enabled.`,
+          "No channel config found in qingclaws.json.",
+          `Tip: \`${formatCliCommand("qingclaws channels status")}\` shows what is configured and enabled.`,
         ].join("\n"),
         "Remove channel",
       );

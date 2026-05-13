@@ -30,15 +30,15 @@ describe("secrets apply", () => {
   let env: NodeJS.ProcessEnv;
 
   beforeEach(async () => {
-    rootDir = await fs.mkdtemp(path.join(os.tmpdir(), "enclaws-secrets-apply-"));
-    stateDir = path.join(rootDir, ".enclaws");
-    configPath = path.join(stateDir, "enclaws.json");
+    rootDir = await fs.mkdtemp(path.join(os.tmpdir(), "qingclaws-secrets-apply-"));
+    stateDir = path.join(rootDir, ".qingclaws");
+    configPath = path.join(stateDir, "qingclaws.json");
     authStorePath = path.join(stateDir, "agents", "main", "agent", "auth-profiles.json");
     authJsonPath = path.join(stateDir, "agents", "main", "agent", "auth.json");
     envPath = path.join(stateDir, ".env");
     env = {
-      ENCLAWS_STATE_DIR: stateDir,
-      ENCLAWS_CONFIG_PATH: configPath,
+      QINGCLAWS_STATE_DIR: stateDir,
+      QINGCLAWS_CONFIG_PATH: configPath,
       OPENAI_API_KEY: "sk-live-env",
     };
 

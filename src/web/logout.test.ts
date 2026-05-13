@@ -17,7 +17,7 @@ describe("web logout", () => {
   let logoutWeb: typeof import("./auth-store.js").logoutWeb;
 
   beforeAll(async () => {
-    fixtureRoot = await fsPromises.mkdtemp(path.join(os.tmpdir(), "enclaws-test-web-logout-"));
+    fixtureRoot = await fsPromises.mkdtemp(path.join(os.tmpdir(), "qingclaws-test-web-logout-"));
     ({ logoutWeb } = await import("./auth-store.js"));
   });
 

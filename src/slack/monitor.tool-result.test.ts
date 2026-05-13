@@ -372,7 +372,7 @@ describe("monitorSlackProvider tool results", () => {
   });
 
   async function expectMentionPatternMessageAccepted(text: string): Promise<void> {
-    setRequireMentionChannelConfig(["\.enclaws\\b"]);
+    setRequireMentionChannelConfig(["\.qingclaws\\b"]);
     replyMock.mockResolvedValue({ text: "hi" });
 
     await runSlackMessageOnce(monitorSlackProvider, {
@@ -387,11 +387,11 @@ describe("monitorSlackProvider tool results", () => {
   }
 
   it("accepts channel messages when mentionPatterns match", async () => {
-    await expectMentionPatternMessageAccepted("enclaws: hello");
+    await expectMentionPatternMessageAccepted("qingclaws: hello");
   });
 
   it("accepts channel messages when mentionPatterns match even if another user is mentioned", async () => {
-    await expectMentionPatternMessageAccepted("enclaws: hello <@U2>");
+    await expectMentionPatternMessageAccepted("qingclaws: hello <@U2>");
   });
 
   it("treats replies to bot threads as implicit mentions", async () => {

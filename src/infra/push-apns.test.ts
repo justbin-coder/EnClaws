@@ -18,7 +18,7 @@ const testAuthPrivateKey = generateKeyPairSync("ec", { namedCurve: "prime256v1" 
   .toString();
 
 async function makeTempDir(): Promise<string> {
-  const dir = await fs.mkdtemp(path.join(os.tmpdir(), "enclaws-push-apns-test-"));
+  const dir = await fs.mkdtemp(path.join(os.tmpdir(), "qingclaws-push-apns-test-"));
   tempDirs.push(dir);
   return dir;
 }
@@ -38,7 +38,7 @@ describe("push APNs registration store", () => {
     const saved = await registerApnsToken({
       nodeId: "ios-node-1",
       token: "ABCD1234ABCD1234ABCD1234ABCD1234",
-      topic: "ai.enclaws.ios",
+      topic: "ai.qingclaws.ios",
       environment: "sandbox",
       baseDir,
     });
@@ -47,7 +47,7 @@ describe("push APNs registration store", () => {
     expect(loaded).not.toBeNull();
     expect(loaded?.nodeId).toBe("ios-node-1");
     expect(loaded?.token).toBe("abcd1234abcd1234abcd1234abcd1234");
-    expect(loaded?.topic).toBe("ai.enclaws.ios");
+    expect(loaded?.topic).toBe("ai.qingclaws.ios");
     expect(loaded?.environment).toBe("sandbox");
     expect(loaded?.updatedAtMs).toBe(saved.updatedAtMs);
   });
@@ -58,7 +58,7 @@ describe("push APNs registration store", () => {
       registerApnsToken({
         nodeId: "ios-node-1",
         token: "not-a-token",
-        topic: "ai.enclaws.ios",
+        topic: "ai.qingclaws.ios",
         baseDir,
       }),
     ).rejects.toThrow("invalid APNs token");
@@ -74,9 +74,9 @@ describe("push APNs env config", () => {
 
   it("resolves inline private key and unescapes newlines", async () => {
     const env = {
-      ENCLAWS_APNS_TEAM_ID: "TEAM123",
-      ENCLAWS_APNS_KEY_ID: "KEY123",
-      ENCLAWS_APNS_PRIVATE_KEY_P8:
+      QINGCLAWS_APNS_TEAM_ID: "TEAM123",
+      QINGCLAWS_APNS_KEY_ID: "KEY123",
+      QINGCLAWS_APNS_PRIVATE_KEY_P8:
         "-----BEGIN PRIVATE KEY-----\\nline-a\\nline-b\\n-----END PRIVATE KEY-----",
     } as NodeJS.ProcessEnv;
     const resolved = await resolveApnsAuthConfigFromEnv(env);
@@ -95,7 +95,7 @@ describe("push APNs env config", () => {
     if (resolved.ok) {
       return;
     }
-    expect(resolved.error).toContain("ENCLAWS_APNS_TEAM_ID");
+    expect(resolved.error).toContain("QINGCLAWS_APNS_TEAM_ID");
   });
 });
 
@@ -116,7 +116,7 @@ describe("push APNs send semantics", () => {
       registration: {
         nodeId: "ios-node-alert",
         token: "ABCD1234ABCD1234ABCD1234ABCD1234",
-        topic: "ai.enclaws.ios",
+        topic: "ai.qingclaws.ios",
         environment: "sandbox",
         updatedAtMs: 1,
       },
@@ -135,7 +135,7 @@ describe("push APNs send semantics", () => {
         alert: { title: "Wake", body: "Ping" },
         sound: "default",
       },
-      enclaws: {
+      qingclaws: {
         kind: "push.test",
         nodeId: "ios-node-alert",
       },
@@ -160,7 +160,7 @@ describe("push APNs send semantics", () => {
       registration: {
         nodeId: "ios-node-wake",
         token: "ABCD1234ABCD1234ABCD1234ABCD1234",
-        topic: "ai.enclaws.ios",
+        topic: "ai.qingclaws.ios",
         environment: "production",
         updatedAtMs: 1,
       },
@@ -177,7 +177,7 @@ describe("push APNs send semantics", () => {
       aps: {
         "content-available": 1,
       },
-      enclaws: {
+      qingclaws: {
         kind: "node.wake",
         reason: "node.invoke",
         nodeId: "ios-node-wake",
@@ -207,7 +207,7 @@ describe("push APNs send semantics", () => {
       registration: {
         nodeId: "ios-node-wake-default-reason",
         token: "ABCD1234ABCD1234ABCD1234ABCD1234",
-        topic: "ai.enclaws.ios",
+        topic: "ai.qingclaws.ios",
         environment: "sandbox",
         updatedAtMs: 1,
       },
@@ -217,7 +217,7 @@ describe("push APNs send semantics", () => {
 
     const sent = send.mock.calls[0]?.[0];
     expect(sent?.payload).toMatchObject({
-      enclaws: {
+      qingclaws: {
         kind: "node.wake",
         reason: "node.invoke",
         nodeId: "ios-node-wake-default-reason",

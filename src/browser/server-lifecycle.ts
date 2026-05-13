@@ -43,6 +43,6 @@ export async function stopKnownBrowserProfiles(params: {
       }
     }
   } catch (err) {
-    params.onWarn(`enclaws browser stop failed: ${String(err)}`);
+    params.onWarn(`qingclaws browser stop failed: ${String(err)}`);
   }
 }

@@ -240,12 +240,12 @@ export function buildServiceEnvironment(params: {
 }): Record<string, string | undefined> {
   const { env, port, token, launchdLabel } = params;
   const platform = params.platform ?? process.platform;
-  const profile = env.ENCLAWS_PROFILE;
+  const profile = env.QINGCLAWS_PROFILE;
   const resolvedLaunchdLabel =
     launchdLabel || (platform === "darwin" ? resolveGatewayLaunchAgentLabel(profile) : undefined);
   const systemdUnit = `${resolveGatewaySystemdServiceName(profile)}.service`;
-  const stateDir = env.ENCLAWS_STATE_DIR;
-  const configPath = env.ENCLAWS_CONFIG_PATH;
+  const stateDir = env.QINGCLAWS_STATE_DIR;
+  const configPath = env.QINGCLAWS_CONFIG_PATH;
   // Keep a usable temp directory for supervised services even when the host env omits TMPDIR.
   const tmpDir = env.TMPDIR?.trim() || os.tmpdir();
   const proxyEnv = readServiceProxyEnvironment(env);
@@ -260,16 +260,16 @@ export function buildServiceEnvironment(params: {
     PATH: buildMinimalServicePath({ env }),
     ...proxyEnv,
     NODE_EXTRA_CA_CERTS: nodeCaCerts,
-    ENCLAWS_PROFILE: profile,
-    ENCLAWS_STATE_DIR: stateDir,
-    ENCLAWS_CONFIG_PATH: configPath,
-    ENCLAWS_GATEWAY_PORT: String(port),
-    ENCLAWS_GATEWAY_TOKEN: token,
-    ENCLAWS_LAUNCHD_LABEL: resolvedLaunchdLabel,
-    ENCLAWS_SYSTEMD_UNIT: systemdUnit,
-    ENCLAWS_SERVICE_MARKER: GATEWAY_SERVICE_MARKER,
-    ENCLAWS_SERVICE_KIND: GATEWAY_SERVICE_KIND,
-    ENCLAWS_SERVICE_VERSION: VERSION,
+    QINGCLAWS_PROFILE: profile,
+    QINGCLAWS_STATE_DIR: stateDir,
+    QINGCLAWS_CONFIG_PATH: configPath,
+    QINGCLAWS_GATEWAY_PORT: String(port),
+    QINGCLAWS_GATEWAY_TOKEN: token,
+    QINGCLAWS_LAUNCHD_LABEL: resolvedLaunchdLabel,
+    QINGCLAWS_SYSTEMD_UNIT: systemdUnit,
+    QINGCLAWS_SERVICE_MARKER: GATEWAY_SERVICE_MARKER,
+    QINGCLAWS_SERVICE_KIND: GATEWAY_SERVICE_KIND,
+    QINGCLAWS_SERVICE_VERSION: VERSION,
   };
 }
 
@@ -280,9 +280,9 @@ export function buildNodeServiceEnvironment(params: {
   const { env } = params;
   const platform = params.platform ?? process.platform;
   const gatewayToken =
-    env.ENCLAWS_GATEWAY_TOKEN?.trim() || env.CLAWDBOT_GATEWAY_TOKEN?.trim() || undefined;
-  const stateDir = env.ENCLAWS_STATE_DIR;
-  const configPath = env.ENCLAWS_CONFIG_PATH;
+    env.QINGCLAWS_GATEWAY_TOKEN?.trim() || env.CLAWDBOT_GATEWAY_TOKEN?.trim() || undefined;
+  const stateDir = env.QINGCLAWS_STATE_DIR;
+  const configPath = env.QINGCLAWS_CONFIG_PATH;
   const tmpDir = env.TMPDIR?.trim() || os.tmpdir();
   const proxyEnv = readServiceProxyEnvironment(env);
   // On macOS, launchd services don't inherit the shell environment, so Node's undici/fetch
@@ -296,16 +296,16 @@ export function buildNodeServiceEnvironment(params: {
     PATH: buildMinimalServicePath({ env }),
     ...proxyEnv,
     NODE_EXTRA_CA_CERTS: nodeCaCerts,
-    ENCLAWS_STATE_DIR: stateDir,
-    ENCLAWS_CONFIG_PATH: configPath,
-    ENCLAWS_GATEWAY_TOKEN: gatewayToken,
-    ENCLAWS_LAUNCHD_LABEL: resolveNodeLaunchAgentLabel(),
-    ENCLAWS_SYSTEMD_UNIT: resolveNodeSystemdServiceName(),
-    ENCLAWS_WINDOWS_TASK_NAME: resolveNodeWindowsTaskName(),
-    ENCLAWS_TASK_SCRIPT_NAME: NODE_WINDOWS_TASK_SCRIPT_NAME,
-    ENCLAWS_LOG_PREFIX: "node",
-    ENCLAWS_SERVICE_MARKER: NODE_SERVICE_MARKER,
-    ENCLAWS_SERVICE_KIND: NODE_SERVICE_KIND,
-    ENCLAWS_SERVICE_VERSION: VERSION,
+    QINGCLAWS_STATE_DIR: stateDir,
+    QINGCLAWS_CONFIG_PATH: configPath,
+    QINGCLAWS_GATEWAY_TOKEN: gatewayToken,
+    QINGCLAWS_LAUNCHD_LABEL: resolveNodeLaunchAgentLabel(),
+    QINGCLAWS_SYSTEMD_UNIT: resolveNodeSystemdServiceName(),
+    QINGCLAWS_WINDOWS_TASK_NAME: resolveNodeWindowsTaskName(),
+    QINGCLAWS_TASK_SCRIPT_NAME: NODE_WINDOWS_TASK_SCRIPT_NAME,
+    QINGCLAWS_LOG_PREFIX: "node",
+    QINGCLAWS_SERVICE_MARKER: NODE_SERVICE_MARKER,
+    QINGCLAWS_SERVICE_KIND: NODE_SERVICE_KIND,
+    QINGCLAWS_SERVICE_VERSION: VERSION,
   };
 }

@@ -41,13 +41,13 @@ export function getPluginVersion(): string {
 /**
  * 生成 User-Agent 字符串
  *
- * @returns User-Agent 字符串，格式：`openclaw-lark/{version}`
+ * @returns User-Agent 字符串，格式：`qingclaws-lark/{version}`
  *
  * @example
  * ```typescript
- * getUserAgent() // => "openclaw-lark/2026.2.28.5"
+ * getUserAgent() // => "qingclaws-lark/2026.2.28.5"
  * ```
  */
 export function getUserAgent(): string {
-  return `openclaw-lark/${getPluginVersion()}`;
+  return `qingclaws-lark/${getPluginVersion()}`;
 }

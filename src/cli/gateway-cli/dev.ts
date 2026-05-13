@@ -32,7 +32,7 @@ async function loadDevTemplate(name: string, fallback: string): Promise<string> 
 
 const resolveDevWorkspaceDir = (env: NodeJS.ProcessEnv = process.env): string => {
   const baseDir = resolveDefaultAgentWorkspaceDir(env, os.homedir);
-  const profile = env.ENCLAWS_PROFILE?.trim().toLowerCase();
+  const profile = env.QINGCLAWS_PROFILE?.trim().toLowerCase();
   if (profile === "dev") {
     return baseDir;
   }
@@ -60,7 +60,7 @@ async function ensureDevWorkspace(dir: string) {
   const [agents, soul, tools, identity, user] = await Promise.all([
     loadDevTemplate(
       "AGENTS.dev.md",
-      `# AGENTS.md - EnClaws Dev Workspace\n\nDefault dev workspace for enclaws gateway --dev.\n`,
+      `# AGENTS.md - QingClaws Dev Workspace\n\nDefault dev workspace for qingclaws gateway --dev.\n`,
     ),
     loadDevTemplate(
       "SOUL.dev.md",

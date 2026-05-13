@@ -34,14 +34,14 @@ describe("createGlobalCommandRunner", () => {
 
     const result = await runCommand(["npm", "root", "-g"], {
       timeoutMs: 1200,
-      cwd: "/tmp/enclaws",
-      env: { ENCLAWS_TEST: "1" },
+      cwd: "/tmp/qingclaws",
+      env: { QINGCLAWS_TEST: "1" },
     });
 
     expect(runCommandWithTimeout).toHaveBeenCalledWith(["npm", "root", "-g"], {
       timeoutMs: 1200,
-      cwd: "/tmp/enclaws",
-      env: { ENCLAWS_TEST: "1" },
+      cwd: "/tmp/qingclaws",
+      env: { QINGCLAWS_TEST: "1" },
     });
     expect(result).toEqual({
       stdout: "out",

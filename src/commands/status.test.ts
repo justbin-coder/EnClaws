@@ -5,8 +5,8 @@ import { captureEnv } from "../test-utils/env.js";
 let envSnapshot: ReturnType<typeof captureEnv>;
 
 beforeAll(() => {
-  envSnapshot = captureEnv(["ENCLAWS_PROFILE"]);
-  process.env.ENCLAWS_PROFILE = "isolated";
+  envSnapshot = captureEnv(["QINGCLAWS_PROFILE"]);
+  process.env.QINGCLAWS_PROFILE = "isolated";
 });
 
 afterAll(() => {
@@ -154,7 +154,7 @@ vi.mock("../memory/manager.js", () => ({
         files: 2,
         chunks: 3,
         dirty: false,
-        workspaceDir: "/tmp/enclaws",
+        workspaceDir: "/tmp/qingclaws",
         dbPath: "/tmp/memory.sqlite",
         provider: "openai",
         model: "text-embedding-3-small",
@@ -245,8 +245,8 @@ vi.mock("../gateway/session-utils.js", async (importOriginal) => {
     listAgentsForGateway: mocks.listAgentsForGateway,
   };
 });
-vi.mock("../infra/openclaw-root.js", () => ({
-  resolveOpenClawPackageRoot: vi.fn().mockResolvedValue("/tmp/enclaws"),
+vi.mock("../infra/qingclaws-root.js", () => ({
+  resolveQingClawsPackageRoot: vi.fn().mockResolvedValue("/tmp/qingclaws"),
 }));
 vi.mock("../infra/os-summary.js", () => ({
   resolveOsSummary: () => ({
@@ -258,11 +258,11 @@ vi.mock("../infra/os-summary.js", () => ({
 }));
 vi.mock("../infra/update-check.js", () => ({
   checkUpdateStatus: vi.fn().mockResolvedValue({
-    root: "/tmp/enclaws",
+    root: "/tmp/qingclaws",
     installKind: "git",
     packageManager: "pnpm",
     git: {
-      root: "/tmp/enclaws",
+      root: "/tmp/qingclaws",
       branch: "main",
       upstream: "origin/main",
       dirty: false,
@@ -273,8 +273,8 @@ vi.mock("../infra/update-check.js", () => ({
     deps: {
       manager: "pnpm",
       status: "ok",
-      lockfilePath: "/tmp/enclaws/pnpm-lock.yaml",
-      markerPath: "/tmp/enclaws/node_modules/.modules.yaml",
+      lockfilePath: "/tmp/qingclaws/pnpm-lock.yaml",
+      markerPath: "/tmp/qingclaws/node_modules/.modules.yaml",
     },
     registry: { latestVersion: "0.0.0" },
   }),
@@ -297,7 +297,7 @@ vi.mock("../daemon/service.js", () => ({
     readRuntime: async () => ({ status: "running", pid: 1234 }),
     readCommand: async () => ({
       programArguments: ["node", "dist/entry.js", "gateway"],
-      sourcePath: "/tmp/Library/LaunchAgents/ai.enclaws.gateway.plist",
+      sourcePath: "/tmp/Library/LaunchAgents/ai.qingclaws.gateway.plist",
     }),
   }),
 }));
@@ -310,7 +310,7 @@ vi.mock("../daemon/node-service.js", () => ({
     readRuntime: async () => ({ status: "running", pid: 4321 }),
     readCommand: async () => ({
       programArguments: ["node", "dist/entry.js", "node-host"],
-      sourcePath: "/tmp/Library/LaunchAgents/ai.enclaws.node.plist",
+      sourcePath: "/tmp/Library/LaunchAgents/ai.qingclaws.node.plist",
     }),
   }),
 }));
@@ -378,7 +378,7 @@ describe("statusCommand", () => {
     runtimeLogMock.mockClear();
     await statusCommand({}, runtime as never);
     const logs = runtimeLogMock.mock.calls.map((c: unknown[]) => String(c[0]));
-    expect(logs.some((l: string) => l.includes("EnClaws status"))).toBe(true);
+    expect(logs.some((l: string) => l.includes("QingClaws status"))).toBe(true);
     expect(logs.some((l: string) => l.includes("Overview"))).toBe(true);
     expect(logs.some((l: string) => l.includes("Security audit"))).toBe(true);
     expect(logs.some((l: string) => l.includes("Summary:"))).toBe(true);
@@ -400,17 +400,17 @@ describe("statusCommand", () => {
     expect(
       logs.some(
         (l: string) =>
-          l.includes("enclaws status --all") ||
-          l.includes("enclaws --profile isolated status --all") ||
-          l.includes("enclaws status --all") ||
-          l.includes("enclaws --profile isolated status --all"),
+          l.includes("qingclaws status --all") ||
+          l.includes("qingclaws --profile isolated status --all") ||
+          l.includes("qingclaws status --all") ||
+          l.includes("qingclaws --profile isolated status --all"),
       ),
     ).toBe(true);
   });
 
   it("shows gateway auth when reachable", async () => {
-    const prevToken = process.env.ENCLAWS_GATEWAY_TOKEN;
-    process.env.ENCLAWS_GATEWAY_TOKEN = "abcd1234";
+    const prevToken = process.env.QINGCLAWS_GATEWAY_TOKEN;
+    process.env.QINGCLAWS_GATEWAY_TOKEN = "abcd1234";
     try {
       mocks.probeGateway.mockResolvedValueOnce({
         ok: true,
@@ -429,9 +429,9 @@ describe("statusCommand", () => {
       expect(logs.some((l: string) => l.includes("auth token"))).toBe(true);
     } finally {
       if (prevToken === undefined) {
-        delete process.env.ENCLAWS_GATEWAY_TOKEN;
+        delete process.env.QINGCLAWS_GATEWAY_TOKEN;
       } else {
-        process.env.ENCLAWS_GATEWAY_TOKEN = prevToken;
+        process.env.QINGCLAWS_GATEWAY_TOKEN = prevToken;
       }
     }
   });

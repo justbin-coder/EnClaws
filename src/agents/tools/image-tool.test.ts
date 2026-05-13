@@ -5,7 +5,7 @@ import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import type { OpenClawConfig } from "../../config/config.js";
 import type { ModelDefinitionConfig } from "../../config/types.models.js";
 import { withFetchPreconnect } from "../../test-utils/fetch-mock.js";
-import { createOpenClawCodingTools } from "../pi-tools.js";
+import { createQingClawsCodingTools } from "../pi-tools.js";
 import { createHostSandboxFsBridge } from "../test-helpers/host-sandbox-fs-bridge.js";
 import { createUnsafeMountedSandbox } from "../test-helpers/unsafe-mounted-sandbox.js";
 import { __testing, createImageTool, resolveImageModelConfigForTool } from "./image-tool.js";
@@ -20,7 +20,7 @@ async function writeAuthProfiles(agentDir: string, profiles: unknown) {
 }
 
 async function withTempAgentDir<T>(run: (agentDir: string) => Promise<T>): Promise<T> {
-  const agentDir = await fs.mkdtemp(path.join(os.tmpdir(), "enclaws-image-"));
+  const agentDir = await fs.mkdtemp(path.join(os.tmpdir(), "qingclaws-image-"));
   try {
     return await run(agentDir);
   } finally {
@@ -35,7 +35,7 @@ const ONE_PIXEL_GIF_B64 = "R0lGODlhAQABAIABAP///wAAACwAAAAAAQABAAACAkQBADs=";
 async function withTempWorkspacePng(
   cb: (args: { workspaceDir: string; imagePath: string }) => Promise<void>,
 ) {
-  const workspaceParent = await fs.mkdtemp(path.join(process.cwd(), ".enclaws-workspace-image-"));
+  const workspaceParent = await fs.mkdtemp(path.join(process.cwd(), ".qingclaws-workspace-image-"));
   try {
     const workspaceDir = path.join(workspaceParent, "workspace");
     await fs.mkdir(workspaceDir, { recursive: true });
@@ -382,7 +382,7 @@ describe("image tool implicit imageModel config", () => {
   });
 
   it("exposes an Anthropic-safe image schema without union keywords", async () => {
-    const agentDir = await fs.mkdtemp(path.join(os.tmpdir(), "enclaws-image-"));
+    const agentDir = await fs.mkdtemp(path.join(os.tmpdir(), "qingclaws-image-"));
     try {
       const cfg = createMinimaxImageConfig();
       const tool = requireImageTool(createImageTool({ config: cfg, agentDir }));
@@ -408,7 +408,7 @@ describe("image tool implicit imageModel config", () => {
   });
 
   it("keeps an Anthropic-safe image schema snapshot", async () => {
-    const agentDir = await fs.mkdtemp(path.join(os.tmpdir(), "enclaws-image-"));
+    const agentDir = await fs.mkdtemp(path.join(os.tmpdir(), "qingclaws-image-"));
     try {
       const cfg = createMinimaxImageConfig();
       const tool = requireImageTool(createImageTool({ config: cfg, agentDir }));
@@ -436,7 +436,7 @@ describe("image tool implicit imageModel config", () => {
   it("allows workspace images outside default local media roots", async () => {
     await withTempWorkspacePng(async ({ workspaceDir, imagePath }) => {
       const fetch = stubMinimaxOkFetch();
-      const agentDir = await fs.mkdtemp(path.join(os.tmpdir(), "enclaws-image-"));
+      const agentDir = await fs.mkdtemp(path.join(os.tmpdir(), "qingclaws-image-"));
       try {
         const cfg = createMinimaxImageConfig();
 
@@ -461,14 +461,14 @@ describe("image tool implicit imageModel config", () => {
     });
   });
 
-  it("allows workspace images via createOpenClawCodingTools default workspace root", async () => {
+  it("allows workspace images via createQingClawsCodingTools default workspace root", async () => {
     await withTempWorkspacePng(async ({ imagePath }) => {
       const fetch = stubMinimaxOkFetch();
-      const agentDir = await fs.mkdtemp(path.join(os.tmpdir(), "enclaws-image-"));
+      const agentDir = await fs.mkdtemp(path.join(os.tmpdir(), "qingclaws-image-"));
       try {
         const cfg = createMinimaxImageConfig();
 
-        const tools = createOpenClawCodingTools({ config: cfg, agentDir });
+        const tools = createQingClawsCodingTools({ config: cfg, agentDir });
         const tool = requireImageTool(tools.find((candidate) => candidate.name === "image"));
 
         await expectImageToolExecOk(tool, imagePath);
@@ -481,7 +481,7 @@ describe("image tool implicit imageModel config", () => {
   });
 
   it("sandboxes image paths like the read tool", async () => {
-    const stateDir = await fs.mkdtemp(path.join(os.tmpdir(), "enclaws-image-sandbox-"));
+    const stateDir = await fs.mkdtemp(path.join(os.tmpdir(), "qingclaws-image-sandbox-"));
     const agentDir = path.join(stateDir, "agent");
     const sandboxRoot = path.join(stateDir, "sandbox");
     await fs.mkdir(agentDir, { recursive: true });
@@ -505,7 +505,7 @@ describe("image tool implicit imageModel config", () => {
   });
 
   it("applies tools.fs.workspaceOnly to image paths in sandbox mode", async () => {
-    const stateDir = await fs.mkdtemp(path.join(os.tmpdir(), "enclaws-image-sandbox-"));
+    const stateDir = await fs.mkdtemp(path.join(os.tmpdir(), "qingclaws-image-sandbox-"));
     const agentDir = path.join(stateDir, "agent");
     const sandboxRoot = path.join(stateDir, "sandbox");
     await fs.mkdir(agentDir, { recursive: true });
@@ -520,7 +520,7 @@ describe("image tool implicit imageModel config", () => {
     };
 
     try {
-      const tools = createOpenClawCodingTools({
+      const tools = createQingClawsCodingTools({
         config: cfg,
         agentDir,
         sandbox,
@@ -548,7 +548,7 @@ describe("image tool implicit imageModel config", () => {
   });
 
   it("rewrites inbound absolute paths into sandbox media/inbound", async () => {
-    const stateDir = await fs.mkdtemp(path.join(os.tmpdir(), "enclaws-image-sandbox-"));
+    const stateDir = await fs.mkdtemp(path.join(os.tmpdir(), "qingclaws-image-sandbox-"));
     const agentDir = path.join(stateDir, "agent");
     const sandboxRoot = path.join(stateDir, "sandbox");
     await fs.mkdir(agentDir, { recursive: true });
@@ -577,7 +577,7 @@ describe("image tool implicit imageModel config", () => {
 
     const res = await tool.execute("t1", {
       prompt: "Describe the image.",
-      image: "@/Users/steipete/.enclaws/media/inbound/photo.png",
+      image: "@/Users/steipete/.qingclaws/media/inbound/photo.png",
     });
 
     expect(fetch).toHaveBeenCalledTimes(1);
@@ -632,7 +632,7 @@ describe("image tool MiniMax VLM routing", () => {
     });
     global.fetch = withFetchPreconnect(fetch);
 
-    const agentDir = await fs.mkdtemp(path.join(os.tmpdir(), "enclaws-minimax-vlm-"));
+    const agentDir = await fs.mkdtemp(path.join(os.tmpdir(), "qingclaws-minimax-vlm-"));
     vi.stubEnv("MINIMAX_API_KEY", "minimax-test");
     const cfg: OpenClawConfig = {
       agents: { defaults: { model: { primary: "minimax/MiniMax-M2.1" } } },

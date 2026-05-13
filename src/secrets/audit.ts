@@ -603,7 +603,7 @@ function collectShadowingFindings(collector: AuditCollector): void {
       addFinding(collector, {
         code: "REF_SHADOWED",
         severity: "warn",
-        file: "enclaws.json",
+        file: "qingclaws.json",
         jsonPath: configPath,
         message: `Auth profile credentials (${modeText}) take precedence for provider "${provider}", so this config ref may never be used.`,
         provider,
@@ -642,8 +642,8 @@ export async function runSecretsAudit(
   } = {},
 ): Promise<SecretsAuditReport> {
   const env = params.env ?? process.env;
-  const previousAuthStoreReadOnly = process.env.ENCLAWS_AUTH_STORE_READONLY;
-  process.env.ENCLAWS_AUTH_STORE_READONLY = "1";
+  const previousAuthStoreReadOnly = process.env.QINGCLAWS_AUTH_STORE_READONLY;
+  process.env.QINGCLAWS_AUTH_STORE_READONLY = "1";
   try {
     const io = createSecretsConfigIO({ env });
     const snapshot = await io.readConfigFileSnapshot();
@@ -717,9 +717,9 @@ export async function runSecretsAudit(
     };
   } finally {
     if (previousAuthStoreReadOnly === undefined) {
-      delete process.env.ENCLAWS_AUTH_STORE_READONLY;
+      delete process.env.QINGCLAWS_AUTH_STORE_READONLY;
     } else {
-      process.env.ENCLAWS_AUTH_STORE_READONLY = previousAuthStoreReadOnly;
+      process.env.QINGCLAWS_AUTH_STORE_READONLY = previousAuthStoreReadOnly;
     }
   }
 }

@@ -1,1 +1,1 @@
-console.warn("clawdbot renamed -> enclaws");
+console.warn("clawdbot renamed -> qingclaws");

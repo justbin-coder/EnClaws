@@ -1,13 +1,13 @@
 import { createHmac } from "node:crypto";
 import { loadConfig } from "../config/config.js";
 
-const RELAY_TOKEN_CONTEXT = "enclaws-extension-relay-v1";
+const RELAY_TOKEN_CONTEXT = "qingclaws-extension-relay-v1";
 const DEFAULT_RELAY_PROBE_TIMEOUT_MS = 500;
-const ENCLAWS_RELAY_BROWSER = "EnClaws/extension-relay";
+const QINGCLAWS_RELAY_BROWSER = "QingClaws/extension-relay";
 
 function resolveGatewayAuthToken(): string | null {
   const envToken =
-    process.env.ENCLAWS_GATEWAY_TOKEN?.trim() || process.env.CLAWDBOT_GATEWAY_TOKEN?.trim();
+    process.env.QINGCLAWS_GATEWAY_TOKEN?.trim() || process.env.CLAWDBOT_GATEWAY_TOKEN?.trim();
   if (envToken) {
     return envToken;
   }
@@ -31,7 +31,7 @@ export function resolveRelayAcceptedTokensForPort(port: number): string[] {
   const gatewayToken = resolveGatewayAuthToken();
   if (!gatewayToken) {
     throw new Error(
-      "extension relay requires gateway auth token (set gateway.auth.token or ENCLAWS_GATEWAY_TOKEN)",
+      "extension relay requires gateway auth token (set gateway.auth.token or QINGCLAWS_GATEWAY_TOKEN)",
     );
   }
   const relayToken = deriveRelayAuthToken(gatewayToken, port);
@@ -45,7 +45,7 @@ export function resolveRelayAuthTokenForPort(port: number): string {
   return resolveRelayAcceptedTokensForPort(port)[0];
 }
 
-export async function probeAuthenticatedOpenClawRelay(params: {
+export async function probeAuthenticatedQingClawsRelay(params: {
   baseUrl: string;
   relayAuthHeader: string;
   relayAuthToken: string;
@@ -64,7 +64,7 @@ export async function probeAuthenticatedOpenClawRelay(params: {
     }
     const body = (await res.json()) as { Browser?: unknown };
     const browserName = typeof body?.Browser === "string" ? body.Browser.trim() : "";
-    return browserName === ENCLAWS_RELAY_BROWSER;
+    return browserName === QINGCLAWS_RELAY_BROWSER;
   } catch {
     return false;
   } finally {

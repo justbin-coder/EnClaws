@@ -1,6 +1,6 @@
 import { execSync } from "child_process";
 
-console.log("🚀 Testing OpenClaw Dynamic SubAgent API (DeepAgentsJS Style) 🚀");
+console.log("🚀 Testing QingClaws Dynamic SubAgent API (DeepAgentsJS Style) 🚀");
 
 const body = {
   message: "Provide a quick summary of the current directory contents. You only have access to the 'exec' tool.",
@@ -13,14 +13,14 @@ console.log("\n📦 Request Payload:");
 console.log(JSON.stringify(body, null, 2));
 
 try {
-  // Using curl to hit the local OpenClaw gateway
+  // Using curl to hit the local QingClaws gateway
   const curlCmd = `curl -s -X POST http://localhost:11011/api/agent \\
   -H "Content-Type: application/json" \\
   -d '${JSON.stringify(body)}'`;
 
-  console.log("\n⏳ Sending request to local OpenClaw Gateway...");
+  console.log("\n⏳ Sending request to local QingClaws Gateway...");
   const response = execSync(curlCmd, { encoding: "utf-8" });
-  console.log("\n✅ Response from OpenClaw:");
+  console.log("\n✅ Response from QingClaws:");
   
   // We can parse just the final text
   const lines = response.split('\\n');
@@ -36,5 +36,5 @@ try {
   console.log("(If text is empty, check the full stream output for tool calls)");
 
 } catch (error) {
-  console.error("❌ Failed to call OpenClaw API:", error.message);
+  console.error("❌ Failed to call QingClaws API:", error.message);
 }

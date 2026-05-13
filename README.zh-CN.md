@@ -1,4 +1,4 @@
-# EnClaws — 企业级 AI 助手容器平台
+# QingClaws — 企业级 AI 助手容器平台
 
 <p align="center">
   <img src="https://raw.githubusercontent.com/hashSTACS-Global/EnClaws/main/docs/assets/banner-enclaws-placeholder.png" alt="EnClaws banner placeholder" width="100%" />
@@ -10,7 +10,7 @@
 
 <p align="center">
   <a href="https://github.com/hashSTACS-Global/EnClaws/stargazers"><img alt="GitHub stars" src="https://img.shields.io/github/stars/hashSTACS-Global/EnClaws?style=social"></a>
-  <a href="https://www.npmjs.com/package/enclaws"><img alt="npm version" src="https://img.shields.io/npm/v/enclaws?color=cb3837&label=npm"></a>
+  <a href="https://www.npmjs.com/package/qingclaws"><img alt="npm version" src="https://img.shields.io/npm/v/qingclaws?color=cb3837&label=npm"></a>
   <a href="https://github.com/hashSTACS-Global/EnClaws/commits/main"><img alt="Last commit" src="https://img.shields.io/github/last-commit/hashSTACS-Global/EnClaws"></a>
   <a href="https://github.com/hashSTACS-Global/EnClaws/issues"><img alt="GitHub issues" src="https://img.shields.io/github/issues/hashSTACS-Global/EnClaws"></a>
   <a href="https://discord.gg/ExT4MEnK4w"><img alt="Discord" src="https://img.shields.io/discord/1483754815434526742?color=5865F2&label=Discord&logo=discord&logoColor=white"></a>
@@ -33,14 +33,14 @@
   <a href="#商标">商标</a>
 </p>
 
-**EnClaws** 是一个**企业级 AI 助手容器平台**。它旨在为跨团队、跨流程、跨业务系统的大量助手实例提供创建、调度、隔离、升级与审计能力。
+**QingClaws** 是一个**企业级 AI 助手容器平台**。它旨在为跨团队、跨流程、跨业务系统的大量助手实例提供创建、调度、隔离、升级与审计能力。
 
-如果说 OpenClaw 关注的是个人助手体验，那么 EnClaws 关注的则是数字助手的企业级运行环境。
+如果说 QingClaws 关注的是个人助手体验，那么 QingClaws 关注的则是数字助手的企业级运行环境。
 
 > [!IMPORTANT]
 > 本仓库刚刚开放。随着项目推进，后续会逐步发布更多部署、配置与仓库文档。
 
-## 为什么需要 EnClaws
+## 为什么需要 QingClaws
 
 个人助手可以为单个人发挥巨大作用，但企业的形态完全不同。
 
@@ -55,29 +55,29 @@
 
 归根结底，企业需要的不只是更聪明的助手，而是一套能够运行并治理数字劳动力的系统。
 
-## 从 OpenClaw 到 EnClaws
+## 从 QingClaws 到 QingClaws
 
 在 Claw 的世界里，这个划分很简单：
 
-- **OpenClaw** 是个人 claw，围绕“属于单个人的单个助手体验”来构建。
-- **EnClaws** 是企业 claw，旨在创建、调度和管理大量助手实例，使其能够在组织内部承担真实工作。
+- **QingClaws** 是个人 claw，围绕“属于单个人的单个助手体验”来构建。
+- **QingClaws** 是企业 claw，旨在创建、调度和管理大量助手实例，使其能够在组织内部承担真实工作。
 
-如果说 OpenClaw 是个人操作员，那么 EnClaws 就是企业级运行环境。
+如果说 QingClaws 是个人操作员，那么 QingClaws 就是企业级运行环境。
 
 ## 快速开始
 
 ### 方式一 — npm 安装（全平台）
 
 ```bash
-npm install -g enclaws
-enclaws gateway
+npm install -g qingclaws
+qingclaws gateway
 ```
 
 ### 方式二 — Windows 一键安装包
 
 从 [Releases](https://github.com/hashSTACS-Global/EnClaws/releases) 下载 `EnClaws-Setup-x.x.x.exe`，双击安装即可。无需管理员权限，内置 Node.js 运行时，完全离线安装。
 
-安装后双击桌面快捷方式 "EnClaws" 或在新终端中运行 `enclaws gateway`。
+安装后双击桌面快捷方式 "QingClaws" 或在新终端中运行 `qingclaws gateway`。
 
 ### 方式三 — 一行命令安装（macOS / Linux）
 
@@ -92,18 +92,18 @@ curl -fsSL --proto '=https' --tlsv1.2 https://raw.githubusercontent.com/hashSTAC
 ```bash
 # 1. 克隆仓库
 git clone https://github.com/hashSTACS-Global/EnClaws.git
-cd EnClaws
+cd QingClaws
 
 # 2. 安装依赖并构建
 pnpm install
 pnpm build
 pnpm ui:build # 首次运行时自动安装用户界面依赖项
 
-# 3. 注册 enclaws 全局命令
+# 3. 注册 qingclaws 全局命令
 npm link
 
 # 4. 启动 Gateway
-enclaws gateway
+qingclaws gateway
 ```
 
 启动完成后，Gateway 默认可通过 `http://localhost:18888` 访问。
@@ -115,7 +115,7 @@ enclaws gateway
 ## 核心亮点
 
 - **一个助手，同时处理多个并发任务**  
-  EnClaws 以并发执行为设计目标。财务助手应当能够并行处理多名员工的报销请求，而不是让所有请求排成一条单线程队列。
+  QingClaws 以并发执行为设计目标。财务助手应当能够并行处理多名员工的报销请求，而不是让所有请求排成一条单线程队列。
 
 - **原生多用户隔离**  
   平台从一开始就为多用户环境而设计，为每个用户提供独立的上下文、记忆和执行边界。
@@ -127,19 +127,19 @@ enclaws gateway
   有价值的经验不应永远被困在原始日志中。它可以被捕获、蒸馏为可复用能力资产，经审查后在适当情况下向上提升。
 
 - **技能共享与传播**  
-  某个助手掌握的强技能，不应只停留在这个助手身上。EnClaws 旨在让技能能够在助手之间被暴露、共享和传播。
+  某个助手掌握的强技能，不应只停留在这个助手身上。QingClaws 旨在让技能能够在助手之间被暴露、共享和传播。
 
 - **审计与状态监控**  
-  管理者需要可见性。EnClaws 旨在呈现助手状态、任务执行情况、Token 成本信号、风险信号以及可回放证据。
+  管理者需要可见性。QingClaws 旨在呈现助手状态、任务执行情况、Token 成本信号、风险信号以及可回放证据。
 
 - **A2A 协作为路线图方向**  
-  轻量级的 assistant-to-assistant 协作，是 EnClaws 的前进方向之一，重点在于更低的 Token 开销与更高效的数据交换。
+  轻量级的 assistant-to-assistant 协作，是 QingClaws 的前进方向之一，重点在于更低的 Token 开销与更高效的数据交换。
 
 ## 核心能力模型
 
 ### 1) 一个助手，同时处理多个并发任务
 
-不同于串行助手必须等待上一条指令完成后才能开始下一条，EnClaws 的设计目标是支持并发任务执行。
+不同于串行助手必须等待上一条指令完成后才能开始下一条，QingClaws 的设计目标是支持并发任务执行。
 
 这在企业工作负载中至关重要。财务助手应该能够同时处理多笔报销申请，而不是让每位员工都站在同一条数字队列里等待。
 
@@ -147,7 +147,7 @@ enclaws gateway
 
 ### 2) 原生多用户模式
 
-EnClaws 从一开始就是为多用户运行而构建的。
+QingClaws 从一开始就是为多用户运行而构建的。
 
 这意味着：
 
@@ -161,7 +161,7 @@ EnClaws 从一开始就是为多用户运行而构建的。
 
 企业工作很少只属于一个扁平的上下文窗口。
 
-EnClaws 围绕分层记忆模型设计，使助手能够同时处理多种类型的知识：
+QingClaws 围绕分层记忆模型设计，使助手能够同时处理多种类型的知识：
 
 - **行业记忆**，用于公共规则、术语和监管要求
 - **公司记忆**，用于商业模式、制度、文化和共享产品知识
@@ -172,7 +172,7 @@ EnClaws 围绕分层记忆模型设计，使助手能够同时处理多种类型
 
 ### 4) 记忆蒸馏与升级
 
-EnClaws 的目标并不是把原始记忆盲目同步到所有地方。
+QingClaws 的目标并不是把原始记忆盲目同步到所有地方。
 
 相反，它的目标是识别有价值的经验，将其蒸馏为可复用的能力资产，完成脱敏与合规审查，然后再从个人或团队层级向上提升到部门或公司范围。
 
@@ -182,7 +182,7 @@ EnClaws 的目标并不是把原始记忆盲目同步到所有地方。
 
 一个优秀的企业平台，应该让能力能够流动起来。
 
-EnClaws 围绕标准化的技能共享模型来设计，使某个助手中被证明有效的技能，可以被暴露、复用并传播给其他助手。
+QingClaws 围绕标准化的技能共享模型来设计，使某个助手中被证明有效的技能，可以被暴露、复用并传播给其他助手。
 
 一个助手学会的有用能力，应该让整个系统都变得更强。
 
@@ -190,7 +190,7 @@ EnClaws 围绕标准化的技能共享模型来设计，使某个助手中被证
 
 数字助手越强大，可观测性就越重要。
 
-EnClaws 旨在提供面向管理者的可视化视图，用于呈现：
+QingClaws 旨在提供面向管理者的可视化视图，用于呈现：
 
 - 助手状态
 - 已执行的指令
@@ -202,7 +202,7 @@ EnClaws 旨在提供面向管理者的可视化视图，用于呈现：
 
 ### 7) 助手协作作为路线图方向
 
-A2A 协作是 EnClaws 的前进方向之一。
+A2A 协作是 QingClaws 的前进方向之一。
 
 目标是构建一种轻量级的容器间协作模型，使大量协同指令可以通过直接协议交换完成，而不必每次都反复经过完整模型解释。
 
@@ -353,7 +353,7 @@ A2A 协作是 EnClaws 的前进方向之一。
 
 ## North Star
 
-EnClaws 想做的，不只是一个更花哨的 AI 玩具。
+QingClaws 想做的，不只是一个更花哨的 AI 玩具。
 
 它也不想只成为一个只有极少数架构师才能理解的抽象底层。
 
@@ -361,7 +361,7 @@ EnClaws 想做的，不只是一个更花哨的 AI 玩具。
 
 ## 加入我们
 
-EnClaws 的目标，是帮助定义真实企业工作流中的 AI 基础层。
+QingClaws 的目标，是帮助定义真实企业工作流中的 AI 基础层。
 
 如果你希望 AI 从 Demo 走向业务运营：
 
@@ -372,10 +372,10 @@ EnClaws 的目标，是帮助定义真实企业工作流中的 AI 基础层。
 
 ## 致谢与鸣谢
 
-EnClaws 站在开源巨人的肩膀上。我们在此诚挚感谢：
+QingClaws 站在开源巨人的肩膀上。我们在此诚挚感谢：
 
 - **[openclaw/openclaw](https://github.com/openclaw/openclaw)**  
-  它作为个人助手基础设施，帮助定义了强有力的数字助手范式。EnClaws 则沿着这条思路，继续向企业级容器化运行拓展。
+  它作为个人助手基础设施，帮助定义了强有力的数字助手范式。QingClaws 则沿着这条思路，继续向企业级容器化运行拓展。
 
 - **[luolin-ai/openclawWeComzh](https://github.com/luolin-ai/openclawWeComzh)**  
   它为企业微信适配以及多租户企业 IM 集成层提供了有价值的参考。
@@ -390,7 +390,7 @@ EnClaws 站在开源巨人的肩膀上。我们在此诚挚感谢：
 - 漏洞报告方式请参见 **[SECURITY.md](./SECURITY.md)**。
 - 品牌使用规则请参见 **[TRADEMARK.md](./TRADEMARK.md)**。
 
-### 加入 EnClaws 社区
+### 加入 QingClaws 社区
 
 欢迎加入社区，交流版本动态、使用反馈和产品讨论：
 

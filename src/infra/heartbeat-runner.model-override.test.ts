@@ -40,7 +40,7 @@ async function withHeartbeatFixture(
       };
       return run({ tmpDir, storePath, seedSession });
     },
-    { prefix: "enclaws-hb-model-" },
+    { prefix: "qingclaws-hb-model-" },
   );
 }
 

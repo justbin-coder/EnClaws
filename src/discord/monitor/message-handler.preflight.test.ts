@@ -137,7 +137,7 @@ describe("preflightDiscordMessage", () => {
       accountId: "default",
       token: "token",
       runtime: {} as import("../../runtime.js").RuntimeEnv,
-      botUserId: "enclaws-bot",
+      botUserId: "qingclaws-bot",
       guildHistories: new Map(),
       historyLimit: 0,
       mediaMaxBytes: 1_000_000,

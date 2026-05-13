@@ -7,7 +7,7 @@ export type VoiceWakeConfig = {
   updatedAtMs: number;
 };
 
-const DEFAULT_TRIGGERS = ["enclaws", "claude", "computer"];
+const DEFAULT_TRIGGERS = ["qingclaws", "claude", "computer"];
 
 function resolvePath(baseDir?: string) {
   const root = baseDir ?? resolveStateDir();

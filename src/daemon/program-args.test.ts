@@ -23,8 +23,8 @@ afterEach(() => {
 
 describe("resolveGatewayProgramArguments", () => {
   it("uses realpath-resolved dist entry when running via npx shim", async () => {
-    const argv1 = path.resolve("/tmp/.npm/_npx/63c3/node_modules/.bin/enclaws");
-    const entryPath = path.resolve("/tmp/.npm/_npx/63c3/node_modules/enclaws/dist/entry.js");
+    const argv1 = path.resolve("/tmp/.npm/_npx/63c3/node_modules/.bin/qingclaws");
+    const entryPath = path.resolve("/tmp/.npm/_npx/63c3/node_modules/qingclaws/dist/entry.js");
     process.argv = ["node", argv1];
     fsMocks.realpath.mockResolvedValue(entryPath);
     fsMocks.access.mockImplementation(async (target: string) => {
@@ -46,13 +46,13 @@ describe("resolveGatewayProgramArguments", () => {
   });
 
   it("prefers symlinked path over realpath for stable service config", async () => {
-    // Simulates pnpm global install where node_modules/enclaws is a symlink
-    // to .pnpm/enclaws@X.Y.Z/node_modules/enclaws
+    // Simulates pnpm global install where node_modules/qingclaws is a symlink
+    // to .pnpm/qingclaws@X.Y.Z/node_modules/qingclaws
     const symlinkPath = path.resolve(
-      "/Users/test/Library/pnpm/global/5/node_modules/enclaws/dist/entry.js",
+      "/Users/test/Library/pnpm/global/5/node_modules/qingclaws/dist/entry.js",
     );
     const realpathResolved = path.resolve(
-      "/Users/test/Library/pnpm/global/5/node_modules/.pnpm/enclaws@2026.1.21-2/node_modules/enclaws/dist/entry.js",
+      "/Users/test/Library/pnpm/global/5/node_modules/.pnpm/qingclaws@2026.1.21-2/node_modules/qingclaws/dist/entry.js",
     );
     process.argv = ["node", symlinkPath];
     fsMocks.realpath.mockResolvedValue(realpathResolved);
@@ -66,8 +66,8 @@ describe("resolveGatewayProgramArguments", () => {
   });
 
   it("falls back to node_modules package dist when .bin path is not resolved", async () => {
-    const argv1 = path.resolve("/tmp/.npm/_npx/63c3/node_modules/.bin/enclaws");
-    const indexPath = path.resolve("/tmp/.npm/_npx/63c3/node_modules/enclaws/dist/index.js");
+    const argv1 = path.resolve("/tmp/.npm/_npx/63c3/node_modules/.bin/qingclaws");
+    const indexPath = path.resolve("/tmp/.npm/_npx/63c3/node_modules/qingclaws/dist/index.js");
     process.argv = ["node", argv1];
     fsMocks.realpath.mockRejectedValue(new Error("no realpath"));
     fsMocks.access.mockImplementation(async (target: string) => {

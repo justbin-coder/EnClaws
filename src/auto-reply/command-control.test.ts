@@ -182,7 +182,7 @@ describe("resolveCommandAuthorization", () => {
       Provider: "webchat",
       Surface: "webchat",
       OriginatingChannel: "webchat",
-      SenderId: "enclaws-control-ui",
+      SenderId: "qingclaws-control-ui",
     } as MsgContext;
 
     const auth = resolveCommandAuthorization({
@@ -539,12 +539,12 @@ describe("control command parsing", () => {
   it("ignores telegram commands addressed to other bots", () => {
     expect(
       hasControlCommand("/help@otherbot", undefined, {
-        botUsername: "enclaws",
+        botUsername: "qingclaws",
       }),
     ).toBe(false);
     expect(
-      hasControlCommand("/help@enclaws", undefined, {
-        botUsername: "enclaws",
+      hasControlCommand("/help@qingclaws", undefined, {
+        botUsername: "qingclaws",
       }),
     ).toBe(true);
   });

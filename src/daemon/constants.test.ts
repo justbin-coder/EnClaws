@@ -32,12 +32,12 @@ describe("resolveGatewayLaunchAgentLabel", () => {
   it("returns default label when no profile is set", () => {
     const result = resolveGatewayLaunchAgentLabel();
     expect(result).toBe(GATEWAY_LAUNCH_AGENT_LABEL);
-    expect(result).toBe("ai.enclaws.gateway");
+    expect(result).toBe("ai.qingclaws.gateway");
   });
 
   it("returns profile-specific label when profile is set", () => {
     const result = resolveGatewayLaunchAgentLabel("dev");
-    expect(result).toBe("ai.enclaws.dev");
+    expect(result).toBe("ai.qingclaws.dev");
   });
 });
 
@@ -45,12 +45,12 @@ describe("resolveGatewaySystemdServiceName", () => {
   it("returns default service name when no profile is set", () => {
     const result = resolveGatewaySystemdServiceName();
     expect(result).toBe(GATEWAY_SYSTEMD_SERVICE_NAME);
-    expect(result).toBe("enclaws-gateway");
+    expect(result).toBe("qingclaws-gateway");
   });
 
   it("returns profile-specific service name when profile is set", () => {
     const result = resolveGatewaySystemdServiceName("dev");
-    expect(result).toBe("enclaws-gateway-dev");
+    expect(result).toBe("qingclaws-gateway-dev");
   });
 });
 
@@ -58,12 +58,12 @@ describe("resolveGatewayWindowsTaskName", () => {
   it("returns default task name when no profile is set", () => {
     const result = resolveGatewayWindowsTaskName();
     expect(result).toBe(GATEWAY_WINDOWS_TASK_NAME);
-    expect(result).toBe("EnClaws Gateway");
+    expect(result).toBe("QingClaws Gateway");
   });
 
   it("returns profile-specific task name when profile is set", () => {
     const result = resolveGatewayWindowsTaskName("dev");
-    expect(result).toBe("EnClaws Gateway (dev)");
+    expect(result).toBe("QingClaws Gateway (dev)");
   });
 });
 
@@ -88,24 +88,24 @@ describe("resolveGatewayProfileSuffix", () => {
 
 describe("formatGatewayServiceDescription", () => {
   it("returns default description when no profile/version", () => {
-    expect(formatGatewayServiceDescription()).toBe("EnClaws Gateway");
+    expect(formatGatewayServiceDescription()).toBe("QingClaws Gateway");
   });
 
   it("includes profile when set", () => {
     expect(formatGatewayServiceDescription({ profile: "work" })).toBe(
-      "EnClaws Gateway (profile: work)",
+      "QingClaws Gateway (profile: work)",
     );
   });
 
   it("includes version when set", () => {
     expect(formatGatewayServiceDescription({ version: "2026.1.10" })).toBe(
-      "EnClaws Gateway (v2026.1.10)",
+      "QingClaws Gateway (v2026.1.10)",
     );
   });
 
   it("includes profile and version when set", () => {
     expect(formatGatewayServiceDescription({ profile: "dev", version: "1.2.3" })).toBe(
-      "EnClaws Gateway (profile: dev, v1.2.3)",
+      "QingClaws Gateway (profile: dev, v1.2.3)",
     );
   });
 });
@@ -114,7 +114,7 @@ describe("resolveGatewayServiceDescription", () => {
   it("prefers explicit description override", () => {
     expect(
       resolveGatewayServiceDescription({
-        env: { ENCLAWS_PROFILE: "work", ENCLAWS_SERVICE_VERSION: "1.0.0" },
+        env: { QINGCLAWS_PROFILE: "work", QINGCLAWS_SERVICE_VERSION: "1.0.0" },
         description: "Custom",
       }),
     ).toBe("Custom");
@@ -123,10 +123,10 @@ describe("resolveGatewayServiceDescription", () => {
   it("resolves version from explicit environment map", () => {
     expect(
       resolveGatewayServiceDescription({
-        env: { ENCLAWS_PROFILE: "work", ENCLAWS_SERVICE_VERSION: "local" },
-        environment: { ENCLAWS_SERVICE_VERSION: "remote" },
+        env: { QINGCLAWS_PROFILE: "work", QINGCLAWS_SERVICE_VERSION: "local" },
+        environment: { QINGCLAWS_SERVICE_VERSION: "remote" },
       }),
-    ).toBe("EnClaws Gateway (profile: work, vremote)");
+    ).toBe("QingClaws Gateway (profile: work, vremote)");
   });
 });
 

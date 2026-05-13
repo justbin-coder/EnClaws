@@ -68,7 +68,7 @@ export async function runDaemonInstall(opts: DaemonInstallOptions) {
       if (!json) {
         defaultRuntime.log(`Gateway service already ${service.loadedText}.`);
         defaultRuntime.log(
-          `Reinstall with: ${formatCliCommand("enclaws gateway install --force")}`,
+          `Reinstall with: ${formatCliCommand("qingclaws gateway install --force")}`,
         );
       }
       return;
@@ -87,7 +87,7 @@ export async function runDaemonInstall(opts: DaemonInstallOptions) {
   let token: string | undefined =
     opts.token ||
     cfg.gateway?.auth?.token ||
-    process.env.ENCLAWS_GATEWAY_TOKEN ||
+    process.env.QINGCLAWS_GATEWAY_TOKEN ||
     process.env.CLAWDBOT_GATEWAY_TOKEN;
 
   if (!token && needsToken) {

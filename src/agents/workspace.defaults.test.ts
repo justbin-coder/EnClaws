@@ -7,13 +7,13 @@ afterEach(() => {
 });
 
 describe("DEFAULT_AGENT_WORKSPACE_DIR", () => {
-  it("uses ENCLAWS_HOME when resolving the default workspace dir", () => {
-    const home = path.join(path.sep, "srv", "enclaws-home");
-    vi.stubEnv("ENCLAWS_HOME", home);
+  it("uses QINGCLAWS_HOME when resolving the default workspace dir", () => {
+    const home = path.join(path.sep, "srv", "qingclaws-home");
+    vi.stubEnv("QINGCLAWS_HOME", home);
     vi.stubEnv("HOME", path.join(path.sep, "home", "other"));
 
     expect(resolveDefaultAgentWorkspaceDir()).toBe(
-      path.join(path.resolve(home), ".enclaws", "workspace"),
+      path.join(path.resolve(home), ".qingclaws", "workspace"),
     );
   });
 });

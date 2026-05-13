@@ -11,7 +11,7 @@
  */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
-import type { OpenClawPluginApi } from 'openclaw/plugin-sdk';
+import type { QingClawsPluginApi } from 'openclaw/plugin-sdk';
 import { Type } from '@sinclair/typebox';
 import type { ToolClient } from '../helpers';
 import { StringEnum, assertLarkOk, createToolContext, getFirstAccount, handleInvokeErrorWithAutoAuth, json, registerTool } from '../helpers';
@@ -139,7 +139,7 @@ interface GetMessagesParams {
   end_time?: string;
 }
 
-function registerGetMessages(api: OpenClawPluginApi): boolean {
+function registerGetMessages(api: QingClawsPluginApi): boolean {
   if (!api.config) return false;
   const config = api.config;
   const { toolClient, log } = createToolContext(api, 'feishu_im_user_get_messages');
@@ -244,7 +244,7 @@ interface GetThreadMessagesParams {
   page_token?: string;
 }
 
-function registerGetThreadMessages(api: OpenClawPluginApi): boolean {
+function registerGetThreadMessages(api: QingClawsPluginApi): boolean {
   if (!api.config) return false;
   const config = api.config;
   const { toolClient, log } = createToolContext(api, 'feishu_im_user_get_thread_messages');
@@ -479,7 +479,7 @@ function enrichMessages(
   });
 }
 
-function registerSearchMessages(api: OpenClawPluginApi): boolean {
+function registerSearchMessages(api: QingClawsPluginApi): boolean {
   if (!api.config) return false;
   const config = api.config;
   const { toolClient, log } = createToolContext(api, 'feishu_im_user_search_messages');
@@ -602,7 +602,7 @@ function registerSearchMessages(api: OpenClawPluginApi): boolean {
 // Unified registration
 // ===========================================================================
 
-export function registerMessageReadTools(api: OpenClawPluginApi): string[] {
+export function registerMessageReadTools(api: QingClawsPluginApi): string[] {
   const registered: string[] = [];
   if (registerGetMessages(api)) registered.push('feishu_im_user_get_messages');
   if (registerGetThreadMessages(api)) registered.push('feishu_im_user_get_thread_messages');

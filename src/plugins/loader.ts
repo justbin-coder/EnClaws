@@ -15,7 +15,7 @@ import {
   resolveMemorySlotDecision,
   type NormalizedPluginsConfig,
 } from "./config-state.js";
-import { discoverOpenClawPlugins } from "./discovery.js";
+import { discoverQingClawsPlugins } from "./discovery.js";
 import { initializeGlobalHookRunner } from "./hook-runner-global.js";
 import { registerFeishuMediaDownloadHook } from "./builtin-hooks/feishu-media-download.js";
 import { loadPluginManifestRegistry } from "./manifest-registry.js";
@@ -25,8 +25,8 @@ import { setActivePluginRegistry } from "./runtime.js";
 import { createPluginRuntime } from "./runtime/index.js";
 import { validateJsonSchemaValue } from "./schema-validator.js";
 import type {
-  OpenClawPluginDefinition,
-  OpenClawPluginModule,
+  QingClawsPluginDefinition,
+  QingClawsPluginModule,
   PluginDiagnostic,
   PluginLogger,
 } from "./types.js";
@@ -119,7 +119,7 @@ const resolvePluginSdkSubpathAliases = (): Record<string, string> => {
       distFile: `${subpath}.js`,
     });
     if (resolved) {
-      aliases[`enclaws/plugin-sdk/${subpath}`] = resolved;
+      aliases[`qingclaws/plugin-sdk/${subpath}`] = resolved;
     }
   }
   return aliases;
@@ -159,8 +159,8 @@ function validatePluginConfig(params: {
 }
 
 function resolvePluginModuleExport(moduleExport: unknown): {
-  definition?: OpenClawPluginDefinition;
-  register?: OpenClawPluginDefinition["register"];
+  definition?: QingClawsPluginDefinition;
+  register?: QingClawsPluginDefinition["register"];
 } {
   const resolved =
     moduleExport &&
@@ -170,11 +170,11 @@ function resolvePluginModuleExport(moduleExport: unknown): {
       : moduleExport;
   if (typeof resolved === "function") {
     return {
-      register: resolved as OpenClawPluginDefinition["register"],
+      register: resolved as QingClawsPluginDefinition["register"],
     };
   }
   if (resolved && typeof resolved === "object") {
-    const def = resolved as OpenClawPluginDefinition;
+    const def = resolved as QingClawsPluginDefinition;
     const register = def.register ?? def.activate;
     return { definition: def, register };
   }
@@ -399,7 +399,7 @@ function warnAboutUntrackedLoadedPlugins(params: {
   }
 }
 
-export function loadOpenClawPlugins(options: PluginLoadOptions = {}): PluginRegistry {
+export function loadQingClawsPlugins(options: PluginLoadOptions = {}): PluginRegistry {
   // Test env: default-disable plugins unless explicitly configured.
   // This keeps unit/gateway suites fast and avoids loading heavyweight plugin deps by accident.
   const cfg = applyTestPluginDefaults(options.config ?? {}, process.env);
@@ -429,7 +429,7 @@ export function loadOpenClawPlugins(options: PluginLoadOptions = {}): PluginRegi
     coreGatewayHandlers: options.coreGatewayHandlers as Record<string, GatewayRequestHandler>,
   });
 
-  const discovery = discoverOpenClawPlugins({
+  const discovery = discoverQingClawsPlugins({
     workspaceDir: options.workspaceDir,
     extraPaths: normalized.loadPaths,
   });
@@ -467,12 +467,12 @@ export function loadOpenClawPlugins(options: PluginLoadOptions = {}): PluginRegi
     const subpathAliases = resolvePluginSdkSubpathAliases();
     const subpathAliasesOcw: Record<string, string> = {};
     for (const [key, value] of Object.entries(subpathAliases)) {
-      subpathAliasesOcw[key.replace(/^enclaws\//, "openclaw/")] = value;
+      subpathAliasesOcw[key.replace(/^qingclaws\//, "qingclaws/")] = value;
     }
     const allAliases: Record<string, string> = {
       ...(pluginSdkAccountIdAlias
         ? {
-            "enclaws/plugin-sdk/account-id": pluginSdkAccountIdAlias,
+            "qingclaws/plugin-sdk/account-id": pluginSdkAccountIdAlias,
             "openclaw/plugin-sdk/account-id": pluginSdkAccountIdAlias,
           }
         : {}),
@@ -594,9 +594,9 @@ export function loadOpenClawPlugins(options: PluginLoadOptions = {}): PluginRegi
     const safeSource = opened.path;
     fs.closeSync(opened.fd);
 
-    let mod: OpenClawPluginModule | null = null;
+    let mod: QingClawsPluginModule | null = null;
     try {
-      mod = getJiti()(safeSource) as OpenClawPluginModule;
+      mod = getJiti()(safeSource) as QingClawsPluginModule;
     } catch (err) {
       recordPluginError({
         logger,

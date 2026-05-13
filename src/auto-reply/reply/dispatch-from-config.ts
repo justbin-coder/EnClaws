@@ -175,7 +175,7 @@ export async function dispatchReplyFromConfig(params: {
   }
 
   // ── Multi-tenant context enrichment ─────────────────────────────
-  // When an external channel plugin (e.g. official @larksuite/openclaw-lark)
+  // When an external channel plugin (e.g. official @larksuite/qingclaws-lark)
   // does not inject TenantId/TenantUserId, auto-provision the user from the
   // account-scoped channel config so the downstream reply engine resolves
   // tenant-scoped workspace/session paths.
@@ -369,7 +369,7 @@ export async function dispatchReplyFromConfig(params: {
   // while the model and tools are still loading.
   // Calling onReasoningStream triggers ensureCardCreated() in the streaming
   // controller; the acknowledgment text is shown as a thinking indicator.
-  const processingAckText = process.env.ENCLAWS_PROCESSING_ACK_TEXT?.trim() ?? "任务已接收，处理中";
+  const processingAckText = process.env.QINGCLAWS_PROCESSING_ACK_TEXT?.trim() ?? "任务已接收，处理中";
   if (params.replyOptions?.onReasoningStream && processingAckText) {
     try {
       await params.replyOptions.onReasoningStream({ text: processingAckText });

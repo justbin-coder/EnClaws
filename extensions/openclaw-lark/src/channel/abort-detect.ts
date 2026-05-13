@@ -8,7 +8,7 @@
  * an abort/stop command *before* it enters the per-chat serial queue.
  *
  * The trigger word list and normalisation logic are copied from the
- * OpenClaw core (`src/auto-reply/reply/abort.ts`) so the plugin can
+ * QingClaws core (`src/auto-reply/reply/abort.ts`) so the plugin can
  * make a lightweight decision without importing the full reply pipeline.
  * The message still flows through `tryFastAbortFromMessage()` for
  * authoritative handling.
@@ -17,7 +17,7 @@
 import type { FeishuMessageEvent } from '../messaging/types';
 
 // ---------------------------------------------------------------------------
-// Trigger word list (synced with OpenClaw core abort.ts)
+// Trigger word list (synced with QingClaws core abort.ts)
 // ---------------------------------------------------------------------------
 
 const ABORT_TRIGGERS = new Set([
@@ -48,8 +48,8 @@ const ABORT_TRIGGERS = new Set([
   'hoer auf',
   'stopp',
   'pare',
-  'stop openclaw',
-  'openclaw stop',
+  'stop qingclaws',
+  'qingclaws stop',
   'stop action',
   'stop current action',
   'stop run',
@@ -85,7 +85,7 @@ function normalizeAbortTriggerText(text: string): string {
 // Public API
 // ---------------------------------------------------------------------------
 
-/** Exact trigger-word match (same logic as OpenClaw core `isAbortTrigger`). */
+/** Exact trigger-word match (same logic as QingClaws core `isAbortTrigger`). */
 export function isAbortTrigger(text: string): boolean {
   if (!text) return false;
   const normalized = normalizeAbortTriggerText(text);

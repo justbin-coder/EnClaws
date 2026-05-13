@@ -130,7 +130,7 @@ export class GatewayClient {
           "Both credentials and chat data would be exposed to network interception. " +
           "Use wss:// for remote URLs. Safe defaults: keep gateway.bind=loopback and connect via SSH tunnel " +
           "(ssh -N -L 18888:127.0.0.1:18888 user@gateway-host), or use Tailscale Serve/Funnel. " +
-          "Run `enclaws doctor --fix` for guidance.",
+          "Run `qingclaws doctor --fix` for guidance.",
       );
       this.opts.onConnectError?.(error);
       return;

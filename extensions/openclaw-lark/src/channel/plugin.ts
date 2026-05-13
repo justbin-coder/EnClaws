@@ -4,7 +4,7 @@
  *
  * ChannelPlugin interface implementation for the Lark/Feishu channel.
  *
- * This is the top-level entry point that the OpenClaw plugin system uses to
+ * This is the top-level entry point that the QingClaws plugin system uses to
  * discover capabilities, resolve accounts, obtain outbound adapters, and
  * start the inbound event gateway.
  */

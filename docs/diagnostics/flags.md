@@ -43,13 +43,13 @@ Restart the gateway after changing flags.
 ## Env override (one-off)
 
 ```bash
-OPENCLAW_DIAGNOSTICS=telegram.http,telegram.payload
+QINGCLAWS_DIAGNOSTICS=telegram.http,telegram.payload
 ```
 
 Disable all flags:
 
 ```bash
-OPENCLAW_DIAGNOSTICS=0
+QINGCLAWS_DIAGNOSTICS=0
 ```
 
 ## Where logs go
@@ -82,7 +82,7 @@ Or tail while reproducing:
 tail -f /tmp/openclaw/openclaw-$(date +%F).log | rg "telegram http error"
 ```
 
-For remote gateways, you can also use `openclaw logs --follow` (see [/cli/logs](/cli/logs)).
+For remote gateways, you can also use `qingclaws logs --follow` (see [/cli/logs](/cli/logs)).
 
 ## Notes
 

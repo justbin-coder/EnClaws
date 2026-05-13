@@ -10,12 +10,12 @@ function createPrompter(confirmValue = false) {
 
 function createDeps() {
   const deps: NonNullable<Parameters<typeof setupOnboardingShellCompletion>[0]["deps"]> = {
-    resolveCliName: () => "enclaws",
+    resolveCliName: () => "qingclaws",
     checkShellCompletionStatus: vi.fn(async (_binName: string) => ({
       shell: "zsh" as const,
       profileInstalled: false,
       cacheExists: false,
-      cachePath: "/tmp/enclaws.zsh",
+      cachePath: "/tmp/qingclaws.zsh",
       usesSlowPattern: false,
     })),
     ensureCompletionCacheExists: vi.fn(async (_binName: string) => true),
@@ -32,8 +32,8 @@ describe("setupOnboardingShellCompletion", () => {
     await setupOnboardingShellCompletion({ flow: "quickstart", prompter, deps });
 
     expect(prompter.confirm).not.toHaveBeenCalled();
-    expect(deps.ensureCompletionCacheExists).toHaveBeenCalledWith("enclaws");
-    expect(deps.installCompletion).toHaveBeenCalledWith("zsh", true, "enclaws");
+    expect(deps.ensureCompletionCacheExists).toHaveBeenCalledWith("qingclaws");
+    expect(deps.installCompletion).toHaveBeenCalledWith("zsh", true, "qingclaws");
     expect(prompter.note).toHaveBeenCalled();
   });
 

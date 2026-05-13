@@ -1,8 +1,8 @@
 import { chromium } from "playwright-core";
 import { getHeadersWithAuth } from "../browser/cdp.helpers.js";
 import {
-  launchOpenClawChrome,
-  stopOpenClawChrome,
+  launchQingClawsChrome,
+  stopQingClawsChrome,
   getChromeWebSocketUrl,
 } from "../browser/chrome.js";
 import { resolveBrowserConfig, resolveProfile } from "../browser/config.js";
@@ -12,14 +12,14 @@ export async function loginQwenWeb(params: {
   openUrl: (url: string) => Promise<boolean>;
 }) {
   const browserConfig = resolveBrowserConfig(undefined);
-  const profile = resolveProfile(browserConfig, "enclaws");
+  const profile = resolveProfile(browserConfig, "qingclaws");
   if (!profile) {
-    throw new Error(`Could not resolve browser profile 'enclaws'`);
+    throw new Error(`Could not resolve browser profile 'qingclaws'`);
   }
 
   params.onProgress("Launching browser...");
   const qwenUrl = "https://www.qianwen.com/";
-  const running = await launchOpenClawChrome(browserConfig, profile, { initialUrl: qwenUrl });
+  const running = await launchQingClawsChrome(browserConfig, profile, { initialUrl: qwenUrl });
 
   try {
     const cdpUrl = `http://127.0.0.1:${running.cdpPort}`;
@@ -133,6 +133,6 @@ export async function loginQwenWeb(params: {
       },
     );
   } finally {
-    await stopOpenClawChrome(running);
+    await stopQingClawsChrome(running);
   }
 }

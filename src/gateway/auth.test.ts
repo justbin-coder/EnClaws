@@ -86,13 +86,13 @@ describe("gateway auth", () => {
     expect(res.user).toBe(params.expected.user);
   }
 
-  it("resolves token/password from OPENCLAW gateway env vars", () => {
+  it("resolves token/password from QINGCLAWS gateway env vars", () => {
     expect(
       resolveGatewayAuth({
         authConfig: {},
         env: {
-          ENCLAWS_GATEWAY_TOKEN: "env-token",
-          ENCLAWS_GATEWAY_PASSWORD: "env-password",
+          QINGCLAWS_GATEWAY_TOKEN: "env-token",
+          QINGCLAWS_GATEWAY_PASSWORD: "env-password",
         } as NodeJS.ProcessEnv,
       }),
     ).toMatchObject({
@@ -128,8 +128,8 @@ describe("gateway auth", () => {
           password: "config-password",
         },
         env: {
-          ENCLAWS_GATEWAY_TOKEN: "env-token",
-          ENCLAWS_GATEWAY_PASSWORD: "env-password",
+          QINGCLAWS_GATEWAY_TOKEN: "env-token",
+          QINGCLAWS_GATEWAY_PASSWORD: "env-password",
         } as NodeJS.ProcessEnv,
       }),
     ).toMatchObject({

@@ -33,13 +33,13 @@ vi.mock("node:fs", async (importOriginal) => {
   return { ...wrapped, default: wrapped };
 });
 
-let ensureOpenClawCliOnPath: typeof import("./path-env.js").ensureOpenClawCliOnPath;
+let ensureQingClawsCliOnPath: typeof import("./path-env.js").ensureQingClawsCliOnPath;
 
-describe("ensureOpenClawCliOnPath", () => {
+describe("ensureQingClawsCliOnPath", () => {
   const envKeys = [
     "PATH",
-    "ENCLAWS_PATH_BOOTSTRAPPED",
-    "ENCLAWS_ALLOW_PROJECT_LOCAL_BIN",
+    "QINGCLAWS_PATH_BOOTSTRAPPED",
+    "QINGCLAWS_ALLOW_PROJECT_LOCAL_BIN",
     "MISE_DATA_DIR",
     "HOMEBREW_PREFIX",
     "HOMEBREW_BREW_FILE",
@@ -48,7 +48,7 @@ describe("ensureOpenClawCliOnPath", () => {
   let envSnapshot: Record<(typeof envKeys)[number], string | undefined>;
 
   beforeAll(async () => {
-    ({ ensureOpenClawCliOnPath } = await import("./path-env.js"));
+    ({ ensureQingClawsCliOnPath } = await import("./path-env.js"));
   });
 
   beforeEach(() => {
@@ -72,18 +72,18 @@ describe("ensureOpenClawCliOnPath", () => {
     }
   });
 
-  it("prepends the bundled app bin dir when a sibling enclaws exists", () => {
-    const tmp = abs("/tmp/enclaws-path/case-bundled");
+  it("prepends the bundled app bin dir when a sibling qingclaws exists", () => {
+    const tmp = abs("/tmp/qingclaws-path/case-bundled");
     const appBinDir = path.join(tmp, "AppBin");
-    const cliPath = path.join(appBinDir, "enclaws");
+    const cliPath = path.join(appBinDir, "qingclaws");
     setDir(tmp);
     setDir(appBinDir);
     setExe(cliPath);
 
     process.env.PATH = "/usr/bin";
-    delete process.env.ENCLAWS_PATH_BOOTSTRAPPED;
+    delete process.env.QINGCLAWS_PATH_BOOTSTRAPPED;
 
-    ensureOpenClawCliOnPath({
+    ensureQingClawsCliOnPath({
       execPath: cliPath,
       cwd: tmp,
       homeDir: tmp,
@@ -96,8 +96,8 @@ describe("ensureOpenClawCliOnPath", () => {
 
   it("is idempotent", () => {
     process.env.PATH = "/bin";
-    process.env.ENCLAWS_PATH_BOOTSTRAPPED = "1";
-    ensureOpenClawCliOnPath({
+    process.env.QINGCLAWS_PATH_BOOTSTRAPPED = "1";
+    ensureQingClawsCliOnPath({
       execPath: "/tmp/does-not-matter",
       cwd: "/tmp",
       homeDir: "/tmp",
@@ -107,9 +107,9 @@ describe("ensureOpenClawCliOnPath", () => {
   });
 
   it("prepends mise shims when available", () => {
-    const tmp = abs("/tmp/enclaws-path/case-mise");
+    const tmp = abs("/tmp/qingclaws-path/case-mise");
     const appBinDir = path.join(tmp, "AppBin");
-    const appCli = path.join(appBinDir, "enclaws");
+    const appCli = path.join(appBinDir, "qingclaws");
     setDir(tmp);
     setDir(appBinDir);
     setExe(appCli);
@@ -121,9 +121,9 @@ describe("ensureOpenClawCliOnPath", () => {
 
     process.env.MISE_DATA_DIR = miseDataDir;
     process.env.PATH = "/usr/bin";
-    delete process.env.ENCLAWS_PATH_BOOTSTRAPPED;
+    delete process.env.QINGCLAWS_PATH_BOOTSTRAPPED;
 
-    ensureOpenClawCliOnPath({
+    ensureQingClawsCliOnPath({
       execPath: appCli,
       cwd: tmp,
       homeDir: tmp,
@@ -139,23 +139,23 @@ describe("ensureOpenClawCliOnPath", () => {
   });
 
   it("only appends project-local node_modules/.bin when explicitly enabled", () => {
-    const tmp = abs("/tmp/enclaws-path/case-project-local");
+    const tmp = abs("/tmp/qingclaws-path/case-project-local");
     const appBinDir = path.join(tmp, "AppBin");
-    const appCli = path.join(appBinDir, "enclaws");
+    const appCli = path.join(appBinDir, "qingclaws");
     setDir(tmp);
     setDir(appBinDir);
     setExe(appCli);
 
     const localBinDir = path.join(tmp, "node_modules", ".bin");
-    const localCli = path.join(localBinDir, "enclaws");
+    const localCli = path.join(localBinDir, "qingclaws");
     setDir(path.join(tmp, "node_modules"));
     setDir(localBinDir);
     setExe(localCli);
 
     process.env.PATH = "/usr/bin";
-    delete process.env.ENCLAWS_PATH_BOOTSTRAPPED;
+    delete process.env.QINGCLAWS_PATH_BOOTSTRAPPED;
 
-    ensureOpenClawCliOnPath({
+    ensureQingClawsCliOnPath({
       execPath: appCli,
       cwd: tmp,
       homeDir: tmp,
@@ -165,9 +165,9 @@ describe("ensureOpenClawCliOnPath", () => {
     expect(withoutOptIn.includes(localBinDir)).toBe(false);
 
     process.env.PATH = "/usr/bin";
-    delete process.env.ENCLAWS_PATH_BOOTSTRAPPED;
+    delete process.env.QINGCLAWS_PATH_BOOTSTRAPPED;
 
-    ensureOpenClawCliOnPath({
+    ensureQingClawsCliOnPath({
       execPath: appCli,
       cwd: tmp,
       homeDir: tmp,
@@ -182,7 +182,7 @@ describe("ensureOpenClawCliOnPath", () => {
   });
 
   it("prepends Linuxbrew dirs when present", () => {
-    const tmp = abs("/tmp/enclaws-path/case-linuxbrew");
+    const tmp = abs("/tmp/qingclaws-path/case-linuxbrew");
     const execDir = path.join(tmp, "exec");
     setDir(tmp);
     setDir(execDir);
@@ -195,12 +195,12 @@ describe("ensureOpenClawCliOnPath", () => {
     setDir(linuxbrewSbin);
 
     process.env.PATH = "/usr/bin";
-    delete process.env.ENCLAWS_PATH_BOOTSTRAPPED;
+    delete process.env.QINGCLAWS_PATH_BOOTSTRAPPED;
     delete process.env.HOMEBREW_PREFIX;
     delete process.env.HOMEBREW_BREW_FILE;
     delete process.env.XDG_BIN_HOME;
 
-    ensureOpenClawCliOnPath({
+    ensureQingClawsCliOnPath({
       execPath: path.join(execDir, "node"),
       cwd: tmp,
       homeDir: tmp,

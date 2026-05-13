@@ -26,8 +26,8 @@ export const TAILSCALE_MISSING_BIN_NOTE_LINES = [
 
 export const TAILSCALE_DOCS_LINES = [
   "Docs:",
-  "https://docs.enclaws.ai/gateway/tailscale",
-  "https://docs.enclaws.ai/web",
+  "https://docs.qingclaws.ai/gateway/tailscale",
+  "https://docs.qingclaws.ai/web",
 ] as const;
 
 function normalizeTailnetHostForUrl(rawHost: string): string | null {

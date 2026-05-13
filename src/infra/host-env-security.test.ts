@@ -129,12 +129,12 @@ describe("sanitizeSystemRunEnvOverrides", () => {
     const overrides = sanitizeSystemRunEnvOverrides({
       shellWrapper: false,
       overrides: {
-        ENCLAWS_TEST: "1",
+        QINGCLAWS_TEST: "1",
         TOKEN: "abc",
       },
     });
     expect(overrides).toEqual({
-      ENCLAWS_TEST: "1",
+      QINGCLAWS_TEST: "1",
       TOKEN: "abc",
     });
   });
@@ -143,7 +143,7 @@ describe("sanitizeSystemRunEnvOverrides", () => {
     const overrides = sanitizeSystemRunEnvOverrides({
       shellWrapper: true,
       overrides: {
-        ENCLAWS_TEST: "1",
+        QINGCLAWS_TEST: "1",
         TOKEN: "abc",
         LANG: "C",
         LC_ALL: "C",
@@ -162,7 +162,7 @@ describe("shell wrapper exploit regression", () => {
     if (process.platform === "win32" || !fs.existsSync(bashPath)) {
       return;
     }
-    const marker = path.join(os.tmpdir(), `enclaws-ps4-marker-${process.pid}-${Date.now()}`);
+    const marker = path.join(os.tmpdir(), `qingclaws-ps4-marker-${process.pid}-${Date.now()}`);
     try {
       fs.unlinkSync(marker);
     } catch {

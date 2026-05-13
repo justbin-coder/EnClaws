@@ -258,7 +258,7 @@ function resolveBrowserBaseUrl(params: {
   }
   if (!resolved.enabled) {
     throw new Error(
-      "Browser control is disabled. Set browser.enabled=true in ~/.enclaws/enclaws.json.",
+      "Browser control is disabled. Set browser.enabled=true in ~/.qingclaws/qingclaws.json.",
     );
   }
   return undefined;
@@ -275,11 +275,11 @@ export function createBrowserTool(opts?: {
     label: "Browser",
     name: "browser",
     description: [
-      "Control the browser via EnClaws's browser control server (status/start/stop/profiles/tabs/open/snapshot/screenshot/actions).",
-      'Profiles: use profile="enclaws" for the isolated enclaws-managed standalone browser (default). Use profile="chrome" for Chrome extension relay takeover (your existing Chrome tabs).',
+      "Control the browser via QingClaws's browser control server (status/start/stop/profiles/tabs/open/snapshot/screenshot/actions).",
+      'Profiles: use profile="qingclaws" for the isolated qingclaws-managed standalone browser (default). Use profile="chrome" for Chrome extension relay takeover (your existing Chrome tabs).',
       'If the user mentions the Chrome extension / Browser Relay / toolbar button / "attach tab", ALWAYS use profile="chrome" (do not ask which profile).',
       'When a node-hosted browser proxy is available, the tool may auto-route to it. Pin a node with node=<id|name> or target="node".',
-      "Chrome extension relay needs an attached tab: user must click the EnClaws Browser Relay toolbar icon on the tab (badge ON). If no tab is connected, ask them to attach it.",
+      "Chrome extension relay needs an attached tab: user must click the QingClaws Browser Relay toolbar icon on the tab (badge ON). If no tab is connected, ask them to attach it.",
       "When using refs from snapshot (e.g. e12), keep the same tab: prefer passing targetId from the snapshot response into subsequent actions (act/click/type/etc).",
       'For stable, self-resolving refs across calls, use snapshot with refs="aria" (Playwright aria-ref ids). Default refs="role" are role+name-based.',
       "Use snapshot+act for UI automation. Avoid act:wait by default; use only in exceptional cases when no reliable UI state exists.",
@@ -363,17 +363,17 @@ export function createBrowserTool(opts?: {
         requestedProfile: string | undefined,
         fn: (p: string) => Promise<T>,
       ): Promise<T> => {
-        const p = requestedProfile || "enclaws";
+        const p = requestedProfile || "qingclaws";
         try {
           return await fn(p);
         } catch (err) {
           const msg = String(err);
           if (p === "chrome" && (msg.includes("no tab is connected") || msg.includes("404:"))) {
-            // Attempt auto-failover to enclaws if chrome fails due to no tab or connection
-            console.warn(`[BrowserTool] Auto-failover from chrome to enclaws due to: ${msg}`);
-            const result = await fn("enclaws");
+            // Attempt auto-failover to qingclaws if chrome fails due to no tab or connection
+            console.warn(`[BrowserTool] Auto-failover from chrome to qingclaws due to: ${msg}`);
+            const result = await fn("qingclaws");
             const hint =
-              "\n> [NOTE: Automatic failover from 'chrome' to 'enclaws' profile occurred because the extension was disconnected. Staying with profile='enclaws' for subsequent calls.]\n";
+              "\n> [NOTE: Automatic failover from 'chrome' to 'qingclaws' profile occurred because the extension was disconnected. Staying with profile='qingclaws' for subsequent calls.]\n";
             if (
               result &&
               typeof result === "object" &&
@@ -920,7 +920,7 @@ export function createBrowserTool(opts?: {
                   : await browserTabs(baseUrl, { profile: p }).catch(() => []);
                 if (!tabs.length) {
                   throw new Error(
-                    "No Chrome tabs are attached via the EnClaws Browser Relay extension. Click the toolbar icon on the tab you want to control (badge ON), then retry.",
+                    "No Chrome tabs are attached via the QingClaws Browser Relay extension. Click the toolbar icon on the tab you want to control (badge ON), then retry.",
                     { cause: err },
                   );
                 }

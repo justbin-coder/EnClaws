@@ -272,14 +272,14 @@ describe("buildServiceEnvironment", () => {
     } else {
       expect(env.PATH).toContain("/usr/bin");
     }
-    expect(env.ENCLAWS_GATEWAY_PORT).toBe("18789");
-    expect(env.ENCLAWS_GATEWAY_TOKEN).toBe("secret");
-    expect(env.ENCLAWS_SERVICE_MARKER).toBe("enclaws");
-    expect(env.ENCLAWS_SERVICE_KIND).toBe("gateway");
-    expect(typeof env.ENCLAWS_SERVICE_VERSION).toBe("string");
-    expect(env.ENCLAWS_SYSTEMD_UNIT).toBe("enclaws-gateway.service");
+    expect(env.QINGCLAWS_GATEWAY_PORT).toBe("18789");
+    expect(env.QINGCLAWS_GATEWAY_TOKEN).toBe("secret");
+    expect(env.QINGCLAWS_SERVICE_MARKER).toBe("qingclaws");
+    expect(env.QINGCLAWS_SERVICE_KIND).toBe("gateway");
+    expect(typeof env.QINGCLAWS_SERVICE_VERSION).toBe("string");
+    expect(env.QINGCLAWS_SYSTEMD_UNIT).toBe("qingclaws-gateway.service");
     if (process.platform === "darwin") {
-      expect(env.ENCLAWS_LAUNCHD_LABEL).toBe("ai.enclaws.gateway");
+      expect(env.QINGCLAWS_LAUNCHD_LABEL).toBe("ai.qingclaws.gateway");
     }
   });
 
@@ -301,12 +301,12 @@ describe("buildServiceEnvironment", () => {
 
   it("uses profile-specific unit and label", () => {
     const env = buildServiceEnvironment({
-      env: { HOME: "/home/user", ENCLAWS_PROFILE: "work" },
+      env: { HOME: "/home/user", QINGCLAWS_PROFILE: "work" },
       port: 18789,
     });
-    expect(env.ENCLAWS_SYSTEMD_UNIT).toBe("enclaws-gateway-work.service");
+    expect(env.QINGCLAWS_SYSTEMD_UNIT).toBe("qingclaws-gateway-work.service");
     if (process.platform === "darwin") {
-      expect(env.ENCLAWS_LAUNCHD_LABEL).toBe("ai.enclaws.work");
+      expect(env.QINGCLAWS_LAUNCHD_LABEL).toBe("ai.qingclaws.work");
     }
   });
 
@@ -364,40 +364,40 @@ describe("buildNodeServiceEnvironment", () => {
     expect(env.HOME).toBe("/home/user");
   });
 
-  it("passes through ENCLAWS_GATEWAY_TOKEN for node services", () => {
+  it("passes through QINGCLAWS_GATEWAY_TOKEN for node services", () => {
     const env = buildNodeServiceEnvironment({
-      env: { HOME: "/home/user", ENCLAWS_GATEWAY_TOKEN: " node-token " },
+      env: { HOME: "/home/user", QINGCLAWS_GATEWAY_TOKEN: " node-token " },
     });
-    expect(env.ENCLAWS_GATEWAY_TOKEN).toBe("node-token");
+    expect(env.QINGCLAWS_GATEWAY_TOKEN).toBe("node-token");
   });
 
-  it("maps legacy CLAWDBOT_GATEWAY_TOKEN to ENCLAWS_GATEWAY_TOKEN for node services", () => {
+  it("maps legacy CLAWDBOT_GATEWAY_TOKEN to QINGCLAWS_GATEWAY_TOKEN for node services", () => {
     const env = buildNodeServiceEnvironment({
       env: { HOME: "/home/user", CLAWDBOT_GATEWAY_TOKEN: " legacy-token " },
     });
-    expect(env.ENCLAWS_GATEWAY_TOKEN).toBe("legacy-token");
+    expect(env.QINGCLAWS_GATEWAY_TOKEN).toBe("legacy-token");
   });
 
-  it("prefers ENCLAWS_GATEWAY_TOKEN over legacy CLAWDBOT_GATEWAY_TOKEN", () => {
+  it("prefers QINGCLAWS_GATEWAY_TOKEN over legacy CLAWDBOT_GATEWAY_TOKEN", () => {
     const env = buildNodeServiceEnvironment({
       env: {
         HOME: "/home/user",
-        ENCLAWS_GATEWAY_TOKEN: "enclaws-token",
+        QINGCLAWS_GATEWAY_TOKEN: "qingclaws-token",
         CLAWDBOT_GATEWAY_TOKEN: "legacy-token",
       },
     });
-    expect(env.ENCLAWS_GATEWAY_TOKEN).toBe("enclaws-token");
+    expect(env.QINGCLAWS_GATEWAY_TOKEN).toBe("qingclaws-token");
   });
 
-  it("omits ENCLAWS_GATEWAY_TOKEN when both token env vars are empty", () => {
+  it("omits QINGCLAWS_GATEWAY_TOKEN when both token env vars are empty", () => {
     const env = buildNodeServiceEnvironment({
       env: {
         HOME: "/home/user",
-        ENCLAWS_GATEWAY_TOKEN: "   ",
+        QINGCLAWS_GATEWAY_TOKEN: "   ",
         CLAWDBOT_GATEWAY_TOKEN: " ",
       },
     });
-    expect(env.ENCLAWS_GATEWAY_TOKEN).toBeUndefined();
+    expect(env.QINGCLAWS_GATEWAY_TOKEN).toBeUndefined();
   });
 
   it("forwards proxy environment variables for node services", () => {
@@ -454,31 +454,31 @@ describe("buildNodeServiceEnvironment", () => {
 describe("resolveGatewayStateDir", () => {
   it("uses the default state dir when no overrides are set", () => {
     const env = { HOME: "/Users/test" };
-    expect(resolveGatewayStateDir(env)).toBe(path.join("/Users/test", ".enclaws"));
+    expect(resolveGatewayStateDir(env)).toBe(path.join("/Users/test", ".qingclaws"));
   });
 
   it("appends the profile suffix when set", () => {
-    const env = { HOME: "/Users/test", ENCLAWS_PROFILE: "rescue" };
-    expect(resolveGatewayStateDir(env)).toBe(path.join("/Users/test", ".enclaws-rescue"));
+    const env = { HOME: "/Users/test", QINGCLAWS_PROFILE: "rescue" };
+    expect(resolveGatewayStateDir(env)).toBe(path.join("/Users/test", ".qingclaws-rescue"));
   });
 
   it("treats default profiles as the base state dir", () => {
-    const env = { HOME: "/Users/test", ENCLAWS_PROFILE: "Default" };
-    expect(resolveGatewayStateDir(env)).toBe(path.join("/Users/test", ".enclaws"));
+    const env = { HOME: "/Users/test", QINGCLAWS_PROFILE: "Default" };
+    expect(resolveGatewayStateDir(env)).toBe(path.join("/Users/test", ".qingclaws"));
   });
 
-  it("uses ENCLAWS_STATE_DIR when provided", () => {
-    const env = { HOME: "/Users/test", ENCLAWS_STATE_DIR: "/var/lib/enclaws" };
-    expect(resolveGatewayStateDir(env)).toBe(path.resolve("/var/lib/enclaws"));
+  it("uses QINGCLAWS_STATE_DIR when provided", () => {
+    const env = { HOME: "/Users/test", QINGCLAWS_STATE_DIR: "/var/lib/qingclaws" };
+    expect(resolveGatewayStateDir(env)).toBe(path.resolve("/var/lib/qingclaws"));
   });
 
-  it("expands ~ in ENCLAWS_STATE_DIR", () => {
-    const env = { HOME: "/Users/test", ENCLAWS_STATE_DIR: "~/enclaws-state" };
-    expect(resolveGatewayStateDir(env)).toBe(path.resolve("/Users/test/enclaws-state"));
+  it("expands ~ in QINGCLAWS_STATE_DIR", () => {
+    const env = { HOME: "/Users/test", QINGCLAWS_STATE_DIR: "~/qingclaws-state" };
+    expect(resolveGatewayStateDir(env)).toBe(path.resolve("/Users/test/qingclaws-state"));
   });
 
   it("preserves Windows absolute paths without HOME", () => {
-    const env = { ENCLAWS_STATE_DIR: "C:\\State.enclaws" };
-    expect(resolveGatewayStateDir(env)).toBe("C:\\State.enclaws");
+    const env = { QINGCLAWS_STATE_DIR: "C:\\State.qingclaws" };
+    expect(resolveGatewayStateDir(env)).toBe("C:\\State.qingclaws");
   });
 });

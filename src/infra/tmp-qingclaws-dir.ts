@@ -3,10 +3,10 @@ import os from "node:os";
 import path from "node:path";
 import { PRODUCT_NAME_LOWER } from "../version.js";
 
-export const POSIX_ENCLAWS_TMP_DIR = "/tmp/enclaws";
+export const POSIX_QINGCLAWS_TMP_DIR = "/tmp/qingclaws";
 const TMP_DIR_ACCESS_MODE = fs.constants.W_OK | fs.constants.X_OK;
 
-type ResolvePreferredOpenClawTmpDirOptions = {
+type ResolvePreferredQingClawsTmpDirOptions = {
   accessSync?: (path: string, mode?: number) => void;
   chmodSync?: (path: string, mode: number) => void;
   lstatSync?: (path: string) => {
@@ -32,8 +32,8 @@ function isNodeErrorWithCode(err: unknown, code: string): err is MaybeNodeError 
   );
 }
 
-export function resolvePreferredOpenClawTmpDir(
-  options: ResolvePreferredOpenClawTmpDirOptions = {},
+export function resolvePreferredQingClawsTmpDir(
+  options: ResolvePreferredQingClawsTmpDirOptions = {},
 ): string {
   const accessSync = options.accessSync ?? fs.accessSync;
   const chmodSync = options.chmodSync ?? fs.chmodSync;
@@ -68,7 +68,7 @@ export function resolvePreferredOpenClawTmpDir(
 
   const fallback = (): string => {
     const base = tmpdir();
-    const suffix = uid === undefined ? "enclaws" : `enclaws-${uid}`;
+    const suffix = uid === undefined ? "qingclaws" : `qingclaws-${uid}`;
     return path.join(base, suffix);
   };
 
@@ -127,27 +127,27 @@ export function resolvePreferredOpenClawTmpDir(
       if (tryRepairWritableBits(fallbackPath)) {
         return fallbackPath;
       }
-      throw new Error(`Unsafe fallback EnClaws temp dir: ${fallbackPath}`);
+      throw new Error(`Unsafe fallback QingClaws temp dir: ${fallbackPath}`);
     }
     try {
       mkdirSync(fallbackPath, { recursive: true, mode: 0o700 });
       chmodSync(fallbackPath, 0o700);
     } catch {
-      throw new Error(`Unable to create fallback EnClaws temp dir: ${fallbackPath}`);
+      throw new Error(`Unable to create fallback QingClaws temp dir: ${fallbackPath}`);
     }
     if (resolveDirState(fallbackPath) !== "available" && !tryRepairWritableBits(fallbackPath)) {
-      throw new Error(`Unsafe fallback EnClaws temp dir: ${fallbackPath}`);
+      throw new Error(`Unsafe fallback QingClaws temp dir: ${fallbackPath}`);
     }
     return fallbackPath;
   };
 
-  const existingPreferredState = resolveDirState(POSIX_ENCLAWS_TMP_DIR);
+  const existingPreferredState = resolveDirState(POSIX_QINGCLAWS_TMP_DIR);
   if (existingPreferredState === "available") {
-    return POSIX_ENCLAWS_TMP_DIR;
+    return POSIX_QINGCLAWS_TMP_DIR;
   }
   if (existingPreferredState === "invalid") {
-    if (tryRepairWritableBits(POSIX_ENCLAWS_TMP_DIR)) {
-      return POSIX_ENCLAWS_TMP_DIR;
+    if (tryRepairWritableBits(POSIX_QINGCLAWS_TMP_DIR)) {
+      return POSIX_QINGCLAWS_TMP_DIR;
     }
     return ensureTrustedFallbackDir();
   }
@@ -155,15 +155,15 @@ export function resolvePreferredOpenClawTmpDir(
   try {
     accessSync("/tmp", TMP_DIR_ACCESS_MODE);
     // Create with a safe default; subsequent callers expect it exists.
-    mkdirSync(POSIX_ENCLAWS_TMP_DIR, { recursive: true, mode: 0o700 });
-    chmodSync(POSIX_ENCLAWS_TMP_DIR, 0o700);
+    mkdirSync(POSIX_QINGCLAWS_TMP_DIR, { recursive: true, mode: 0o700 });
+    chmodSync(POSIX_QINGCLAWS_TMP_DIR, 0o700);
     if (
-      resolveDirState(POSIX_ENCLAWS_TMP_DIR) !== "available" &&
-      !tryRepairWritableBits(POSIX_ENCLAWS_TMP_DIR)
+      resolveDirState(POSIX_QINGCLAWS_TMP_DIR) !== "available" &&
+      !tryRepairWritableBits(POSIX_QINGCLAWS_TMP_DIR)
     ) {
       return ensureTrustedFallbackDir();
     }
-    return POSIX_ENCLAWS_TMP_DIR;
+    return POSIX_QINGCLAWS_TMP_DIR;
   } catch {
     return ensureTrustedFallbackDir();
   }

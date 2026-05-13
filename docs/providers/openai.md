@@ -1,7 +1,7 @@
 ---
-summary: "Use OpenAI via API keys or Codex subscription in OpenClaw"
+summary: "Use OpenAI via API keys or Codex subscription in QingClaws"
 read_when:
-  - You want to use OpenAI models in OpenClaw
+  - You want to use OpenAI models in QingClaws
   - You want Codex subscription auth instead of API keys
 title: "OpenAI"
 ---
@@ -19,9 +19,9 @@ Get your API key from the OpenAI dashboard.
 ### CLI setup
 
 ```bash
-openclaw onboard --auth-choice openai-api-key
+qingclaws onboard --auth-choice openai-api-key
 # or non-interactive
-openclaw onboard --openai-api-key "$OPENAI_API_KEY"
+qingclaws onboard --openai-api-key "$OPENAI_API_KEY"
 ```
 
 ### Config snippet
@@ -42,10 +42,10 @@ Codex cloud requires ChatGPT sign-in, while the Codex CLI supports ChatGPT or AP
 
 ```bash
 # Run Codex OAuth in the wizard
-openclaw onboard --auth-choice openai-codex
+qingclaws onboard --auth-choice openai-codex
 
 # Or run OAuth directly
-openclaw models auth login --provider openai-codex
+qingclaws models auth login --provider openai-codex
 ```
 
 ### Config snippet (Codex subscription)
@@ -58,7 +58,7 @@ openclaw models auth login --provider openai-codex
 
 ### Transport default
 
-OpenClaw uses `pi-ai` for model streaming. For both `openai/*` and
+QingClaws uses `pi-ai` for model streaming. For both `openai/*` and
 `openai-codex/*`, default transport is `"auto"` (WebSocket-first, then SSE
 fallback).
 
@@ -68,7 +68,7 @@ You can set `agents.defaults.models.<provider/model>.params.transport`:
 - `"websocket"`: force WebSocket
 - `"auto"`: try WebSocket, then fall back to SSE
 
-For `openai/*` (Responses API), OpenClaw also enables WebSocket warm-up by
+For `openai/*` (Responses API), QingClaws also enables WebSocket warm-up by
 default (`openaiWsWarmup: true`) when WebSocket transport is used.
 
 ```json5
@@ -90,7 +90,7 @@ default (`openaiWsWarmup: true`) when WebSocket transport is used.
 
 ### OpenAI WebSocket warm-up
 
-OpenAI docs describe warm-up as optional. OpenClaw enables it by default for
+OpenAI docs describe warm-up as optional. QingClaws enables it by default for
 `openai/*` to reduce first-turn latency when using WebSocket transport.
 
 ### Disable warm-up
@@ -132,7 +132,7 @@ OpenAI docs describe warm-up as optional. OpenClaw enables it by default for
 ### OpenAI Responses server-side compaction
 
 For direct OpenAI Responses models (`openai/*` using `api: "openai-responses"` with
-`baseUrl` on `api.openai.com`), OpenClaw now auto-enables OpenAI server-side
+`baseUrl` on `api.openai.com`), QingClaws now auto-enables OpenAI server-side
 compaction payload hints:
 
 - Forces `store: true` (unless model compat sets `supportsStore: false`)

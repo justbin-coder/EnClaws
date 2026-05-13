@@ -47,7 +47,7 @@ async function writeSkillWithInstallers(
     `---
 name: ${name}
 description: test skill
-metadata: ${JSON.stringify({ enclaws: { install: installSpecs } })}
+metadata: ${JSON.stringify({ qingclaws: { install: installSpecs } })}
 ---
 
 # ${name}
@@ -83,7 +83,7 @@ describe("skills-install fallback edge cases", () => {
   let workspaceDir: string;
 
   beforeAll(async () => {
-    workspaceDir = await fs.mkdtemp(path.join(os.tmpdir(), "enclaws-fallback-test-"));
+    workspaceDir = await fs.mkdtemp(path.join(os.tmpdir(), "qingclaws-fallback-test-"));
     await writeSkillWithInstaller(workspaceDir, "go-tool-single", "go", {
       module: "example.com/tool@latest",
     });

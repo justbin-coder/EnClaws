@@ -57,7 +57,7 @@ describe("config discord presence", () => {
       channels: {
         discord: {
           activity: "Live",
-          activityUrl: "https://twitch.tv/enclaws",
+          activityUrl: "https://twitch.tv/qingclaws",
         },
       },
     });

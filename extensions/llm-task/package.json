@@ -1,10 +1,10 @@
 {
-  "name": "@openclaw/llm-task",
+  "name": "@qingclaws/llm-task",
   "version": "2026.3.1",
   "private": true,
-  "description": "OpenClaw JSON-only LLM task plugin",
+  "description": "QingClaws JSON-only LLM task plugin",
   "type": "module",
-  "openclaw": {
+  "qingclaws": {
     "extensions": [
       "./index.ts"
     ]

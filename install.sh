@@ -70,7 +70,7 @@ run_remote_bash() {
     /bin/bash "$tmp"
 }
 
-GUM_VERSION="${ENCLAWS_GUM_VERSION:-0.17.0}"
+GUM_VERSION="${QINGCLAWS_GUM_VERSION:-0.17.0}"
 GUM=""
 GUM_STATUS="skipped"
 GUM_REASON=""
@@ -348,8 +348,8 @@ show_install_plan() {
     ui_section "Install plan"
     ui_kv "OS" "$OS"
     ui_kv "Install method" "git"
-    ui_kv "Repository" "$ENCLAWS_REPO_URL"
-    ui_kv "Branch" "$ENCLAWS_REPO_BRANCH"
+    ui_kv "Repository" "$QINGCLAWS_REPO_URL"
+    ui_kv "Branch" "$QINGCLAWS_REPO_BRANCH"
     ui_kv "Git directory" "$GIT_DIR"
     ui_kv "Git update" "$GIT_UPDATE"
     ui_kv "Database" "SQLite (default)"
@@ -607,9 +607,9 @@ pick_tagline() {
         echo "$DEFAULT_TAGLINE"
         return
     fi
-    if [[ -n "${ENCLAWS_TAGLINE_INDEX:-}" ]]; then
-        if [[ "${ENCLAWS_TAGLINE_INDEX}" =~ ^[0-9]+$ ]]; then
-            local idx=$((ENCLAWS_TAGLINE_INDEX % count))
+    if [[ -n "${QINGCLAWS_TAGLINE_INDEX:-}" ]]; then
+        if [[ "${QINGCLAWS_TAGLINE_INDEX}" =~ ^[0-9]+$ ]]; then
+            local idx=$((QINGCLAWS_TAGLINE_INDEX % count))
             echo "${TAGLINES[$idx]}"
             return
         fi
@@ -622,17 +622,17 @@ TAGLINE=$(pick_tagline)
 
 # ─── Configuration variables ─────────────────────────────────────────────────
 
-NO_ONBOARD=${ENCLAWS_NO_ONBOARD:-0}
-NO_PROMPT=${ENCLAWS_NO_PROMPT:-0}
-DRY_RUN=${ENCLAWS_DRY_RUN:-0}
+NO_ONBOARD=${QINGCLAWS_NO_ONBOARD:-0}
+NO_PROMPT=${QINGCLAWS_NO_PROMPT:-0}
+DRY_RUN=${QINGCLAWS_DRY_RUN:-0}
 ENCLAWS_REPO_URL="${ENCLAWS_REPO_URL:-https://github.com/hashSTACS-Global/EnClaws.git}"
-ENCLAWS_REPO_BRANCH="${ENCLAWS_REPO_BRANCH:-main}"
-GIT_DIR_DEFAULT="${HOME}/enclaws"
-GIT_DIR=${ENCLAWS_GIT_DIR:-$GIT_DIR_DEFAULT}
-GIT_UPDATE=${ENCLAWS_GIT_UPDATE:-1}
+QINGCLAWS_REPO_BRANCH="${QINGCLAWS_REPO_BRANCH:-main}"
+GIT_DIR_DEFAULT="${HOME}/qingclaws"
+GIT_DIR=${QINGCLAWS_GIT_DIR:-$GIT_DIR_DEFAULT}
+GIT_UPDATE=${QINGCLAWS_GIT_UPDATE:-1}
 SHARP_IGNORE_GLOBAL_LIBVIPS="${SHARP_IGNORE_GLOBAL_LIBVIPS:-1}"
-VERBOSE="${ENCLAWS_VERBOSE:-0}"
-ENCLAWS_BIN=""
+VERBOSE="${QINGCLAWS_VERBOSE:-0}"
+QINGCLAWS_BIN=""
 PNPM_CMD=()
 HELP=0
 
@@ -644,7 +644,7 @@ Usage:
   curl -fsSL --proto '=https' --tlsv1.2 https://raw.githubusercontent.com/hashSTACS-Global/EnClaws/main/install.sh | bash -s -- [options]
 
 Options:
-  --git-dir, --dir <path>             Checkout directory (default: ~/enclaws)
+  --git-dir, --dir <path>             Checkout directory (default: ~/qingclaws)
   --no-git-update                      Skip git pull for existing checkout
   --no-onboard                          Skip onboarding (non-interactive)
   --no-prompt                           Disable prompts (required in CI/automation)
@@ -654,20 +654,20 @@ Options:
 
 Environment variables:
   ENCLAWS_REPO_URL=...                Git repository URL (default: https://github.com/hashSTACS-Global/EnClaws.git)
-  ENCLAWS_REPO_BRANCH=...            Git branch (default: main)
-  ENCLAWS_GIT_DIR=...                Checkout directory (default: ~/enclaws)
-  ENCLAWS_GIT_UPDATE=0|1             Pull latest changes (default: 1)
-  ENCLAWS_NO_PROMPT=1                Disable interactive prompts
-  ENCLAWS_DRY_RUN=1                  Dry run mode
-  ENCLAWS_NO_ONBOARD=1               Skip onboarding
-  ENCLAWS_VERBOSE=1                  Verbose output
-  ENCLAWS_USE_CHINA_MIRROR=0|1       Force China npm mirror on (1) or off (0); auto-detect if unset
+  QINGCLAWS_REPO_BRANCH=...            Git branch (default: main)
+  QINGCLAWS_GIT_DIR=...                Checkout directory (default: ~/qingclaws)
+  QINGCLAWS_GIT_UPDATE=0|1             Pull latest changes (default: 1)
+  QINGCLAWS_NO_PROMPT=1                Disable interactive prompts
+  QINGCLAWS_DRY_RUN=1                  Dry run mode
+  QINGCLAWS_NO_ONBOARD=1               Skip onboarding
+  QINGCLAWS_VERBOSE=1                  Verbose output
+  QINGCLAWS_USE_CHINA_MIRROR=0|1       Force China npm mirror on (1) or off (0); auto-detect if unset
   SHARP_IGNORE_GLOBAL_LIBVIPS=0|1    Default: 1 (avoid sharp building against global libvips)
 
 Examples:
   curl -fsSL --proto '=https' --tlsv1.2 https://raw.githubusercontent.com/hashSTACS-Global/EnClaws/main/install.sh | bash
   curl -fsSL --proto '=https' --tlsv1.2 https://raw.githubusercontent.com/hashSTACS-Global/EnClaws/main/install.sh | bash -s -- --no-onboard
-  ENCLAWS_REPO_URL=https://gitlab.internal/team/enclaws.git bash install.sh
+  QINGCLAWS_REPO_URL=https://gitlab.internal/team/qingclaws.git bash install.sh
 EOF
 }
 
@@ -741,7 +741,7 @@ prompt_choice() {
     echo "$answer"
 }
 
-detect_enclaws_checkout() {
+detect_qingclaws_checkout() {
     local dir="$1"
     if [[ ! -f "$dir/package.json" ]]; then
         return 1
@@ -749,12 +749,12 @@ detect_enclaws_checkout() {
     if [[ ! -f "$dir/pnpm-workspace.yaml" ]]; then
         return 1
     fi
-    # Detect both "enclaws" and "openclaw" (for migration scenarios)
-    if grep -q '"name"[[:space:]]*:[[:space:]]*"enclaws"' "$dir/package.json" 2>/dev/null; then
+    # Detect both "qingclaws" and "qingclaws" (for migration scenarios)
+    if grep -q '"name"[[:space:]]*:[[:space:]]*"qingclaws"' "$dir/package.json" 2>/dev/null; then
         echo "$dir"
         return 0
     fi
-    if grep -q '"name"[[:space:]]*:[[:space:]]*"openclaw"' "$dir/package.json" 2>/dev/null; then
+    if grep -q '"name"[[:space:]]*:[[:space:]]*"qingclaws"' "$dir/package.json" 2>/dev/null; then
         echo "$dir"
         return 0
     fi
@@ -1046,12 +1046,12 @@ NPM_REGISTRY=""
 CHINA_MIRROR="https://registry.npmmirror.com"
 
 is_china_network() {
-    # User can force mirror with ENCLAWS_USE_CHINA_MIRROR=1
-    if [[ "${ENCLAWS_USE_CHINA_MIRROR:-}" == "1" ]]; then
+    # User can force mirror with QINGCLAWS_USE_CHINA_MIRROR=1
+    if [[ "${QINGCLAWS_USE_CHINA_MIRROR:-}" == "1" ]]; then
         return 0
     fi
     # Skip detection if user explicitly disabled
-    if [[ "${ENCLAWS_USE_CHINA_MIRROR:-}" == "0" ]]; then
+    if [[ "${QINGCLAWS_USE_CHINA_MIRROR:-}" == "0" ]]; then
         return 1
     fi
     # Probe npmjs.org with a 5-second timeout
@@ -1243,13 +1243,13 @@ warn_shell_path_missing_dir() {
 
     echo ""
     ui_warn "PATH missing ${label}: ${dir}"
-    echo "  This can make enclaws show as \"command not found\" in new terminals."
+    echo "  This can make qingclaws show as \"command not found\" in new terminals."
     echo "  Fix (zsh: ~/.zshrc, bash: ~/.bashrc):"
     echo "    export PATH=\"${dir}:\$PATH\""
 }
 
-ensure_enclaws_bin_on_path() {
-    local bin_dir="$HOME/.enclaws/bin"
+ensure_qingclaws_bin_on_path() {
+    local bin_dir="$HOME/.qingclaws/bin"
     if [[ -d "$bin_dir" ]]; then
         export PATH="${bin_dir}:$PATH"
     fi
@@ -1261,44 +1261,44 @@ maybe_nodenv_rehash() {
     fi
 }
 
-warn_enclaws_not_found() {
-    ui_warn "Installed, but enclaws is not discoverable on PATH in this shell"
+warn_qingclaws_not_found() {
+    ui_warn "Installed, but qingclaws is not discoverable on PATH in this shell"
     echo "  Try: hash -r (bash) or rehash (zsh), then retry."
     local t=""
-    t="$(type -t enclaws 2>/dev/null || true)"
+    t="$(type -t qingclaws 2>/dev/null || true)"
     if [[ "$t" == "alias" || "$t" == "function" ]]; then
-        ui_warn "Found a shell ${t} named enclaws; it may shadow the real binary"
+        ui_warn "Found a shell ${t} named qingclaws; it may shadow the real binary"
     fi
-    local enclaws_bin="$HOME/.enclaws/bin"
-    echo -e "If needed: ${INFO}export PATH=\"${enclaws_bin}:\$PATH\"${NC}"
+    local qingclaws_bin="$HOME/.qingclaws/bin"
+    echo -e "If needed: ${INFO}export PATH=\"${qingclaws_bin}:\$PATH\"${NC}"
 }
 
-resolve_enclaws_bin() {
+resolve_qingclaws_bin() {
     refresh_shell_command_cache
     local resolved=""
-    resolved="$(type -P enclaws 2>/dev/null || true)"
+    resolved="$(type -P qingclaws 2>/dev/null || true)"
     if [[ -n "$resolved" && -x "$resolved" ]]; then
         echo "$resolved"
         return 0
     fi
 
-    ensure_enclaws_bin_on_path
+    ensure_qingclaws_bin_on_path
     refresh_shell_command_cache
-    resolved="$(type -P enclaws 2>/dev/null || true)"
+    resolved="$(type -P qingclaws 2>/dev/null || true)"
     if [[ -n "$resolved" && -x "$resolved" ]]; then
         echo "$resolved"
         return 0
     fi
 
-    local bin_dir="$HOME/.enclaws/bin"
-    if [[ -x "${bin_dir}/enclaws" ]]; then
-        echo "${bin_dir}/enclaws"
+    local bin_dir="$HOME/.qingclaws/bin"
+    if [[ -x "${bin_dir}/qingclaws" ]]; then
+        echo "${bin_dir}/qingclaws"
         return 0
     fi
 
     maybe_nodenv_rehash
     refresh_shell_command_cache
-    resolved="$(type -P enclaws 2>/dev/null || true)"
+    resolved="$(type -P qingclaws 2>/dev/null || true)"
     if [[ -n "$resolved" && -x "$resolved" ]]; then
         echo "$resolved"
         return 0
@@ -1310,10 +1310,10 @@ resolve_enclaws_bin() {
 
 # ─── Enclaws git installation ────────────────────────────────────────────────
 
-install_enclaws_from_git() {
+install_qingclaws_from_git() {
     local repo_dir="$1"
-    local repo_url="$ENCLAWS_REPO_URL"
-    local repo_branch="$ENCLAWS_REPO_BRANCH"
+    local repo_url="$QINGCLAWS_REPO_URL"
+    local repo_branch="$QINGCLAWS_REPO_BRANCH"
 
     if [[ -d "$repo_dir/.git" ]]; then
         ui_info "Installing Enclaws from git checkout: ${repo_dir}"
@@ -1361,53 +1361,53 @@ install_enclaws_from_git() {
         ui_warn "UI build failed; continuing (CLI may still work)"
     fi
 
-    local bin_dir="${HOME}/.enclaws/bin"
+    local bin_dir="${HOME}/.qingclaws/bin"
     mkdir -p "$bin_dir"
 
-    cat > "$bin_dir/enclaws" <<WRAPPER
+    cat > "$bin_dir/qingclaws" <<WRAPPER
 #!/usr/bin/env bash
 set -euo pipefail
 exec node "${repo_dir}/dist/entry.js" "\$@"
 WRAPPER
-    chmod +x "$bin_dir/enclaws"
+    chmod +x "$bin_dir/qingclaws"
 
-    # Ensure ~/.enclaws/bin is on PATH
-    ensure_enclaws_bin_on_path
+    # Ensure ~/.qingclaws/bin is on PATH
+    ensure_qingclaws_bin_on_path
     ensure_user_local_bin_on_path
 
-    # Add ~/.enclaws/bin to shell profile if not already there
+    # Add ~/.qingclaws/bin to shell profile if not already there
     # shellcheck disable=SC2016
-    local path_line='export PATH="$HOME/.enclaws/bin:$PATH"'
+    local path_line='export PATH="$HOME/.qingclaws/bin:$PATH"'
     for rc in "$HOME/.bashrc" "$HOME/.bash_profile" "$HOME/.profile" "$HOME/.zshrc" "$HOME/.zprofile"; do
         touch "$rc"
-        if ! grep -q ".enclaws/bin" "$rc"; then
+        if ! grep -q ".qingclaws/bin" "$rc"; then
             echo "$path_line" >> "$rc"
         fi
     done
 
-    ui_success "Enclaws wrapper installed to $bin_dir/enclaws"
+    ui_success "Enclaws wrapper installed to $bin_dir/qingclaws"
     ui_success "PATH configured in shell profiles (bashrc/bash_profile/profile/zshrc/zprofile)"
-    ui_info "Start gateway: enclaws gateway"
+    ui_info "Start gateway: qingclaws gateway"
 }
 
 # ─── SQLite default configuration ────────────────────────────────────────────
 
 setup_sqlite_db() {
     local repo_dir="$1"
-    local data_dir="$HOME/.enclaws"
+    local data_dir="$HOME/.qingclaws"
     local db_path="$data_dir/data.db"
     local env_file="$repo_dir/.env"
 
     mkdir -p "$data_dir"
 
     # Don't overwrite existing database config
-    if [[ -f "$env_file" ]] && grep -q "OPENCLAW_DB_URL" "$env_file" 2>/dev/null; then
+    if [[ -f "$env_file" ]] && grep -q "QINGCLAWS_DB_URL" "$env_file" 2>/dev/null; then
         ui_info "Database config already present; skipping"
         return 0
     fi
 
     # Append SQLite config to project .env (gateway reads --env-file=.env from repo dir)
-    echo "OPENCLAW_DB_URL=sqlite://${db_path}" >> "$env_file"
+    echo "QINGCLAWS_DB_URL=sqlite://${db_path}" >> "$env_file"
 
     ui_success "SQLite database configured: ${db_path}"
 }
@@ -1418,7 +1418,7 @@ setup_skill_pack() {
     local repo_dir="$1"
     local skill_pack_dir="$repo_dir/skills-pack"
     local env_file="$repo_dir/.env"
-    local git_url="https://github.com/hashSTACS-Global/feishu-skills.git"
+    local git_url="https://github.com/QingClaws Team/feishu-skills.git"
 
     # Already configured — skip
     if [[ -f "$env_file" ]] && grep -q "SKILL_PACK_LOCAL_DIR" "$env_file" 2>/dev/null; then
@@ -1456,31 +1456,31 @@ setup_skill_pack() {
 
 # ─── Check / uninstall existing installation ─────────────────────────────────
 
-check_existing_enclaws() {
-    if [[ -n "$(type -P enclaws 2>/dev/null || true)" ]]; then
+check_existing_qingclaws() {
+    if [[ -n "$(type -P qingclaws 2>/dev/null || true)" ]]; then
         ui_info "Existing Enclaws installation detected"
         return 0
     fi
-    # Also check for old openclaw installation
-    if [[ -n "$(type -P openclaw 2>/dev/null || true)" ]]; then
-        ui_info "Existing OpenClaw installation detected (will migrate)"
+    # Also check for old qingclaws installation
+    if [[ -n "$(type -P qingclaws 2>/dev/null || true)" ]]; then
+        ui_info "Existing QingClaws installation detected (will migrate)"
         return 0
     fi
     return 1
 }
 
-uninstall_existing_enclaws() {
+uninstall_existing_qingclaws() {
     ui_info "Cleaning up existing installation before upgrade..."
 
-    # Try removing old openclaw
-    if command -v openclaw >/dev/null 2>&1; then
-        openclaw gateway uninstall --force >/dev/null 2>&1 || true
-        npm uninstall -g openclaw >/dev/null 2>&1 || true
+    # Try removing old qingclaws
+    if command -v qingclaws >/dev/null 2>&1; then
+        qingclaws gateway uninstall --force >/dev/null 2>&1 || true
+        npm uninstall -g qingclaws >/dev/null 2>&1 || true
     fi
 
-    # Try removing old enclaws
-    if command -v enclaws >/dev/null 2>&1; then
-        enclaws gateway uninstall --force >/dev/null 2>&1 || true
+    # Try removing old qingclaws
+    if command -v qingclaws >/dev/null 2>&1; then
+        qingclaws gateway uninstall --force >/dev/null 2>&1 || true
     fi
 
     ui_success "Old installation cleaned up"
@@ -1488,11 +1488,11 @@ uninstall_existing_enclaws() {
 
 # ─── Post-install ─────────────────────────────────────────────────────────────
 
-resolve_enclaws_version() {
+resolve_qingclaws_version() {
     local version=""
-    local claw="${ENCLAWS_BIN:-}"
-    if [[ -z "$claw" ]] && command -v enclaws &> /dev/null; then
-        claw="$(command -v enclaws)"
+    local claw="${QINGCLAWS_BIN:-}"
+    if [[ -z "$claw" ]] && command -v qingclaws &> /dev/null; then
+        claw="$(command -v qingclaws)"
     fi
     if [[ -n "$claw" ]]; then
         version=$("$claw" --version 2>/dev/null | head -n 1 | tr -d '\r')
@@ -1512,9 +1512,9 @@ print_install_summary() {
     fi
     ui_kv "Checkout" "$repo_dir"
     ui_kv "Config" "$repo_dir/.env"
-    ui_kv "Database" "SQLite ($HOME/.enclaws/data.db)"
-    ui_kv "Start gateway" "enclaws gateway"
-    ui_kv "Custom start" "enclaws gateway --bind lan --token YOUR_TOKEN"
+    ui_kv "Database" "SQLite ($HOME/.qingclaws/data.db)"
+    ui_kv "Start gateway" "qingclaws gateway"
+    ui_kv "Custom start" "qingclaws gateway --bind lan --token YOUR_TOKEN"
     ui_kv "Update" "cd $repo_dir && git pull && pnpm install && pnpm build"
 }
 
@@ -1546,7 +1546,7 @@ start_gateway_after_install() {
     if [[ ! -f "$entry" ]]; then
         ui_warn "Gateway entry not found; skipping auto-start"
         ui_info "Build first: cd $repo_dir && pnpm build"
-        ui_info "Then start: enclaws gateway"
+        ui_info "Then start: qingclaws gateway"
         return 0
     fi
 
@@ -1557,7 +1557,7 @@ start_gateway_after_install() {
     ui_info "URL: ${gateway_url}"
     ui_info "Press Ctrl+C to stop"
     echo ""
-    ui_success "以后启动只需运行: enclaws gateway"
+    ui_success "以后启动只需运行: qingclaws gateway"
     echo ""
 
     # Wait for the gateway to be ready, then open browser (background)
@@ -1594,7 +1594,7 @@ main() {
     detect_os_or_die
 
     local detected_checkout=""
-    detected_checkout="$(detect_enclaws_checkout "$PWD" || true)"
+    detected_checkout="$(detect_qingclaws_checkout "$PWD" || true)"
 
     show_install_plan "$detected_checkout"
 
@@ -1605,9 +1605,9 @@ main() {
 
     # Check for existing installation
     local is_upgrade=false
-    if check_existing_enclaws; then
+    if check_existing_qingclaws; then
         is_upgrade=true
-        uninstall_existing_enclaws
+        uninstall_existing_qingclaws
     fi
 
     # ── Stage 1: Preparing environment ──
@@ -1630,16 +1630,16 @@ main() {
         repo_dir="$detected_checkout"
     fi
 
-    install_enclaws_from_git "$repo_dir"
+    install_qingclaws_from_git "$repo_dir"
 
     # ── Stage 3: Finalizing setup ──
 
     ui_stage "Finalizing setup"
 
-    ENCLAWS_BIN="$(resolve_enclaws_bin || true)"
+    QINGCLAWS_BIN="$(resolve_qingclaws_bin || true)"
 
     # PATH warning
-    warn_shell_path_missing_dir "$HOME/.enclaws/bin" "Enclaws bin dir (~/.enclaws/bin)"
+    warn_shell_path_missing_dir "$HOME/.qingclaws/bin" "Enclaws bin dir (~/.qingclaws/bin)"
 
     # Configure SQLite as default database
     setup_sqlite_db "$repo_dir"
@@ -1648,7 +1648,7 @@ main() {
     setup_skill_pack "$repo_dir"
 
     local installed_version
-    installed_version=$(resolve_enclaws_version)
+    installed_version=$(resolve_qingclaws_version)
 
     echo ""
     if [[ -n "$installed_version" ]]; then
@@ -1677,7 +1677,7 @@ main() {
     start_gateway_after_install "$repo_dir"
 }
 
-if [[ "${ENCLAWS_INSTALL_SH_NO_RUN:-0}" != "1" ]]; then
+if [[ "${QINGCLAWS_INSTALL_SH_NO_RUN:-0}" != "1" ]]; then
     parse_args "$@"
     configure_verbose
     main

@@ -1,10 +1,10 @@
 {
-  "name": "@openclaw/whatsapp",
+  "name": "@qingclaws/whatsapp",
   "version": "2026.3.1",
   "private": true,
-  "description": "OpenClaw WhatsApp channel plugin",
+  "description": "QingClaws WhatsApp channel plugin",
   "type": "module",
-  "openclaw": {
+  "qingclaws": {
     "extensions": [
       "./index.ts"
     ]

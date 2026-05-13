@@ -84,7 +84,7 @@ async function runRepair(cfg: OpenClawConfig) {
 
 const gatewayProgramArguments = [
   "/usr/bin/node",
-  "/usr/local/bin/enclaws",
+  "/usr/local/bin/qingclaws",
   "gateway",
   "--port",
   "18789",
@@ -94,7 +94,7 @@ function setupGatewayTokenRepairScenario(expectedToken: string) {
   mocks.readCommand.mockResolvedValue({
     programArguments: gatewayProgramArguments,
     environment: {
-      ENCLAWS_GATEWAY_TOKEN: "stale-token",
+      QINGCLAWS_GATEWAY_TOKEN: "stale-token",
     },
   });
   mocks.auditGatewayServiceConfig.mockResolvedValue({
@@ -102,7 +102,7 @@ function setupGatewayTokenRepairScenario(expectedToken: string) {
     issues: [
       {
         code: "gateway-token-mismatch",
-        message: "Gateway service ENCLAWS_GATEWAY_TOKEN does not match gateway.auth.token",
+        message: "Gateway service QINGCLAWS_GATEWAY_TOKEN does not match gateway.auth.token",
         level: "recommended",
       },
     ],
@@ -111,7 +111,7 @@ function setupGatewayTokenRepairScenario(expectedToken: string) {
     programArguments: gatewayProgramArguments,
     workingDirectory: "/tmp",
     environment: {
-      ENCLAWS_GATEWAY_TOKEN: expectedToken,
+      QINGCLAWS_GATEWAY_TOKEN: expectedToken,
     },
   });
   mocks.install.mockResolvedValue(undefined);
@@ -149,8 +149,8 @@ describe("maybeRepairGatewayServiceConfig", () => {
     expect(mocks.install).toHaveBeenCalledTimes(1);
   });
 
-  it("uses ENCLAWS_GATEWAY_TOKEN when config token is missing", async () => {
-    await withEnvAsync({ ENCLAWS_GATEWAY_TOKEN: "env-token" }, async () => {
+  it("uses QINGCLAWS_GATEWAY_TOKEN when config token is missing", async () => {
+    await withEnvAsync({ QINGCLAWS_GATEWAY_TOKEN: "env-token" }, async () => {
       setupGatewayTokenRepairScenario("env-token");
 
       const cfg: OpenClawConfig = {
@@ -224,7 +224,7 @@ describe("maybeScanExtraGatewayServices", () => {
       "Legacy gateway removed",
     );
     expect(runtime.log).toHaveBeenCalledWith(
-      "Legacy gateway services removed. Installing EnClaws gateway next.",
+      "Legacy gateway services removed. Installing QingClaws gateway next.",
     );
   });
 });

@@ -18,47 +18,47 @@ describe("argv helpers", () => {
   it.each([
     {
       name: "help flag",
-      argv: ["node", "enclaws", "--help"],
+      argv: ["node", "qingclaws", "--help"],
       expected: true,
     },
     {
       name: "version flag",
-      argv: ["node", "enclaws", "-V"],
+      argv: ["node", "qingclaws", "-V"],
       expected: true,
     },
     {
       name: "normal command",
-      argv: ["node", "enclaws", "status"],
+      argv: ["node", "qingclaws", "status"],
       expected: false,
     },
     {
       name: "root -v alias",
-      argv: ["node", "enclaws", "-v"],
+      argv: ["node", "qingclaws", "-v"],
       expected: true,
     },
     {
       name: "root -v alias with profile",
-      argv: ["node", "enclaws", "--profile", "work", "-v"],
+      argv: ["node", "qingclaws", "--profile", "work", "-v"],
       expected: true,
     },
     {
       name: "root -v alias with log-level",
-      argv: ["node", "enclaws", "--log-level", "debug", "-v"],
+      argv: ["node", "qingclaws", "--log-level", "debug", "-v"],
       expected: true,
     },
     {
       name: "subcommand -v should not be treated as version",
-      argv: ["node", "enclaws", "acp", "-v"],
+      argv: ["node", "qingclaws", "acp", "-v"],
       expected: false,
     },
     {
       name: "root -v alias with equals profile",
-      argv: ["node", "enclaws", "--profile=work", "-v"],
+      argv: ["node", "qingclaws", "--profile=work", "-v"],
       expected: true,
     },
     {
       name: "subcommand path after global root flags should not be treated as version",
-      argv: ["node", "enclaws", "--dev", "skills", "list", "-v"],
+      argv: ["node", "qingclaws", "--dev", "skills", "list", "-v"],
       expected: false,
     },
   ])("detects help/version flags: $name", ({ argv, expected }) => {
@@ -68,27 +68,27 @@ describe("argv helpers", () => {
   it.each([
     {
       name: "root --version",
-      argv: ["node", "enclaws", "--version"],
+      argv: ["node", "qingclaws", "--version"],
       expected: true,
     },
     {
       name: "root -V",
-      argv: ["node", "enclaws", "-V"],
+      argv: ["node", "qingclaws", "-V"],
       expected: true,
     },
     {
       name: "root -v alias with profile",
-      argv: ["node", "enclaws", "--profile", "work", "-v"],
+      argv: ["node", "qingclaws", "--profile", "work", "-v"],
       expected: true,
     },
     {
       name: "subcommand version flag",
-      argv: ["node", "enclaws", "status", "--version"],
+      argv: ["node", "qingclaws", "status", "--version"],
       expected: false,
     },
     {
       name: "unknown root flag with version",
-      argv: ["node", "enclaws", "--unknown", "--version"],
+      argv: ["node", "qingclaws", "--unknown", "--version"],
       expected: false,
     },
   ])("detects root-only version invocations: $name", ({ argv, expected }) => {
@@ -98,42 +98,42 @@ describe("argv helpers", () => {
   it.each([
     {
       name: "root --help",
-      argv: ["node", "enclaws", "--help"],
+      argv: ["node", "qingclaws", "--help"],
       expected: true,
     },
     {
       name: "root -h",
-      argv: ["node", "enclaws", "-h"],
+      argv: ["node", "qingclaws", "-h"],
       expected: true,
     },
     {
       name: "root --help with profile",
-      argv: ["node", "enclaws", "--profile", "work", "--help"],
+      argv: ["node", "qingclaws", "--profile", "work", "--help"],
       expected: true,
     },
     {
       name: "subcommand --help",
-      argv: ["node", "enclaws", "status", "--help"],
+      argv: ["node", "qingclaws", "status", "--help"],
       expected: false,
     },
     {
       name: "help before subcommand token",
-      argv: ["node", "enclaws", "--help", "status"],
+      argv: ["node", "qingclaws", "--help", "status"],
       expected: false,
     },
     {
       name: "help after -- terminator",
-      argv: ["node", "enclaws", "nodes", "run", "--", "git", "--help"],
+      argv: ["node", "qingclaws", "nodes", "run", "--", "git", "--help"],
       expected: false,
     },
     {
       name: "unknown root flag before help",
-      argv: ["node", "enclaws", "--unknown", "--help"],
+      argv: ["node", "qingclaws", "--unknown", "--help"],
       expected: false,
     },
     {
       name: "unknown root flag after help",
-      argv: ["node", "enclaws", "--help", "--unknown"],
+      argv: ["node", "qingclaws", "--help", "--unknown"],
       expected: false,
     },
   ])("detects root-only help invocations: $name", ({ argv, expected }) => {
@@ -143,17 +143,17 @@ describe("argv helpers", () => {
   it.each([
     {
       name: "single command with trailing flag",
-      argv: ["node", "enclaws", "status", "--json"],
+      argv: ["node", "qingclaws", "status", "--json"],
       expected: ["status"],
     },
     {
       name: "two-part command",
-      argv: ["node", "enclaws", "agents", "list"],
+      argv: ["node", "qingclaws", "agents", "list"],
       expected: ["agents", "list"],
     },
     {
       name: "terminator cuts parsing",
-      argv: ["node", "enclaws", "status", "--", "ignored"],
+      argv: ["node", "qingclaws", "status", "--", "ignored"],
       expected: ["status"],
     },
   ])("extracts command path: $name", ({ argv, expected }) => {
@@ -163,12 +163,12 @@ describe("argv helpers", () => {
   it.each([
     {
       name: "returns first command token",
-      argv: ["node", "enclaws", "agents", "list"],
+      argv: ["node", "qingclaws", "agents", "list"],
       expected: "agents",
     },
     {
       name: "returns null when no command exists",
-      argv: ["node", "enclaws"],
+      argv: ["node", "qingclaws"],
       expected: null,
     },
   ])("returns primary command: $name", ({ argv, expected }) => {
@@ -178,13 +178,13 @@ describe("argv helpers", () => {
   it.each([
     {
       name: "detects flag before terminator",
-      argv: ["node", "enclaws", "status", "--json"],
+      argv: ["node", "qingclaws", "status", "--json"],
       flag: "--json",
       expected: true,
     },
     {
       name: "ignores flag after terminator",
-      argv: ["node", "enclaws", "--", "--json"],
+      argv: ["node", "qingclaws", "--", "--json"],
       flag: "--json",
       expected: false,
     },
@@ -195,27 +195,27 @@ describe("argv helpers", () => {
   it.each([
     {
       name: "value in next token",
-      argv: ["node", "enclaws", "status", "--timeout", "5000"],
+      argv: ["node", "qingclaws", "status", "--timeout", "5000"],
       expected: "5000",
     },
     {
       name: "value in equals form",
-      argv: ["node", "enclaws", "status", "--timeout=2500"],
+      argv: ["node", "qingclaws", "status", "--timeout=2500"],
       expected: "2500",
     },
     {
       name: "missing value",
-      argv: ["node", "enclaws", "status", "--timeout"],
+      argv: ["node", "qingclaws", "status", "--timeout"],
       expected: null,
     },
     {
       name: "next token is another flag",
-      argv: ["node", "enclaws", "status", "--timeout", "--json"],
+      argv: ["node", "qingclaws", "status", "--timeout", "--json"],
       expected: null,
     },
     {
       name: "flag appears after terminator",
-      argv: ["node", "enclaws", "--", "--timeout=99"],
+      argv: ["node", "qingclaws", "--", "--timeout=99"],
       expected: undefined,
     },
   ])("extracts flag values: $name", ({ argv, expected }) => {
@@ -223,9 +223,9 @@ describe("argv helpers", () => {
   });
 
   it("parses verbose flags", () => {
-    expect(getVerboseFlag(["node", "enclaws", "status", "--verbose"])).toBe(true);
-    expect(getVerboseFlag(["node", "enclaws", "status", "--debug"])).toBe(false);
-    expect(getVerboseFlag(["node", "enclaws", "status", "--debug"], { includeDebug: true })).toBe(
+    expect(getVerboseFlag(["node", "qingclaws", "status", "--verbose"])).toBe(true);
+    expect(getVerboseFlag(["node", "qingclaws", "status", "--debug"])).toBe(false);
+    expect(getVerboseFlag(["node", "qingclaws", "status", "--debug"], { includeDebug: true })).toBe(
       true,
     );
   });
@@ -233,22 +233,22 @@ describe("argv helpers", () => {
   it.each([
     {
       name: "missing flag",
-      argv: ["node", "enclaws", "status"],
+      argv: ["node", "qingclaws", "status"],
       expected: undefined,
     },
     {
       name: "missing value",
-      argv: ["node", "enclaws", "status", "--timeout"],
+      argv: ["node", "qingclaws", "status", "--timeout"],
       expected: null,
     },
     {
       name: "valid positive integer",
-      argv: ["node", "enclaws", "status", "--timeout", "5000"],
+      argv: ["node", "qingclaws", "status", "--timeout", "5000"],
       expected: 5000,
     },
     {
       name: "invalid integer",
-      argv: ["node", "enclaws", "status", "--timeout", "nope"],
+      argv: ["node", "qingclaws", "status", "--timeout", "nope"],
       expected: undefined,
     },
   ])("parses positive integer flag values: $name", ({ argv, expected }) => {
@@ -258,52 +258,52 @@ describe("argv helpers", () => {
   it("builds parse argv from raw args", () => {
     const cases = [
       {
-        rawArgs: ["node", "enclaws", "status"],
-        expected: ["node", "enclaws", "status"],
+        rawArgs: ["node", "qingclaws", "status"],
+        expected: ["node", "qingclaws", "status"],
       },
       {
-        rawArgs: ["node-22", "enclaws", "status"],
-        expected: ["node-22", "enclaws", "status"],
+        rawArgs: ["node-22", "qingclaws", "status"],
+        expected: ["node-22", "qingclaws", "status"],
       },
       {
-        rawArgs: ["node-22.2.0.exe", "enclaws", "status"],
-        expected: ["node-22.2.0.exe", "enclaws", "status"],
+        rawArgs: ["node-22.2.0.exe", "qingclaws", "status"],
+        expected: ["node-22.2.0.exe", "qingclaws", "status"],
       },
       {
-        rawArgs: ["node-22.2", "enclaws", "status"],
-        expected: ["node-22.2", "enclaws", "status"],
+        rawArgs: ["node-22.2", "qingclaws", "status"],
+        expected: ["node-22.2", "qingclaws", "status"],
       },
       {
-        rawArgs: ["node-22.2.exe", "enclaws", "status"],
-        expected: ["node-22.2.exe", "enclaws", "status"],
+        rawArgs: ["node-22.2.exe", "qingclaws", "status"],
+        expected: ["node-22.2.exe", "qingclaws", "status"],
       },
       {
-        rawArgs: ["/usr/bin/node-22.2.0", "enclaws", "status"],
-        expected: ["/usr/bin/node-22.2.0", "enclaws", "status"],
+        rawArgs: ["/usr/bin/node-22.2.0", "qingclaws", "status"],
+        expected: ["/usr/bin/node-22.2.0", "qingclaws", "status"],
       },
       {
-        rawArgs: ["node24", "enclaws", "status"],
-        expected: ["node24", "enclaws", "status"],
+        rawArgs: ["node24", "qingclaws", "status"],
+        expected: ["node24", "qingclaws", "status"],
       },
       {
-        rawArgs: ["/usr/bin/node24", "enclaws", "status"],
-        expected: ["/usr/bin/node24", "enclaws", "status"],
+        rawArgs: ["/usr/bin/node24", "qingclaws", "status"],
+        expected: ["/usr/bin/node24", "qingclaws", "status"],
       },
       {
-        rawArgs: ["node24.exe", "enclaws", "status"],
-        expected: ["node24.exe", "enclaws", "status"],
+        rawArgs: ["node24.exe", "qingclaws", "status"],
+        expected: ["node24.exe", "qingclaws", "status"],
       },
       {
-        rawArgs: ["nodejs", "enclaws", "status"],
-        expected: ["nodejs", "enclaws", "status"],
+        rawArgs: ["nodejs", "qingclaws", "status"],
+        expected: ["nodejs", "qingclaws", "status"],
       },
       {
-        rawArgs: ["node-dev", "enclaws", "status"],
-        expected: ["node", "enclaws", "node-dev", "enclaws", "status"],
+        rawArgs: ["node-dev", "qingclaws", "status"],
+        expected: ["node", "qingclaws", "node-dev", "qingclaws", "status"],
       },
       {
-        rawArgs: ["enclaws", "status"],
-        expected: ["node", "enclaws", "status"],
+        rawArgs: ["qingclaws", "status"],
+        expected: ["node", "qingclaws", "status"],
       },
       {
         rawArgs: ["bun", "src/entry.ts", "status"],
@@ -313,7 +313,7 @@ describe("argv helpers", () => {
 
     for (const testCase of cases) {
       const parsed = buildParseArgv({
-        programName: "enclaws",
+        programName: "qingclaws",
         rawArgs: [...testCase.rawArgs],
       });
       expect(parsed).toEqual([...testCase.expected]);
@@ -322,27 +322,27 @@ describe("argv helpers", () => {
 
   it("builds parse argv from fallback args", () => {
     const fallbackArgv = buildParseArgv({
-      programName: "enclaws",
+      programName: "qingclaws",
       fallbackArgv: ["status"],
     });
-    expect(fallbackArgv).toEqual(["node", "enclaws", "status"]);
+    expect(fallbackArgv).toEqual(["node", "qingclaws", "status"]);
   });
 
   it("decides when to migrate state", () => {
     const nonMutatingArgv = [
-      ["node", "enclaws", "status"],
-      ["node", "enclaws", "health"],
-      ["node", "enclaws", "sessions"],
-      ["node", "enclaws", "config", "get", "update"],
-      ["node", "enclaws", "config", "unset", "update"],
-      ["node", "enclaws", "models", "list"],
-      ["node", "enclaws", "models", "status"],
-      ["node", "enclaws", "memory", "status"],
-      ["node", "enclaws", "agent", "--message", "hi"],
+      ["node", "qingclaws", "status"],
+      ["node", "qingclaws", "health"],
+      ["node", "qingclaws", "sessions"],
+      ["node", "qingclaws", "config", "get", "update"],
+      ["node", "qingclaws", "config", "unset", "update"],
+      ["node", "qingclaws", "models", "list"],
+      ["node", "qingclaws", "models", "status"],
+      ["node", "qingclaws", "memory", "status"],
+      ["node", "qingclaws", "agent", "--message", "hi"],
     ] as const;
     const mutatingArgv = [
-      ["node", "enclaws", "agents", "list"],
-      ["node", "enclaws", "message", "send"],
+      ["node", "qingclaws", "agents", "list"],
+      ["node", "qingclaws", "message", "send"],
     ] as const;
 
     for (const argv of nonMutatingArgv) {

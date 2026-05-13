@@ -11,7 +11,7 @@ describe("system prompt stability for cache hits", () => {
   let workspaceDir: string;
 
   beforeEach(async () => {
-    workspaceDir = await makeTempWorkspace("enclaws-system-prompt-stability-");
+    workspaceDir = await makeTempWorkspace("qingclaws-system-prompt-stability-");
   });
 
   it("returns identical results for same inputs across multiple calls", async () => {

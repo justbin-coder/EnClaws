@@ -1,9 +1,9 @@
 ---
 name: pingtest
 description: "Simple echo skill for testing connectivity. Returns the user's message with the assistant's reply timestamp. Useful for debugging and latency checks."
-homepage: https://docs.openclaw.ai
+homepage: https://docs.qingclaws.ai
 metadata:
-  openclaw:
+  qingclaws:
     emoji: "📡"
     requires:
       bins: ["bash", "date"]

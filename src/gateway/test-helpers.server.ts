@@ -46,16 +46,16 @@ async function getServerModule() {
 const GATEWAY_TEST_ENV_KEYS = [
   "HOME",
   "USERPROFILE",
-  "ENCLAWS_STATE_DIR",
-  "ENCLAWS_CONFIG_PATH",
-  "ENCLAWS_SKIP_BROWSER_CONTROL_SERVER",
-  "ENCLAWS_SKIP_GMAIL_WATCHER",
-  "ENCLAWS_SKIP_CANVAS_HOST",
-  "ENCLAWS_BUNDLED_PLUGINS_DIR",
-  "ENCLAWS_SKIP_CHANNELS",
-  "ENCLAWS_SKIP_PROVIDERS",
-  "ENCLAWS_SKIP_CRON",
-  "ENCLAWS_TEST_MINIMAL_GATEWAY",
+  "QINGCLAWS_STATE_DIR",
+  "QINGCLAWS_CONFIG_PATH",
+  "QINGCLAWS_SKIP_BROWSER_CONTROL_SERVER",
+  "QINGCLAWS_SKIP_GMAIL_WATCHER",
+  "QINGCLAWS_SKIP_CANVAS_HOST",
+  "QINGCLAWS_BUNDLED_PLUGINS_DIR",
+  "QINGCLAWS_SKIP_CHANNELS",
+  "QINGCLAWS_SKIP_PROVIDERS",
+  "QINGCLAWS_SKIP_CRON",
+  "QINGCLAWS_TEST_MINIMAL_GATEWAY",
 ] as const;
 
 let gatewayEnvSnapshot: ReturnType<typeof captureEnv> | undefined;
@@ -92,24 +92,24 @@ export async function writeSessionStore(params: {
 
 async function setupGatewayTestHome() {
   gatewayEnvSnapshot = captureEnv([...GATEWAY_TEST_ENV_KEYS]);
-  tempHome = await fs.mkdtemp(path.join(os.tmpdir(), "enclaws-gateway-home-"));
+  tempHome = await fs.mkdtemp(path.join(os.tmpdir(), "qingclaws-gateway-home-"));
   process.env.HOME = tempHome;
   process.env.USERPROFILE = tempHome;
-  process.env.ENCLAWS_STATE_DIR = path.join(tempHome, ".enclaws");
-  delete process.env.ENCLAWS_CONFIG_PATH;
+  process.env.QINGCLAWS_STATE_DIR = path.join(tempHome, ".qingclaws");
+  delete process.env.QINGCLAWS_CONFIG_PATH;
 }
 
 function applyGatewaySkipEnv() {
-  process.env.ENCLAWS_SKIP_BROWSER_CONTROL_SERVER = "1";
-  process.env.ENCLAWS_SKIP_GMAIL_WATCHER = "1";
-  process.env.ENCLAWS_SKIP_CANVAS_HOST = "1";
-  process.env.ENCLAWS_SKIP_CHANNELS = "1";
-  process.env.ENCLAWS_SKIP_PROVIDERS = "1";
-  process.env.ENCLAWS_SKIP_CRON = "1";
-  process.env.ENCLAWS_TEST_MINIMAL_GATEWAY = "1";
-  process.env.ENCLAWS_BUNDLED_PLUGINS_DIR = tempHome
-    ? path.join(tempHome, "enclaws-test-no-bundled-extensions")
-    : "enclaws-test-no-bundled-extensions";
+  process.env.QINGCLAWS_SKIP_BROWSER_CONTROL_SERVER = "1";
+  process.env.QINGCLAWS_SKIP_GMAIL_WATCHER = "1";
+  process.env.QINGCLAWS_SKIP_CANVAS_HOST = "1";
+  process.env.QINGCLAWS_SKIP_CHANNELS = "1";
+  process.env.QINGCLAWS_SKIP_PROVIDERS = "1";
+  process.env.QINGCLAWS_SKIP_CRON = "1";
+  process.env.QINGCLAWS_TEST_MINIMAL_GATEWAY = "1";
+  process.env.QINGCLAWS_BUNDLED_PLUGINS_DIR = tempHome
+    ? path.join(tempHome, "qingclaws-test-no-bundled-extensions")
+    : "qingclaws-test-no-bundled-extensions";
 }
 
 async function resetGatewayTestState(options: { uniqueConfigRoot: boolean }) {
@@ -121,9 +121,9 @@ async function resetGatewayTestState(options: { uniqueConfigRoot: boolean }) {
   }
   applyGatewaySkipEnv();
   if (options.uniqueConfigRoot) {
-    tempConfigRoot = await fs.mkdtemp(path.join(tempHome, "enclaws-test-"));
+    tempConfigRoot = await fs.mkdtemp(path.join(tempHome, "qingclaws-test-"));
   } else {
-    tempConfigRoot = path.join(tempHome, ".enclaws-test");
+    tempConfigRoot = path.join(tempHome, ".qingclaws-test");
     await fs.rm(tempConfigRoot, { recursive: true, force: true });
     await fs.mkdir(tempConfigRoot, { recursive: true });
   }
@@ -242,8 +242,8 @@ type GatewayTestMessage = {
   [key: string]: unknown;
 };
 
-const CONNECT_CHALLENGE_NONCE_KEY = "__enclawsTestConnectChallengeNonce";
-const CONNECT_CHALLENGE_TRACKED_KEY = "__enclawsTestConnectChallengeTracked";
+const CONNECT_CHALLENGE_NONCE_KEY = "__qingclawsTestConnectChallengeNonce";
+const CONNECT_CHALLENGE_TRACKED_KEY = "__qingclawsTestConnectChallengeTracked";
 type TrackedWs = WebSocket & Record<string, unknown>;
 
 export function getTrackedConnectChallengeNonce(ws: WebSocket): string | undefined {
@@ -352,8 +352,8 @@ export async function startServerWithClient(
 ) {
   const { wsHeaders, ...gatewayOpts } = opts ?? {};
   let port = await getFreePort();
-  const envSnapshot = captureEnv(["ENCLAWS_GATEWAY_TOKEN"]);
-  const prev = process.env.ENCLAWS_GATEWAY_TOKEN;
+  const envSnapshot = captureEnv(["QINGCLAWS_GATEWAY_TOKEN"]);
+  const prev = process.env.QINGCLAWS_GATEWAY_TOKEN;
   if (typeof token === "string") {
     testState.gatewayAuth = { mode: "token", token };
   }
@@ -363,9 +363,9 @@ export async function startServerWithClient(
       ? (testState.gatewayAuth as { token?: string }).token
       : undefined);
   if (fallbackToken === undefined) {
-    delete process.env.ENCLAWS_GATEWAY_TOKEN;
+    delete process.env.QINGCLAWS_GATEWAY_TOKEN;
   } else {
-    process.env.ENCLAWS_GATEWAY_TOKEN = fallbackToken;
+    process.env.QINGCLAWS_GATEWAY_TOKEN = fallbackToken;
   }
 
   const started = await startGatewayServerWithRetries({ port, opts: gatewayOpts });
@@ -432,7 +432,7 @@ function resolveDefaultTestDeviceIdentityPath(params: {
     `${params.clientId}-${params.clientMode}-${params.platform}-${params.deviceFamily ?? "none"}-${params.role}`
       .replace(/[^a-zA-Z0-9._-]+/g, "_")
       .toLowerCase();
-  const suiteRoot = process.env.ENCLAWS_STATE_DIR ?? process.env.HOME ?? os.tmpdir();
+  const suiteRoot = process.env.QINGCLAWS_STATE_DIR ?? process.env.HOME ?? os.tmpdir();
   return path.join(suiteRoot, "test-device-identities", `${safe}.json`);
 }
 
@@ -512,13 +512,13 @@ export async function connectReq(
       ? undefined
       : typeof (testState.gatewayAuth as { token?: unknown } | undefined)?.token === "string"
         ? ((testState.gatewayAuth as { token?: string }).token ?? undefined)
-        : process.env.ENCLAWS_GATEWAY_TOKEN;
+        : process.env.QINGCLAWS_GATEWAY_TOKEN;
   const defaultPassword =
     opts?.skipDefaultAuth === true
       ? undefined
       : typeof (testState.gatewayAuth as { password?: unknown } | undefined)?.password === "string"
         ? ((testState.gatewayAuth as { password?: string }).password ?? undefined)
-        : process.env.ENCLAWS_GATEWAY_PASSWORD;
+        : process.env.QINGCLAWS_GATEWAY_PASSWORD;
   const token = opts?.token ?? defaultToken;
   const deviceToken = opts?.deviceToken?.trim() || undefined;
   const password = opts?.password ?? defaultPassword;

@@ -17,9 +17,9 @@ describe("doctor command", () => {
   it("warns when the state directory is missing", async () => {
     mockDoctorConfigSnapshot();
 
-    const missingDir = fs.mkdtempSync(path.join(os.tmpdir(), "enclaws-missing-state-"));
+    const missingDir = fs.mkdtempSync(path.join(os.tmpdir(), "qingclaws-missing-state-"));
     fs.rmSync(missingDir, { recursive: true, force: true });
-    process.env.ENCLAWS_STATE_DIR = missingDir;
+    process.env.QINGCLAWS_STATE_DIR = missingDir;
     note.mockClear();
 
     await doctorCommand(createDoctorRuntime(), {
@@ -58,15 +58,15 @@ describe("doctor command", () => {
     expect(warned).toBe(true);
   });
 
-  it("skips gateway auth warning when ENCLAWS_GATEWAY_TOKEN is set", async () => {
+  it("skips gateway auth warning when QINGCLAWS_GATEWAY_TOKEN is set", async () => {
     mockDoctorConfigSnapshot({
       config: {
         gateway: { mode: "local" },
       },
     });
 
-    const prevToken = process.env.ENCLAWS_GATEWAY_TOKEN;
-    process.env.ENCLAWS_GATEWAY_TOKEN = "env-token-1234567890";
+    const prevToken = process.env.QINGCLAWS_GATEWAY_TOKEN;
+    process.env.QINGCLAWS_GATEWAY_TOKEN = "env-token-1234567890";
     note.mockClear();
 
     try {
@@ -76,9 +76,9 @@ describe("doctor command", () => {
       });
     } finally {
       if (prevToken === undefined) {
-        delete process.env.ENCLAWS_GATEWAY_TOKEN;
+        delete process.env.QINGCLAWS_GATEWAY_TOKEN;
       } else {
-        process.env.ENCLAWS_GATEWAY_TOKEN = prevToken;
+        process.env.QINGCLAWS_GATEWAY_TOKEN = prevToken;
       }
     }
 

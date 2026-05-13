@@ -5,7 +5,7 @@
  * Register all chat commands (/feishu_diagnose, /feishu_doctor, /feishu_auth, /feishu).
  */
 
-import type { OpenClawConfig, OpenClawPluginApi } from 'openclaw/plugin-sdk';
+import type { OpenClawConfig, QingClawsPluginApi } from 'openclaw/plugin-sdk';
 import { getPluginVersion } from '../core/version';
 import { formatDiagReportText, runDiagnosis } from './diagnose';
 import { runFeishuDoctor } from './doctor';
@@ -44,15 +44,15 @@ const T: Record<
       '❌ 检测到旧版插件未禁用。\n' +
       '👉 请依次运行命令：\n' +
       '```\n' +
-      'openclaw config set plugins.entries.feishu.enabled false --json\n' +
-      'openclaw gateway restart\n' +
+      'qingclaws config set plugins.entries.feishu.enabled false --json\n' +
+      'qingclaws gateway restart\n' +
       '```',
     toolsProfileWarn: (profile) =>
       `⚠️ 工具 Profile 当前为 \`${profile}\`，飞书工具可能无法加载。请检查配置是否正确。\n`,
-    startFailed: (details) => `❌ 飞书 OpenClaw 插件启动失败：\n\n${details}`,
-    startWithWarnings: (version, details) => `⚠️ 飞书 OpenClaw 插件已启动 v${version}（存在警告）\n\n${details}`,
-    startOk: (version) => `✅ 飞书 OpenClaw 插件已启动 v${version}`,
-    helpTitle: (version) => `飞书OpenClaw插件 v${version}`,
+    startFailed: (details) => `❌ 飞书 QingClaws 插件启动失败：\n\n${details}`,
+    startWithWarnings: (version, details) => `⚠️ 飞书 QingClaws 插件已启动 v${version}（存在警告）\n\n${details}`,
+    startOk: (version) => `✅ 飞书 QingClaws 插件已启动 v${version}`,
+    helpTitle: (version) => `飞书QingClaws插件 v${version}`,
     helpUsage: '用法：',
     helpStart: '/feishu start - 校验插件配置',
     helpAuth: '/feishu auth - 批量授权用户权限',
@@ -67,16 +67,16 @@ const T: Record<
       '❌ Legacy plugin is not disabled.\n' +
       '👉 Please run the following commands:\n' +
       '```\n' +
-      'openclaw config set plugins.entries.feishu.enabled false --json\n' +
-      'openclaw gateway restart\n' +
+      'qingclaws config set plugins.entries.feishu.enabled false --json\n' +
+      'qingclaws gateway restart\n' +
       '```',
     toolsProfileWarn: (profile) =>
       `⚠️ Tools profile is currently set to \`${profile}\`. Feishu tools may not load properly. Please check your configuration.\n`,
-    startFailed: (details) => `❌ Feishu OpenClaw plugin failed to start:\n\n${details}`,
+    startFailed: (details) => `❌ Feishu QingClaws plugin failed to start:\n\n${details}`,
     startWithWarnings: (version, details) =>
-      `⚠️ Feishu OpenClaw plugin started v${version} (with warnings)\n\n${details}`,
-    startOk: (version) => `✅ Feishu OpenClaw plugin started v${version}`,
-    helpTitle: (version) => `Feishu OpenClaw Plugin v${version}`,
+      `⚠️ Feishu QingClaws plugin started v${version} (with warnings)\n\n${details}`,
+    startOk: (version) => `✅ Feishu QingClaws plugin started v${version}`,
+    helpTitle: (version) => `Feishu QingClaws Plugin v${version}`,
     helpUsage: 'Usage:',
     helpStart: '/feishu start - Validate plugin configuration',
     helpAuth: '/feishu auth - Batch authorize user permissions',
@@ -166,7 +166,7 @@ export function getFeishuHelpI18n(): Record<FeishuLocale, string> {
 // Command registration
 // ---------------------------------------------------------------------------
 
-export function registerCommands(api: OpenClawPluginApi): void {
+export function registerCommands(api: QingClawsPluginApi): void {
   // /feishu_diagnose
   api.registerCommand({
     name: 'feishu_diagnose',

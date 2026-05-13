@@ -13,7 +13,7 @@ vi.mock("../../plugins/install.js", () => ({
 }));
 
 vi.mock("../../plugins/loader.js", () => ({
-  loadOpenClawPlugins: vi.fn(),
+  loadQingClawsPlugins: vi.fn(),
 }));
 
 import fs from "node:fs";
@@ -34,7 +34,7 @@ const baseEntry: ChannelPluginCatalogEntry = {
     blurb: "Test",
   },
   install: {
-    npmSpec: "@enclaws/zalo",
+    npmSpec: "@qingclaws/zalo",
     localPath: "extensions/zalo",
   },
 };
@@ -102,10 +102,10 @@ describe("ensureOnboardingPluginInstalled", () => {
     expect(result.cfg.plugins?.entries?.zalo?.enabled).toBe(true);
     expect(result.cfg.plugins?.allow).toContain("zalo");
     expect(result.cfg.plugins?.installs?.zalo?.source).toBe("npm");
-    expect(result.cfg.plugins?.installs?.zalo?.spec).toBe("@enclaws/zalo");
+    expect(result.cfg.plugins?.installs?.zalo?.spec).toBe("@qingclaws/zalo");
     expect(result.cfg.plugins?.installs?.zalo?.installPath).toBe("/tmp/zalo");
     expect(installPluginFromNpmSpec).toHaveBeenCalledWith(
-      expect.objectContaining({ spec: "@enclaws/zalo" }),
+      expect.objectContaining({ spec: "@qingclaws/zalo" }),
     );
   });
 

@@ -14,9 +14,9 @@ import { installProcessWarningFilter } from "./infra/warning-filter.js";
 import { attachChildProcessBridge } from "./process/child-process-bridge.js";
 
 const ENTRY_WRAPPER_PAIRS = [
-  { wrapperBasename: "enclaws.mjs", entryBasename: "entry.js" },
-  { wrapperBasename: "enclaws.mjs", entryBasename: "entry.js" },
-  { wrapperBasename: "enclaws.js", entryBasename: "entry.js" },
+  { wrapperBasename: "qingclaws.mjs", entryBasename: "entry.js" },
+  { wrapperBasename: "qingclaws.mjs", entryBasename: "entry.js" },
+  { wrapperBasename: "qingclaws.js", entryBasename: "entry.js" },
 ] as const;
 
 function shouldForceReadOnlyAuthStore(argv: string[]): boolean {
@@ -42,7 +42,7 @@ if (
 ) {
   // Imported as a dependency — skip all entry-point side effects.
 } else {
-  process.title = "enclaws";
+  process.title = "qingclaws";
   installProcessWarningFilter();
   normalizeEnv();
   if (!isTruthyEnvValue(process.env.NODE_DISABLE_COMPILE_CACHE)) {
@@ -54,7 +54,7 @@ if (
   }
 
   if (shouldForceReadOnlyAuthStore(process.argv)) {
-    process.env.ENCLAWS_AUTH_STORE_READONLY = "1";
+    process.env.QINGCLAWS_AUTH_STORE_READONLY = "1";
   }
 
   if (process.argv.includes("--no-color")) {
@@ -81,10 +81,10 @@ if (
     if (shouldSkipRespawnForArgv(process.argv)) {
       return false;
     }
-    if (isTruthyEnvValue(process.env.ENCLAWS_NO_RESPAWN)) {
+    if (isTruthyEnvValue(process.env.QINGCLAWS_NO_RESPAWN)) {
       return false;
     }
-    if (isTruthyEnvValue(process.env.ENCLAWS_NODE_OPTIONS_READY)) {
+    if (isTruthyEnvValue(process.env.QINGCLAWS_NODE_OPTIONS_READY)) {
       return false;
     }
     if (hasExperimentalWarningSuppressed()) {
@@ -92,7 +92,7 @@ if (
     }
 
     // Respawn guard (and keep recursion bounded if something goes wrong).
-    process.env.ENCLAWS_NODE_OPTIONS_READY = "1";
+    process.env.QINGCLAWS_NODE_OPTIONS_READY = "1";
     // Pass flag as a Node CLI option, not via NODE_OPTIONS (--disable-warning is disallowed in NODE_OPTIONS).
     const child = spawn(
       process.execPath,
@@ -115,7 +115,7 @@ if (
 
     child.once("error", (error) => {
       console.error(
-        "[enclaws] Failed to respawn CLI:",
+        "[qingclaws] Failed to respawn CLI:",
         error instanceof Error ? (error.stack ?? error.message) : error,
       );
       process.exit(1);
@@ -135,7 +135,7 @@ if (
       })
       .catch((error) => {
         console.error(
-          "[enclaws] Failed to resolve version:",
+          "[qingclaws] Failed to resolve version:",
           error instanceof Error ? (error.stack ?? error.message) : error,
         );
         process.exitCode = 1;
@@ -153,7 +153,7 @@ if (
       })
       .catch((error) => {
         console.error(
-          "[enclaws] Failed to display help:",
+          "[qingclaws] Failed to display help:",
           error instanceof Error ? (error.stack ?? error.message) : error,
         );
         process.exitCode = 1;
@@ -182,7 +182,7 @@ if (
         .then(({ runCli }) => runCli(process.argv))
         .catch((error) => {
           console.error(
-            "[enclaws] Failed to start CLI:",
+            "[qingclaws] Failed to start CLI:",
             error instanceof Error ? (error.stack ?? error.message) : error,
           );
           process.exitCode = 1;
