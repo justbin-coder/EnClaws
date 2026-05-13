@@ -15,7 +15,7 @@
 
 | 文件 | 内容 | 修改原则 |
 |---|---|---|
-| `CLAUDE.md` | 上游 EnClaws 架构与 build 说明 | **不改**（除末尾的 @import 行） |
+| `CLAUDE.md` | 上游 EnClaws 架构与 build 说明 | 可精简（删除与 AGENTS.md 重复章节） |
 | `AGENTS.md` | 上游 EnClaws repo 规则 / GitHub 礼仪 | **不改** |
 | `CLAUDE.local.md` | QingClaws fork 特有规则（本文件） | 可改 |
 
@@ -47,6 +47,10 @@
 ```
 
 纯用于代码考古，无 type 分类负担。
+
+### 3.4 全局 CLAUDE.md 与项目规则冲突消解
+
+当 `~/.claude/CLAUDE.md`（全局）与本文件产生冲突时，**本文件（项目级）优先**。例外：全局安全红线（SQL 注入、敏感信息泄露）永不覆盖。
 
 ## 4. PE / AE Epic 编号 + 分支命名
 
