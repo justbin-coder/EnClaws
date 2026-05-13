@@ -15,9 +15,9 @@ The format generally follows Keep a Changelog, and versions should follow Semant
 - `docs/upstream-divergence.md` — fork divergence registry for upstream merge navigation
 
 #### Changed
-- Product renamed from QingClaws → QingClaws across all user-visible surfaces
-- CLI binary: `qingclaws` → `qingclaws`; config directory: `~/.qingclaws/` → `~/.qingclaws/`
-- Environment variables: `QINGCLAWS_*` → `QINGCLAWS_*`
+- Product renamed from EnClaws → QingClaws across all user-visible surfaces
+- CLI binary: `enclaws` → `qingclaws`; config directory: `~/.enclaws/` → `~/.qingclaws/`
+- Environment variables: `ENCLAWS_*` → `QINGCLAWS_*`
 - Default locale: UI and templates default to zh-CN (2B enterprise context)
 - Default Agent templates (AGENTS.md / SOUL.md / USER.md) localized to Chinese 2B enterprise context
 

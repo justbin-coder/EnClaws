@@ -18,7 +18,7 @@
 </p>
 
 > QingClaws 是基于 [EnClaws](https://github.com/hashSTACS-Global/EnClaws)（Apache-2.0）的企业级 fork，
-> 专为 2B 企业内网/离线部署场景构建。上游归属：QingClaws by QingClaws Team，基于 QingClaws。
+> 专为 2B 企业内网/离线部署场景构建。上游归属：EnClaws by QingClaws Team，基于 QingClaws。
 
 **QingClaws** is an **enterprise AI assistant container platform**. It is designed to create, schedule, isolate, upgrade, and audit large numbers of assistant instances across teams, workflows, and business systems.
 

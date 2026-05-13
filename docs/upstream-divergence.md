@@ -11,14 +11,14 @@
 
 ## PE1 — Brand Customization (2026-05-13)
 
-### brand: Product rename QingClaws → QingClaws (user-visible layer)
+### brand: Product rename EnClaws → QingClaws (user-visible layer)
 
 | Field | Value |
 |---|---|
 | Category | `brand` |
 | Files | `src/version.ts`, `src/config/paths.ts`, `src/infra/home-dir.ts`, `src/terminal/links.ts`, `src/cli/tagline.ts`, `package.json`, `qingclaws.mjs`, and ~200+ user-visible surface files via codemod |
 | Reason | QingClaws fork for 2B enterprise platform; brand independence required |
-| Upstream impact | Every upstream sync will re-introduce `QingClaws`/`qingclaws` strings in new files; re-run `scripts/brand-codemod.mjs --dry-run` after merge to identify new residue |
+| Upstream impact | Every upstream sync will re-introduce `EnClaws`/`enclaws` strings in new files; re-run `scripts/brand-codemod.mjs --dry-run` after merge to identify new residue |
 | Merge risk | Medium — mechanical, but high volume |
 
 ### brand: Brand abstraction layer
