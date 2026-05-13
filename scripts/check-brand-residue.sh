@@ -11,7 +11,11 @@ cd "$REPO_ROOT"
 # QINGCLAWS-CUSTOM: brand — apps/ not processed by codemod (skipDirs); docs/superpowers/ are design
 # docs with legitimate upstream context references; src/plugins/loader.ts uses openclaw/plugin-sdk
 # as a jiti alias key (intentional internal identifier, not user-visible brand).
-WHITELIST_PATTERN="LICENSE|NOTICE|THIRD_PARTY_NOTICES\.md|docs/upstream-divergence\.md|src/branding/brand\.config\.ts|src/branding/replacement-rules\.json|scripts/brand-codemod\.mjs|scripts/check-brand-residue\.sh|CHANGELOG\.md|apps/|docs/superpowers/|src/plugins/loader\.ts|openclaw/plugin-sdk|openclaw/openclaw/issues|^\./(docs/|README|install\.sh|AGENTS\.md|scripts/make_appcast|scripts/shell-helpers|scripts/update-clawtributors)"
+# package.json pnpm.overrides maps upstream "openclaw" package name to workspace:qingclaws@*
+# (internal pnpm resolution, not user-visible brand).
+# test/branding/ contains brand-gate tests that reference old brand strings as regex patterns
+# or attribution assertions (intentional; not user-visible brand leakage).
+WHITELIST_PATTERN="LICENSE|NOTICE|THIRD_PARTY_NOTICES\.md|docs/upstream-divergence\.md|src/branding/brand\.config\.ts|src/branding/replacement-rules\.json|scripts/brand-codemod\.mjs|scripts/check-brand-residue\.sh|CHANGELOG\.md|apps/|docs/superpowers/|src/plugins/loader\.ts|openclaw/plugin-sdk|openclaw/openclaw/issues|^\./(docs/|README|install\.sh|AGENTS\.md|scripts/make_appcast|scripts/shell-helpers|scripts/update-clawtributors)|package\.json:.*\"openclaw\":|test/branding/"
 
 # Patterns to search for in user-visible layer
 PATTERNS=(
