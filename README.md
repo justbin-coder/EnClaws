@@ -18,11 +18,11 @@
 </p>
 
 > QingClaws 是基于 [EnClaws](https://github.com/hashSTACS-Global/EnClaws)（Apache-2.0）的企业级 fork，
-> 专为 2B 企业内网/离线部署场景构建。上游归属：EnClaws by QingClaws Team，基于 QingClaws。
+> 专为 2B 企业内网/离线部署场景构建。上游归属：[EnClaws](https://github.com/hashSTACS-Global/EnClaws) by hashSTACS-Global，许可协议 Apache-2.0。
 
 **QingClaws** is an **enterprise AI assistant container platform**. It is designed to create, schedule, isolate, upgrade, and audit large numbers of assistant instances across teams, workflows, and business systems.
 
-Where QingClaws focuses on the personal assistant experience, QingClaws focuses on the enterprise operating environment for digital assistants.
+Where EnClaws focuses on the personal assistant experience, QingClaws focuses on the enterprise operating environment for digital assistants.
 
 > [!IMPORTANT]
 > This repository has just been opened. Additional deployment, configuration, and repository documentation will be published as the project expands.
@@ -42,14 +42,14 @@ Enterprises need:
 
 In short, enterprises do not just need a smarter assistant. They need a system that can run and govern a digital workforce.
 
-## From QingClaws to QingClaws
+## From EnClaws to QingClaws
 
 In the Claw world, the split is simple:
 
-- **QingClaws** is the personal claw. It is built around the experience of an individual assistant that belongs to one person.
+- **EnClaws** is the personal claw. It is built around the experience of an individual assistant that belongs to one person.
 - **QingClaws** is the enterprise claw. It is built to create, schedule, and manage large numbers of assistant instances so they can take on real work across an organization.
 
-If QingClaws is the personal operator, QingClaws is the enterprise operating environment.
+If EnClaws is the personal operator, QingClaws is the enterprise operating environment.
 
 ## Quick start
 
