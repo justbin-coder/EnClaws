@@ -60,28 +60,75 @@
   <circle cx="120" cy="195" r="3.5" fill="#004d40" stroke="#00CEC9" stroke-width="1"/>
   <circle cx="200" cy="195" r="3.5" fill="#004d40" stroke="#00CEC9" stroke-width="1"/>
 
-  <!-- 头部 -->
-  <ellipse cx="160" cy="118" rx="62" ry="38" fill="url(#bodyGrad)"/>
-  <!-- 额剑 -->
-  <polygon points="160,58 151,98 169,98" fill="url(#bodyGrad)" filter="url(#softGlow)"/>
-  <path d="M 112 112 Q 160 107 208 112" stroke="#005f50" stroke-width="1.5" fill="none" opacity="0.8"/>
-  <path d="M 105 128 Q 160 123 215 128" stroke="#005f50" stroke-width="1.5" fill="none" opacity="0.8"/>
+  <!-- 仿真头胸甲轮廓：盾形 + 额剑 + 眼眶缺刻 -->
+  <path d="
+    M 102 138
+    Q 84 132 82 120
+    Q 80 108 86 97
+    Q 93 88 110 84
+    Q 122 80 134 76
+    L 142 70
+    L 150 63
+    L 156 55
+    L 160 50
+    L 164 55
+    L 170 63
+    L 178 70
+    L 186 76
+    Q 198 80 210 84
+    Q 227 88 234 97
+    Q 240 108 238 120
+    Q 236 132 218 138
+    Q 190 143 160 144
+    Q 130 143 102 138 Z
+  " fill="url(#bodyGrad)"/>
 
-  <!-- 眼睛 -->
-  <circle cx="132" cy="106" r="10" fill="#07100d"/>
-  <circle cx="132" cy="106" r="6.5" fill="#55EFC4" filter="url(#eyeGlow)"/>
-  <circle cx="129" cy="103" r="2" fill="white" opacity="0.55"/>
-  <circle cx="188" cy="106" r="10" fill="#07100d"/>
-  <circle cx="188" cy="106" r="6.5" fill="#55EFC4" filter="url(#eyeGlow)"/>
-  <circle cx="185" cy="103" r="2" fill="white" opacity="0.55"/>
+  <!-- 额剑（有宽度的脊状突起）-->
+  <path d="M 155 56 L 150 64 L 154 74 L 160 77 L 166 74 L 170 64 L 165 56 L 160 50 Z"
+        fill="url(#bodyGrad)" filter="url(#softGlow)"/>
+  <!-- 额剑中脊 -->
+  <line x1="160" y1="50" x2="160" y2="77" stroke="#005f50" stroke-width="1.5" opacity="0.7"/>
 
-  <!-- 触角 -->
-  <path d="M 148 82 C 118 58 88 40 52 22" stroke="#00CEC9" stroke-width="2.5" fill="none" filter="url(#softGlow)" stroke-linecap="round"/>
-  <path d="M 172 82 C 202 58 232 40 268 22" stroke="#00CEC9" stroke-width="2.5" fill="none" filter="url(#softGlow)" stroke-linecap="round"/>
-  <path d="M 152 80 C 136 64 122 54 108 46" stroke="#00B894" stroke-width="1.5" fill="none" stroke-linecap="round"/>
-  <path d="M 168 80 C 184 64 198 54 212 46" stroke="#00B894" stroke-width="1.5" fill="none" stroke-linecap="round"/>
-  <circle cx="148" cy="84" r="4" fill="#004d40" stroke="#00CEC9" stroke-width="1.2"/>
-  <circle cx="172" cy="84" r="4" fill="#004d40" stroke="#00CEC9" stroke-width="1.2"/>
+  <!-- 眼上刺（额剑两侧小棘突）-->
+  <polygon points="150,65 143,55 157,61" fill="url(#bodyGrad)" filter="url(#softGlow)"/>
+  <polygon points="170,65 177,55 163,61" fill="url(#bodyGrad)" filter="url(#softGlow)"/>
+
+  <!-- 头部表面沟槽 -->
+  <!-- 左肝沟 -->
+  <path d="M 116 88 Q 102 107 98 124" stroke="#005f50" stroke-width="1.5" fill="none" opacity="0.8"/>
+  <!-- 右肝沟 -->
+  <path d="M 204 88 Q 218 107 222 124" stroke="#005f50" stroke-width="1.5" fill="none" opacity="0.8"/>
+  <!-- 颈沟（横贯头胸甲）-->
+  <path d="M 94 113 Q 160 108 226 113" stroke="#005f50" stroke-width="1.5" fill="none" opacity="0.75"/>
+  <!-- 额胃沟 -->
+  <path d="M 137 80 Q 160 77 183 80" stroke="#005f50" stroke-width="1.2" fill="none" opacity="0.7"/>
+  <!-- 中脊延伸 -->
+  <line x1="160" y1="77" x2="160" y2="138" stroke="#005f50" stroke-width="2" opacity="0.6"/>
+
+  <!-- 眼柄（左）：从眼眶缺刻侧向伸出 -->
+  <ellipse cx="107" cy="87" rx="9" ry="13" fill="url(#bodyGrad)" transform="rotate(-32,107,87)"/>
+  <!-- 复眼（左）-->
+  <circle cx="95" cy="78" r="11" fill="#07100d"/>
+  <circle cx="95" cy="78" r="7" fill="#55EFC4" filter="url(#eyeGlow)"/>
+  <circle cx="92" cy="75" r="2.5" fill="white" opacity="0.5"/>
+
+  <!-- 眼柄（右）-->
+  <ellipse cx="213" cy="87" rx="9" ry="13" fill="url(#bodyGrad)" transform="rotate(32,213,87)"/>
+  <!-- 复眼（右）-->
+  <circle cx="225" cy="78" r="11" fill="#07100d"/>
+  <circle cx="225" cy="78" r="7" fill="#55EFC4" filter="url(#eyeGlow)"/>
+  <circle cx="222" cy="75" r="2.5" fill="white" opacity="0.5"/>
+
+  <!-- 触角（从眼柄外侧基部出发）-->
+  <!-- 长触角 -->
+  <path d="M 108 82 C 82 62 60 44 32 22" stroke="#00CEC9" stroke-width="2.5" fill="none" filter="url(#softGlow)" stroke-linecap="round"/>
+  <path d="M 212 82 C 238 62 260 44 288 22" stroke="#00CEC9" stroke-width="2.5" fill="none" filter="url(#softGlow)" stroke-linecap="round"/>
+  <!-- 短触须（从额剑两侧出发）-->
+  <path d="M 150 76 C 134 60 118 50 104 42" stroke="#00B894" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+  <path d="M 170 76 C 186 60 202 50 216 42" stroke="#00B894" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+  <!-- 触角基座 -->
+  <circle cx="108" cy="84" r="4" fill="#004d40" stroke="#00CEC9" stroke-width="1.2"/>
+  <circle cx="212" cy="84" r="4" fill="#004d40" stroke="#00CEC9" stroke-width="1.2"/>
 
   <!-- 左大螯 -->
   <path d="M 92 155 L 56 168 Q 45 174 48 186 Q 51 196 64 194 L 78 190 Q 73 180 88 172 L 98 168 Z" fill="url(#bodyGrad)" filter="url(#softGlow)"/>
