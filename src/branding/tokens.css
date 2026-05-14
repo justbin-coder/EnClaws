@@ -1,15 +1,14 @@
 /* src/branding/tokens.css */
-/* QINGCLAWS-CUSTOM: brand — neutral color palette pending designer sign-off.
-   Replace values here when design system is finalized. */
+/* QINGCLAWS-CUSTOM: brand — 机械龙虾 翠绿/青 色系 */
 :root {
-  --brand-primary: #1a3a5c;
-  --brand-primary-light: #2a5a8c;
-  --brand-accent: #0ea5e9;
-  --brand-accent-dim: #0369a1;
-  --brand-bg: #f8fafc;
+  --brand-primary: #00B894;
+  --brand-primary-light: #00CEC9;
+  --brand-accent: #55EFC4;
+  --brand-accent-dim: #00897B;
+  --brand-bg: #f0fdf9;
   --brand-bg-dark: #0f172a;
-  --brand-text: #1e293b;
-  --brand-text-dark: #f1f5f9;
-  --brand-muted: #64748b;
-  --brand-border: #e2e8f0;
+  --brand-text: #064e3b;
+  --brand-text-dark: #ecfdf5;
+  --brand-muted: #6b7280;
+  --brand-border: #a7f3d0;
 }

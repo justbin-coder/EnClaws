@@ -1,12 +1,117 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 240" role="img" aria-label="QingClaws banner">
-  <title>QingClaws — 企业级 AI 助手容器平台</title>
+  <title>QingClaws — 企业级 AI 引擎平台</title>
+  <defs>
+    <linearGradient id="iconGrad" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#55EFC4"/>
+      <stop offset="100%" stop-color="#00B894"/>
+    </linearGradient>
+    <linearGradient id="textGrad" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#55EFC4"/>
+      <stop offset="100%" stop-color="#00CEC9"/>
+    </linearGradient>
+    <radialGradient id="bgGlow" cx="50%" cy="50%" r="40%">
+      <stop offset="0%" stop-color="#00CEC9" stop-opacity="0.12"/>
+      <stop offset="100%" stop-color="#00CEC9" stop-opacity="0"/>
+    </radialGradient>
+    <filter id="gl" x="-40%" y="-40%" width="180%" height="180%">
+      <feGaussianBlur in="SourceAlpha" stdDeviation="4" result="b"/>
+      <feColorMatrix in="b" type="matrix"
+        values="0 0 0 0 0.33  0 0 0 0 0.94  0 0 0 0 0.78  0 0 0 0.9 0" result="cb"/>
+      <feMerge><feMergeNode in="cb"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+    <filter id="eyeGl" x="-150%" y="-150%" width="400%" height="400%">
+      <feGaussianBlur in="SourceAlpha" stdDeviation="5" result="b"/>
+      <feColorMatrix in="b" type="matrix"
+        values="0 0 0 0 0.33  0 0 0 0 0.94  0 0 0 0 0.78  0 0 0 1 0" result="cb"/>
+      <feMerge><feMergeNode in="cb"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+  </defs>
+
+  <!-- 背景 -->
   <rect width="960" height="240" fill="#0f172a"/>
-  <text x="480" y="110"
+  <ellipse cx="480" cy="120" rx="380" ry="100" fill="url(#bgGlow)"/>
+
+  <!-- ===== 机械龙虾（缩放到约 160x160，居左 120,120）===== -->
+  <g transform="translate(80,120) scale(0.5)">
+    <!-- 尾扇 -->
+    <ellipse cx="160" cy="282" rx="26" ry="14" fill="url(#iconGrad)" filter="url(#gl)"/>
+    <ellipse cx="128" cy="286" rx="20" ry="11" fill="url(#iconGrad)" transform="rotate(-22,128,286)"/>
+    <ellipse cx="192" cy="286" rx="20" ry="11" fill="url(#iconGrad)" transform="rotate(22,192,286)"/>
+    <!-- 腹节 -->
+    <path d="M 120 258 Q 160 265 200 258 L 196 240 Q 160 248 124 240 Z" fill="url(#iconGrad)"/>
+    <path d="M 124 240 Q 160 248 196 240 L 192 222 Q 160 230 128 222 Z" fill="url(#iconGrad)"/>
+    <path d="M 128 222 Q 160 230 192 222 L 188 205 Q 160 213 132 205 Z" fill="url(#iconGrad)"/>
+    <!-- 头胸甲 -->
+    <path d="M 92 152 Q 78 172 88 205 Q 98 218 132 222 L 160 223 L 188 222 Q 222 218 232 205 Q 242 172 228 152 Q 212 135 160 132 Q 108 135 92 152 Z" fill="url(#iconGrad)"/>
+    <path d="M 98 165 Q 160 160 222 165" stroke="#005f50" stroke-width="2" fill="none" opacity="0.8"/>
+    <line x1="160" y1="132" x2="160" y2="218" stroke="#005f50" stroke-width="2.5" opacity="0.6"/>
+    <circle cx="124" cy="175" r="4" fill="#004d40" stroke="#00CEC9" stroke-width="1.5"/>
+    <circle cx="196" cy="175" r="4" fill="#004d40" stroke="#00CEC9" stroke-width="1.5"/>
+    <!-- 仿真头胸甲 -->
+    <path d="
+      M 102 138 Q 84 132 82 120 Q 80 108 86 97
+      Q 93 88 110 84 Q 122 80 134 76
+      L 142 70 L 150 63 L 156 55 L 160 50
+      L 164 55 L 170 63 L 178 70 L 186 76
+      Q 198 80 210 84 Q 227 88 234 97
+      Q 240 108 238 120 Q 236 132 218 138
+      Q 190 143 160 144 Q 130 143 102 138 Z
+    " fill="url(#iconGrad)"/>
+    <!-- 额剑 -->
+    <path d="M 155 56 L 150 64 L 154 74 L 160 77 L 166 74 L 170 64 L 165 56 L 160 50 Z"
+          fill="url(#iconGrad)" filter="url(#gl)"/>
+    <line x1="160" y1="50" x2="160" y2="77" stroke="#005f50" stroke-width="2" opacity="0.7"/>
+    <!-- 眼上刺 -->
+    <polygon points="150,65 143,55 157,61" fill="url(#iconGrad)" filter="url(#gl)"/>
+    <polygon points="170,65 177,55 163,61" fill="url(#iconGrad)" filter="url(#gl)"/>
+    <!-- 肝沟/颈沟 -->
+    <path d="M 116 88 Q 102 107 98 124" stroke="#005f50" stroke-width="2" fill="none" opacity="0.7"/>
+    <path d="M 204 88 Q 218 107 222 124" stroke="#005f50" stroke-width="2" fill="none" opacity="0.7"/>
+    <path d="M 94 113 Q 160 108 226 113" stroke="#005f50" stroke-width="2" fill="none" opacity="0.7"/>
+    <line x1="160" y1="77" x2="160" y2="138" stroke="#005f50" stroke-width="2.5" opacity="0.55"/>
+    <!-- 眼柄（左）-->
+    <ellipse cx="107" cy="87" rx="9" ry="13" fill="url(#iconGrad)" transform="rotate(-32,107,87)"/>
+    <circle cx="95" cy="78" r="11" fill="#07100d"/>
+    <circle cx="95" cy="78" r="7" fill="#55EFC4" filter="url(#eyeGl)"/>
+    <!-- 眼柄（右）-->
+    <ellipse cx="213" cy="87" rx="9" ry="13" fill="url(#iconGrad)" transform="rotate(32,213,87)"/>
+    <circle cx="225" cy="78" r="11" fill="#07100d"/>
+    <circle cx="225" cy="78" r="7" fill="#55EFC4" filter="url(#eyeGl)"/>
+    <!-- 触角 -->
+    <path d="M 108 82 C 82 62 60 44 32 22" stroke="#00CEC9" stroke-width="3" fill="none" filter="url(#gl)" stroke-linecap="round"/>
+    <path d="M 212 82 C 238 62 260 44 288 22" stroke="#00CEC9" stroke-width="3" fill="none" filter="url(#gl)" stroke-linecap="round"/>
+    <!-- 左大螯 -->
+    <path d="M 92 155 L 56 168 Q 45 174 48 186 Q 51 196 64 194 L 78 190 Q 73 180 88 172 L 98 168 Z" fill="url(#iconGrad)" filter="url(#gl)"/>
+    <circle cx="52" cy="182" r="8" fill="#004d40" stroke="#55EFC4" stroke-width="2"/>
+    <path d="M 48 186 Q 28 178 14 190 Q 2 202 8 220 Q 14 236 32 238 Q 50 238 58 224 Q 64 210 56 196 Z" fill="url(#iconGrad)"/>
+    <path d="M 36 182 Q 18 168 5 165 Q -4 165 -2 176 Q 0 184 12 187 Q 24 190 36 192 Z" fill="url(#iconGrad)" filter="url(#gl)"/>
+    <path d="M 36 224 Q 18 232 5 235 Q -4 237 -2 226 Q 0 218 12 216 Q 24 213 36 213 Z" fill="url(#iconGrad)" filter="url(#gl)"/>
+    <!-- 右大螯 -->
+    <path d="M 228 155 L 264 168 Q 275 174 272 186 Q 269 196 256 194 L 242 190 Q 247 180 232 172 L 222 168 Z" fill="url(#iconGrad)" filter="url(#gl)"/>
+    <circle cx="268" cy="182" r="8" fill="#004d40" stroke="#55EFC4" stroke-width="2"/>
+    <path d="M 272 186 Q 292 178 306 190 Q 318 202 312 220 Q 306 236 288 238 Q 270 238 262 224 Q 256 210 264 196 Z" fill="url(#iconGrad)"/>
+    <path d="M 284 182 Q 302 168 315 165 Q 324 165 322 176 Q 320 184 308 187 Q 296 190 284 192 Z" fill="url(#iconGrad)" filter="url(#gl)"/>
+    <path d="M 284 224 Q 302 232 315 235 Q 324 237 322 226 Q 320 218 308 216 Q 296 213 284 213 Z" fill="url(#iconGrad)" filter="url(#gl)"/>
+    <!-- 步足 -->
+    <path d="M 104 172 Q 80 180 66 198" stroke="#00B894" stroke-width="5" fill="none" stroke-linecap="round"/>
+    <path d="M 100 186 Q 76 196 62 214" stroke="#00B894" stroke-width="4" fill="none" stroke-linecap="round"/>
+    <path d="M 216 172 Q 240 180 254 198" stroke="#00B894" stroke-width="5" fill="none" stroke-linecap="round"/>
+    <path d="M 220 186 Q 244 196 258 214" stroke="#00B894" stroke-width="4" fill="none" stroke-linecap="round"/>
+  </g>
+
+  <!-- ===== 文字区域 ===== -->
+  <text x="250" y="108"
+    font-family="system-ui,-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif"
+    font-size="72" font-weight="800" letter-spacing="-1"
+    fill="url(#textGrad)">QingClaws</text>
+  <text x="252" y="148"
     font-family="system-ui,-apple-system,sans-serif"
-    font-size="64" font-weight="700" text-anchor="middle"
-    fill="#f1f5f9">QingClaws</text>
-  <text x="480" y="160"
+    font-size="26" font-weight="400" letter-spacing="0.5"
+    fill="#94a3b8">企业级 AI 引擎平台</text>
+  <!-- 装饰分割线 -->
+  <line x1="250" y1="162" x2="700" y2="162" stroke="#00B894" stroke-width="1.5" stroke-opacity="0.4"/>
+  <text x="252" y="185"
     font-family="system-ui,-apple-system,sans-serif"
-    font-size="24" text-anchor="middle"
-    fill="#94a3b8">企业级 AI 助手容器平台</text>
+    font-size="16" letter-spacing="1"
+    fill="#55EFC4" opacity="0.6">ENTERPRISE AI AGENT ENGINE PLATFORM</text>
 </svg>
