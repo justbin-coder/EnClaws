@@ -1,7 +1,43 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 48" role="img" aria-label="QingClaws">
   <title>QingClaws</title>
-  <text x="12" y="34"
+  <defs>
+    <linearGradient id="iconGrad" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#00CEC9"/>
+      <stop offset="100%" stop-color="#00B894"/>
+    </linearGradient>
+    <linearGradient id="textGrad" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#00CEC9"/>
+      <stop offset="100%" stop-color="#00B894"/>
+    </linearGradient>
+    <filter id="gl" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur in="SourceAlpha" stdDeviation="1.2" result="b"/>
+      <feColorMatrix in="b" type="matrix"
+        values="0 0 0 0 0  0 0 0 0 0.81  0 0 0 0 0.79  0 0 0 0.7 0" result="cb"/>
+      <feMerge><feMergeNode in="cb"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+    <clipPath id="iconClip">
+      <rect x="2" y="2" width="44" height="44" rx="8"/>
+    </clipPath>
+  </defs>
+  <!-- 图标背景 -->
+  <rect x="2" y="2" width="44" height="44" rx="8" fill="#0f172a"/>
+  <!-- 双螯图标 (缩放到 44x44 区域，中心在 24,24) -->
+  <!-- 左螯 -->
+  <path d="M 8 17 Q 4 14 5 19 Q 6 22 11 21 L 13 20 Z" fill="url(#iconGrad)" filter="url(#gl)"/>
+  <path d="M 8 31 Q 4 34 5 29 Q 6 26 11 27 L 13 28 Z" fill="url(#iconGrad)" filter="url(#gl)"/>
+  <path d="M 11 21 Q 15 19 19 20 Q 21 21 21 24 Q 21 27 19 28 Q 15 29 11 27 Q 10 26 10 24 Q 10 22 11 21 Z" fill="url(#iconGrad)"/>
+  <!-- 右螯 -->
+  <path d="M 40 17 Q 44 14 43 19 Q 42 22 37 21 L 35 20 Z" fill="url(#iconGrad)" filter="url(#gl)"/>
+  <path d="M 40 31 Q 44 34 43 29 Q 42 26 37 27 L 35 28 Z" fill="url(#iconGrad)" filter="url(#gl)"/>
+  <path d="M 37 21 Q 33 19 29 20 Q 27 21 27 24 Q 27 27 29 28 Q 33 29 37 27 Q 38 26 38 24 Q 38 22 37 21 Z" fill="url(#iconGrad)"/>
+  <!-- 眼睛 -->
+  <circle cx="22" cy="24" r="1.5" fill="#55EFC4"/>
+  <circle cx="26" cy="24" r="1.5" fill="#55EFC4"/>
+  <!-- 关节 -->
+  <circle cx="24" cy="24" r="2" fill="#004d40" stroke="#55EFC4" stroke-width="0.6"/>
+  <!-- 品牌名 -->
+  <text x="56" y="32"
     font-family="system-ui,-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif"
-    font-size="28" font-weight="700" letter-spacing="-0.5"
-    fill="#1a3a5c">QingClaws</text>
+    font-size="22" font-weight="700" letter-spacing="-0.3"
+    fill="url(#textGrad)">QingClaws</text>
 </svg>
