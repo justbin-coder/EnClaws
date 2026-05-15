@@ -183,6 +183,15 @@ const entries: SubCliEntry[] = [
       mod.registerCompletionCli(program);
     },
   },
+  {
+    name: "tui",
+    description: "Open a terminal UI connected to the Gateway",
+    hasSubcommands: false,
+    register: async (program) => {
+      const mod = await import("../tui-cli.js");
+      mod.registerTuiCli(program);
+    },
+  },
 ];
 
 export function getSubCliEntries(): SubCliEntry[] {
